@@ -1,12 +1,15 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
   return [
     {
       url: 'https://guitar-tuner.app',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      lastModified: now,
+      changeFrequency: 'daily',
       priority: 1,
+      images: ['https://guitar-tuner.app/placeholder-logo.png'],
     },
   ];
 }

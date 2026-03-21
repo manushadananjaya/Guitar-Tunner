@@ -1,29 +1,69 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const siteUrl = 'https://guitar-tuner.app';
 
 export const metadata: Metadata = {
-  title: 'Guitar Tuner - Free Online Pitch Detection Tool',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'GuitarTunePro | Free Online Guitar Tuner',
+    template: '%s | GuitarTunePro',
+  },
   description: 'Professional guitar tuner with real-time pitch detection. Supports 6-string, 7-string, 12-string guitars, bass, and ukulele. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.',
+  applicationName: 'GuitarTunePro',
   generator: 'v0.app',
-  keywords: 'guitar tuner, online tuner, pitch detector, music tuner, free tuner, acoustic guitar, electric guitar',
-  authors: [{ name: 'Guitar Tuner App' }],
+  category: 'music',
+  alternates: {
+    canonical: '/',
+  },
+  keywords: [
+    'guitar tuner',
+    'online guitar tuner',
+    'free guitar tuner',
+    'guitar pitch detector',
+    'bass tuner',
+    'ukulele tuner',
+    'drop d tuning',
+    'real-time tuner',
+  ],
+  authors: [{ name: 'GuitarTunePro' }],
   openGraph: {
-    title: 'Guitar Tuner - Free Online Pitch Detection',
+    title: 'GuitarTunePro | Free Online Guitar Tuner',
     description: 'Professional guitar tuner with real-time pitch detection. Supports multiple instruments and tuning modes.',
     type: 'website',
+    url: siteUrl,
+    siteName: 'GuitarTunePro',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/placeholder-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'GuitarTunePro online guitar tuner',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Guitar Tuner - Free Online Pitch Detection',
+    title: 'GuitarTunePro | Free Online Guitar Tuner',
     description: 'Professional guitar tuner with real-time pitch detection.',
+    images: ['/placeholder-logo.png'],
   },
-  robots: 'index, follow',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   icons: {
     icon: [
       {
@@ -43,6 +83,13 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,9 +98,9 @@ export default function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    'name': 'Guitar Tuner',
+    'name': 'GuitarTunePro',
     'description': 'Professional guitar tuner with real-time pitch detection. Free online tuning tool supporting multiple instruments and tuning modes.',
-    'url': 'https://guitar-tuner.app',
+    'url': siteUrl,
     'applicationCategory': 'UtilityApplication',
     'offers': {
       '@type': 'Offer',
