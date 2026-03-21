@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     apple: "/Logo.png",
   },
   other: {
-    "google-adsense-account": "ca-pub-9097007689207633",
+    "google-adsense-account": "ca-pub-3345965156522280",
   },
 };
 
