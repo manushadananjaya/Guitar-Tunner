@@ -79,6 +79,9 @@ export const metadata: Metadata = {
     ],
     apple: "/Logo.png",
   },
+  other: {
+    "google-adsense-account": "ca-pub-9097007689207633",
+  },
 };
 
 export const viewport: Viewport = {
