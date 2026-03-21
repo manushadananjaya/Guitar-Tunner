@@ -1,13 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { TuningMode } from '@/lib/tuningPresets';
-import { getNoteFrequency } from '@/lib/noteMap';
+import React from "react";
 
 interface GuitarVisualizationProps {
   selectedStringIndex: number;
   guitarType: string;
-  tuningMode: TuningMode;
+  tuningMode: string;
   centOffset: number;
   isInTune: boolean;
   detectedNote: string | null;
@@ -21,16 +19,20 @@ export function GuitarVisualization({
   isInTune,
   detectedNote,
 }: GuitarVisualizationProps) {
-  const guitarConfigs: Record<string, { strings: number; topPadding: number }> = {
-    'standard-6': { strings: 6, topPadding: 20 },
-    '7-string': { strings: 7, topPadding: 15 },
-    '12-string': { strings: 12, topPadding: 10 },
-    'bass': { strings: 4, topPadding: 30 },
-    'ukulele': { strings: 4, topPadding: 35 },
-  };
+  const guitarConfigs: Record<string, { strings: number; topPadding: number }> =
+    {
+      "standard-6": { strings: 6, topPadding: 20 },
+      "7-string": { strings: 7, topPadding: 15 },
+      "12-string": { strings: 12, topPadding: 10 },
+      bass: { strings: 4, topPadding: 30 },
+      ukulele: { strings: 4, topPadding: 35 },
+    };
 
-  const config = guitarConfigs[guitarType] || guitarConfigs['standard-6'];
-  const stringSpacing = Math.max(40, (300 - 2 * config.topPadding) / (config.strings - 1));
+  const config = guitarConfigs[guitarType] || guitarConfigs["standard-6"];
+  const stringSpacing = Math.max(
+    40,
+    (300 - 2 * config.topPadding) / (config.strings - 1),
+  );
 
   // Calculate tuning knob rotation based on cent offset
   const maxCents = 50;
@@ -38,13 +40,13 @@ export function GuitarVisualization({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Guitar Head Visualization */}
-      <div className="relative mx-auto w-full max-w-sm">
+      {/* Guitar Head Visualization - Hidden on mobile, visible on md. */}
+      <div className="relative mx-auto w-full max-w-sm hidden md:block">
         {/* SVG Guitar Head */}
         <svg
           viewBox="0 0 200 350"
           className="w-full h-auto"
-          style={{ maxWidth: '300px', margin: '0 auto' }}
+          style={{ maxWidth: "300px", margin: "0 auto" }}
         >
           {/* Guitar Head Shape */}
           <rect
@@ -73,8 +75,8 @@ export function GuitarVisualization({
                   cx={x}
                   cy={y}
                   r="6"
-                  fill={isSelected ? '#00ff00' : '#2d3448'}
-                  stroke={isSelected ? '#00d9ff' : '#5a6b8a'}
+                  fill={isSelected ? "#00ff00" : "#2d3448"}
+                  stroke={isSelected ? "#00d9ff" : "#5a6b8a"}
                   strokeWidth="1"
                 />
                 {/* Peg handle */}
@@ -83,12 +85,12 @@ export function GuitarVisualization({
                   y={y - 3}
                   width="12"
                   height="6"
-                  fill={isSelected ? '#00ff00' : '#5a6b8a'}
+                  fill={isSelected ? "#00ff00" : "#5a6b8a"}
                   rx="2"
                   style={{
                     transform: `rotate(${isSelected ? rotation : 0}deg)`,
                     transformOrigin: `${isLeft ? x - 2 : x + 8}px ${y}px`,
-                    transition: isSelected ? 'transform 0.1s ease-out' : 'none',
+                    transition: isSelected ? "transform 0.1s ease-out" : "none",
                   }}
                 />
               </g>
@@ -121,7 +123,7 @@ export function GuitarVisualization({
           {Array.from({ length: config.strings }).map((_, i) => {
             const stringX = 60 + (i / (config.strings - 1)) * 80;
             const isSelected = i === selectedStringIndex;
-            const baseColor = isSelected ? '#00ff00' : '#9095a8';
+            const baseColor = isSelected ? "#00ff00" : "#9095a8";
             const baseOpacity = isSelected ? 1 : 0.6;
 
             return (
@@ -135,8 +137,8 @@ export function GuitarVisualization({
                 strokeWidth={isSelected ? 2.5 : 1.5}
                 opacity={baseOpacity}
                 style={{
-                  filter: isSelected ? 'drop-shadow(0 0 4px #00ff00)' : 'none',
-                  transition: 'all 0.2s ease-out',
+                  filter: isSelected ? "drop-shadow(0 0 4px #00ff00)" : "none",
+                  transition: "all 0.2s ease-out",
                 }}
               />
             );
@@ -163,24 +165,32 @@ export function GuitarVisualization({
 
       {/* String Information */}
       {selectedStringIndex < config.strings && (
-        <div className="text-center">
-          <div className="text-sm text-muted-foreground mb-2">Selected String</div>
+        <div className="text-center order-2 md:order-0">
+          <div className="text-sm text-muted-foreground mb-2">
+            Selected String
+          </div>
           <div className="text-lg font-bold text-neon-cyan">
             String {selectedStringIndex + 1}
           </div>
           {detectedNote && (
-            <div className="text-sm text-neon-green mt-1">{detectedNote} (Detected)</div>
+            <div className="text-sm text-neon-green mt-1">
+              {detectedNote} (Detected)
+            </div>
           )}
-          <div className={`text-sm mt-2 font-semibold ${
-            isInTune ? 'text-neon-green' : 'text-neon-purple'
-          }`}>
-            {isInTune ? '✓ In Tune' : `${Math.abs(centOffset).toFixed(1)}¢ ${centOffset > 0 ? 'Sharp' : 'Flat'}`}
+          <div
+            className={`text-sm mt-2 font-semibold ${
+              isInTune ? "text-neon-green" : "text-neon-purple"
+            }`}
+          >
+            {isInTune
+              ? "✓ In Tune"
+              : `${Math.abs(centOffset).toFixed(1)}¢ ${centOffset > 0 ? "Sharp" : "Flat"}`}
           </div>
         </div>
       )}
 
       {/* Tuning Knob Visualization */}
-      <div className="flex justify-center items-center gap-8">
+      <div className="flex justify-center items-center gap-8 order-1 md:order-0">
         {/* Flat indicator */}
         <div className="text-center">
           <div className="text-xs text-muted-foreground mb-1">Flat</div>
@@ -194,7 +204,9 @@ export function GuitarVisualization({
             viewBox="0 0 100 100"
             className="w-full h-full"
             style={{
-              filter: isInTune ? 'drop-shadow(0 0 8px #00ff00)' : 'drop-shadow(0 0 4px #b537f2)',
+              filter: isInTune
+                ? "drop-shadow(0 0 8px #00ff00)"
+                : "drop-shadow(0 0 4px #b537f2)",
             }}
           >
             {/* Background circle */}
@@ -222,21 +234,28 @@ export function GuitarVisualization({
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke={Math.abs(i - 4) <= 1 ? '#00ff00' : '#5a6b8a'}
+                  stroke={Math.abs(i - 4) <= 1 ? "#00ff00" : "#5a6b8a"}
                   strokeWidth={Math.abs(i - 4) <= 1 ? 2 : 1}
                 />
               );
             })}
 
             {/* Center circle */}
-            <circle cx="50" cy="50" r="6" fill="#00d9ff" stroke="#b537f2" strokeWidth="1" />
+            <circle
+              cx="50"
+              cy="50"
+              r="6"
+              fill="#00d9ff"
+              stroke="#b537f2"
+              strokeWidth="1"
+            />
 
             {/* Needle indicator */}
             <g
               style={{
                 transform: `rotate(${rotation}deg)`,
-                transformOrigin: '50px 50px',
-                transition: 'transform 0.1s ease-out',
+                transformOrigin: "50px 50px",
+                transition: "transform 0.1s ease-out",
               }}
             >
               <line
@@ -244,7 +263,7 @@ export function GuitarVisualization({
                 y1="50"
                 x2="50"
                 y2="15"
-                stroke={isInTune ? '#00ff00' : '#b537f2'}
+                stroke={isInTune ? "#00ff00" : "#b537f2"}
                 strokeWidth="2"
                 strokeLinecap="round"
               />

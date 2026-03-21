@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface GuitarGuideProps {
   strings: string[];
   selectedStringIndex: number;
+  detectedStringIndex?: number | null;
   cents: number;
   isListening: boolean;
   onSelectString: (index: number) => void;
@@ -15,142 +16,159 @@ interface GuitarGuideProps {
 export function GuitarGuide({
   strings,
   selectedStringIndex,
+  detectedStringIndex,
   cents,
   isListening,
   onSelectString,
 }: GuitarGuideProps) {
   const centOffset = Math.max(-50, Math.min(50, cents));
-  const selectedNote = strings[selectedStringIndex] ?? '—';
   const stringCount = strings.length;
-  const leftCount = Math.ceil(stringCount / 2);
-  const rightCount = Math.floor(stringCount / 2);
+  // Dynamic layout: Bass guitars (4 strings) are often inline on one side, but we'll do 3x3 for standard, half-half for others.
+  const isInline = stringCount === 4;
+  const leftCount = isInline ? stringCount : Math.ceil(stringCount / 2);
 
-  const guidance =
-    !isListening
-      ? 'Start tuner and pluck the highlighted string.'
-      : Math.abs(centOffset) <= 5
-        ? 'In tune. Keep this string as is.'
-        : centOffset < 0
-          ? 'Pitch is low. Tighten the peg slowly.'
-          : 'Pitch is high. Loosen the peg slowly.';
+  const guidance = !isListening
+    ? "Start tuner and pluck highlighted."
+    : Math.abs(centOffset) <= 5
+      ? "In tune. No turn needed."
+      : centOffset < 0
+        ? "Pitch is low. Tighten peg."
+        : "Pitch is high. Loosen peg.";
 
-  const knobDirection = centOffset < 0 ? '↻ Tighten' : '↺ Loosen';
+  const knobDirection = centOffset < 0 ? "↻ Tighten peg" : "↺ Loosen peg";
+
+  const renderPeg = (note: string, index: number, isLeft: boolean) => {
+    const isSelected = index === selectedStringIndex;
+    const isDetected = index === detectedStringIndex;
+    const isActive = isSelected || isDetected;
+    const rotation = isSelected ? (centOffset / 50) * 45 : 0; // Rotate button visually
+
+    return (
+      <div
+        key={index}
+        className={cn(
+          "flex items-center gap-1 sm:gap-2",
+          isLeft ? "flex-row" : "flex-row-reverse",
+        )}
+      >
+        {/* Peg Head (Actionable Button) */}
+        <button
+          onClick={() => onSelectString(index)}
+          className={cn(
+            "w-12 h-9 sm:w-16 sm:h-10 rounded-md xl:rounded-lg border backdrop-blur-sm transition-all duration-300 shadow flex items-center justify-center font-bold text-sm sm:text-base cursor-pointer focus:outline-none",
+            isSelected
+              ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.3)] z-10 scale-110"
+              : isDetected
+                ? "bg-emerald-500/20 border-emerald-400 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.3)] z-10"
+                : "bg-zinc-800/80 border-zinc-700 text-zinc-500 hover:bg-zinc-700/80 hover:text-zinc-300",
+          )}
+          style={{
+            transform: isSelected
+              ? `rotate(${isLeft ? rotation : -rotation}deg) scale(1.1)`
+              : "none",
+          }}
+          aria-label={`Select string ${index + 1} (${note})`}
+        >
+          {note}
+        </button>
+
+        {/* Peg Shaft */}
+        <div
+          className={cn(
+            "h-1.5 sm:h-2 rounded-full transition-all duration-300",
+            isSelected
+              ? "bg-linear-to-r from-cyan-400 to-cyan-500/20 w-4 sm:w-6 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+              : isDetected
+                ? "bg-linear-to-r from-emerald-400 to-emerald-500/20 w-4 sm:w-6"
+                : "bg-linear-to-r from-zinc-700 to-zinc-800/50 w-3 sm:w-5",
+          )}
+          style={{ transform: isLeft ? "none" : "rotate(180deg)" }}
+        />
+
+        {/* Post embedded in the center beam */}
+        <div
+          className={cn(
+            "w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full border-2 transition-all duration-300 z-20",
+            isSelected
+              ? "bg-cyan-950 border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+              : isDetected
+                ? "bg-emerald-950 border-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
+                : "bg-zinc-900 border-zinc-600",
+          )}
+        />
+      </div>
+    );
+  };
 
   return (
-    <section className="w-full rounded-2xl border border-white/10 bg-zinc-950/40 p-4 backdrop-blur">
-      <div className="mb-3 flex items-end justify-between">
-        <div>
-          <h3 className="text-sm font-semibold text-zinc-100">String Guide</h3>
-          <p className="text-xs text-zinc-400">Select a string, then use the peg direction hint.</p>
-        </div>
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900/70 px-3 py-1 text-xs text-zinc-300">
-          String {selectedStringIndex + 1} · {selectedNote}
-        </div>
+    <section className="w-full relative py-6 flex flex-col items-center">
+      <div className="text-center mb-8 px-4">
+        <h3 className="text-xl font-semibold tracking-tight text-zinc-100">
+          Headstock Alignment
+        </h3>
+        <p className="text-sm text-zinc-400 mt-1">
+          Tap a peg to tune that string specifically.
+        </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-3">
-          <div className="relative mx-auto h-[560px] w-[280px] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
-            <Image
-              src="/guitar-vertical.svg"
-              alt="Vertical guitar layout"
-              fill
-              className="object-cover"
-              priority
-            />
-
-            {strings.map((note, index) => {
-              const ratio = stringCount === 1 ? 0.5 : index / (stringCount - 1);
-              const xPercent = 40 + ratio * 20;
-              const isSelected = index === selectedStringIndex;
-              const rotation = isSelected ? (centOffset / 50) * 35 : 0;
-              const isLeft = index < leftCount;
-              const sideIndex = isLeft ? index : index - leftCount;
-              const sideTotal = isLeft ? leftCount : rightCount;
-              const sideRatio = sideTotal <= 1 ? 0.5 : sideIndex / (sideTotal - 1);
-              const pegY = 34 + sideRatio * 46;
-              const pegX = isLeft ? 23 : 77;
-              const handleDirection = isLeft ? -1 : 1;
-
-              return (
-                <React.Fragment key={`${note}-${index}`}>
-                  <button
-                    type="button"
-                    onClick={() => onSelectString(index)}
-                    className={cn(
-                      'absolute -translate-x-1/2 h-3.5 w-3.5 rounded-full border transition-colors',
-                      isSelected ? 'border-cyan-300 bg-cyan-400/50' : 'border-zinc-500 bg-zinc-700/80'
-                    )}
-                    style={{
-                      left: `${pegX}%`,
-                      top: `${pegY}px`,
-                      transform: `translateX(-50%) rotate(${rotation}deg)`,
-                    }}
-                    aria-label={`Select string ${index + 1} (${note})`}
-                  />
-
-                  <div
-                    className={cn(
-                      'absolute h-[3px] rounded transition-colors',
-                      isSelected ? 'bg-cyan-300' : 'bg-zinc-500'
-                    )}
-                    style={{
-                      top: `${pegY + 5}px`,
-                      left: `${pegX}%`,
-                      width: '14px',
-                      transform: `translateX(-50%) rotate(${rotation * 0.6}deg)`,
-                      transformOrigin: isLeft ? 'right center' : 'left center',
-                      marginLeft: `${handleDirection * 7}px`,
-                    }}
-                  />
-
-                  <div
-                    className={cn('absolute h-[1px]', isSelected ? 'bg-cyan-300/70' : 'bg-zinc-500/60')}
-                    style={{
-                      top: `${pegY + 5}px`,
-                      left: `${isLeft ? pegX + 1.5 : xPercent}%`,
-                      right: `${isLeft ? 100 - xPercent : 100 - pegX + 1.5}%`,
-                    }}
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => onSelectString(index)}
-                    className={cn(
-                      'absolute -translate-x-1/2 rounded px-1 text-[10px] font-semibold transition-colors',
-                      isSelected ? 'bg-cyan-500/25 text-cyan-200' : 'bg-zinc-900/70 text-zinc-400'
-                    )}
-                    style={{ left: `${xPercent}%`, top: '110px' }}
-                    aria-label={`String ${index + 1} note ${note}`}
-                  >
-                    {note}
-                  </button>
-
-                  <div
-                    className={cn(
-                      'absolute top-[128px] bottom-[72px] -translate-x-1/2 transition-colors',
-                      isSelected ? 'bg-cyan-300/90' : 'bg-zinc-500/70'
-                    )}
-                    style={{ left: `${xPercent}%`, width: isSelected ? 2.5 : 1.3 }}
-                  />
-                </React.Fragment>
-              );
-            })}
+      <div className="grid gap-10 lg:gap-14 lg:grid-cols-[1.2fr_1fr] items-center w-full max-w-2xl px-4">
+        {/* Abstract Headstock Container */}
+        <div className="relative flex justify-between w-full min-h-[320px] max-w-[280px] mx-auto">
+          {/* Center Beam (The Neck/Headstock Base) */}
+          <div className="absolute left-1/2 top-4 bottom-[-40px] w-14 sm:w-16 -translate-x-1/2 bg-zinc-800/40 border border-zinc-700/50 rounded-t-2xl shadow-2xl backdrop-blur-xl">
+            {/* Gradient glow inside the beam */}
+            <div className="absolute inset-0 rounded-t-2xl bg-linear-to-b from-white/5 to-transparent pointer-events-none" />
+            {/* Fretboard fadeout at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
           </div>
+
+          {/* Left Pegs */}
+          <div className="flex flex-col justify-around py-6 w-1/2 items-end pr-7 sm:pr-8 z-10">
+            {strings
+              .slice(0, leftCount)
+              .map((note, i) => renderPeg(note, i, true))}
+          </div>
+
+          {/* Right Pegs */}
+          {!isInline && (
+            <div className="flex flex-col justify-around py-6 w-1/2 items-start pl-7 sm:pl-8 z-10 mt-6">
+              {strings
+                .slice(leftCount)
+                .map((note, i) => renderPeg(note, leftCount + i, false))}
+            </div>
+          )}
         </div>
 
-        <div className="space-y-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-3">
+        {/* Dynamic Mobile/Desktop Action Guidance */}
+        <div className="flex flex-col justify-center space-y-6 lg:space-y-8 text-center lg:text-left">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-zinc-500">Adjustment</p>
-            <p className="mt-1 text-sm font-semibold text-zinc-100">{guidance}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-2">
+              Action Required
+            </p>
+            <p className="text-xl lg:text-2xl font-medium text-zinc-100 min-h-12">
+              {guidance}
+            </p>
           </div>
 
-          <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 p-3">
-            <p className="text-xs text-zinc-400">Peg action</p>
-            <p className={cn('mt-1 text-sm font-semibold', Math.abs(centOffset) <= 5 ? 'text-emerald-300' : 'text-cyan-300')}>
-              {Math.abs(centOffset) <= 5 ? 'No turn needed' : knobDirection}
+          <div className="bg-zinc-900/30 border border-white/5 rounded-2xl p-5 lg:p-6 backdrop-blur">
+            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">
+              Peg Rotation
             </p>
-            <p className="mt-1 text-xs text-zinc-500">Current offset: {centOffset.toFixed(0)} cents</p>
+            <p
+              className={cn(
+                "text-2xl lg:text-3xl font-bold tracking-tight transition-colors duration-300",
+                Math.abs(centOffset) <= 5
+                  ? "text-emerald-400"
+                  : "text-cyan-400",
+              )}
+            >
+              {Math.abs(centOffset) <= 5 ? "Perfect" : knobDirection}
+            </p>
+            <p className="mt-3 text-xs font-mono tracking-wider text-zinc-400">
+              OFFSET:{" "}
+              <span className="text-zinc-300">{centOffset.toFixed(1)}</span>{" "}
+              CENTS
+            </p>
           </div>
         </div>
       </div>

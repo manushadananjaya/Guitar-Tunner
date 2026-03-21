@@ -15,7 +15,7 @@ export interface PitchDetectionResult {
 // Based on the YIN algorithm adapted for browser use
 export function detectPitch(
   audioData: Float32Array,
-  sampleRate: number
+  sampleRate: number,
 ): PitchDetectionResult {
   const size = audioData.length;
 
@@ -86,7 +86,7 @@ export function detectPitch(
 // Alternative: FFT-based pitch detection (faster but less accurate for low notes)
 export function detectPitchFFT(
   audioData: Float32Array,
-  sampleRate: number
+  sampleRate: number,
 ): PitchDetectionResult {
   const size = audioData.length;
 
@@ -136,7 +136,7 @@ export function detectPitchFFT(
 function goertzelMagnitude(
   signal: Float32Array,
   frequency: number,
-  sampleRate: number
+  sampleRate: number,
 ): number {
   const N = signal.length;
   const k = (N * frequency) / sampleRate;
@@ -158,7 +158,10 @@ function goertzelMagnitude(
 }
 
 // Noise gate - silence detection
-export function hasSignal(audioData: Float32Array, threshold: number = 0.02): boolean {
+export function hasSignal(
+  audioData: Float32Array,
+  threshold: number = 0.02,
+): boolean {
   let rms = 0;
   for (let i = 0; i < audioData.length; i++) {
     rms += audioData[i] * audioData[i];
@@ -178,12 +181,13 @@ export function getNoiseFloor(audioData: Float32Array): number {
 }
 
 // Filter out noise by zeroing out values below threshold
-export function noiseGate(audioData: Float32Array, threshold: number = 0.01): Float32Array {
-  const gated = new Float32Array(audioData.length);
-  for (let i = 0; i < audioData.length; i++) {
-    gated[i] = Math.abs(audioData[i]) > threshold ? audioData[i] : 0;
-  }
-  return gated;
+export function noiseGate(
+  audioData: Float32Array,
+  threshold: number = 0.01,
+): Float32Array {
+  // Center clipping alters waveform shape and damages autocorrelation.
+  // We already employ RMS thresholding to ignore low volume audio.
+  return audioData;
 }
 
 // Smooth pitch detection results over time
@@ -208,7 +212,9 @@ export class PitchSmoother {
     // Return median for robustness
     const sorted = [...this.buffer].sort((a, b) => a - b);
     const mid = Math.floor(sorted.length / 2);
-    return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+    return sorted.length % 2 !== 0
+      ? sorted[mid]
+      : (sorted[mid - 1] + sorted[mid]) / 2;
   }
 
   reset(): void {
@@ -220,17 +226,27 @@ export class PitchSmoother {
 export class PitchDetector {
   private smoother: PitchSmoother;
   private lastFrequency: number = 0;
-  private readonly algorithm: 'autocorrelation' | 'fft' = 'autocorrelation';
+  private readonly algorithm: "autocorrelation" | "fft" = "autocorrelation";
 
   constructor(smoothingWindow: number = 5) {
     this.smoother = new PitchSmoother(smoothingWindow);
   }
 
+  // Keep track of confidence
+  private currentConfidence: number = 0;
+
   detect(audioData: Float32Array, sampleRate: number): PitchDetectionResult {
     // Check if there's signal
-    if (!hasSignal(audioData)) {
-      this.lastFrequency = 0;
-      return { frequency: 0, confidence: 0, detected: false };
+    if (!hasSignal(audioData, 0.005)) {
+      this.currentConfidence = Math.max(0, this.currentConfidence - 0.1);
+      if (this.currentConfidence <= 0) {
+        this.lastFrequency = 0;
+      }
+      return {
+        frequency: this.lastFrequency,
+        confidence: this.currentConfidence,
+        detected: false,
+      };
     }
 
     // Apply noise gate
@@ -238,7 +254,7 @@ export class PitchDetector {
 
     // Detect pitch using selected algorithm
     let result: PitchDetectionResult;
-    if (this.algorithm === 'autocorrelation') {
+    if (this.algorithm === "autocorrelation") {
       result = detectPitch(gated, sampleRate);
     } else {
       result = detectPitchFFT(gated, sampleRate);
@@ -248,10 +264,12 @@ export class PitchDetector {
     if (result.detected) {
       result.frequency = this.smoother.smooth(result.frequency);
       this.lastFrequency = result.frequency;
+      this.currentConfidence = result.confidence;
     } else {
       // If detection failed, use last known frequency with lower confidence
       result.frequency = this.lastFrequency;
-      result.confidence = Math.max(0, result.confidence - 0.2);
+      this.currentConfidence = Math.max(0, this.currentConfidence - 0.05);
+      result.confidence = this.currentConfidence;
     }
 
     return result;
@@ -260,5 +278,6 @@ export class PitchDetector {
   reset(): void {
     this.smoother.reset();
     this.lastFrequency = 0;
+    this.currentConfidence = 0;
   }
 }

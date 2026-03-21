@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 interface StringSelectorProps {
   strings: Array<{ note: string; frequency: number }>;
@@ -9,6 +9,7 @@ interface StringSelectorProps {
   onStringSelect: (index: number) => void;
   detectedStringIndex?: number | null;
   isPlaying?: boolean;
+  isInTune?: boolean;
 }
 
 export function StringSelector({
@@ -17,6 +18,7 @@ export function StringSelector({
   onStringSelect,
   detectedStringIndex,
   isPlaying = false,
+  isInTune = false,
 }: StringSelectorProps) {
   // Keyboard shortcuts: 1-6 keys
   useEffect(() => {
@@ -28,8 +30,8 @@ export function StringSelector({
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [strings.length, onStringSelect]);
 
   return (
@@ -49,19 +51,21 @@ export function StringSelector({
             <div key={index} className="relative">
               <Button
                 onClick={() => onStringSelect(index)}
-                variant={isSelected ? 'default' : 'outline'}
+                variant={isSelected ? "default" : "outline"}
                 className={`touch-button w-full h-12 sm:h-14 text-sm sm:text-base font-bold transition-all relative text-black border-0 ${
-                  isDetected && !isSelected ? 'bg-black/40' : ''
+                  isDetected && !isSelected ? "bg-black/40" : ""
                 }`}
                 style={
                   isSelected
                     ? {
-                        background: 'linear-gradient(to right, #00d9ff, #0099ff)',
+                        background: isInTune
+                          ? "linear-gradient(to right, #00cc00, #00ff00)"
+                          : "linear-gradient(to right, #00d9ff, #0099ff)",
                       }
                     : isDetected
                       ? {
-                          borderColor: '#00ff00',
-                          borderWidth: '1px',
+                          borderColor: isInTune ? "#00ff00" : "#ffaa00",
+                          borderWidth: "1px",
                         }
                       : undefined
                 }
@@ -75,17 +79,27 @@ export function StringSelector({
 
               {/* String note label below */}
               <div className="text-center mt-2">
-                <div className="text-sm font-bold" style={{ color: '#00d9ff' }}>
+                <div
+                  className="text-sm font-bold"
+                  style={{
+                    color: isSelected && isInTune ? "#00ff00" : "#00d9ff",
+                  }}
+                >
                   {string.note}
                 </div>
-                <div className="text-xs text-muted-foreground">{string.frequency.toFixed(1)} Hz</div>
+                <div className="text-xs text-muted-foreground">
+                  {string.frequency.toFixed(1)} Hz
+                </div>
               </div>
 
               {/* Detected indicator */}
               {isDetected && (
                 <div className="absolute -top-2 -right-2">
                   <div className="animate-pulse">
-                    <div className="w-3 h-3 rounded-full" style={{ background: '#00ff00' }}></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ background: isInTune ? "#00ff00" : "#ffaa00" }}
+                    ></div>
                   </div>
                 </div>
               )}
@@ -95,7 +109,8 @@ export function StringSelector({
       </div>
 
       <div className="mt-4 text-xs text-muted-foreground text-center">
-        Press <span className="font-mono font-bold">1-{strings.length}</span> on keyboard to switch strings
+        Press <span className="font-mono font-bold">1-{strings.length}</span> on
+        keyboard to switch strings
       </div>
     </div>
   );

@@ -1,27 +1,31 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { TunerGauge } from './TunerGauge';
-import { NoteDisplay } from './NoteDisplay';
-import { TuningModeSelector } from './TuningModeSelector';
-import { StringSelector } from './StringSelector';
-import { GuitarTypeSelector } from './GuitarTypeSelector';
-import { ReferencePlayer } from './ReferencePlayer';
-import { MicrophoneStatus } from './MicrophoneStatus';
-import { GuitarVisualization } from './GuitarVisualization';
-import { useAudioCapture } from '@/hooks/useAudioCapture';
-import { usePitchDetector } from '@/hooks/usePitchDetector';
-import { getTuningForGuitar, ACCURACY_MODES } from '@/lib/tuningPresets';
-import { detectPlayingString } from '@/lib/noteMap';
-import { Spinner } from '@/components/ui/spinner';
+import React, { useState, useEffect } from "react";
+import { TunerGauge } from "./TunerGauge";
+import { NoteDisplay } from "./NoteDisplay";
+import { TuningModeSelector } from "./TuningModeSelector";
+import { StringSelector } from "./StringSelector";
+import { GuitarTypeSelector } from "./GuitarTypeSelector";
+import { ReferencePlayer } from "./ReferencePlayer";
+import { MicrophoneStatus } from "./MicrophoneStatus";
+import { GuitarVisualization } from "./GuitarVisualization";
+import { useAudioCapture } from "@/hooks/useAudioCapture";
+import { usePitchDetector } from "@/hooks/usePitchDetector";
+import { getTuningForGuitar, ACCURACY_MODES } from "@/lib/tuningPresets";
+import { detectPlayingString } from "@/lib/noteMap";
+import { Spinner } from "@/components/ui/spinner";
 
 export function TunerContainer() {
   const [isClient, setIsClient] = useState(false);
-  const [guitarType, setGuitarType] = useState('sixString');
-  const [tuningMode, setTuningMode] = useState('standard');
+  const [guitarType, setGuitarType] = useState("sixString");
+  const [tuningMode, setTuningMode] = useState("standard");
   const [selectedStringIndex, setSelectedStringIndex] = useState(0);
-  const [accuracyMode, setAccuracyMode] = useState<'beginner' | 'standard' | 'pro'>('standard');
-  const [detectedStringIndex, setDetectedStringIndex] = useState<number | null>(null);
+  const [accuracyMode, setAccuracyMode] = useState<
+    "beginner" | "standard" | "pro"
+  >("standard");
+  const [detectedStringIndex, setDetectedStringIndex] = useState<number | null>(
+    null,
+  );
 
   // Mark as client after hydration
   useEffect(() => {
@@ -33,14 +37,17 @@ export function TunerContainer() {
   const targetFrequency = currentTuning.frequencies[selectedStringIndex];
 
   // Audio capture
-  const { state: audioState, requestMicrophone, stopAudioCapture, isSupported } = useAudioCapture(
-    {
-      onDataAvailable: (audioData) => {
-        // Pass audio data to pitch detector
-        updateAudioData(audioData);
-      },
-    }
-  );
+  const {
+    state: audioState,
+    requestMicrophone,
+    stopAudioCapture,
+    isSupported,
+  } = useAudioCapture({
+    onDataAvailable: (audioData) => {
+      // Pass audio data to pitch detector
+      updateAudioData(audioData);
+    },
+  });
 
   // Pitch detection
   const [audioData, setAudioData] = useState<Float32Array | null>(null);
@@ -62,11 +69,12 @@ export function TunerContainer() {
       const stringDetection = detectPlayingString(
         pitchDetection.frequency,
         currentTuning.frequencies,
-        50
+        50,
       );
 
       if (stringDetection) {
         setDetectedStringIndex(stringDetection.stringIndex);
+        setSelectedStringIndex(stringDetection.stringIndex);
       } else {
         setDetectedStringIndex(null);
       }
@@ -76,7 +84,7 @@ export function TunerContainer() {
   }, [pitchDetection.frequency, pitchDetection.detected, currentTuning]);
 
   // Handle accuracy mode change
-  const handleAccuracyModeChange = (mode: 'beginner' | 'standard' | 'pro') => {
+  const handleAccuracyModeChange = (mode: "beginner" | "standard" | "pro") => {
     setAccuracyMode(mode);
   };
 
@@ -97,13 +105,13 @@ export function TunerContainer() {
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-6">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 
+        <h1
           className="text-4xl font-bold mb-2"
           style={{
-            background: 'linear-gradient(to right, #00d9ff, #b537f2, #0099ff)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            background: "linear-gradient(to right, #00d9ff, #b537f2, #0099ff)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
           }}
         >
           Guitar Tuner
@@ -144,14 +152,18 @@ export function TunerContainer() {
               tuningMode={tuningMode}
               centOffset={pitchDetection.reading?.centOffset || 0}
               isInTune={pitchDetection.reading?.isInTune || false}
-              detectedNote={detectedStringIndex !== null ? currentTuning.notes[selectedStringIndex] : null}
+              detectedNote={
+                detectedStringIndex !== null
+                  ? currentTuning.notes[selectedStringIndex]
+                  : null
+              }
             />
           </div>
 
           {/* Note display */}
           {audioState.signalStrength > 5 ? (
             <NoteDisplay
-              noteName={pitchDetection.reading?.note.name || '—'}
+              noteName={pitchDetection.reading?.note.name || "—"}
               frequency={pitchDetection.frequency}
               cents={pitchDetection.reading?.centOffset || 0}
               isInTune={pitchDetection.reading?.isInTune || false}
@@ -175,6 +187,7 @@ export function TunerContainer() {
             selectedStringIndex={selectedStringIndex}
             onStringSelect={setSelectedStringIndex}
             detectedStringIndex={detectedStringIndex}
+            isInTune={pitchDetection.reading?.isInTune || false}
           />
 
           {/* Reference player */}
@@ -194,30 +207,33 @@ export function TunerContainer() {
               </h3>
             </div>
             <div className="flex gap-2">
-              {(Object.keys(ACCURACY_MODES) as Array<'beginner' | 'standard' | 'pro'>).map(
-                (mode) => (
-                  <button
-                    key={mode}
-                    onClick={() => handleAccuracyModeChange(mode)}
-                    className="touch-button px-4 py-2 rounded-lg text-sm font-semibold transition-all border-0"
-                    style={
-                      accuracyMode === mode
-                        ? {
-                            background: 'linear-gradient(to right, #b537f2, #ff006e)',
-                            color: 'white',
-                          }
-                        : {
-                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: '1px',
-                            color: 'inherit',
-                          }
-                    }
-                  >
-                    {ACCURACY_MODES[mode].name}
-                  </button>
-                )
-              )}
+              {(
+                Object.keys(ACCURACY_MODES) as Array<
+                  "beginner" | "standard" | "pro"
+                >
+              ).map((mode) => (
+                <button
+                  key={mode}
+                  onClick={() => handleAccuracyModeChange(mode)}
+                  className="touch-button px-4 py-2 rounded-lg text-sm font-semibold transition-all border-0"
+                  style={
+                    accuracyMode === mode
+                      ? {
+                          background:
+                            "linear-gradient(to right, #b537f2, #ff006e)",
+                          color: "white",
+                        }
+                      : {
+                          backgroundColor: "rgba(255, 255, 255, 0.05)",
+                          borderColor: "rgba(255, 255, 255, 0.1)",
+                          borderWidth: "1px",
+                          color: "inherit",
+                        }
+                  }
+                >
+                  {ACCURACY_MODES[mode].name}
+                </button>
+              ))}
             </div>
             <p className="text-xs text-muted-foreground mt-2">
               {ACCURACY_MODES[accuracyMode].description}
@@ -229,15 +245,24 @@ export function TunerContainer() {
       {/* Settings section */}
       <div className="space-y-6">
         {/* Guitar type selector */}
-        <GuitarTypeSelector currentType={guitarType} onTypeChange={handleGuitarTypeChange} />
+        <GuitarTypeSelector
+          currentType={guitarType}
+          onTypeChange={handleGuitarTypeChange}
+        />
 
         {/* Tuning mode selector */}
-        <TuningModeSelector currentTuning={tuningMode} onTuningChange={handleTuningChange} />
+        <TuningModeSelector
+          currentTuning={tuningMode}
+          onTuningChange={handleTuningChange}
+        />
       </div>
 
       {/* Footer info */}
       <div className="text-center text-xs text-muted-foreground">
-        <p>Press microphone button to start. Use keyboard shortcuts 1-{currentTuning.notes.length} to select strings.</p>
+        <p>
+          Press microphone button to start. Use keyboard shortcuts 1-
+          {currentTuning.notes.length} to select strings.
+        </p>
       </div>
     </div>
   );

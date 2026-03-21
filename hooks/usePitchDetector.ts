@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { PitchDetector, PitchDetectionResult } from '@/lib/pitchDetection';
-import { getTunerReading, TunerReading, smoothFrequency } from '@/lib/noteMap';
+import { useEffect, useRef, useState, useCallback } from "react";
+import { PitchDetector, PitchDetectionResult } from "@/lib/pitchDetection";
+import { getTunerReading, TunerReading, smoothFrequency } from "@/lib/noteMap";
 
 export interface PitchDetectorOptions {
   targetFrequency?: number;
@@ -21,7 +21,7 @@ export interface PitchDetectorState {
 export function usePitchDetector(
   audioData: Float32Array | null,
   sampleRate: number = 48000,
-  options: PitchDetectorOptions = {}
+  options: PitchDetectorOptions = {},
 ) {
   const {
     targetFrequency = 440,
@@ -62,11 +62,15 @@ export function usePitchDetector(
         smoothedFreqRef.current = smoothFrequency(
           smoothedFreqRef.current,
           result.frequency,
-          smoothingFactor
+          smoothingFactor,
         );
 
         // Get tuner reading
-        const reading = getTunerReading(smoothedFreqRef.current, targetFrequency, accuracyCents);
+        const reading = getTunerReading(
+          smoothedFreqRef.current,
+          targetFrequency,
+          accuracyCents,
+        );
 
         setState({
           frequency: smoothedFreqRef.current,
@@ -74,11 +78,19 @@ export function usePitchDetector(
           confidence: result.confidence,
           detected: true,
         });
-      } else if (result.confidence > 0) {
-        // Low confidence detection
+      } else if (result.confidence > 0 && result.frequency > 0) {
+        // Low confidence detection - preserve the reading so the needle doesn't snap
+        const reading = getTunerReading(
+          result.frequency,
+          targetFrequency,
+          accuracyCents,
+        );
         setState((prev) => ({
           ...prev,
+          frequency: result.frequency,
+          reading,
           confidence: result.confidence,
+          detected: false,
         }));
       } else {
         // No detection
@@ -91,9 +103,16 @@ export function usePitchDetector(
         smoothedFreqRef.current = 0;
       }
     } catch (error) {
-      console.error('[v0] Pitch detection error:', error);
+      console.error("[v0] Pitch detection error:", error);
     }
-  }, [audioData, sampleRate, targetFrequency, accuracyCents, smoothingFactor, updateRate]);
+  }, [
+    audioData,
+    sampleRate,
+    targetFrequency,
+    accuracyCents,
+    smoothingFactor,
+    updateRate,
+  ]);
 
   // Effect to detect pitch whenever audio data changes
   useEffect(() => {

@@ -3,8 +3,34 @@ const CENTS_PER_SEMITONE = 100;
 const SEMITONES_PER_OCTAVE = 12;
 
 // Note names in order
-const NOTE_NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
-const NOTE_NAMES_FLAT = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
+const NOTE_NAMES = [
+  "C",
+  "C♯",
+  "D",
+  "D♯",
+  "E",
+  "F",
+  "F♯",
+  "G",
+  "G♯",
+  "A",
+  "A♯",
+  "B",
+];
+const NOTE_NAMES_FLAT = [
+  "C",
+  "D♭",
+  "D",
+  "E♭",
+  "E",
+  "F",
+  "G♭",
+  "G",
+  "A♭",
+  "A",
+  "B♭",
+  "B",
+];
 
 export interface Note {
   name: string;
@@ -34,10 +60,12 @@ export function semitonesFromFrequency(frequency: number): number {
 }
 
 // Get cents from frequency (±100 cents = ±1 semitone)
-export function centsFromFrequency(frequency: number, targetFrequency: number): number {
+export function centsFromFrequency(
+  frequency: number,
+  targetFrequency: number,
+): number {
   if (targetFrequency <= 0 || frequency <= 0) return 0;
-  const semitones = semitonesFromFrequency(frequency / targetFrequency);
-  return semitones * CENTS_PER_SEMITONE;
+  return 1200 * Math.log2(frequency / targetFrequency);
 }
 
 // Convert MIDI note number to frequency
@@ -54,7 +82,7 @@ export function frequencyToMidi(frequency: number): number {
 export function frequencyToNote(frequency: number): Note {
   if (frequency <= 0) {
     return {
-      name: '—',
+      name: "—",
       frequency: 0,
       octave: 0,
       semitone: 0,
@@ -79,7 +107,7 @@ export function frequencyToNote(frequency: number): Note {
 export function getTunerReading(
   detectedFrequency: number,
   targetFrequency: number,
-  accuracyCents: number = 5
+  accuracyCents: number = 5,
 ): TunerReading {
   const note = frequencyToNote(detectedFrequency);
   const centOffset = centsFromFrequency(detectedFrequency, targetFrequency);
@@ -98,7 +126,10 @@ export function getTunerReading(
 }
 
 // Find closest note to a frequency (for auto-detection)
-export function findClosestNote(frequency: number, maxCentDeviation: number = 50): Note | null {
+export function findClosestNote(
+  frequency: number,
+  maxCentDeviation: number = 50,
+): Note | null {
   const note = frequencyToNote(frequency);
   const expectedFrequency = note.frequency;
   const deviation = centsFromFrequency(frequency, expectedFrequency);
@@ -114,15 +145,23 @@ export function findClosestNote(frequency: number, maxCentDeviation: number = 50
 export function detectPlayingString(
   frequency: number,
   targetFrequencies: number[],
-  confidenceThreshold: number = 50
+  confidenceThreshold: number = 50,
 ): { stringIndex: number; confidence: number } | null {
   let bestMatch = -1;
   let bestConfidence = 0;
 
   for (let i = 0; i < targetFrequencies.length; i++) {
-    const centDifference = Math.abs(centsFromFrequency(frequency, targetFrequencies[i]));
-    // Convert cent difference to confidence (0-100)
-    const confidence = Math.max(0, 100 - (centDifference / 50) * 100);
+    const target = targetFrequencies[i];
+    if (target <= 0) continue;
+
+    const centDifference = Math.min(
+      Math.abs(centsFromFrequency(frequency, target)),
+      Math.abs(centsFromFrequency(frequency * 0.5, target)),
+      Math.abs(centsFromFrequency(frequency * 2, target)),
+    );
+
+    // Convert cent difference to confidence (0-100), with wider tolerance for real guitar transients
+    const confidence = Math.max(0, 100 - (centDifference / 80) * 100);
 
     if (confidence > bestConfidence && confidence >= confidenceThreshold) {
       bestConfidence = confidence;
@@ -141,29 +180,35 @@ export function detectPlayingString(
 }
 
 // Format frequency as string
-export function formatFrequency(frequency: number, decimals: number = 1): string {
-  if (frequency <= 0) return '— Hz';
+export function formatFrequency(
+  frequency: number,
+  decimals: number = 1,
+): string {
+  if (frequency <= 0) return "— Hz";
   return `${frequency.toFixed(decimals)} Hz`;
 }
 
 // Format cents as string
 export function formatCents(cents: number, decimals: number = 1): string {
-  const sign = cents > 0 ? '+' : '';
+  const sign = cents > 0 ? "+" : "";
   return `${sign}${cents.toFixed(decimals)}¢`;
 }
 
 // Get cent range indicator (visual feedback)
-export function getCentRangeColor(cents: number, accuracyCents: number = 5): string {
+export function getCentRangeColor(
+  cents: number,
+  accuracyCents: number = 5,
+): string {
   const absCents = Math.abs(cents);
 
   if (absCents <= accuracyCents) {
-    return 'in-tune'; // Green
+    return "in-tune"; // Green
   } else if (absCents <= accuracyCents * 2) {
-    return 'close'; // Yellow/Orange
+    return "close"; // Yellow/Orange
   } else if (absCents <= accuracyCents * 4) {
-    return 'close-ish'; // Orange
+    return "close-ish"; // Orange
   } else {
-    return 'out-of-tune'; // Red
+    return "out-of-tune"; // Red
   }
 }
 
@@ -186,14 +231,14 @@ export function getNeedleAngle(cents: number, maxCents: number = 50): number {
   // Clamp to range
   const clamped = Math.max(-maxCents, Math.min(maxCents, cents));
   // Convert to 0-100 scale (50 = in tune)
-  return ((clamped / maxCents) * 50 + 50);
+  return (clamped / maxCents) * 50 + 50;
 }
 
 // Smooth frequency reading (low-pass filter)
 export function smoothFrequency(
   currentFreq: number,
   newFreq: number,
-  smoothingFactor: number = 0.7
+  smoothingFactor: number = 0.7,
 ): number {
   if (currentFreq === 0) return newFreq;
   return currentFreq * smoothingFactor + newFreq * (1 - smoothingFactor);
