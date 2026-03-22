@@ -27,12 +27,14 @@ export function usePitchDetector(
     targetFrequency = 440,
     accuracyCents = 5,
     smoothingFactor = 0.7,
-    updateRate = 50,
+    updateRate = 30,
   } = options;
 
   const detectorRef = useRef<PitchDetector>(new PitchDetector(5));
   const lastUpdateRef = useRef<number>(0);
   const smoothedFreqRef = useRef<number>(0);
+  const lastDetectionTimeRef = useRef<number>(0);
+  const HOLD_TIME_MS = 700;
 
   const [state, setState] = useState<PitchDetectorState>({
     frequency: 0,
@@ -58,6 +60,7 @@ export function usePitchDetector(
       const result = detectorRef.current.detect(audioData, sampleRate);
 
       if (result.frequency > 0 && result.detected) {
+        lastDetectionTimeRef.current = now;
         // Smooth the frequency
         smoothedFreqRef.current = smoothFrequency(
           smoothedFreqRef.current,
@@ -79,6 +82,7 @@ export function usePitchDetector(
           detected: true,
         });
       } else if (result.confidence > 0 && result.frequency > 0) {
+        lastDetectionTimeRef.current = now;
         // Low confidence detection - preserve the reading so the needle doesn't snap
         const reading = getTunerReading(
           result.frequency,
@@ -93,14 +97,18 @@ export function usePitchDetector(
           detected: false,
         }));
       } else {
-        // No detection
-        setState({
-          frequency: 0,
-          reading: null,
-          confidence: 0,
-          detected: false,
-        });
-        smoothedFreqRef.current = 0;
+        // No detection — hold last reading for HOLD_TIME_MS before resetting to zero
+        const timeSinceDetection = now - lastDetectionTimeRef.current;
+        if (timeSinceDetection >= HOLD_TIME_MS) {
+          setState({
+            frequency: 0,
+            reading: null,
+            confidence: 0,
+            detected: false,
+          });
+          smoothedFreqRef.current = 0;
+        }
+        // While still within hold window, keep previous state unchanged
       }
     } catch (error) {
       console.error("[v0] Pitch detection error:", error);
@@ -125,6 +133,7 @@ export function usePitchDetector(
   const resetDetector = useCallback(() => {
     detectorRef.current.reset();
     smoothedFreqRef.current = 0;
+    lastDetectionTimeRef.current = 0;
     setState({
       frequency: 0,
       reading: null,

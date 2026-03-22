@@ -44,6 +44,8 @@ export function ProfessionalTuner() {
   const centsSmootherRef = useRef(0);
   const frequencyBufferRef = useRef<number[]>([]);
   const stringVoteBufferRef = useRef<number[]>([]);
+  const lastDetectedTimeRef = useRef<number>(0);
+  const HOLD_DURATION_MS = 700;
 
   useEffect(() => {
     setIsMount(true);
@@ -84,8 +86,8 @@ export function ProfessionalTuner() {
   } = usePitchDetector(audioBuffer, 48000, {
     targetFrequency, // This helps the algorithm prioritize around the expected note if needed, though robust algorithms might ignore it
     accuracyCents: 5,
-    smoothingFactor: 0.6,
-    updateRate: 20,
+    smoothingFactor: 0.55,
+    updateRate: 16,
   });
 
   // Processing logic loop
@@ -93,7 +95,9 @@ export function ProfessionalTuner() {
     if (!detected || detectedFrequency <= 0) {
       frequencyBufferRef.current = [];
       stringVoteBufferRef.current = [];
-      if (confidence < 0.3) {
+      const now = Date.now();
+      const timeSinceDetection = now - lastDetectedTimeRef.current;
+      if (confidence < 0.15 && timeSinceDetection > HOLD_DURATION_MS) {
         frequencySmootherRef.current = 0;
         centsSmootherRef.current = 0;
         setSmoothedFreq(0);
@@ -103,9 +107,11 @@ export function ProfessionalTuner() {
       return;
     }
 
-    if (confidence < 0.35) {
+    if (confidence < 0.2) {
       return;
     }
+
+    lastDetectedTimeRef.current = Date.now();
 
     frequencyBufferRef.current.push(detectedFrequency);
     if (frequencyBufferRef.current.length > 7) {

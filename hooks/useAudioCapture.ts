@@ -23,7 +23,7 @@ export function useAudioCapture(options: AudioCaptureOptions = {}) {
     onDataAvailable,
     onError,
     sampleRate = 48000,
-    fftSize = 2048,
+    fftSize = 4096,
   } = options;
 
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -61,6 +61,7 @@ export function useAudioCapture(options: AudioCaptureOptions = {}) {
       audioContextRef.current = new AudioContext({ sampleRate });
       const analyser = audioContextRef.current.createAnalyser();
       analyser.fftSize = fftSize;
+      analyser.smoothingTimeConstant = 0.8;
       analyserRef.current = analyser;
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error));

@@ -3,7 +3,7 @@
 
 const MIN_FREQUENCY = 40;
 const MAX_FREQUENCY = 1000;
-const CONFIDENCE_THRESHOLD = 0.9;
+const CONFIDENCE_THRESHOLD = 0.72;
 
 export interface PitchDetectionResult {
   frequency: number;
@@ -27,7 +27,7 @@ export function detectPitch(
   rms = Math.sqrt(rms / size);
 
   // If signal is too quiet, no pitch detected
-  if (rms < 0.01) {
+  if (rms < 0.003) {
     return { frequency: 0, confidence: 0, detected: false };
   }
 
@@ -195,7 +195,7 @@ export class PitchSmoother {
   private buffer: number[] = [];
   private readonly windowSize: number;
 
-  constructor(windowSize: number = 5) {
+  constructor(windowSize: number = 7) {
     this.windowSize = windowSize;
   }
 
@@ -237,8 +237,8 @@ export class PitchDetector {
 
   detect(audioData: Float32Array, sampleRate: number): PitchDetectionResult {
     // Check if there's signal
-    if (!hasSignal(audioData, 0.005)) {
-      this.currentConfidence = Math.max(0, this.currentConfidence - 0.1);
+    if (!hasSignal(audioData, 0.002)) {
+      this.currentConfidence = Math.max(0, this.currentConfidence - 0.025);
       if (this.currentConfidence <= 0) {
         this.lastFrequency = 0;
       }
@@ -268,7 +268,7 @@ export class PitchDetector {
     } else {
       // If detection failed, use last known frequency with lower confidence
       result.frequency = this.lastFrequency;
-      this.currentConfidence = Math.max(0, this.currentConfidence - 0.05);
+      this.currentConfidence = Math.max(0, this.currentConfidence - 0.015);
       result.confidence = this.currentConfidence;
     }
 
