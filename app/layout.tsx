@@ -11,11 +11,11 @@ const siteUrl = "https://guitar-tuner.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "GuitarTunePro | Free Online Guitar Tuner",
+    default: "GuitarTunePro | Free Online High Accuracy Guitar Tuner",
     template: "%s | GuitarTunePro",
   },
   description:
-    "Professional guitar tuner with real-time pitch detection. Supports 6-string, 7-string, 12-string guitars, bass, and ukulele. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.",
+    "Professional guitar tuner with real-time pitch detection and high accuracy. Supports 6-string, 7-string, 12-string guitars, bass, and ukulele. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.",
   applicationName: "GuitarTunePro",
   generator: "v0.app",
   category: "music",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "GuitarTunePro" }],
   openGraph: {
-    title: "GuitarTunePro | Free Online Guitar Tuner",
+    title: "GuitarTunePro | Free Online High Accuracy Guitar Tuner",
     description:
       "Professional guitar tuner with real-time pitch detection. Supports multiple instruments and tuning modes.",
     type: "website",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GuitarTunePro | Free Online Guitar Tuner",
+    title: "GuitarTunePro | Free Online High Accuracy Guitar Tuner",
     description: "Professional guitar tuner with real-time pitch detection.",
     images: ["/Logo.png"],
   },
@@ -101,7 +101,7 @@ export default function RootLayout({
     "@type": "WebApplication",
     name: "GuitarTunePro",
     description:
-      "Professional guitar tuner with real-time pitch detection. Free online tuning tool supporting multiple instruments and tuning modes.",
+      "Professional guitar tuner with real-time pitch detection and high accuracy. Free online tuning tool supporting multiple instruments and tuning modes.",
     url: siteUrl,
     applicationCategory: "UtilityApplication",
     offers: {
