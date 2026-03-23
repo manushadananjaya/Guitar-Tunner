@@ -70,10 +70,6 @@ export default function ContactPage() {
             </a>
           </div>
         </div>
-
-        <div className="mt-16 text-center text-sm text-zinc-500">
-          <p>Address: GuitarTunePro Team, 123 Tech Avenue, Web City, 10010</p>
-        </div>
       </div>
     </div>
   );
