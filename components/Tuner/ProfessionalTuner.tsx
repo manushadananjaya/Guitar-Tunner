@@ -222,20 +222,8 @@ export function ProfessionalTuner() {
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]"></div>
       </div>
 
-      {/* Header / Nav */}
-      <header className="z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row sm:justify-between sm:items-center items-start gap-3 bg-transparent">
-        <div className="flex items-center gap-2">
-          <div className="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <img
-              src="/Logo.png"
-              alt="Helixios Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h1 className="font-bold text-xl tracking-tight text-zinc-100">
-            GuitarTunePro<span className="text-cyan-500">.</span>
-          </h1>
-        </div>
+      {/* Tuner Controls Bar */}
+      <div className="z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-3 bg-transparent">
         <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-3 bg-zinc-900/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
             <div
@@ -268,7 +256,7 @@ export function ProfessionalTuner() {
             )}
           </Button>
         </div>
-      </header>
+      </div>
 
       {!isRecording && (
         <div className="z-10 mb-3 w-full max-w-4xl px-4">
@@ -452,6 +440,7 @@ export function ProfessionalTuner() {
         <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-zinc-400 font-medium">
             <Link href="/about" className="hover:text-cyan-400 transition-colors">About Us</Link>
+            <Link href="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link>
             <Link href="/privacy-policy" className="hover:text-cyan-400 transition-colors">Privacy Policy</Link>
             <Link href="/terms-of-service" className="hover:text-cyan-400 transition-colors">Terms of Service</Link>
             <Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link>

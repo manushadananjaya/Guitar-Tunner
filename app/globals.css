@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Font stacks ─────────────────────────────────────── */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, "JetBrains Mono", monospace;
+}
+
 :root {
   --background: #0a0e27;
   --foreground: #f0f0ff;
@@ -63,6 +70,37 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Article body prose uses Lora serif for maximum readability */
+  .prose p,
+  .prose li,
+  .prose blockquote {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.9;
+  }
+
+  /* Headings and UI stay on Inter */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose strong,
+  .prose a {
+    font-family: var(--font-sans);
+  }
+
+  /* Monospaced elements (note names, frequencies, code) */
+  .prose code,
+  .font-mono,
+  [class*="font-mono"] {
+    font-family: var(--font-mono);
   }
 }
 
