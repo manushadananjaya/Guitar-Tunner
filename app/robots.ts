@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    host: 'https://guitar-tuner.app',
-    sitemap: 'https://guitar-tuner.app/sitemap.xml',
+    host: 'https://www.guitartunepro.com',
+    sitemap: 'https://www.guitartunepro.com/sitemap.xml',
   };
 }

@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
         
         <div className="space-y-6 text-base leading-relaxed">
           <p>
-            Welcome to GuitarTunePro. By accessing this website (https://guitar-tuner.app), we assume you accept these terms and conditions. Do not continue to use GuitarTunePro if you do not agree to take all of the terms and conditions stated on this page.
+            Welcome to GuitarTunePro. By accessing this website (https://www.guitartunepro.com), we assume you accept these terms and conditions. Do not continue to use GuitarTunePro if you do not agree to take all of the terms and conditions stated on this page.
           </p>
 
           <h2 className="text-2xl font-semibold text-white mt-10 mb-4">1. License</h2>

@@ -41,7 +41,7 @@ export default function ArticleLayout({
   children,
   slug,
 }: ArticleLayoutProps) {
-  const siteUrl = "https://guitar-tuner.app";
+  const siteUrl = "https://www.guitartunepro.com";
 
   const articleJsonLd = {
     "@context": "https://schema.org",

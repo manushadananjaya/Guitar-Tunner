@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
         <div className="prose prose-invert prose-zinc prose-headings:text-white prose-headings:font-semibold prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-zinc-400 prose-p:leading-relaxed prose-li:text-zinc-400 max-w-none space-y-0">
 
           <p>
-            This Privacy Policy describes how GuitarTunePro ("we", "our", or "us"), operated by Helixios, collects, uses, and shares information when you use our website at <strong>guitar-tuner.app</strong> (the "Service"). By using the Service, you agree to the practices described in this policy.
+            This Privacy Policy describes how GuitarTunePro ("we", "our", or "us"), operated by Helixios, collects, uses, and shares information when you use our website at <strong>www.guitartunepro.com</strong> (the "Service"). By using the Service, you agree to the practices described in this policy.
           </p>
 
           <h2>1. Information We Collect</h2>
@@ -144,7 +144,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul>
             <li><strong>Website:</strong> <a href="https://helixios.com" className="text-cyan-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">helixios.com</a></li>
-            <li><strong>Service:</strong> guitar-tuner.app</li>
+            <li><strong>Service:</strong> www.guitartunepro.com</li>
           </ul>
         </div>
 

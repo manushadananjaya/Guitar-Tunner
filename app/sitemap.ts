@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const siteUrl = 'https://guitar-tuner.app';
+  const siteUrl = 'https://www.guitartunepro.com';
 
   return [
     {

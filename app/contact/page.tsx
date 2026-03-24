@@ -45,7 +45,7 @@ export default function ContactPage() {
               send us an email. We typically respond within 24-48 hours.
             </p>
             <a
-              href="mailto:support@guitar-tuner.app"
+              href="mailto:support@guitartunepro.com"
               className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 transition-colors text-sm font-medium w-full"
             >
               support@guitartunepro.com

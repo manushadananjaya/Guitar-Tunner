@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
-const siteUrl = "https://guitar-tuner.app";
+const siteUrl = "https://www.guitartunepro.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
