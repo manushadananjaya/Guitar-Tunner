@@ -15,10 +15,24 @@ export const metadata: Metadata = {
 };
 
 export default function DropDTunerPage() {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Drop D Tuner - GuitarTunePro",
+    url: "https://www.guitartunepro.com/drop-d-tuner",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Free online Drop D guitar tuner. Tune your guitar to Drop D (D A D G B E) instantly.",
+    browserRequirements: "Requires microphone access"
+  };
+
   return (
-    <ArticleLayout
-      slug="drop-d-tuner"
-      canonicalPath="/drop-d-tuner"
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }} />
+      <ArticleLayout
+        slug="drop-d-tuner"
+        canonicalPath="/drop-d-tuner"
       title="Drop D Tuner"
       description="Free online Drop D tuner — tune your guitar to D A D G B E instantly using your microphone, with no download required."
       datePublished="2025-03-01"
@@ -193,5 +207,6 @@ export default function DropDTunerPage() {
         to get perfectly in tune in seconds.
       </p>
     </ArticleLayout>
+    </>
   );
 }

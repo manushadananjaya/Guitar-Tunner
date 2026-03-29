@@ -15,10 +15,24 @@ export const metadata: Metadata = {
 };
 
 export default function HalfStepDownTunerPage() {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Half Step Down Tuner - GuitarTunePro",
+    url: "https://www.guitartunepro.com/half-step-down-tuner",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Free online half step down (Eb) guitar tuner. Tune your guitar to Eb Ab Db Gb Bb Eb instantly.",
+    browserRequirements: "Requires microphone access"
+  };
+
   return (
-    <ArticleLayout
-      slug="half-step-down-tuner"
-      canonicalPath="/half-step-down-tuner"
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }} />
+      <ArticleLayout
+        slug="half-step-down-tuner"
+        canonicalPath="/half-step-down-tuner"
       title="Half Step Down Tuner (Eb Tuning)"
       description="Free online half step down tuner — tune your guitar to Eb Ab Db Gb Bb Eb using your microphone. Beloved by classic rock and metal players."
       datePublished="2025-03-01"
@@ -193,5 +207,6 @@ export default function HalfStepDownTunerPage() {
         to start tuning.
       </p>
     </ArticleLayout>
+    </>
   );
 }

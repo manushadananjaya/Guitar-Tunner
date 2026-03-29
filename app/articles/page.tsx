@@ -169,8 +169,20 @@ const colorMap: Record<string, { badge: string; accent: string; dot: string }> =
   };
 
 export default function ArticlesIndex() {
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Guitar Tuning Guides & Articles | GuitarTunePro",
+    description: "Learn how to tune your guitar perfectly. Our comprehensive guides cover beginner tuning, standard tuning, alternate tunings, intonation, string selection, and keeping your guitar in tune.",
+    url: "https://www.guitartunepro.com/articles"
+  };
+
   return (
     <div className="min-h-screen bg-[#050510] text-white flex flex-col items-center relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />

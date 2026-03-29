@@ -22,7 +22,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Your Guitar Goes Out of Tune",
+  "description": "Tuning instability is one of the most frustrating problems for guitarists. This guide identifies every major cause — and gives you the exact fix for each one.",
+  "image": "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-05",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="why-your-guitar-goes-out-of-tune"
       title="Why Your Guitar Goes Out of Tune"
       description="Tuning instability is one of the most frustrating problems for guitarists. This guide identifies every major cause — and gives you the exact fix for each one."
@@ -375,5 +398,6 @@ export default function ArticlePage() {
         to verify every string is perfectly set before you play.
       </p>
     </ArticleLayout>
+    </>
   );
 }

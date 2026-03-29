@@ -22,7 +22,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Tune a Guitar by Ear",
+  "description": "A detailed guide to the 5th fret method, harmonic tuning, and octave matching — plus why relative ear tuning and digital tuners both have important roles.",
+  "image": "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-20",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="how-to-tune-a-guitar-by-ear"
       title="How to Tune a Guitar by Ear"
       description="A detailed guide to the 5th fret method, harmonic tuning, and octave matching — plus why relative ear tuning and digital tuners both have important roles."
@@ -369,5 +392,6 @@ export default function ArticlePage() {
         when precision matters — no download required, works on any device.
       </p>
     </ArticleLayout>
+    </>
   );
 }

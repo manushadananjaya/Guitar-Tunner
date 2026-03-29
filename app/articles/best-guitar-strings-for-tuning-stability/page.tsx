@@ -24,7 +24,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Best Guitar Strings for Tuning Stability",
+  "description": "A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar.",
+  "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-18",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="best-guitar-strings-for-tuning-stability"
       title="Best Guitar Strings for Tuning Stability"
       description="A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar."
@@ -392,5 +415,6 @@ export default function ArticlePage() {
         start and whenever something sounds off.
       </p>
     </ArticleLayout>
+    </>
   );
 }

@@ -11,8 +11,20 @@ export const metadata: Metadata = {
 const lastUpdated = "March 1, 2025";
 
 export default function PrivacyPolicyPage() {
+  const privacyJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Privacy Policy | GuitarTunePro",
+    description: "GuitarTunePro privacy policy. Learn how we handle your data, microphone access, cookies, and third-party services.",
+    url: "https://www.guitartunepro.com/privacy-policy"
+  };
+
   return (
     <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
+      />
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
       </div>

@@ -15,10 +15,24 @@ export const metadata: Metadata = {
 };
 
 export default function OpenGTunerPage() {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Open G Tuner - GuitarTunePro",
+    url: "https://www.guitartunepro.com/open-g-tuner",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Free online Open G guitar tuner. Tune your guitar to Open G (D G D G B D) instantly.",
+    browserRequirements: "Requires microphone access"
+  };
+
   return (
-    <ArticleLayout
-      slug="open-g-tuner"
-      canonicalPath="/open-g-tuner"
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }} />
+      <ArticleLayout
+        slug="open-g-tuner"
+        canonicalPath="/open-g-tuner"
       title="Open G Tuner"
       description="Free online Open G tuner — tune your guitar to D G D G B D using your microphone. Loved by blues and slide guitarists."
       datePublished="2025-03-01"
@@ -173,5 +187,6 @@ export default function OpenGTunerPage() {
         in standard or any other tuning preset.
       </p>
     </ArticleLayout>
+    </>
   );
 }

@@ -21,7 +21,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Does a Capo Affect Guitar Tuning?",
+  "description": "Yes — and here's why. A guide to how capos interact with your guitar's pitch, and practical tips to stay perfectly in tune when using one.",
+  "image": "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-12-01",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="does-a-capo-affect-guitar-tuning"
       title="Does a Capo Affect Guitar Tuning?"
       description="Yes — and here's why. A guide to how capos interact with your guitar's pitch, and practical tips to stay perfectly in tune when using one."
@@ -284,5 +307,6 @@ export default function ArticlePage() {
         setup time.
       </p>
     </ArticleLayout>
+    </>
   );
 }

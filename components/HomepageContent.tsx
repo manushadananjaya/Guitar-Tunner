@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const faqs = [
+export const faqs = [
   {
     question: "Does this work without downloading anything?",
     answer:

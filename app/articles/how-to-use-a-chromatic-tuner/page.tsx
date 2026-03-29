@@ -22,7 +22,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Use a Chromatic Tuner",
+  "description": "Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning.",
+  "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-22",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="how-to-use-a-chromatic-tuner"
       title="How to Use a Chromatic Tuner"
       description="Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning."
@@ -342,5 +365,6 @@ export default function ArticlePage() {
         half-step down, and any other alternate tuning.
       </p>
     </ArticleLayout>
+    </>
   );
 }

@@ -8,8 +8,20 @@ export const metadata = {
 };
 
 export default function TermsOfServicePage() {
+  const termsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Terms of Service | GuitarTunePro",
+    description: "Terms and conditions of using GuitarTunePro's free tuning tools.",
+    url: "https://www.guitartunepro.com/terms-of-service"
+  };
+
   return (
     <div className="min-h-screen bg-[#050510] text-zinc-300 font-sans selection:bg-cyan-500/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd) }}
+      />
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
         <Link href="/" className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors mb-8 text-sm font-medium">
           <ArrowLeft className="w-4 h-4" /> Back to Tuner

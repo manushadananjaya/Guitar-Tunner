@@ -22,7 +22,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Intonate Your Guitar",
+  "description": "A complete, practical guide to checking and setting guitar intonation — what it is, why it matters, and exactly how to adjust each string's saddle for perfect pitch across the entire fretboard.",
+  "image": "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-12-05",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="how-to-intonate-your-guitar"
       title="How to Intonate Your Guitar"
       description="A complete, practical guide to checking and setting guitar intonation — what it is, why it matters, and exactly how to adjust each string's saddle for perfect pitch across the entire fretboard."
@@ -357,5 +380,6 @@ export default function ArticlePage() {
         improvement in playing experience is immediate and significant.
       </p>
     </ArticleLayout>
+    </>
   );
 }

@@ -10,8 +10,28 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About GuitarTunePro",
+    description: "Learn about GuitarTunePro — the free, browser-based guitar tuner with real-time pitch detection.",
+    url: "https://www.guitartunepro.com/about",
+    publisher: {
+      "@type": "Organization",
+      name: "GuitarTunePro",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.guitartunepro.com/Logo.png"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />

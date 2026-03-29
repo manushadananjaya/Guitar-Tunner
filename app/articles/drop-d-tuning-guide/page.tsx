@@ -22,7 +22,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Drop D Tuning Guide for Rock and Metal",
+  "description": "Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever.",
+  "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-12",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="drop-d-tuning-guide"
       title="Drop D Tuning Guide for Rock and Metal"
       description="Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever."
@@ -403,5 +426,6 @@ export default function ArticlePage() {
         and start riffing.
       </p>
     </ArticleLayout>
+    </>
   );
 }

@@ -23,7 +23,30 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <ArticleLayout
+        <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Standard Tuning Explained",
+  "description": "A deep dive into E-A-D-G-B-E standard tuning: what the notes are, why the intervals are what they are, the history behind it, and how it shapes everything from chords to scales.",
+  "image": "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "url": "https://www.guitartunepro.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GuitarTunePro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.guitartunepro.com/Logo.png"
+    }
+  },
+  "datePublished": "2024-11-08",
+  "dateModified": "2026-03-29"
+}) }} />
+      <ArticleLayout
       slug="standard-tuning-explained"
       title="Standard Tuning Explained"
       description="A deep dive into E-A-D-G-B-E standard tuning: what the notes are, why the intervals are what they are, the history behind it, and how it shapes everything from chords to scales."
@@ -328,5 +351,6 @@ export default function ArticlePage() {
         pre-load the correct target notes automatically.
       </p>
     </ArticleLayout>
+    </>
   );
 }

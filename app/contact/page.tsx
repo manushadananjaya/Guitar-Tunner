@@ -9,8 +9,25 @@ export const metadata = {
 };
 
 export default function ContactPage() {
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact GuitarTunePro",
+    description: "Get in touch with the GuitarTunePro team for support, feedback, or business inquiries.",
+    url: "https://www.guitartunepro.com/contact",
+    mainEntity: {
+      "@type": "Organization",
+      name: "GuitarTunePro",
+      email: "support@guitartunepro.com",
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050510] text-zinc-300 font-sans selection:bg-cyan-500/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
+      />
       <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
         <Link
           href="/"

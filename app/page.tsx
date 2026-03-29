@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProfessionalTuner } from '@/components/Tuner/ProfessionalTuner';
-import { HomepageContent } from '@/components/HomepageContent';
+import { HomepageContent, faqs } from '@/components/HomepageContent';
 
 export const metadata: Metadata = {
   title: "GuitarTunePro | Free Online Chromatic Guitar Tuner — High Accuracy",
@@ -33,10 +33,49 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "GuitarTunePro",
+    url: "https://www.guitartunepro.com",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD"
+    },
+    description: "Free online chromatic guitar tuner. Tune your guitar with a microphone on any device. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download required.",
+    browserRequirements: "Requires microphone access"
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
-    <main className="min-h-screen bg-background">
-      <ProfessionalTuner />
-      <HomepageContent />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <main className="min-h-screen bg-background">
+        <ProfessionalTuner />
+        <HomepageContent />
+      </main>
+    </>
   );
 }
