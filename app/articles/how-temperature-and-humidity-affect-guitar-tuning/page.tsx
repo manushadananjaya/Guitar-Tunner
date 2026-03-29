@@ -338,8 +338,8 @@ export default function ArticlePage() {
         significantly less time retuning and much longer instrument life.
       </p>
       <p>
-        Check your tuning before every session with{" "}
-        <Link href="/">GuitarTunePro</Link> — environmental changes are one of
+        Check your tuning before every session with our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link> — environmental changes are one of
         the most common reasons a well-set-up guitar needs a quick retune.
       </p>
     </ArticleLayout>

@@ -278,8 +278,8 @@ export default function ArticlePage() {
 
       <p>
         The bottom line: yes, capos affect tuning — but with the right capo,
-        proper positioning, and a quick retune after placing it (using
-        GuitarTunePro), you can play with a capo and stay perfectly in tune.
+        proper positioning, and a quick retune after placing it using our{" "}
+        <Link href="/">free online guitar tuner</Link>, you can play with a capo and stay perfectly in tune.
         Make post-capo tuning a habit, and it adds less than 30 seconds to your
         setup time.
       </p>

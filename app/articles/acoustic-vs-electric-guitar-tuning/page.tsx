@@ -353,7 +353,7 @@ export default function ArticlePage() {
 
       <p>
         Regardless of which type of guitar you play, a reliable digital tuner is
-        your best ally. Use <Link href="/">GuitarTunePro</Link> before every
+        your best ally. Use our <Link href="/">free online chromatic guitar tuner</Link> before every
         practice session and performance to ensure you start from a clean,
         accurate baseline.
       </p>

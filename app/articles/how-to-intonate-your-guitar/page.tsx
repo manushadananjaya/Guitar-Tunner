@@ -348,7 +348,7 @@ export default function ArticlePage() {
 
       <p>
         With a good setup and proper intonation, your guitar should play in tune
-        anywhere on the neck. Use <Link href="/">GuitarTunePro</Link> to verify
+        anywhere on the neck. Use our <Link href="/">free online chromatic guitar tuner</Link> to verify
         your open string tuning and to make the precise measurements needed for
         accurate intonation setting.
       </p>
