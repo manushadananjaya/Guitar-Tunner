@@ -26,7 +26,7 @@ export default function ArticlePage() {
       title="Does a Capo Affect Guitar Tuning?"
       description="Yes — and here's why. A guide to how capos interact with your guitar's pitch, and practical tips to stay perfectly in tune when using one."
       datePublished="2024-12-01"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={7}
       heroImage={{
         src: "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=900&q=80",

@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="Acoustic vs Electric Guitar Tuning Differences"
       description="A practical comparison of how acoustic and electric guitars differ when it comes to tuning stability, string tension, bridge types, and the tools needed to stay in tune."
       datePublished="2024-11-25"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=900&q=80",

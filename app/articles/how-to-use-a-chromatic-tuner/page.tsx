@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="How to Use a Chromatic Tuner"
       description="Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning."
       datePublished="2024-11-22"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
@@ -263,13 +263,13 @@ export default function ArticlePage() {
       <p>For common alternate tunings, the target notes are:</p>
       <ul>
         <li>
-          <strong>Drop D:</strong> D-A-D-G-B-E
+          <strong><Link href="/drop-d-tuner">Drop D tuner</Link>:</strong> D-A-D-G-B-E
         </li>
         <li>
-          <strong>Half-Step Down:</strong> Eb-Ab-Db-Gb-Bb-Eb
+          <strong><Link href="/half-step-down-tuner">Half-Step Down tuner</Link>:</strong> Eb-Ab-Db-Gb-Bb-Eb
         </li>
         <li>
-          <strong>Open G:</strong> D-G-D-G-B-D
+          <strong><Link href="/open-g-tuner">Open G tuner</Link>:</strong> D-G-D-G-B-D
         </li>
         <li>
           <strong>Open D:</strong> D-A-D-F#-A-D
@@ -334,6 +334,13 @@ export default function ArticlePage() {
           batteries give inaccurate readings.
         </li>
       </ul>
+      <p>
+        Ready to tune? Try our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link> — it works
+        directly in your browser, requires no download, and delivers
+        professional-grade accuracy for standard tuning, Drop D, Open G,
+        half-step down, and any other alternate tuning.
+      </p>
     </ArticleLayout>
   );
 }

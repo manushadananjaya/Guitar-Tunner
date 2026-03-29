@@ -27,6 +27,9 @@ export interface ArticleLayoutProps {
   relatedArticles?: RelatedArticle[];
   children: React.ReactNode;
   slug: string;
+  /** Override the canonical URL path used in JSON-LD and the breadcrumb.
+   *  Defaults to /articles/{slug}. Pass for non-article routes like /drop-d-tuner. */
+  canonicalPath?: string;
 }
 
 export default function ArticleLayout({
@@ -40,8 +43,11 @@ export default function ArticleLayout({
   relatedArticles,
   children,
   slug,
+  canonicalPath,
 }: ArticleLayoutProps) {
   const siteUrl = "https://www.guitartunepro.com";
+  const resolvedPath = canonicalPath ?? `/articles/${slug}`;
+  const isArticle = resolvedPath.startsWith("/articles/");
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -66,7 +72,7 @@ export default function ArticleLayout({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${siteUrl}/articles/${slug}`,
+      "@id": `${siteUrl}${resolvedPath}`,
     },
     ...(heroImage && {
       image: {
@@ -115,17 +121,21 @@ export default function ArticleLayout({
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-zinc-500 mb-6">
           <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link href="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link>
+          {isArticle && (
+            <>
+              <ChevronRight className="w-3 h-3" />
+              <Link href="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link>
+            </>
+          )}
           <ChevronRight className="w-3 h-3" />
           <span className="text-zinc-400 truncate max-w-[180px]">{title}</span>
         </nav>
 
         <Link
-          href="/articles"
+          href={isArticle ? "/articles" : "/"}
           className="inline-flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors mb-6"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Articles
+          <ArrowLeft className="w-4 h-4 mr-2" /> {isArticle ? "Back to Articles" : "Back to Tuner"}
         </Link>
 
         {/* Article Header */}
@@ -205,7 +215,7 @@ export default function ArticleLayout({
             href="/"
             className="inline-block bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 rounded-full text-sm transition-colors"
           >
-            Open Free Guitar Tuner →
+            Use Our Free Chromatic Guitar Tuner →
           </Link>
         </div>
 

@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="Drop D Tuning Guide for Rock and Metal"
       description="Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever."
       datePublished="2024-11-12"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
@@ -141,10 +141,12 @@ export default function ArticlePage() {
       <h2>How to Tune to Drop D</h2>
       <h3>Method 1: Use an Online Tuner (Fastest)</h3>
       <p>
-        Open <Link href="/">GuitarTunePro</Link> and select "Drop D" from the
-        tuning mode options. The tuner will show the target note D for the 6th
-        string. Pluck the low E string and loosen the tuning peg until the tuner
-        reads D at 0 cents. Done — the whole process takes about 10 seconds.
+        Open our{" "}
+        <Link href="/drop-d-tuner">free Drop D tuner</Link> — select "Drop D"
+        from the tuning mode options. The tuner will show the target note D for
+        the 6th string. Pluck the low E string and loosen the tuning peg until
+        the tuner reads D at 0 cents. Done — the whole process takes about 10
+        seconds.
       </p>
       <h3>Method 2: Harmonic Method (No Tuner Needed)</h3>
       <p>This is the fastest ear-based method used by guitarists on stage:</p>

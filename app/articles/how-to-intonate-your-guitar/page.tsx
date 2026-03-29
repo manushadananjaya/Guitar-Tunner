@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="How to Intonate Your Guitar"
       description="A complete, practical guide to checking and setting guitar intonation — what it is, why it matters, and exactly how to adjust each string's saddle for perfect pitch across the entire fretboard."
       datePublished="2024-12-05"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={10}
       heroImage={{
         src: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80",

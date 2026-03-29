@@ -28,7 +28,7 @@ export default function ArticlePage() {
       title="Standard Tuning Explained"
       description="A deep dive into E-A-D-G-B-E standard tuning: what the notes are, why the intervals are what they are, the history behind it, and how it shapes everything from chords to scales."
       datePublished="2024-11-08"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80",
@@ -317,7 +317,15 @@ export default function ArticlePage() {
         But even those artists return to standard tuning for large portions of
         their repertoire. It remains the home base of the guitar, the starting
         point from which every other tuning is defined and referenced. Learn it
-        thoroughly, and all other tunings will make much more sense.
+        thoroughly, and all other tunings will make much more sense. Get your
+        guitar in standard tuning right now with our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link> — no download
+        required, works on any device. When you&apos;re ready to go further, our
+        dedicated{" "}
+        <Link href="/drop-d-tuner">Drop D tuner</Link>,{" "}
+        <Link href="/open-g-tuner">Open G tuner</Link>, and{" "}
+        <Link href="/half-step-down-tuner">half step down tuner</Link> each
+        pre-load the correct target notes automatically.
       </p>
     </ArticleLayout>
   );

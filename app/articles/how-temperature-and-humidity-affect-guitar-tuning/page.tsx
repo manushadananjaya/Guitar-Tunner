@@ -29,7 +29,7 @@ export default function ArticlePage() {
       title="How Temperature and Humidity Affect Guitar Tuning"
       description="A detailed guide to understanding environmental effects on your guitar — why wood expands and contracts, how strings respond to temperature changes, and how to protect your instrument."
       datePublished="2024-11-28"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",

@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="How to Tune a Guitar by Ear"
       description="A detailed guide to the 5th fret method, harmonic tuning, and octave matching — plus why relative ear tuning and digital tuners both have important roles."
       datePublished="2024-11-20"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=900&q=80",
@@ -364,7 +364,9 @@ export default function ArticlePage() {
       <p>
         The combination of ear-trained musicianship and digital accuracy is what
         professional musicians use. Learn to hear when something is off, and
-        verify with a great tuner like GuitarTunePro when precision matters.
+        verify with our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link>{" "}
+        when precision matters — no download required, works on any device.
       </p>
     </ArticleLayout>
   );

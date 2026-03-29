@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="How to Tune a Guitar for Beginners"
       description="A complete, step-by-step guide to tuning your guitar for the very first time — from learning string names to reading your tuner and keeping your guitar in tune longer."
       datePublished="2024-11-01"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80",

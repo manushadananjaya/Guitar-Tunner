@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="Alternate Guitar Tunings You Should Try"
       description="A comprehensive guide to the most popular alternate guitar tunings — what they sound like, which artists use them, and how to tune to each one."
       datePublished="2024-11-15"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={11}
       heroImage={{
         src: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=900&q=80",
@@ -152,7 +152,8 @@ export default function ArticlePage() {
       <p>
         Read the full{" "}
         <Link href="/articles/drop-d-tuning-guide">Drop D tuning guide</Link>{" "}
-        for complete instructions and song examples.
+        for complete instructions and song examples, or go straight to our{" "}
+        <Link href="/drop-d-tuner">free Drop D tuner</Link>.
       </p>
 
       <h2>Open G (D-G-D-G-B-D)</h2>
@@ -160,7 +161,9 @@ export default function ArticlePage() {
         Open G is one of the most beloved alternate tunings in blues, rock, and
         folk. The guitar is tuned so that strumming all six open strings
         produces a G major chord. The 6th string drops from E to D, the 5th
-        string drops from A to G, and the 1st string drops from E to D.
+        string drops from A to G, and the 1st string drops from E to D. Use our{" "}
+        <Link href="/open-g-tuner">free Open G tuner</Link> to get there
+        instantly with your microphone.
       </p>
       <ul>
         <li>
@@ -277,7 +280,9 @@ export default function ArticlePage() {
 
       <p>
         This is one of the most commonly used "real world" alternate tunings in
-        classic rock and metal.
+        classic rock and metal. Use our dedicated{" "}
+        <Link href="/half-step-down-tuner">half step down tuner</Link>{" "}
+        to get tuned up instantly.
       </p>
       <ul>
         <li>
@@ -388,6 +393,12 @@ export default function ArticlePage() {
           stumble onto voicings you'd never find otherwise.
         </li>
       </ul>
+      <p>
+        Ready to explore? Use our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link>{" "}
+        to tune to any of these alternate tunings in seconds — it detects any
+        note and works directly in your browser with no download required.
+      </p>
     </ArticleLayout>
   );
 }

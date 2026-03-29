@@ -27,7 +27,7 @@ export default function ArticlePage() {
       title="Why Your Guitar Goes Out of Tune"
       description="Tuning instability is one of the most frustrating problems for guitarists. This guide identifies every major cause — and gives you the exact fix for each one."
       datePublished="2024-11-05"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=900&q=80",
@@ -370,7 +370,9 @@ export default function ArticlePage() {
         problems without a trip to the guitar shop. For complex issues like
         floating bridge setup or nut re-cutting, don't hesitate to visit a
         luthier — the cost is well worth the improvement in playability and
-        stability.
+        stability. Once your guitar is holding its pitch, use our{" "}
+        <Link href="/">free online chromatic guitar tuner</Link>{" "}
+        to verify every string is perfectly set before you play.
       </p>
     </ArticleLayout>
   );

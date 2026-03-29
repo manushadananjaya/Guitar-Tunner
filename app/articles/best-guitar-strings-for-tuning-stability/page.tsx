@@ -29,7 +29,7 @@ export default function ArticlePage() {
       title="Best Guitar Strings for Tuning Stability"
       description="A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar."
       datePublished="2024-11-18"
-      dateModified="2025-03-01"
+      dateModified="2026-03-29"
       readingTimeMinutes={10}
       heroImage={{
         src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",
