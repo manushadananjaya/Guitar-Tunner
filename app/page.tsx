@@ -3,14 +3,14 @@ import { ProfessionalTuner } from '@/components/Tuner/ProfessionalTuner';
 import { HomepageContent, faqs } from '@/components/HomepageContent';
 
 export const metadata: Metadata = {
-  title: "GuitarTunePro | Free Online Chromatic Guitar Tuner — High Accuracy",
+  title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
   description:
-    "Tune your guitar with a microphone — free, online, no download required. GuitarTunePro is a high accuracy chromatic guitar tuner supporting Standard, Drop D, Open G, Half-Step Down, and 10+ tuning presets. Works on any device.",
+    "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "GuitarTunePro | Free Online Chromatic Guitar Tuner — High Accuracy",
+    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
     description:
-      "Free online chromatic guitar tuner. Tune guitar with microphone on any device. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download needed.",
+      "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     type: "website",
     url: "https://www.guitartunepro.com",
     siteName: "GuitarTunePro",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GuitarTunePro | Free Online Chromatic Guitar Tuner",
+    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
     description:
-      "Tune your guitar with a microphone — free, high accuracy, no download required.",
+      "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     images: ["/Logo.png"],
   },
 };

@@ -42,10 +42,10 @@ export function HomepageContent() {
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/30 bg-cyan-500/5 px-3 py-1.5 rounded-full">
             About GuitarTunePro
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
             The Free Online{" "}
             <span className="text-cyan-500">Chromatic Guitar Tuner</span>
-          </h2>
+          </h1>
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
             Professional-grade pitch detection in your browser. No download, no
             subscription, no compromise.
