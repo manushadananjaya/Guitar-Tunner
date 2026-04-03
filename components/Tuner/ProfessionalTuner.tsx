@@ -394,42 +394,84 @@ export function ProfessionalTuner() {
 
       {/* AdSense SEO Content */}
       <section className="w-full max-w-4xl px-4 py-16 text-zinc-300 z-10 mt-8 border-t border-white/5">
-        <h2 className="text-3xl font-bold text-white mb-6">Online Guitar Tuner Guide</h2>
-        
+        <h2 className="text-3xl font-bold text-white mb-6">
+          Online Guitar Tuner Guide
+        </h2>
+
         <article className="prose prose-invert max-w-none">
-          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">How to Tune Your Guitar by Ear or with a Mic</h3>
+          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">
+            How to Tune Your Guitar by Ear or with a Mic
+          </h3>
           <p className="mb-4 leading-relaxed">
-            Tuning your guitar is the most important skill you can learn as a beginner. An out-of-tune guitar will make even the 
-            greatest players sound bad. Our <strong>online guitar tuner</strong> simplifies this process. Simply allow 
-            microphone access, pluck a string, and our advanced pitch detection algorithm will tell you exactly which note you 
-            are playing and whether it is too sharp (high) or flat (low). 
+            Tuning your guitar is the most important skill you can learn as a
+            beginner. An out-of-tune guitar will make even the greatest players
+            sound bad. Our <strong>online guitar tuner</strong> simplifies this
+            process. Simply allow microphone access, pluck a string, and our
+            advanced pitch detection algorithm will tell you exactly which note
+            you are playing and whether it is too sharp (high) or flat (low).
           </p>
           <p className="mb-4 leading-relaxed">
-            The standard tuning for a 6-string guitar, starting from the thickest string (lowest pitch) to the thinnest 
-            string (highest pitch), is <strong>E - A - D - G - B - E</strong>. A helpful mnemonic device to remember these notes is: 
-            "<strong>E</strong>ddie <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>ood <strong>B</strong>ye <strong>E</strong>ddie".
+            The standard tuning for a 6-string guitar, starting from the
+            thickest string (lowest pitch) to the thinnest string (highest
+            pitch), is <strong>E - A - D - G - B - E</strong>. A helpful
+            mnemonic device to remember these notes is: "<strong>E</strong>ddie{" "}
+            <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>
+            ood <strong>B</strong>ye <strong>E</strong>ddie".
           </p>
-          
-          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">Exploring Alternative Tunings</h3>
+
+          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
+            Exploring Alternative Tunings
+          </h3>
           <p className="mb-4 leading-relaxed">
-            While standard tuning is extremely versatile, exploring alternative tunings can unlock entirely new sonic possibilities 
-            and make certain chords easier to play. Our tuner supports dozens of alternative tunings instantly.
+            While standard tuning is extremely versatile, exploring alternative
+            tunings can unlock entirely new sonic possibilities and make certain
+            chords easier to play. Our tuner supports dozens of alternative
+            tunings instantly.
           </p>
           <ul className="list-disc list-inside space-y-2 mb-6 ml-4">
-            <li><strong>Drop D (D A D G B E):</strong> Popular in rock and metal for easy, heavy power chords. Lower the thick E string down a whole step to D.</li>
-            <li><strong>Open G (D G D G B D):</strong> A favorite of blues players and the Rolling Stones. Strumming all strings open produces a G major chord.</li>
-            <li><strong>Half-Step Down (Eb Ab Db Gb Bb Eb):</strong> Lowers the tension on the strings, making bending easier, and creates a darker, heavier tone favored by grunge bands.</li>
+            <li>
+              <strong>Drop D (D A D G B E):</strong> Popular in rock and metal
+              for easy, heavy power chords. Lower the thick E string down a
+              whole step to D.
+            </li>
+            <li>
+              <strong>Open G (D G D G B D):</strong> A favorite of blues players
+              and the Rolling Stones. Strumming all strings open produces a G
+              major chord.
+            </li>
+            <li>
+              <strong>Half-Step Down (Eb Ab Db Gb Bb Eb):</strong> Lowers the
+              tension on the strings, making bending easier, and creates a
+              darker, heavier tone favored by grunge bands.
+            </li>
           </ul>
 
-          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">Frequently Asked Questions</h3>
+          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
+            Frequently Asked Questions
+          </h3>
           <div className="space-y-6">
             <div>
-              <h4 className="text-lg font-medium text-white mb-2">Is the online guitar tuner accurate?</h4>
-              <p className="leading-relaxed text-sm">Yes, GuitarTunePro uses the Web Audio API and highly precise algorithmic pitch detection. It is accurate to within a few cents, making it suitable for professional stage setup, recording sessions, and daily practice.</p>
+              <h4 className="text-lg font-medium text-white mb-2">
+                Is the online guitar tuner accurate?
+              </h4>
+              <p className="leading-relaxed text-sm">
+                Yes, GuitarTunePro uses the Web Audio API and highly precise
+                algorithmic pitch detection. It is accurate to within a few
+                cents, making it suitable for professional stage setup,
+                recording sessions, and daily practice.
+              </p>
             </div>
             <div>
-              <h4 className="text-lg font-medium text-white mb-2">Why isn't the tuner hearing my guitar?</h4>
-              <p className="leading-relaxed text-sm">Ensure that you have granted microphone permissions in your browser. If you are using an electric guitar without an amplifier, the acoustic sound may be too quiet. Try moving your instrument closer to the device's microphone or plugging into a USB interface.</p>
+              <h4 className="text-lg font-medium text-white mb-2">
+                Why isn't the tuner hearing my guitar?
+              </h4>
+              <p className="leading-relaxed text-sm">
+                Ensure that you have granted microphone permissions in your
+                browser. If you are using an electric guitar without an
+                amplifier, the acoustic sound may be too quiet. Try moving your
+                instrument closer to the device's microphone or plugging into a
+                USB interface.
+              </p>
             </div>
           </div>
         </article>
@@ -439,18 +481,41 @@ export function ProfessionalTuner() {
       <footer className="w-full py-8 z-10 mt-auto border-t border-white/5 bg-zinc-950/40">
         <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-zinc-400 font-medium">
-            <Link href="/about" className="hover:text-cyan-400 transition-colors">About Us</Link>
-            <Link href="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link>
-            <Link href="/privacy-policy" className="hover:text-cyan-400 transition-colors">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="hover:text-cyan-400 transition-colors">Terms of Service</Link>
-            <Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link>
+            <Link
+              href="/about"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              About Us
+            </Link>
+            <Link
+              href="/articles"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              Articles
+            </Link>
+            <Link
+              href="/privacy-policy"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-of-service"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              Contact
+            </Link>
           </div>
           <p className="text-xs font-semibold text-zinc-500 tracking-wider flex items-center gap-1.5 uppercase shrink-0">
             Made with <span className="text-rose-500 text-sm">❤️</span> by{" "}
-            <a href="https://helixios.com" target="_blank" rel="noopener noreferrer">
-              <span className="text-cyan-400 opacity-90 hover:opacity-100 transition-opacity drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">
-                Helixios
-              </span>
+            <a href="https://.com" target="_blank" rel="noopener noreferrer">
+              <span className="text-cyan-400 opacity-90 hover:opacity-100 transition-opacity drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]"></span>
             </a>
           </p>
         </div>

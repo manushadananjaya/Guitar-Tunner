@@ -124,7 +124,7 @@ export default function RootLayout({
       width: 512,
       height: 512,
     },
-    sameAs: ["https://helixios.com"],
+    sameAs: ["https://.com"],
   };
 
   const webSiteSchema = {
@@ -230,13 +230,18 @@ export default function RootLayout({
     ],
   };
 
-
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${lora.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
         <script
           type="application/ld+json"
@@ -257,7 +262,10 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="font-sans antialiased tracking-[-0.01em]" suppressHydrationWarning>
+      <body
+        className="font-sans antialiased tracking-[-0.01em]"
+        suppressHydrationWarning
+      >
         <Navbar />
         {children}
         <Analytics />

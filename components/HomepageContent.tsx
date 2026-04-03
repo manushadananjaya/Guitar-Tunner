@@ -61,7 +61,9 @@ export function HomepageContent() {
             built for players of all skill levels — from first-time beginners to
             touring professionals. It runs entirely in your web browser using
             the Web Audio API, which means you can{" "}
-            <strong className="text-white">tune your guitar with a microphone</strong>{" "}
+            <strong className="text-white">
+              tune your guitar with a microphone
+            </strong>{" "}
             on any device without installing anything.
           </p>
           <p>
@@ -90,12 +92,10 @@ export function HomepageContent() {
           <p>
             GuitarTunePro is developed and maintained by{" "}
             <a
-              href="https://helixios.com"
+              href="https://.com"
               className="text-cyan-400 hover:text-cyan-300 transition-colors"
               rel="noopener noreferrer"
-            >
-              Helixios
-            </a>
+            ></a>
             . All audio processing happens locally on your device — no audio
             data is ever sent to a server. The tuner is completely free and
             always will be.
@@ -170,7 +170,8 @@ export function HomepageContent() {
             Dedicated Alternate Tuners
           </h2>
           <p className="text-zinc-400 text-base max-w-xl mx-auto">
-            Each alternate tuner is pre-loaded with the correct target notes so you can switch tunings in seconds.
+            Each alternate tuner is pre-loaded with the correct target notes so
+            you can switch tunings in seconds.
           </p>
         </div>
         <div className="grid sm:grid-cols-3 gap-4">
@@ -185,7 +186,8 @@ export function HomepageContent() {
               Free Drop D Tuner
             </p>
             <p className="text-xs text-zinc-500">
-              Lower your 6th string to D for one-finger power chords — perfect for rock and metal.
+              Lower your 6th string to D for one-finger power chords — perfect
+              for rock and metal.
             </p>
           </Link>
           <Link
@@ -199,7 +201,8 @@ export function HomepageContent() {
               Free Open G Tuner
             </p>
             <p className="text-xs text-zinc-500">
-              Tune to Open G — the Keith Richards signature tuning for blues, folk, and slide guitar.
+              Tune to Open G — the Keith Richards signature tuning for blues,
+              folk, and slide guitar.
             </p>
           </Link>
           <Link
@@ -213,7 +216,8 @@ export function HomepageContent() {
               Free Half Step Down Tuner
             </p>
             <p className="text-xs text-zinc-500">
-              Tune every string down one semitone — used by Hendrix, Guns N&apos; Roses, and Megadeth.
+              Tune every string down one semitone — used by Hendrix, Guns
+              N&apos; Roses, and Megadeth.
             </p>
           </Link>
         </div>
