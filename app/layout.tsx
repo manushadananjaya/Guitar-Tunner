@@ -196,6 +196,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
         />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9097007689207633"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className="font-sans antialiased tracking-[-0.01em]"
@@ -204,11 +210,6 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Analytics />
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9097007689207633"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-B97Q2JFSRP"
