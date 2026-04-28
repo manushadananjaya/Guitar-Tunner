@@ -225,21 +225,16 @@ export default function AboutPage() {
             Contact & Support
           </h2>
           <p className="leading-relaxed mb-3">
-            GuitarTunePro is developed and maintained by{" "}
-            <a
-              href="https://.com"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
-            ></a>
-            . We welcome feedback, bug reports, and feature suggestions.
+            GuitarTunePro is developed and maintained by the GuitarTunePro team. We welcome feedback, bug reports, and feature suggestions.
           </p>
           <p className="leading-relaxed text-sm text-zinc-400">
-            For support inquiries, please visit{" "}
-            <a
-              href="https://.com"
+            For support inquiries, please visit our{" "}
+            <Link
+              href="/contact"
               className="text-cyan-400 hover:text-cyan-300 transition-colors"
             >
-              .com
-            </a>
+              contact page
+            </Link>
             .
           </p>
         </section>

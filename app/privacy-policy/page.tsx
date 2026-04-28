@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
         <div className="prose prose-invert prose-zinc prose-headings:text-white prose-headings:font-semibold prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-zinc-400 prose-p:leading-relaxed prose-li:text-zinc-400 max-w-none space-y-0">
           <p>
             This Privacy Policy describes how GuitarTunePro ("we", "our", or
-            "us"), operated by , collects, uses, and shares information when you
+            "us"), operated by the GuitarTunePro team, collects, uses, and shares information when you
             use our website at <strong>www.guitartunepro.com</strong> (the
             "Service"). By using the Service, you agree to the practices
             described in this policy.
@@ -269,12 +269,10 @@ export default function PrivacyPolicyPage() {
             <li>
               <strong>Website:</strong>{" "}
               <a
-                href="https://.com"
+                href="https://www.guitartunepro.com/contact"
                 className="text-cyan-400 hover:text-cyan-300 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
               >
-                .com
+                www.guitartunepro.com/contact
               </a>
             </li>
             <li>

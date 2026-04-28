@@ -514,9 +514,9 @@ export function ProfessionalTuner() {
           </div>
           <p className="text-xs font-semibold text-zinc-500 tracking-wider flex items-center gap-1.5 uppercase shrink-0">
             Made with <span className="text-rose-500 text-sm">❤️</span> by{" "}
-            <a href="https://.com" target="_blank" rel="noopener noreferrer">
-              <span className="text-cyan-400 opacity-90 hover:opacity-100 transition-opacity drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]"></span>
-            </a>
+            <Link href="/about" className="text-cyan-400 opacity-90 hover:opacity-100 transition-opacity">
+              GuitarTunePro
+            </Link>
           </p>
         </div>
       </footer>

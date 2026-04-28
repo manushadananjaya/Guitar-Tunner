@@ -90,13 +90,7 @@ export function HomepageContent() {
             is from its target note.
           </p>
           <p>
-            GuitarTunePro is developed and maintained by{" "}
-            <a
-              href="https://.com"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
-              rel="noopener noreferrer"
-            ></a>
-            . All audio processing happens locally on your device — no audio
+            GuitarTunePro is developed and maintained by the GuitarTunePro team. All audio processing happens locally on your device — no audio
             data is ever sent to a server. The tuner is completely free and
             always will be.
           </p>

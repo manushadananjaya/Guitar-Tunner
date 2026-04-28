@@ -124,7 +124,7 @@ export default function RootLayout({
       width: 512,
       height: 512,
     },
-    sameAs: ["https://.com"],
+    sameAs: ["https://www.guitartunepro.com"],
   };
 
   const webSiteSchema = {
@@ -175,61 +175,6 @@ export default function RootLayout({
     },
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Does this work without downloading anything?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. GuitarTunePro is a completely browser-based free online guitar tuner — no app download, no installation, and no account required. Open the site on any device with a modern web browser and a microphone, and you're ready to tune.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How accurate is the tuner?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "GuitarTunePro uses a high-accuracy pitch detection algorithm running at a 48 kHz sample rate with a 4096-sample FFT window. This gives ±1 cent precision — accurate enough for professional use, live performance, and studio recording.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Does this work on mobile?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. The tuner works on iPhone, Android, tablets, laptops, and desktops. Simply allow microphone access when prompted by your browser, and the tuner will detect your guitar's pitch in real time — no cables or adapters needed.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What guitar tunings are supported?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "GuitarTunePro supports Standard (E A D G B E), Drop D, Half-Step Down (Eb), Full-Step Down (D), Open G, Open D, Open A, DADGAD, and many more. You can also use it as a chromatic tuner to detect any note freely.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What instruments can I tune?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tuner supports 6-string guitar, 7-string guitar, 12-string guitar, bass guitar (4-string and 5-string), and ukulele. Switch between instrument types from the selector above the string display.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is the tuner completely free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, GuitarTunePro is 100% free with no hidden fees, subscriptions, or paywalls. The core tuner experience is advertisement-free and will remain free for all players.",
-        },
-      },
-    ],
-  };
-
   return (
     <html
       lang="en"
@@ -250,10 +195,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
         <Script
           async

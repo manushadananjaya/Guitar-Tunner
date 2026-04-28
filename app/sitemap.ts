@@ -133,5 +133,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       images: ['https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&amp;q=80'],
     },
+    {
+      url: `${siteUrl}/contact`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/terms-of-service`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
   ];
 }
