@@ -29,24 +29,7 @@ export function ProfessionalTuner() {
     null,
   );
   const [autoSelectString, setAutoSelectString] = useState(true);
-
-  // Tuner State
-  const [smoothedFreq, setSmoothedFreq] = useState(0);
-  const [noteData, setNoteData] = useState<Note>({
-    name: "—",
-    frequency: 0,
-    octave: 0,
-    semitone: 0,
-    midiNumber: 0,
-  });
-  const [cents, setCents] = useState(0);
-  const [isInTune, setIsInTune] = useState(false);
-  const frequencySmootherRef = useRef(0);
-  const centsSmootherRef = useRef(0);
-  const frequencyBufferRef = useRef<number[]>([]);
-  const stringVoteBufferRef = useRef<number[]>([]);
-  const lastDetectedTimeRef = useRef<number>(0);
-  const HOLD_DURATION_MS = 700;
+  const [activeView, setActiveView] = useState<"headstock" | "fretboard">("headstock");
 
   useEffect(() => {
     setIsMount(true);
@@ -85,7 +68,7 @@ export function ProfessionalTuner() {
     detected,
     confidence,
   } = usePitchDetector(audioBuffer, 48000, {
-    targetFrequency, // This helps the algorithm prioritize around the expected note if needed, though robust algorithms might ignore it
+    targetFrequency,
     accuracyCents: 5,
     smoothingFactor: 0.55,
     updateRate: 16,
@@ -212,84 +195,109 @@ export function ProfessionalTuner() {
     }
   };
 
+  const frequencySmootherRef = useRef(0);
+  const centsSmootherRef = useRef(0);
+  const frequencyBufferRef = useRef<number[]>([]);
+  const stringVoteBufferRef = useRef<number[]>([]);
+  const lastDetectedTimeRef = useRef<number>(0);
+  const HOLD_DURATION_MS = 700;
+
+  // Smoothed state setters
+  const [smoothedFreq, setSmoothedFreq] = useState(0);
+  const [noteData, setNoteData] = useState<Note>({
+    name: "—",
+    frequency: 0,
+    octave: 0,
+    semitone: 0,
+    midiNumber: 0,
+  });
+  const [cents, setCents] = useState(0);
+  const [isInTune, setIsInTune] = useState(false);
+
   if (!isMount) return null;
 
   return (
-    <div className="min-h-screen bg-[#050510] text-white overflow-x-hidden flex flex-col items-center">
-      {/* Background Gradients */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]"></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]"></div>
-      </div>
-
+    <div className="w-full text-white flex flex-col items-center z-10 relative">
       {/* Tuner Controls Bar */}
-      <div className="z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-3 bg-transparent">
-        <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-3 bg-zinc-900/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
+      <div className="w-full max-w-5xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-transparent">
+        {/* Toggle options */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 bg-zinc-900/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
             <div
               className={cn(
                 "w-2 h-2 rounded-full animate-pulse",
-                isRecording ? "bg-emerald-500" : "bg-zinc-600",
+                isRecording ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-zinc-600",
               )}
             ></div>
-            <span className="text-xs font-mono font-medium text-zinc-400 uppercase">
+            <span className="text-xs font-mono font-medium text-zinc-400 uppercase tracking-wider">
               {isRecording ? "Monitoring" : "Standby"}
             </span>
           </div>
-          <Button
-            onClick={toggleMic}
-            className={cn(
-              "h-10 w-full sm:w-auto rounded-full px-4 text-xs font-semibold tracking-wide",
-              isRecording
-                ? "bg-rose-500 text-white hover:bg-rose-600"
-                : "bg-cyan-500 text-zinc-950 hover:bg-cyan-400",
-            )}
-          >
-            {isRecording ? (
-              <span className="inline-flex items-center gap-2">
-                <MicOff className="h-4 w-4" /> Stop Recording
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-2">
-                <Mic className="h-4 w-4" /> Start Recording
-              </span>
-            )}
-          </Button>
+          
+          <div className="hidden sm:flex items-center gap-3 bg-zinc-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5">
+            <span className="text-xs text-zinc-400 font-medium">Auto-select string</span>
+            <Switch
+              checked={autoSelectString}
+              onCheckedChange={setAutoSelectString}
+              aria-label="Toggle automatic played string selection"
+            />
+          </div>
         </div>
+
+        {/* Start/Stop Recording Button */}
+        <Button
+          onClick={toggleMic}
+          className={cn(
+            "h-11 w-full sm:w-auto rounded-full px-6 text-xs font-bold tracking-wider uppercase transition-smooth",
+            isRecording
+              ? "bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500/30"
+              : "bg-cyan-500 text-zinc-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/15 hover:shadow-cyan-400/25",
+          )}
+        >
+          {isRecording ? (
+            <span className="inline-flex items-center gap-2">
+              <MicOff className="h-4 w-4" /> Stop Recording
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-2">
+              <Mic className="h-4 w-4" /> Start Recording
+            </span>
+          )}
+        </Button>
       </div>
 
       {!isRecording && (
-        <div className="z-10 mb-3 w-full max-w-4xl px-4">
-          <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-100">
-            Tap Start Recording above, then pluck one string at a time.
+        <div className="mb-4 w-full max-w-5xl px-4 sm:px-6">
+          <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 px-6 py-4 text-sm text-cyan-200/90 text-center backdrop-blur-sm animate-smooth-fade">
+            ✨ Click <span className="font-bold text-cyan-400">Start Recording</span> to activate the tuner, then pluck one string at a time.
           </div>
         </div>
       )}
 
-      {/* Main Content Area */}
-      <main className="z-10 flex-1 w-full max-w-4xl flex flex-col items-center justify-start gap-8 px-4 pb-12">
-        <div className="w-full sm:hidden">
-          <div className="px-4 py-3 border-b border-zinc-800/50">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-sm font-semibold text-zinc-100">
-                  Auto-select played string
-                </p>
-                <p className="text-xs text-zinc-400">
-                  Automatically switches to the string you pluck
-                </p>
-              </div>
-              <Switch
-                checked={autoSelectString}
-                onCheckedChange={setAutoSelectString}
-                aria-label="Toggle automatic played string selection"
-              />
-            </div>
+      {/* Main Tuner Card / Display Panel */}
+      <div className="w-full max-w-5xl px-4 sm:px-6 flex flex-col items-center gap-8 pb-12">
+        {/* Mobile Switch toggles (only shown on mobile) */}
+        <div className="w-full sm:hidden flex items-center justify-between px-2 pb-2 border-b border-white/5">
+          <div>
+            <p className="text-sm font-semibold text-zinc-100">
+              Auto-select string
+            </p>
+            <p className="text-[10px] text-zinc-500">
+              Switches to string automatically
+            </p>
           </div>
+          <Switch
+            checked={autoSelectString}
+            onCheckedChange={setAutoSelectString}
+            aria-label="Toggle automatic played string selection"
+          />
         </div>
 
-        {/* 1. Tuner Display (Gauge & Note) */}
-        <div className="w-full mt-8">
+        {/* 1. Gauge & Dial */}
+        <div className="w-full bg-zinc-950/30 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl relative overflow-hidden">
+          {/* Inner decorative light */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-linear-to-r from-transparent via-cyan-500/10 to-transparent" />
+          
           <TunerDisplay
             note={noteData}
             cents={cents}
@@ -297,49 +305,135 @@ export function ProfessionalTuner() {
             isInTune={isInTune}
             isListening={isRecording}
           />
-          <div className="mt-4 block text-center sm:hidden px-4">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-              Adjustment
-            </p>
-            <p className="mt-1 text-base font-medium text-zinc-100">
-              {!isRecording
-                ? "Start recording and pluck one string."
-                : isInTune
-                  ? "In tune. No action needed."
-                  : cents < 0
-                    ? "Too low: tightenpeg."
-                    : "Too high: loosen peg."}
-            </p>
-            <p className="mt-1 text-xs font-mono text-zinc-400">
-              Offset: {cents.toFixed(0)} cents
-            </p>
+          
+          {/* Unified high-fidelity Guidance Panel */}
+          <div className="mt-6 pt-6 border-t border-white/5 w-full max-w-xl mx-auto flex flex-col sm:grid sm:grid-cols-2 gap-4 items-stretch text-center sm:text-left">
+            {/* Column 1: Action Required */}
+            <div className="bg-zinc-900/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1.5">
+                Action Required
+              </p>
+              <p className="text-sm sm:text-base font-semibold text-zinc-200">
+                {!isRecording
+                  ? "Start tuner and pluck highlighted note."
+                  : isInTune
+                    ? "In tune. No turn needed."
+                    : cents < 0
+                      ? "Pitch is low. Tighten peg."
+                      : "Pitch is high. Loosen peg."}
+              </p>
+            </div>
+
+            {/* Column 2: Peg Rotation / Cent Offset */}
+            <div className="bg-zinc-900/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1.5">
+                Peg Rotation & Offset
+              </p>
+              <p
+                className={cn(
+                  "text-base sm:text-lg font-bold tracking-tight transition-colors duration-300",
+                  !isRecording
+                    ? "text-zinc-500"
+                    : isInTune
+                      ? "text-emerald-400"
+                      : "text-cyan-400",
+                )}
+              >
+                {!isRecording
+                  ? "Standby"
+                  : isInTune
+                    ? "Perfect"
+                    : cents < 0
+                      ? "↻ Tighten peg"
+                      : "↺ Loosen peg"}
+              </p>
+              {isRecording && (
+                <p className="mt-1 text-xs font-mono tracking-wider text-zinc-500">
+                  OFFSET:{" "}
+                  <span className={cn(cents > 0 ? "text-rose-400" : cents < 0 ? "text-blue-400" : "text-emerald-400")}>
+                    {cents > 0 ? "+" : ""}{cents.toFixed(1)}
+                  </span>{" "}
+                  CENTS
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* 2. String Selector (Visual) */}
-        <div className="w-full">
-          <GuitarGuide
-            strings={currentTuning.notes}
-            selectedStringIndex={selectedStringIndex}
-            detectedStringIndex={detectedStringIndex}
-            cents={cents}
-            isListening={isRecording}
-            onSelectString={setSelectedStringIndex}
-          />
+        {/* Mobile view selector switcher (Hidden on Desktop) */}
+        <div className="flex md:hidden w-full bg-zinc-950/60 p-1 rounded-full border border-white/5">
+          <button
+            onClick={() => setActiveView("headstock")}
+            className={cn(
+              "flex-1 text-center py-2.5 rounded-full text-xs font-bold tracking-wider transition-all duration-300 uppercase",
+              activeView === "headstock"
+                ? "bg-cyan-500 text-zinc-950 shadow-md shadow-cyan-500/20"
+                : "text-zinc-400 hover:text-zinc-200",
+            )}
+          >
+            Visual Pegs
+          </button>
+          <button
+            onClick={() => setActiveView("fretboard")}
+            className={cn(
+              "flex-1 text-center py-2.5 rounded-full text-xs font-bold tracking-wider transition-all duration-300 uppercase",
+              activeView === "fretboard"
+                ? "bg-cyan-500 text-zinc-950 shadow-md shadow-cyan-500/20"
+                : "text-zinc-400 hover:text-zinc-200",
+            )}
+          >
+            String Selector
+          </button>
         </div>
 
-        <div className="w-full">
-          <GuitarStrings
-            currentTuning={currentTuning}
-            selectedStringIndex={selectedStringIndex}
-            detectedStringIndex={detectedStringIndex}
-            onSelectString={setSelectedStringIndex}
-            isListening={isRecording}
-          />
+        {/* 2. Interactive Controls (Headstock pegs & Fretboard strings) */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          {/* Headstock Pegs View */}
+          <div
+            className={cn(
+              "w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col justify-center transition-all duration-200",
+              activeView === "headstock" ? "block" : "hidden md:block",
+            )}
+          >
+            <GuitarGuide
+              strings={currentTuning.notes}
+              selectedStringIndex={selectedStringIndex}
+              detectedStringIndex={detectedStringIndex}
+              cents={cents}
+              isListening={isRecording}
+              onSelectString={setSelectedStringIndex}
+            />
+          </div>
+
+          {/* Fretboard Strings View */}
+          <div
+            className={cn(
+              "w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col items-center justify-between transition-all duration-200",
+              activeView === "fretboard" ? "block" : "hidden md:block",
+            )}
+          >
+            <div className="text-center mb-2 px-4 hidden md:block pt-6">
+              <h3 className="text-xl font-semibold tracking-tight text-zinc-100">
+                Fretboard Strings
+              </h3>
+              <p className="text-sm text-zinc-400 mt-1">
+                Interactive layout for manual note selection.
+              </p>
+            </div>
+            <div className="w-full flex-1 flex items-center justify-center">
+              <GuitarStrings
+                currentTuning={currentTuning}
+                selectedStringIndex={selectedStringIndex}
+                detectedStringIndex={detectedStringIndex}
+                onSelectString={setSelectedStringIndex}
+                isListening={isRecording}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* 3. Controls (Tuning Mode + Mic Toggle) */}
-        <div className="w-full flex flex-col items-center gap-6 mt-4">
+        {/* 3. Settings panel: Guitar Type & Tuning Mode */}
+        <div className="w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
           <TunerControls
             currentGuitarType={guitarType}
             onGuitarTypeChange={(type) => {
@@ -359,167 +453,31 @@ export function ProfessionalTuner() {
           />
         </div>
 
-        <section className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4 sm:p-5">
-          <h2 className="text-base font-semibold text-zinc-100">
+        {/* 4. Guidelines section */}
+        <section className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/10 p-5 sm:p-6 backdrop-blur-sm">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
             Quick Tuning Guidelines
           </h2>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-300">
-            <li>
-              1. Tap{" "}
-              <span className="font-semibold text-cyan-300">
-                Start Recording
-              </span>{" "}
-              and allow microphone access.
+          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-zinc-300">
+            <li className="flex gap-2">
+              <span className="text-cyan-400 font-bold">1.</span>
+              <span>Tap the <span className="font-semibold text-zinc-100">Start Recording</span> button at the top to initialize your microphone.</span>
             </li>
-            <li>
-              2. Pluck one string at a time and let it ring naturally for better
-              detection.
+            <li className="flex gap-2">
+              <span className="text-cyan-400 font-bold">2.</span>
+              <span>Pluck one string cleanly at a time. Let it vibrate naturally to get a continuous frequency reading.</span>
             </li>
-            <li>
-              3. Tune toward{" "}
-              <span className="font-semibold text-emerald-300">0 cents</span> on
-              the meter (green zone).
+            <li className="flex gap-2">
+              <span className="text-cyan-400 font-bold">3.</span>
+              <span>Adjust your tuning pegs until the dial centers in the <span className="font-semibold text-emerald-400">green zone</span> (around 0 cents).</span>
             </li>
-            <li>
-              4. Use the guitar layout highlight: cyan is selected string, green
-              is currently detected playing string.
-            </li>
-            <li>
-              5. If auto-select causes jumps, turn it off on mobile and tune
-              strings manually.
+            <li className="flex gap-2">
+              <span className="text-cyan-400 font-bold">4.</span>
+              <span>Watch indicators: <span className="text-cyan-400 font-semibold">cyan</span> is currently selected note, <span className="text-emerald-400 font-semibold">green</span> is the automatically detected audio feed.</span>
             </li>
           </ul>
         </section>
-      </main>
-
-      {/* AdSense SEO Content */}
-      <section className="w-full max-w-4xl px-4 py-16 text-zinc-300 z-10 mt-8 border-t border-white/5">
-        <h2 className="text-3xl font-bold text-white mb-6">
-          Online Guitar Tuner Guide
-        </h2>
-
-        <article className="prose prose-invert max-w-none">
-          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">
-            How to Tune Your Guitar by Ear or with a Mic
-          </h3>
-          <p className="mb-4 leading-relaxed">
-            Tuning your guitar is the most important skill you can learn as a
-            beginner. An out-of-tune guitar will make even the greatest players
-            sound bad. Our <strong>online guitar tuner</strong> simplifies this
-            process. Simply allow microphone access, pluck a string, and our
-            advanced pitch detection algorithm will tell you exactly which note
-            you are playing and whether it is too sharp (high) or flat (low).
-          </p>
-          <p className="mb-4 leading-relaxed">
-            The standard tuning for a 6-string guitar, starting from the
-            thickest string (lowest pitch) to the thinnest string (highest
-            pitch), is <strong>E - A - D - G - B - E</strong>. A helpful
-            mnemonic device to remember these notes is: "<strong>E</strong>ddie{" "}
-            <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>
-            ood <strong>B</strong>ye <strong>E</strong>ddie".
-          </p>
-
-          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            Exploring Alternative Tunings
-          </h3>
-          <p className="mb-4 leading-relaxed">
-            While standard tuning is extremely versatile, exploring alternative
-            tunings can unlock entirely new sonic possibilities and make certain
-            chords easier to play. Our tuner supports dozens of alternative
-            tunings instantly.
-          </p>
-          <ul className="list-disc list-inside space-y-2 mb-6 ml-4">
-            <li>
-              <strong>Drop D (D A D G B E):</strong> Popular in rock and metal
-              for easy, heavy power chords. Lower the thick E string down a
-              whole step to D.
-            </li>
-            <li>
-              <strong>Open G (D G D G B D):</strong> A favorite of blues players
-              and the Rolling Stones. Strumming all strings open produces a G
-              major chord.
-            </li>
-            <li>
-              <strong>Half-Step Down (Eb Ab Db Gb Bb Eb):</strong> Lowers the
-              tension on the strings, making bending easier, and creates a
-              darker, heavier tone favored by grunge bands.
-            </li>
-          </ul>
-
-          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            Frequently Asked Questions
-          </h3>
-          <div className="space-y-6">
-            <div>
-              <h4 className="text-lg font-medium text-white mb-2">
-                Is the online guitar tuner accurate?
-              </h4>
-              <p className="leading-relaxed text-sm">
-                Yes, GuitarTunePro uses the Web Audio API and highly precise
-                algorithmic pitch detection. It is accurate to within a few
-                cents, making it suitable for professional stage setup,
-                recording sessions, and daily practice.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-medium text-white mb-2">
-                Why isn't the tuner hearing my guitar?
-              </h4>
-              <p className="leading-relaxed text-sm">
-                Ensure that you have granted microphone permissions in your
-                browser. If you are using an electric guitar without an
-                amplifier, the acoustic sound may be too quiet. Try moving your
-                instrument closer to the device's microphone or plugging into a
-                USB interface.
-              </p>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      {/* Footer */}
-      <footer className="w-full py-8 z-10 mt-auto border-t border-white/5 bg-zinc-950/40">
-        <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-zinc-400 font-medium">
-            <Link
-              href="/about"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              About Us
-            </Link>
-            <Link
-              href="/articles"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Articles
-            </Link>
-            <Link
-              href="/privacy-policy"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms-of-service"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/contact"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Contact
-            </Link>
-          </div>
-          <p className="text-xs font-semibold text-zinc-500 tracking-wider flex items-center gap-1.5 uppercase shrink-0">
-            Made with <span className="text-rose-500 text-sm">❤️</span> by{" "}
-            <Link href="/about" className="text-cyan-400 opacity-90 hover:opacity-100 transition-opacity">
-              GuitarTunePro
-            </Link>
-          </p>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }

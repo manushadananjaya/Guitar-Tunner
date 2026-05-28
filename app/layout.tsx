@@ -3,6 +3,7 @@ import { Inter, Lora, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -204,11 +205,19 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased tracking-[-0.01em]"
+        className="font-sans antialiased tracking-[-0.01em] bg-[#050510] text-zinc-100 min-h-screen flex flex-col relative"
         suppressHydrationWarning
       >
+        {/* Global ambient background glow */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-950/15 blur-[130px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-cyan-950/15 blur-[130px]" />
+        </div>
         <Navbar />
-        {children}
+        <div className="flex-1 w-full relative z-10">
+          {children}
+        </div>
+        <Footer />
         <Analytics />
         <Script
           strategy="afterInteractive"

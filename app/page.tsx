@@ -72,7 +72,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <main className="min-h-screen bg-background">
+      <main className="w-full flex flex-col items-center">
         <ProfessionalTuner />
         <HomepageContent />
       </main>

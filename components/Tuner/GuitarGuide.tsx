@@ -102,7 +102,7 @@ export function GuitarGuide({
 
   return (
     <section className="w-full relative py-6 flex flex-col items-center">
-      <div className="text-center mb-8 px-4">
+      <div className="text-center mb-6 px-4">
         <h3 className="text-xl font-semibold tracking-tight text-zinc-100">
           Headstock Alignment
         </h3>
@@ -111,66 +111,31 @@ export function GuitarGuide({
         </p>
       </div>
 
-      <div className="grid gap-10 lg:gap-14 lg:grid-cols-[1.2fr_1fr] items-center w-full max-w-2xl px-4">
-        {/* Abstract Headstock Container */}
-        <div className="relative flex justify-between w-full min-h-[320px] max-w-[280px] mx-auto">
-          {/* Center Beam (The Neck/Headstock Base) */}
-          <div className="absolute left-1/2 top-4 bottom-[-40px] w-14 sm:w-16 -translate-x-1/2 bg-zinc-800/40 border border-zinc-700/50 rounded-t-2xl shadow-2xl backdrop-blur-xl">
-            {/* Gradient glow inside the beam */}
-            <div className="absolute inset-0 rounded-t-2xl bg-linear-to-b from-white/5 to-transparent pointer-events-none" />
-            {/* Fretboard fadeout at bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
-          </div>
+      {/* Abstract Headstock Container */}
+      <div className="relative flex justify-between w-full min-h-[320px] max-w-[280px] mx-auto">
+        {/* Center Beam (The Neck/Headstock Base) */}
+        <div className="absolute left-1/2 top-4 bottom-[-40px] w-14 sm:w-16 -translate-x-1/2 bg-zinc-800/40 border border-zinc-700/50 rounded-t-2xl shadow-2xl backdrop-blur-xl">
+          {/* Gradient glow inside the beam */}
+          <div className="absolute inset-0 rounded-t-2xl bg-linear-to-b from-white/5 to-transparent pointer-events-none" />
+          {/* Fretboard fadeout at bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
+        </div>
 
-          {/* Left Pegs */}
-          <div className="flex flex-col justify-around py-6 w-1/2 items-end pr-7 sm:pr-8 z-10">
+        {/* Left Pegs */}
+        <div className="flex flex-col justify-around py-6 w-1/2 items-end pr-7 sm:pr-8 z-10">
+          {strings
+            .slice(0, leftCount)
+            .map((note, i) => renderPeg(note, i, true))}
+        </div>
+
+        {/* Right Pegs */}
+        {!isInline && (
+          <div className="flex flex-col justify-around py-6 w-1/2 items-start pl-7 sm:pl-8 z-10 mt-6">
             {strings
-              .slice(0, leftCount)
-              .map((note, i) => renderPeg(note, i, true))}
+              .slice(leftCount)
+              .map((note, i) => renderPeg(note, leftCount + i, false))}
           </div>
-
-          {/* Right Pegs */}
-          {!isInline && (
-            <div className="flex flex-col justify-around py-6 w-1/2 items-start pl-7 sm:pl-8 z-10 mt-6">
-              {strings
-                .slice(leftCount)
-                .map((note, i) => renderPeg(note, leftCount + i, false))}
-            </div>
-          )}
-        </div>
-
-        {/* Dynamic Mobile/Desktop Action Guidance */}
-        <div className="flex flex-col justify-center space-y-6 lg:space-y-8 text-center lg:text-left">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-2">
-              Action Required
-            </p>
-            <p className="text-xl lg:text-2xl font-medium text-zinc-100 min-h-12">
-              {guidance}
-            </p>
-          </div>
-
-          <div className="bg-zinc-900/30 border border-white/5 rounded-2xl p-5 lg:p-6 backdrop-blur">
-            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-2">
-              Peg Rotation
-            </p>
-            <p
-              className={cn(
-                "text-2xl lg:text-3xl font-bold tracking-tight transition-colors duration-300",
-                Math.abs(centOffset) <= 5
-                  ? "text-emerald-400"
-                  : "text-cyan-400",
-              )}
-            >
-              {Math.abs(centOffset) <= 5 ? "Perfect" : knobDirection}
-            </p>
-            <p className="mt-3 text-xs font-mono tracking-wider text-zinc-400">
-              OFFSET:{" "}
-              <span className="text-zinc-300">{centOffset.toFixed(1)}</span>{" "}
-              CENTS
-            </p>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );
