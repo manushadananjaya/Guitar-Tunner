@@ -145,37 +145,6 @@ export default function RootLayout({
     },
   };
 
-  const webAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "GuitarTunePro",
-    description:
-      "Free online chromatic guitar tuner with high accuracy pitch detection. Tune your guitar with a microphone on any device — no download required. Supports standard, drop D, open G, and 10+ tuning presets.",
-    url: siteUrl,
-    applicationCategory: "MusicApplication",
-    operatingSystem: "Web",
-    browserRequirements: "Requires modern browser with Web Audio API support",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    featureList: [
-      "Real-time chromatic pitch detection",
-      "6-string, 7-string, 12-string, bass, and ukulele support",
-      "Standard, Drop D, Open G, Open D, Half-Step Down, and 10+ tuning presets",
-      "Auto string detection",
-      "±1 cent accuracy",
-      "Works on mobile devices",
-      "No download required",
-    ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "312",
-    },
-  };
-
   return (
     <html
       lang="en"
@@ -193,13 +162,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
-        />
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9097007689207633"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3345965156522280"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />

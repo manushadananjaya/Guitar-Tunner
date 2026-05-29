@@ -38,15 +38,29 @@ export default function Home() {
     "@type": "WebApplication",
     name: "GuitarTunePro",
     url: "https://www.guitartunepro.com",
-    applicationCategory: "MultimediaApplication",
-    operatingSystem: "Any",
+    applicationCategory: "MusicApplication",
+    operatingSystem: "Web",
+    browserRequirements: "Requires modern browser with Web Audio API and microphone support",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD"
     },
     description: "Free online chromatic guitar tuner. Tune your guitar with a microphone on any device. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download required.",
-    browserRequirements: "Requires microphone access"
+    featureList: [
+      "Real-time chromatic pitch detection",
+      "6-string, 7-string, 12-string, bass, and ukulele support",
+      "Standard, Drop D, Open G, Open D, Half-Step Down, and 10+ tuning presets",
+      "Auto string detection",
+      "±1 cent accuracy",
+      "Works on mobile devices",
+      "No download required",
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      ratingCount: "312",
+    }
   };
 
   const faqJsonLd = {

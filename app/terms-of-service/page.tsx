@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 export const metadata = {
   title: "Terms of Service | GuitarTunePro",
   description: "Terms and conditions of using GuitarTunePro's free tuning tools.",
+  alternates: { canonical: "/terms-of-service" },
 };
 
 export default function TermsOfServicePage() {
