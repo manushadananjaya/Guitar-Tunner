@@ -1,16 +1,18 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import ArticleLayout from "@/components/ArticleLayout";
+import TunerPageLayout from "@/components/TunerPageLayout";
+import { otherTunersFor } from "@/lib/tunerPages";
 
 export const metadata: Metadata = {
-  title: "Half Step Down Tuner — Free Online Eb Guitar Tuner | GuitarTunePro",
+  title:
+    "Half Step Down Tuner — Free Online E♭ Guitar Tuner",
   description:
-    "Free online half step down (Eb) guitar tuner. Tune your guitar to Eb Ab Db Gb Bb Eb instantly with your microphone. No download required. Works on all devices.",
+    "Free online half step down guitar tuner. Tune to E♭ A♭ D♭ G♭ B♭ E♭ with your microphone, right on this page. Used by Hendrix, SRV, and Guns N' Roses.",
   alternates: { canonical: "/half-step-down-tuner" },
   openGraph: {
-    title: "Half Step Down Tuner — Free Eb Guitar Tuner",
+    title: "Half Step Down Tuner — Free Online E♭ Guitar Tuner",
     description:
-      "Tune your guitar a half step down to Eb Ab Db Gb Bb Eb using your microphone. Fast and accurate.",
+      "Tune your guitar a half step down quickly and accurately using your device's microphone.",
   },
 };
 
@@ -23,190 +25,196 @@ export default function HalfStepDownTunerPage() {
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Free online half step down (Eb) guitar tuner. Tune your guitar to Eb Ab Db Gb Bb Eb instantly.",
-    browserRequirements: "Requires microphone access"
+    description:
+      "Free online half step down guitar tuner. Tune your guitar to E♭ A♭ D♭ G♭ B♭ E♭ instantly.",
+    browserRequirements: "Requires microphone access",
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }} />
-      <ArticleLayout
-        slug="half-step-down-tuner"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <TunerPageLayout
+        title="Half Step Down Tuner"
+        description="Tune your guitar a half step down to E♭ A♭ D♭ G♭ B♭ E♭ using your microphone. The tuner below is already set — press Start Recording and pluck."
         canonicalPath="/half-step-down-tuner"
-      title="Half Step Down Tuner (Eb Tuning)"
-      description="Free online half step down tuner — tune your guitar to Eb Ab Db Gb Bb Eb using your microphone. Beloved by classic rock and metal players."
-      datePublished="2025-03-01"
-      dateModified="2026-03-29"
-      readingTimeMinutes={6}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80",
-        alt: "Guitar headstock tuned to Eb half step down",
-        credit: "Photo: Unsplash",
-      }}
-      faqs={[
-        {
-          question: "What is half step down tuning?",
-          answer:
-            "Half step down tuning (also called Eb tuning) means all six strings are tuned down one half step (one semitone) from standard tuning. The notes become Eb Ab Db Gb Bb Eb instead of E A D G B E.",
-        },
-        {
-          question: "Why do guitarists tune down a half step?",
-          answer:
-            "Tuning a half step down reduces string tension, making bending and vibrato easier. It also brings the guitar into a better key for singers with slightly lower vocal ranges, and gives the guitar a slightly darker, heavier tone.",
-        },
-        {
-          question: "What famous guitarists use Eb tuning?",
-          answer:
-            "Jimi Hendrix tuned all his guitars a half step down on virtually every recording. Stevie Ray Vaughan also famously played in Eb to make heavy string bending easier. Guns N' Roses (Slash) frequently used Eb tuning as well.",
-        },
-        {
-          question: "Can I still use standard chord shapes in Eb tuning?",
-          answer:
-            "Yes — all your standard chord shapes, scale patterns, and finger positions work identically in Eb tuning. Every shape just sounds one half step lower than it would in standard tuning.",
-        },
-      ]}
-      relatedArticles={[
-        {
-          title: "Alternate Guitar Tunings You Should Try",
-          slug: "alternate-guitar-tunings",
-          description:
-            "Drop D, Open G, Open D, DADGAD, full step down — all explored.",
-        },
-        {
-          title: "Why Your Guitar Goes Out of Tune",
-          slug: "why-your-guitar-goes-out-of-tune",
-          description:
-            "The 9 most common causes of tuning instability and how to fix them.",
-        },
-        {
-          title: "Best Guitar Strings for Tuning Stability",
-          slug: "best-guitar-strings-for-tuning-stability",
-          description:
-            "Which strings hold their pitch best when tuning down.",
-        },
-      ]}
-    >
-      <h2>What is Half Step Down (Eb) Tuning?</h2>
-      <p>
-        <strong>Half step down tuning</strong>, often called{" "}
-        <strong>Eb tuning</strong>, is an alternate guitar tuning where all six
-        strings are tuned down exactly one semitone (one half step) from
-        standard tuning. The resulting string notes are{" "}
-        <strong>Eb Ab Db Gb Bb Eb</strong> from the lowest to highest string.
-      </p>
-      <p>
-        Unlike Drop D or Open G tunings, where individual strings change
-        relative to each other, half step down tuning maintains exactly the same
-        intervals between all six strings as standard tuning. This means every
-        chord shape, scale pattern, and technique you already know works
-        perfectly — everything just sounds a half step lower.
-      </p>
+        initialTuning="halfStepDown"
+        otherTuners={otherTunersFor("/half-step-down-tuner")}
+        faqs={[
+          {
+            question: "What notes is half step down tuning?",
+            answer:
+              "Half step down is E♭ A♭ D♭ G♭ B♭ E♭ from lowest to highest — every string of standard tuning lowered by one semitone. It is also written as D♯ G♯ C♯ F♯ A♯ D♯, which is the same set of pitches spelled with sharps.",
+          },
+          {
+            question: "Is E♭ tuning the same as half step down?",
+            answer:
+              "Yes. E♭ tuning, Eb tuning, half step down, and one semitone down all describe the same tuning. It is named for the lowest string, which moves from E to E♭.",
+          },
+          {
+            question: "Why do so many bands tune half step down?",
+            answer:
+              "Three reasons. Lower string tension makes bends and vibrato noticeably easier. The overall tone becomes warmer and thicker. And it drops every key by a semitone, which often puts a vocal line in a more comfortable range without changing a single chord shape.",
+          },
+          {
+            question: "Do my chord shapes change in half step down?",
+            answer:
+              "No — and that is the appeal. Because all six strings move by the same interval, every shape, scale, and riff you know transfers unchanged. Only the sounding pitch shifts down a semitone, so an E shape now sounds E♭.",
+          },
+          {
+            question: "Can I play along with standard-tuning recordings?",
+            answer:
+              "Not without adjusting. Your guitar will sound a semitone flat against anything recorded in standard tuning. Either retune to standard, or pitch-shift the recording up one semitone.",
+          },
+        ]}
+        relatedArticles={[
+          {
+            title: "Alternate Guitar Tunings You Should Try",
+            slug: "alternate-guitar-tunings",
+            description:
+              "Explore Open G, DADGAD, half-step down, and more alternate tunings.",
+          },
+          {
+            title: "Best Guitar Strings for Tuning Stability",
+            slug: "best-guitar-strings-for-tuning-stability",
+            description:
+              "Gauge, material, and winding choices that hold pitch longer.",
+          },
+          {
+            title: "Standard Tuning Explained",
+            slug: "standard-tuning-explained",
+            description:
+              "Understand the notes and intervals behind E A D G B E.",
+          },
+        ]}
+      >
+        <h2>How to Use This Half Step Down Tuner</h2>
+        <ol>
+          <li>
+            Press <strong>Start Recording</strong> on the tuner above and allow
+            microphone access.
+          </li>
+          <li>
+            The <strong>Half Step Down</strong> preset is already selected.
+          </li>
+          <li>
+            Work from the 6th string upward. Every string comes down by exactly
+            one semitone, so each peg needs roughly half the turn a Drop D
+            adjustment takes.
+          </li>
+          <li>
+            Watch the needle centre at 0 cents on each string before moving to
+            the next.
+          </li>
+          <li>
+            Run a second pass over all six strings. Lowering every string at
+            once releases meaningful neck tension, and the first strings you
+            tuned will have drifted sharp as the neck relaxed forward.
+          </li>
+        </ol>
 
-      <h2>How to Use This Half Step Down Tuner</h2>
-      <ol>
-        <li>
-          Open GuitarTunePro (click the tuner button at the top of the page)
-          and allow microphone access.
-        </li>
-        <li>
-          Select <strong>Half Step Down</strong> (or Eb tuning) from the tuning
-          preset dropdown.
-        </li>
-        <li>
-          Starting with your 6th string, pluck it and watch the needle. The
-          tuner will indicate exactly how far from Eb you are.
-        </li>
-        <li>
-          Slowly loosen the tuning peg until the needle centers on Eb at 0
-          cents.
-        </li>
-        <li>
-          Repeat for all six strings in order: 6th (Eb), 5th (Ab), 4th (Db),
-          3rd (Gb), 2nd (Bb), 1st (Eb).
-        </li>
-        <li>
-          Do a second pass to verify — string tension changes can slightly
-          affect adjacent strings.
-        </li>
-      </ol>
+        <h2>What is Half Step Down Tuning?</h2>
+        <p>
+          <strong>Half step down tuning</strong> lowers every string of standard
+          tuning by one semitone, giving you{" "}
+          <strong>E♭ A♭ D♭ G♭ B♭ E♭</strong>. It is the most common alternate
+          tuning in rock and blues after Drop D, and the least disruptive one to
+          learn — because nothing about how you play changes.
+        </p>
+        <p>
+          Since all six strings move by the same interval, the relationships
+          between them are identical to standard tuning. Every chord shape,
+          scale pattern, and riff you already know works exactly as before. Only
+          the absolute pitch shifts: play an E-shape barre chord at the first
+          fret and it sounds E♭ rather than E.
+        </p>
 
-      <h2>Benefits of Playing in Eb Tuning</h2>
-      <p>
-        Half step down tuning offers several practical and sonic advantages:
-      </p>
-      <ul>
-        <li>
-          <strong>Easier string bending:</strong> Lowering the pitch reduces
-          string tension across the entire guitar. This makes whole-step and
-          even one-and-a-half step bends significantly easier on the fretting
-          hand — particularly noticeable on electric guitars with heavier gauge
-          strings.
-        </li>
-        <li>
-          <strong>Vocal range accommodation:</strong> A half step lower can
-          make a huge difference if songs in standard tuning sit just slightly
-          too high or too low for a singer's comfortable range.
-        </li>
-        <li>
-          <strong>Slightly heavier tone:</strong> The reduced tension at the
-          same guitar action gives the strings a slightly looser, darker sound
-          quality — particularly effective for blues, classic rock, and metal.
-        </li>
-        <li>
-          <strong>Full chord vocabulary preserved:</strong> Unlike radical
-          alternate tunings, Eb preserves every chord and scale shape you
-          already know. No relearning needed.
-        </li>
-      </ul>
+        <h2>Why Guitarists Tune Half Step Down</h2>
+        <ul>
+          <li>
+            <strong>Easier bending:</strong> Roughly six percent less tension
+            across the set. Full-tone bends and wide vibrato take noticeably
+            less finger strength — the main reason blues players favour it.
+          </li>
+          <li>
+            <strong>Warmer, thicker tone:</strong> Slightly slacker strings
+            produce a darker, looser attack that sits well under distortion.
+          </li>
+          <li>
+            <strong>Vocal-friendly keys:</strong> Dropping everything a semitone
+            can move a chorus out of a singer's problem range without rewriting
+            a single chord.
+          </li>
+          <li>
+            <strong>Heavier feel without new shapes:</strong> You get some of
+            the weight of a down-tuned guitar while keeping the entire standard
+            tuning vocabulary.
+          </li>
+        </ul>
 
-      <h2>Famous Songs in Half Step Down (Eb) Tuning</h2>
-      <ul>
-        <li>
-          <strong>Purple Haze — Jimi Hendrix:</strong> Hendrix played virtually
-          his entire catalog in Eb tuning.
-        </li>
-        <li>
-          <strong>Pride and Joy — Stevie Ray Vaughan:</strong> SRV used heavy
-          gauge strings in Eb tuning to achieve his thick, aggressive tone.
-        </li>
-        <li>
-          <strong>November Rain — Guns N' Roses:</strong> Slash's iconic solo
-          was performed in Eb tuning.
-        </li>
-        <li>
-          <strong>Blackbird — The Beatles:</strong> Paul McCartney recorded this
-          fingerpicking piece in Eb.
-        </li>
-        <li>
-          <strong>What's My Age Again? — Blink-182:</strong> The entire album
-          "Enema of the State" was recorded in Eb tuning.
-        </li>
-      </ul>
+        <h2>Famous Players and Songs in E♭</h2>
+        <ul>
+          <li>
+            <strong>Jimi Hendrix:</strong> Tuned to E♭ on most of his catalogue,
+            including Voodoo Child (Slight Return) and Little Wing.
+          </li>
+          <li>
+            <strong>Stevie Ray Vaughan:</strong> Played E♭ with famously heavy
+            strings — the lower tension is what made those gauges playable.
+          </li>
+          <li>
+            <strong>Guns N' Roses:</strong> Sweet Child o' Mine and much of
+            Appetite for Destruction are in E♭.
+          </li>
+          <li>
+            <strong>Van Halen:</strong> Eddie used E♭ across a large part of the
+            early records, including Runnin' with the Devil.
+          </li>
+        </ul>
 
-      <h2>String Gauge Recommendations for Eb Tuning</h2>
-      <p>
-        Because Eb tuning reduces string tension, some players move up a gauge
-        to compensate. For example, if you normally use 9–42 (light gauge), you
-        might prefer 10–46 in Eb tuning to restore a similar feel and
-        intonation response. Read our{" "}
-        <Link href="/articles/best-guitar-strings-for-tuning-stability">
-          guide to the best guitar strings for tuning stability
-        </Link>{" "}
-        for more detail on string selection.
-      </p>
+        <h2>Should You Change String Gauge?</h2>
+        <p>
+          For occasional use, no. If you keep a guitar in E♭ permanently, moving
+          up one gauge — say from .009–.042 to .010–.046 — restores the tension
+          and feel of standard tuning while keeping the lower pitch. This is
+          exactly the trade Stevie Ray Vaughan made, just at a far heavier
+          extreme.
+        </p>
+        <p>
+          Be aware that changing gauge alters neck relief and intonation. After
+          a gauge change, expect to adjust the truss rod slightly and re-check{" "}
+          <Link href="/articles/how-to-intonate-your-guitar">intonation</Link>.
+        </p>
 
-      <p>
-        Explore more alternate tunings with our{" "}
-        <Link href="/articles/alternate-guitar-tunings">
-          complete alternate tunings guide
-        </Link>
-        , or{" "}
-        <Link href="/">
-          return to the free chromatic guitar tuner
-        </Link>{" "}
-        to start tuning.
-      </p>
-    </ArticleLayout>
+        <h2>Troubleshooting</h2>
+        <p>
+          <strong>Everything drifts sharp after tuning.</strong> Expected.
+          Removing tension from all six strings lets the neck straighten
+          slightly, which raises the pitch of strings you already set. Two full
+          passes solves it.
+        </p>
+        <p>
+          <strong>The tuner reads D♯ instead of E♭.</strong> These are the same
+          pitch — enharmonic equivalents. Our tuner displays sharps, so E♭ shows
+          as D♯, A♭ as G♯, and so on.
+        </p>
+        <p>
+          <strong>Strings feel too floppy.</strong> Go up one gauge, as above.
+        </p>
+
+        <p>
+          Going further down? Try our{" "}
+          <Link href="/full-step-down-tuner">full step down tuner</Link> or{" "}
+          <Link href="/drop-c-tuner">Drop C tuner</Link>, or read the complete
+          guide to{" "}
+          <Link href="/articles/alternate-guitar-tunings">
+            alternate guitar tunings
+          </Link>
+          .
+        </p>
+      </TunerPageLayout>
     </>
   );
 }

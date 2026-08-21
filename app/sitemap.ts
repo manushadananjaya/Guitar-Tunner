@@ -1,8 +1,21 @@
 import { MetadataRoute } from 'next';
+import { TUNER_PAGES } from '@/lib/tunerPages';
+import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
+import { CHORDS } from '@/lib/chords';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const siteUrl = 'https://www.guitartunepro.com';
+
+  const toolPages: MetadataRoute.Sitemap = [
+    ...TUNER_PAGES,
+    ...INSTRUMENT_PAGES,
+  ].map((page) => ({
+    url: `${siteUrl}${page.href}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  }));
 
   return [
     {
@@ -12,24 +25,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
       images: [`${siteUrl}/Logo.png`],
     },
+    ...toolPages,
     {
-      url: `${siteUrl}/drop-d-tuner`,
+      url: `${siteUrl}/metronome`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/open-g-tuner`,
+      url: `${siteUrl}/chords`,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
-    {
-      url: `${siteUrl}/half-step-down-tuner`,
+    ...CHORDS.map((chord) => ({
+      url: `${siteUrl}/chords/${chord.slug}`,
       lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
     {
       url: `${siteUrl}/about`,
       lastModified: now,

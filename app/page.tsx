@@ -3,6 +3,9 @@ import { ProfessionalTuner } from '@/components/Tuner/ProfessionalTuner';
 import { HomepageContent, faqs } from '@/components/HomepageContent';
 
 export const metadata: Metadata = {
+  // The root layout's title template only applies to CHILD segments, and this
+  // page shares the root segment with it — so the brand must be spelled out
+  // here. Every other page omits it and lets the template append it.
   title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
   description:
     "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
@@ -56,11 +59,8 @@ export default function Home() {
       "Works on mobile devices",
       "No download required",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "312",
-    }
+    // No aggregateRating: we don't collect ratings anywhere on the site, and
+    // declaring one we can't evidence is structured-data spam.
   };
 
   const faqJsonLd = {

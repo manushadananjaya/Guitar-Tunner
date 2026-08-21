@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { TUNER_PAGES } from "@/lib/tunerPages";
+import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 
 export const faqs = [
   {
@@ -135,73 +137,131 @@ export function HomepageContent() {
             Dedicated Alternate Tuners
           </h2>
           <p className="text-zinc-400 text-sm max-w-xl mx-auto">
-            Each alternate tuner is pre-loaded with the correct target notes so
-            you can switch tunings in seconds.
+            Each page below is a full working tuner, pre-loaded with the correct
+            target notes so you can switch tunings in seconds.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <Link
-            href="/drop-d-tuner"
-            className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
-          >
-            <div>
-              <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
-                D · A · D · G · B · E
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                Free Drop D Tuner
-              </h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Lower your 6th string to D for one-finger power chords — perfect
-                for rock and metal.
-              </p>
-            </div>
-            <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
-              Open Drop D Tuner →
-            </div>
-          </Link>
 
-          <Link
-            href="/open-g-tuner"
-            className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
-          >
-            <div>
-              <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
-                D · G · D · G · B · D
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {TUNER_PAGES.map((page) => (
+            <Link
+              key={page.href}
+              href={page.href}
+              className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
+            >
+              <div>
+                <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
+                  {page.notes.split(" ").join(" · ")}
+                </div>
+                <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                  {page.label} Tuner
+                </h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  {page.blurb}
+                </p>
               </div>
-              <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                Free Open G Tuner
-              </h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Tune to Open G — the Keith Richards signature tuning for blues,
-                folk, and slide guitar.
-              </p>
-            </div>
-            <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
-              Open Open G Tuner →
-            </div>
-          </Link>
+              <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
+                Open {page.label} Tuner →
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
-          <Link
-            href="/half-step-down-tuner"
-            className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
-          >
+      {/* Chord library cross-promo */}
+      <section className="max-w-5xl mx-auto px-6 pt-12 relative">
+        <Link
+          href="/chords"
+          className="group block rounded-3xl border border-white/5 bg-zinc-950/20 p-8 sm:p-10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-smooth"
+        >
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 tracking-tight group-hover:text-cyan-300 transition-colors">
+            Guitar Chord Library
+          </h2>
+          <p className="text-sm text-zinc-400 leading-relaxed max-w-xl">
+            Diagrams and audio for major, minor, 7th, sus, diminished and
+            augmented chords in every key — every shape checked against chord
+            theory before it ships.
+          </p>
+          <span className="inline-flex items-center gap-1 text-xs text-cyan-400 font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
+            Browse the Chord Library →
+          </span>
+        </Link>
+      </section>
+
+      {/* Metronome cross-promo */}
+      <section className="max-w-5xl mx-auto px-6 py-12 relative">
+        <Link
+          href="/metronome"
+          className="group block rounded-3xl border border-white/5 bg-zinc-950/20 p-8 sm:p-10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-smooth"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+            <div className="flex gap-2 shrink-0" aria-hidden="true">
+              {[0, 1, 2, 3].map((i) => (
+                <span
+                  key={i}
+                  className={
+                    i === 0
+                      ? "w-5 h-5 rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee]"
+                      : "w-4 h-4 rounded-full bg-zinc-700 self-center"
+                  }
+                />
+              ))}
+            </div>
             <div>
-              <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
-                Eb · Ab · Db · Gb · Bb · Eb
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                Half Step Down Tuner
-              </h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Tune down one semitone — used by Hendrix, Guns N' Roses, and Megadeth.
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 tracking-tight group-hover:text-cyan-300 transition-colors">
+                Free Online Metronome
+              </h2>
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-xl">
+                Tuning is half of it. Set a tempo from 30 to 300 BPM, tap the
+                beat you want, and practise against sample-accurate timing —
+                with time signatures, subdivisions, and an accented downbeat.
               </p>
+              <span className="inline-flex items-center gap-1 text-xs text-cyan-400 font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
+                Open the Metronome →
+              </span>
             </div>
-            <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
-              Open Half Step Tuner →
-            </div>
-          </Link>
+          </div>
+        </Link>
+      </section>
+
+      {/* Instrument tuner pages */}
+      <section className="max-w-5xl mx-auto px-6 py-12 relative">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+            Other Instruments
+          </div>
+          <h2 className="text-3xl font-extrabold text-white mb-4 tracking-tight">
+            Not a 6-String?
+          </h2>
+          <p className="text-zinc-400 text-sm max-w-xl mx-auto">
+            The same pitch detection engine, pre-configured for bass, ukulele,
+            and extended-range guitars.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {INSTRUMENT_PAGES.map((page) => (
+            <Link
+              key={page.href}
+              href={page.href}
+              className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
+            >
+              <div>
+                <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
+                  {page.notes.split(" ").join(" · ")}
+                </div>
+                <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                  {page.label} Tuner
+                </h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  {page.blurb}
+                </p>
+              </div>
+              <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
+                Open {page.label} Tuner →
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

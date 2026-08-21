@@ -20,10 +20,20 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Mic, MicOff, Settings2 } from "lucide-react";
 
-export function ProfessionalTuner() {
+interface ProfessionalTunerProps {
+  /** Tuning preset key to load on mount, e.g. "dropD". Defaults to standard. */
+  initialTuning?: string;
+  /** Instrument key to load on mount, e.g. "bass". Defaults to 6-string guitar. */
+  initialGuitarType?: string;
+}
+
+export function ProfessionalTuner({
+  initialTuning = "standard",
+  initialGuitarType = "sixString",
+}: ProfessionalTunerProps = {}) {
   const [isMount, setIsMount] = useState(false);
-  const [tuningMode, setTuningMode] = useState("standard");
-  const [guitarType, setGuitarType] = useState("sixString"); // Default to 6 string
+  const [tuningMode, setTuningMode] = useState(initialTuning);
+  const [guitarType, setGuitarType] = useState(initialGuitarType);
   const [selectedStringIndex, setSelectedStringIndex] = useState(0);
   const [detectedStringIndex, setDetectedStringIndex] = useState<number | null>(
     null,

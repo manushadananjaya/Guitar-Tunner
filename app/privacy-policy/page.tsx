@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | GuitarTunePro",
+  title: "Privacy Policy",
   description:
     "GuitarTunePro privacy policy. Learn how we handle your data, microphone access, cookies, and third-party services including Google Analytics and Google AdSense.",
   alternates: { canonical: "/privacy-policy" },

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Mic, Music, Globe, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About GuitarTunePro | Free Online Guitar Tuner",
+  title: "About Us — Free Online Guitar Tuner",
   description:
     "Learn about GuitarTunePro — the free, browser-based guitar tuner with real-time pitch detection. Our mission, how it works, and what makes it the best online guitar tuning tool.",
   alternates: { canonical: "/about" },

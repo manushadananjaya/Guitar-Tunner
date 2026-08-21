@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ArrowLeft, Clock, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Guitar Tuning Guides & Articles | GuitarTunePro",
+  title: "Guitar Tuning Guides & Articles",
   description:
     "Learn how to tune your guitar perfectly. Our comprehensive guides cover beginner tuning, standard tuning, alternate tunings, intonation, string selection, and keeping your guitar in tune — for every skill level.",
   alternates: { canonical: "/articles" },

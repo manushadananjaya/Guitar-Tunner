@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Mail, MessageSquare } from "lucide-react";
 
 export const metadata = {
-  title: "Contact Us | GuitarTunePro",
+  title: "Contact Us",
   description:
     "Get in touch with the GuitarTunePro team for support, feedback, or business inquiries.",
   alternates: { canonical: "/contact" },
