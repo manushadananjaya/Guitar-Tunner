@@ -90,7 +90,7 @@ export function Metronome() {
   if (!mounted) {
     return (
       <div className="w-full max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="h-[520px] rounded-3xl border border-white/5 bg-zinc-950/30 animate-pulse" />
+        <div className="h-[520px] rounded-3xl border border-line bg-surface-sunken/30 animate-pulse" />
       </div>
     );
   }
@@ -103,7 +103,7 @@ export function Metronome() {
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 flex flex-col gap-6">
       {/* Beat display */}
-      <div className="rounded-3xl border border-white/5 bg-zinc-950/30 p-6 sm:p-10 backdrop-blur-md shadow-2xl">
+      <div className="rounded-3xl border border-line bg-surface-sunken/30 p-6 sm:p-10 backdrop-blur-md shadow-2xl">
         <div className="flex justify-center gap-3 sm:gap-4 mb-8">
           {Array.from({ length: beatsPerMeasure }, (_, i) => {
             const isActive = activeBeat === i && onDownbeat;
@@ -117,9 +117,9 @@ export function Metronome() {
                   isAccent ? "w-5 h-5 sm:w-6 sm:h-6" : "w-4 h-4 sm:w-5 sm:h-5",
                   isActive
                     ? isAccent
-                      ? "bg-cyan-300 scale-150 shadow-[0_0_20px_#67e8f9]"
-                      : "bg-cyan-400 scale-135 shadow-[0_0_14px_#22d3ee]"
-                    : "bg-zinc-700",
+                      ? "bg-brass-hover scale-150 shadow-[0_0_20px_#67e8f9]"
+                      : "bg-brass-hover scale-135 shadow-[0_0_14px_#22d3ee]"
+                    : "bg-surface-raised",
                 )}
               />
             );
@@ -129,12 +129,12 @@ export function Metronome() {
         {/* Tempo readout */}
         <div className="text-center">
           <div
-            className="text-7xl sm:text-8xl font-bold tracking-tighter text-white tabular-nums leading-none"
+            className="text-7xl sm:text-8xl font-bold tracking-tighter text-ink tabular-nums leading-none"
             aria-live="off"
           >
             {bpm}
           </div>
-          <div className="mt-2 text-xs font-bold uppercase tracking-[0.25em] text-zinc-500">
+          <div className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-ink-subtle">
             BPM · {tempoMarking(bpm)}
           </div>
         </div>
@@ -145,7 +145,7 @@ export function Metronome() {
             type="button"
             onClick={() => setBpm(bpm - 1)}
             aria-label="Decrease tempo"
-            className="shrink-0 w-10 h-10 rounded-full border border-zinc-700 bg-zinc-900/60 text-zinc-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors flex items-center justify-center"
+            className="shrink-0 w-10 h-10 rounded-full border border-line-strong bg-surface/60 text-ink hover:border-brass/50 hover:text-brass transition-colors flex items-center justify-center"
           >
             <Minus className="w-4 h-4" />
           </button>
@@ -157,14 +157,14 @@ export function Metronome() {
             value={bpm}
             onChange={(event) => setBpm(Number(event.target.value))}
             aria-label="Tempo in beats per minute"
-            className="flex-1 h-2 rounded-full appearance-none bg-zinc-800 accent-cyan-500 cursor-pointer"
+            className="flex-1 h-2 rounded-full appearance-none bg-surface-raised accent-brass cursor-pointer"
           />
 
           <button
             type="button"
             onClick={() => setBpm(bpm + 1)}
             aria-label="Increase tempo"
-            className="shrink-0 w-10 h-10 rounded-full border border-zinc-700 bg-zinc-900/60 text-zinc-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors flex items-center justify-center"
+            className="shrink-0 w-10 h-10 rounded-full border border-line-strong bg-surface/60 text-ink hover:border-brass/50 hover:text-brass transition-colors flex items-center justify-center"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -179,8 +179,8 @@ export function Metronome() {
             className={cn(
               "h-14 px-10 rounded-full text-sm font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2.5",
               isPlaying
-                ? "bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500/30"
-                : "bg-cyan-500 text-zinc-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/20",
+                ? "bg-off/20 border border-off/40 text-off hover:bg-off/30"
+                : "bg-brass text-brass-contrast hover:bg-brass-hover shadow-lg shadow-brass/20",
             )}
           >
             {isPlaying ? (
@@ -197,22 +197,22 @@ export function Metronome() {
           <button
             type="button"
             onClick={tap}
-            className="h-14 px-7 rounded-full border border-zinc-700 bg-zinc-900/60 text-sm font-bold uppercase tracking-wider text-zinc-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors"
+            className="h-14 px-7 rounded-full border border-line-strong bg-surface/60 text-sm font-bold uppercase tracking-wider text-ink hover:border-brass/50 hover:text-brass transition-colors"
           >
             Tap
           </button>
         </div>
 
-        <p className="mt-5 text-center text-[11px] text-zinc-600">
+        <p className="mt-5 text-center text-2xs text-ink-subtle">
           Space to start/stop · Arrow keys to adjust tempo · T to tap
         </p>
       </div>
 
       {/* Settings */}
-      <div className="rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 backdrop-blur-sm grid gap-6 sm:grid-cols-2">
+      <div className="rounded-3xl border border-line bg-surface-sunken/20 p-6 sm:p-8 backdrop-blur-sm grid gap-6 sm:grid-cols-2">
         {/* Time signature */}
         <div className="space-y-2.5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
             Beats per Measure
           </p>
           <div className="grid grid-cols-6 gap-1.5">
@@ -225,8 +225,8 @@ export function Metronome() {
                 className={cn(
                   "h-11 rounded-xl border text-sm font-semibold transition-colors",
                   beatsPerMeasure === beats
-                    ? "border-cyan-500/60 bg-cyan-500/10 text-cyan-300"
-                    : "border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:border-zinc-600",
+                    ? "border-brass/60 bg-brass/10 text-brass-hover"
+                    : "border-line bg-surface/60 text-ink hover:border-line-strong",
                 )}
               >
                 {beats}
@@ -237,7 +237,7 @@ export function Metronome() {
 
         {/* Subdivision */}
         <div className="space-y-2.5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
             Subdivision
           </p>
           <div className="grid grid-cols-4 gap-1.5">
@@ -252,8 +252,8 @@ export function Metronome() {
                 className={cn(
                   "h-11 rounded-xl border text-base font-semibold transition-colors",
                   subdivision === option.value
-                    ? "border-cyan-500/60 bg-cyan-500/10 text-cyan-300"
-                    : "border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:border-zinc-600",
+                    ? "border-brass/60 bg-brass/10 text-brass-hover"
+                    : "border-line bg-surface/60 text-ink hover:border-line-strong",
                 )}
               >
                 {option.symbol}
@@ -265,10 +265,10 @@ export function Metronome() {
         {/* Accent */}
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-zinc-100">
+            <p className="text-sm font-semibold text-ink">
               Accent first beat
             </p>
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-2xs text-ink-subtle">
               Emphasise beat 1 of each measure
             </p>
           </div>
@@ -280,7 +280,7 @@ export function Metronome() {
             onClick={() => setAccentFirstBeat(!accentFirstBeat)}
             className={cn(
               "relative w-12 h-7 rounded-full transition-colors shrink-0",
-              accentFirstBeat ? "bg-cyan-500" : "bg-zinc-700",
+              accentFirstBeat ? "bg-brass" : "bg-surface-raised",
             )}
           >
             <span
@@ -294,11 +294,11 @@ export function Metronome() {
 
         {/* Volume */}
         <div className="space-y-2.5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
             Volume
           </p>
           <div className="flex items-center gap-3">
-            <Volume2 className="w-4 h-4 text-zinc-500 shrink-0" />
+            <Volume2 className="w-4 h-4 text-ink-subtle shrink-0" />
             <input
               type="range"
               min={0}
@@ -307,7 +307,7 @@ export function Metronome() {
               value={volume}
               onChange={(event) => setVolume(Number(event.target.value))}
               aria-label="Click volume"
-              className="flex-1 h-2 rounded-full appearance-none bg-zinc-800 accent-cyan-500 cursor-pointer"
+              className="flex-1 h-2 rounded-full appearance-none bg-surface-raised accent-brass cursor-pointer"
             />
           </div>
         </div>

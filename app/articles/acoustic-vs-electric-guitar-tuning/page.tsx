@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Acoustic vs Electric Guitar Tuning: Key Differences Explained",
+  title: "Acoustic vs Electric Guitar Tuning",
   description:
-    "Discover the real differences between tuning an acoustic and electric guitar — from string tension and neck relief to bridge design, tuner types, and why acoustic guitars are harder to keep in tune.",
+    "String tension, neck relief, bridge design, and tuner type — the real differences, and why acoustics are harder to keep in tune.",
   alternates: { canonical: "/articles/acoustic-vs-electric-guitar-tuning" },
   openGraph: {
     title: "Acoustic vs Electric Guitar Tuning Differences",
@@ -49,8 +49,8 @@ export default function ArticlePage() {
       slug="acoustic-vs-electric-guitar-tuning"
       title="Acoustic vs Electric Guitar Tuning Differences"
       description="A practical comparison of how acoustic and electric guitars differ when it comes to tuning stability, string tension, bridge types, and the tools needed to stay in tune."
-      datePublished="2024-11-25"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=900&q=80",
@@ -167,14 +167,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
           alt="Acoustic guitar strings close-up"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Acoustic guitars use heavier strings, creating more tension and tuning
           challenges. Photo: Unsplash
         </figcaption>
@@ -283,14 +283,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
           alt="Electric guitar bridge and strings"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Electric guitar bridge design is the most important factor in tuning
           stability. Photo: Unsplash
         </figcaption>

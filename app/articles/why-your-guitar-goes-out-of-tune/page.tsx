@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Why Your Guitar Goes Out of Tune: 9 Causes & Fixes",
+  title: "Why Your Guitar Goes Out of Tune: 9 Fixes",
   description:
-    "Find out the exact reasons your guitar won't stay in tune — from worn nut slots and bad stringing technique to temperature changes and worn machine heads — with actionable fixes for each.",
+    "Worn nut slots, bad stringing technique, temperature swings, tired machine heads — the real causes, with a fix for each.",
   alternates: { canonical: "/articles/why-your-guitar-goes-out-of-tune" },
   openGraph: {
     title: "Why Your Guitar Goes Out of Tune: 9 Causes & Fixes",
@@ -49,8 +49,8 @@ export default function ArticlePage() {
       slug="why-your-guitar-goes-out-of-tune"
       title="Why Your Guitar Goes Out of Tune"
       description="Tuning instability is one of the most frustrating problems for guitarists. This guide identifies every major cause — and gives you the exact fix for each one."
-      datePublished="2024-11-05"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=900&q=80",
@@ -176,14 +176,14 @@ export default function ArticlePage() {
         widen or reshape them inexpensively.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80"
           alt="Close-up of guitar nut and first fret"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           The nut is one of the most overlooked causes of tuning instability.
           Photo: Unsplash
         </figcaption>
@@ -306,14 +306,14 @@ export default function ArticlePage() {
         extremely well.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
           alt="Electric guitar body and bridge"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Electric guitars with floating bridges require careful setup for
           stable tuning. Photo: Unsplash
         </figcaption>

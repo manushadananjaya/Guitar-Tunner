@@ -87,6 +87,17 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main className="w-full flex flex-col items-center">
+        {/* The page needs a real H1. It previously had none — the only H1 was
+            the tuner's note readout, which renders as an em-dash when idle. */}
+        <header className="w-full max-w-5xl px-4 sm:px-6 pt-8 pb-2 text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink">
+            Free Online Guitar Tuner
+          </h1>
+          <p className="mt-2 text-ink-muted text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Tune by microphone in your browser — accurate to a single cent. No
+            app, no signup. Works for guitar, bass, and ukulele.
+          </p>
+        </header>
         <ProfessionalTuner />
         <HomepageContent />
       </main>

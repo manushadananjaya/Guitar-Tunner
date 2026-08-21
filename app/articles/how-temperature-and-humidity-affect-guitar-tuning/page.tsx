@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "How Temperature and Humidity Affect Guitar Tuning & Tone",
+  title: "How Temperature & Humidity Affect Tuning",
   description:
-    "Learn how temperature and humidity changes affect your guitar's neck, wood, strings, and tuning stability — and what you can do to protect your instrument year-round.",
+    "Why your guitar drifts between rooms, seasons, and stages — what wood and string tension do as conditions change, and how to cope.",
   alternates: {
     canonical: "/articles/how-temperature-and-humidity-affect-guitar-tuning",
   },
@@ -51,8 +51,8 @@ export default function ArticlePage() {
       slug="how-temperature-and-humidity-affect-guitar-tuning"
       title="How Temperature and Humidity Affect Guitar Tuning"
       description="A detailed guide to understanding environmental effects on your guitar — why wood expands and contracts, how strings respond to temperature changes, and how to protect your instrument."
-      datePublished="2024-11-28"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",
@@ -166,14 +166,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80"
           alt="Guitar neck and fretboard detail"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           The guitar neck is highly sensitive to humidity changes throughout the
           year. Photo: Unsplash
         </figcaption>
@@ -272,14 +272,14 @@ export default function ArticlePage() {
         <li>Structural wood can warp permanently</li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=900&q=80"
           alt="Guitar stored properly in case"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Proper storage in a case with humidity control is the best guitar
           protection. Photo: Unsplash
         </figcaption>

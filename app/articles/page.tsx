@@ -5,7 +5,7 @@ import { ArrowLeft, Clock, ChevronRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Guitar Tuning Guides & Articles",
   description:
-    "Learn how to tune your guitar perfectly. Our comprehensive guides cover beginner tuning, standard tuning, alternate tunings, intonation, string selection, and keeping your guitar in tune — for every skill level.",
+    "Guides to tuning your guitar properly — beginner basics, standard and alternate tunings, intonation, strings, and staying in tune.",
   alternates: { canonical: "/articles" },
   openGraph: {
     title: "Guitar Tuning Guides & Articles",
@@ -152,9 +152,9 @@ const categories = [
 const colorMap: Record<string, { badge: string; accent: string; dot: string }> =
   {
     cyan: {
-      badge: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
-      accent: "group-hover:text-cyan-400",
-      dot: "bg-cyan-500",
+      badge: "bg-brass/10 text-brass border-brass/20",
+      accent: "group-hover:text-brass",
+      dot: "bg-brass",
     },
     violet: {
       badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",
@@ -162,9 +162,9 @@ const colorMap: Record<string, { badge: string; accent: string; dot: string }> =
       dot: "bg-violet-500",
     },
     emerald: {
-      badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-      accent: "group-hover:text-emerald-400",
-      dot: "bg-emerald-500",
+      badge: "bg-in-tune/10 text-in-tune border-in-tune/20",
+      accent: "group-hover:text-in-tune",
+      dot: "bg-in-tune",
     },
   };
 
@@ -178,21 +178,21 @@ export default function ArticlesIndex() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050510] text-white flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-canvas text-ink flex flex-col items-center relative overflow-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <div className="z-10 w-full max-w-5xl px-5 pt-10 sm:pt-16 pb-20">
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="inline-flex items-center text-sm text-brass hover:text-brass-hover transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Tuner
           </Link>
@@ -200,13 +200,13 @@ export default function ArticlesIndex() {
 
         {/* Hero */}
         <header className="mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/30 bg-cyan-500/5 px-3 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-brass uppercase tracking-widest mb-4 border border-brass/30 bg-brass/5 px-3 py-1.5 rounded-full">
             Guitar Knowledge Base
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">
-            Guitar Tuning <span className="text-cyan-500">Guides</span>
+            Guitar Tuning <span className="text-brass">Guides</span>
           </h1>
-          <p className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
+          <p className="text-ink-muted text-lg max-w-2xl leading-relaxed">
             Comprehensive, expert-written guides on every aspect of guitar
             tuning — from your first string to advanced setup and intonation.
             All free, no signup required.
@@ -222,10 +222,10 @@ export default function ArticlesIndex() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 text-center"
+              className="rounded-xl border border-line bg-surface/30 p-4 text-center"
             >
-              <div className="text-2xl font-bold text-white">{stat.value}</div>
-              <div className="text-xs text-zinc-500 mt-1">{stat.label}</div>
+              <div className="text-2xl font-bold text-ink">{stat.value}</div>
+              <div className="text-xs text-ink-subtle mt-1">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -237,7 +237,7 @@ export default function ArticlesIndex() {
             <section key={category.label} className="mb-14">
               <div className="flex items-center gap-3 mb-6">
                 <span className={`w-2 h-2 rounded-full ${c.dot}`} />
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-ink">
                   {category.label}
                 </h2>
                 <span
@@ -252,7 +252,7 @@ export default function ArticlesIndex() {
                   <Link
                     href={`/articles/${article.slug}`}
                     key={article.slug}
-                    className="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden hover:border-zinc-600 hover:bg-zinc-800/50 transition-all duration-300"
+                    className="group block rounded-2xl border border-line bg-surface/40 overflow-hidden hover:border-line-strong hover:bg-surface-raised/50 transition-all duration-300"
                   >
                     <div className="h-36 overflow-hidden">
                       <img
@@ -264,14 +264,14 @@ export default function ArticlesIndex() {
                     </div>
                     <div className="p-5">
                       <h3
-                        className={`font-semibold text-zinc-100 ${c.accent} transition-colors mb-2 leading-snug`}
+                        className={`font-semibold text-ink ${c.accent} transition-colors mb-2 leading-snug`}
                       >
                         {article.title}
                       </h3>
-                      <p className="text-xs text-zinc-500 leading-relaxed mb-3">
+                      <p className="text-xs text-ink-subtle leading-relaxed mb-3">
                         {article.description}
                       </p>
-                      <div className="flex items-center justify-between text-xs text-zinc-600">
+                      <div className="flex items-center justify-between text-xs text-ink-subtle">
                         <span className="flex items-center gap-1.5">
                           <Clock className="w-3 h-3" /> {article.readingTime}{" "}
                           min read
@@ -291,17 +291,17 @@ export default function ArticlesIndex() {
         })}
 
         {/* CTA */}
-        <div className="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-8 text-center">
-          <h2 className="text-xl font-bold text-white mb-2">
+        <div className="rounded-2xl border border-brass/30 bg-brass/5 p-8 text-center">
+          <h2 className="text-xl font-bold text-ink mb-2">
             Ready to put it into practice?
           </h2>
-          <p className="text-zinc-400 mb-5 text-sm">
+          <p className="text-ink-muted mb-5 text-sm">
             Use GuitarTunePro's free online chromatic tuner to apply everything
             you've learned.
           </p>
           <Link
             href="/"
-            className="inline-block bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-8 py-3 rounded-full text-sm transition-colors"
+            className="inline-block bg-brass hover:bg-brass-hover text-brass-contrast font-bold px-8 py-3 rounded-full text-sm transition-colors"
           >
             Open Free Guitar Tuner →
           </Link>

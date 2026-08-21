@@ -5,7 +5,7 @@ import { otherTunersFor } from "@/lib/tunerPages";
 
 export const metadata: Metadata = {
   title:
-    "Full Step Down Tuner — Free Online D Standard Tuner",
+    "Full Step Down Tuner — D Standard",
   description:
     "Free online full step down guitar tuner. Tune to D standard (D G C F A D) with your microphone, right on this page. No download required.",
   alternates: { canonical: "/full-step-down-tuner" },

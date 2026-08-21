@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "How to Intonate Your Guitar: Step-by-Step Saddle Adjustment Guide",
+  title: "How to Intonate Your Guitar",
   description:
-    "Learn how to set proper guitar intonation using a chromatic tuner. This step-by-step guide explains what intonation is, how to check it, and how to adjust your saddles for perfect pitch across the full fretboard.",
+    "Set guitar intonation with a chromatic tuner: what it is, how to check it, and how to adjust the saddles for accurate pitch up the neck.",
   alternates: { canonical: "/articles/how-to-intonate-your-guitar" },
   openGraph: {
     title: "How to Intonate Your Guitar",
@@ -49,8 +49,8 @@ export default function ArticlePage() {
       slug="how-to-intonate-your-guitar"
       title="How to Intonate Your Guitar"
       description="A complete, practical guide to checking and setting guitar intonation — what it is, why it matters, and exactly how to adjust each string's saddle for perfect pitch across the entire fretboard."
-      datePublished="2024-12-05"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={10}
       heroImage={{
         src: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80",
@@ -175,14 +175,14 @@ export default function ArticlePage() {
         the nut) shortens it, making fretted notes sharper.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80"
           alt="Guitar bridge saddles close-up"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Individual bridge saddles are adjusted to set intonation for each
           string. Photo: Unsplash
         </figcaption>
@@ -291,14 +291,14 @@ export default function ArticlePage() {
         make a big difference.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
           alt="Guitarist checking intonation with tuner"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Patience and a precise tuner are the keys to perfect intonation.
           Photo: Unsplash
         </figcaption>

@@ -118,7 +118,7 @@ export function MicrophoneStatus({
           onClick={onStopMicrophone}
           variant="outline"
           size="sm"
-          className="touch-button text-xs border-white/10 hover:border-white/20"
+          className="touch-button text-xs border-line hover:border-line"
         >
           Stop
         </Button>
@@ -132,7 +132,7 @@ export function MicrophoneStatus({
         </div>
 
         {/* Signal bar */}
-        <div className="relative h-2 bg-black/40 rounded-full overflow-hidden border border-white/10">
+        <div className="relative h-2 bg-black/40 rounded-full overflow-hidden border border-line">
           <div
             className={`h-full transition-all duration-100 rounded-full ${
               signalStrength < 20

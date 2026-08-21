@@ -77,18 +77,18 @@ export default function TunerPageLayout({
     <section className="mb-12" aria-labelledby="string-chart-heading">
       <h2
         id="string-chart-heading"
-        className="text-2xl font-bold text-white mb-4"
+        className="text-2xl font-bold text-ink mb-4"
       >
         {chartMode === "courses"
           ? "Course-by-Course Frequency Chart"
           : "String-by-String Frequency Chart"}
       </h2>
-      <p className="text-zinc-400 leading-relaxed mb-5">
+      <p className="text-ink-muted leading-relaxed mb-5">
         {chartCaption ?? DEFAULT_CAPTION}
       </p>
-      <div className="overflow-x-auto rounded-xl border border-zinc-800">
+      <div className="overflow-x-auto rounded-xl border border-line">
         <table className="w-full text-sm">
-          <thead className="bg-zinc-900/60 text-zinc-400">
+          <thead className="bg-surface/60 text-ink-muted">
             <tr>
               <th className="px-4 py-3 text-left font-semibold">
                 {chartMode === "courses" ? "Course" : "String"}
@@ -112,36 +112,36 @@ export default function TunerPageLayout({
               )}
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800">
+          <tbody className="divide-y divide-line">
             {chartMode === "courses"
               ? courseChart.map((row) => (
-                  <tr key={row.number} className="bg-zinc-900/20">
-                    <td className="px-4 py-3 text-zinc-400">{row.number}</td>
+                  <tr key={row.number} className="bg-surface/20">
+                    <td className="px-4 py-3 text-ink-muted">{row.number}</td>
                     <td className="px-4 py-3">
-                      <span className="font-semibold text-zinc-100">
+                      <span className="font-semibold text-ink">
                         {row.main.note}
                       </span>{" "}
-                      <span className="font-mono text-cyan-400">
+                      <span className="font-mono text-brass">
                         {row.main.frequency} Hz
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="font-semibold text-zinc-100">
+                      <span className="font-semibold text-ink">
                         {row.pair.note}
                       </span>{" "}
-                      <span className="font-mono text-cyan-400">
+                      <span className="font-mono text-brass">
                         {row.pair.frequency} Hz
                       </span>
                     </td>
                   </tr>
                 ))
               : stringChart.map((row) => (
-                  <tr key={row.number} className="bg-zinc-900/20">
-                    <td className="px-4 py-3 text-zinc-400">{row.number}</td>
-                    <td className="px-4 py-3 font-semibold text-zinc-100">
+                  <tr key={row.number} className="bg-surface/20">
+                    <td className="px-4 py-3 text-ink-muted">{row.number}</td>
+                    <td className="px-4 py-3 font-semibold text-ink">
                       {row.note}
                     </td>
-                    <td className="px-4 py-3 font-mono text-cyan-400">
+                    <td className="px-4 py-3 font-mono text-brass">
                       {row.frequency} Hz
                     </td>
                   </tr>

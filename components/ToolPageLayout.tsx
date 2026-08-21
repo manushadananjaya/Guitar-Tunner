@@ -64,7 +64,7 @@ export default function ToolPageLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+    <div className="min-h-screen bg-canvas text-ink pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -77,8 +77,8 @@ export default function ToolPageLayout({
       )}
 
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <main className="relative z-10">
@@ -86,19 +86,19 @@ export default function ToolPageLayout({
         <div className="max-w-5xl mx-auto px-5 pt-8 sm:pt-10">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-xs text-zinc-500 mb-5"
+            className="flex items-center gap-1.5 text-xs text-ink-subtle mb-5"
           >
-            <Link href="/" className="hover:text-cyan-400 transition-colors">
+            <Link href="/" className="hover:text-brass transition-colors">
               Home
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-zinc-400">{title}</span>
+            <span className="text-ink-muted">{title}</span>
           </nav>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight mb-3">
             {title}
           </h1>
-          <p className="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-2xl">
+          <p className="text-ink-muted text-base sm:text-lg leading-relaxed max-w-2xl">
             {description}
           </p>
         </div>
@@ -113,15 +113,15 @@ export default function ToolPageLayout({
           <div
             className={[
               "prose prose-invert prose-cyan max-w-none",
-              "prose-headings:font-bold prose-headings:text-white",
+              "prose-headings:font-bold prose-headings:text-ink",
               "prose-h2:text-2xl prose-h2:mt-0 prose-h2:mb-4",
               "prose-h3:text-lg prose-h3:mt-0 prose-h3:mb-3",
-              "prose-p:leading-[1.85] prose-p:text-zinc-300 prose-p:mb-6 prose-p:mt-0",
-              "prose-li:text-zinc-300 prose-li:leading-relaxed prose-li:mb-1",
+              "prose-p:leading-[1.85] prose-p:text-ink prose-p:mb-6 prose-p:mt-0",
+              "prose-li:text-ink prose-li:leading-relaxed prose-li:mb-1",
               "prose-ul:my-5 prose-ol:my-5 prose-ul:space-y-1",
-              "prose-strong:text-zinc-100 prose-strong:font-semibold",
-              "prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300",
-              "[&>h2]:mt-14 [&>h2]:pt-8 [&>h2]:border-t [&>h2]:border-zinc-800",
+              "prose-strong:text-ink prose-strong:font-semibold",
+              "prose-a:text-brass prose-a:no-underline hover:prose-a:text-brass-hover",
+              "[&>h2]:mt-14 [&>h2]:pt-8 [&>h2]:border-t [&>h2]:border-line",
               "[&>h3]:mt-9 [&>h3]:mb-3",
             ].join(" ")}
           >
@@ -130,20 +130,20 @@ export default function ToolPageLayout({
 
           {faqs && faqs.length > 0 && (
             <section className="mt-14" aria-labelledby="faq-heading">
-              <h2 id="faq-heading" className="text-2xl font-bold text-white mb-6">
+              <h2 id="faq-heading" className="text-2xl font-bold text-ink mb-6">
                 Frequently Asked Questions
               </h2>
               <div className="space-y-4">
                 {faqs.map((faq, i) => (
                   <details
                     key={i}
-                    className="group rounded-xl border border-zinc-800 bg-zinc-900/40 p-5"
+                    className="group rounded-xl border border-line bg-surface/40 p-5"
                   >
-                    <summary className="flex cursor-pointer items-center justify-between gap-4 font-semibold text-zinc-100 list-none">
+                    <summary className="flex cursor-pointer items-center justify-between gap-4 font-semibold text-ink list-none">
                       <span>{faq.question}</span>
-                      <ChevronRight className="w-4 h-4 shrink-0 text-cyan-400 transition-transform group-open:rotate-90" />
+                      <ChevronRight className="w-4 h-4 shrink-0 text-brass transition-transform group-open:rotate-90" />
                     </summary>
-                    <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">
                       {faq.answer}
                     </p>
                   </details>
@@ -156,7 +156,7 @@ export default function ToolPageLayout({
             <section className="mt-14" aria-labelledby="other-tools-heading">
               <h2
                 id="other-tools-heading"
-                className="text-2xl font-bold text-white mb-6"
+                className="text-2xl font-bold text-ink mb-6"
               >
                 {otherToolsHeading}
               </h2>
@@ -165,7 +165,7 @@ export default function ToolPageLayout({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-zinc-800 bg-zinc-900/40 px-4 py-2 text-sm text-zinc-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-colors"
+                    className="rounded-full border border-line bg-surface/40 px-4 py-2 text-sm text-ink hover:border-brass/40 hover:text-brass transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -178,7 +178,7 @@ export default function ToolPageLayout({
             <section className="mt-14" aria-labelledby="related-heading">
               <h2
                 id="related-heading"
-                className="text-2xl font-bold text-white mb-6"
+                className="text-2xl font-bold text-ink mb-6"
               >
                 Related Reading
               </h2>
@@ -187,12 +187,12 @@ export default function ToolPageLayout({
                   <Link
                     key={article.slug}
                     href={`/articles/${article.slug}`}
-                    className="group block rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-cyan-500/40 hover:bg-zinc-800/50 transition-all"
+                    className="group block rounded-xl border border-line bg-surface/40 p-5 hover:border-brass/40 hover:bg-surface-raised/50 transition-all"
                   >
-                    <p className="font-semibold text-zinc-100 group-hover:text-cyan-400 transition-colors mb-1.5 leading-snug">
+                    <p className="font-semibold text-ink group-hover:text-brass transition-colors mb-1.5 leading-snug">
                       {article.title}
                     </p>
-                    <p className="text-xs text-zinc-500 leading-relaxed">
+                    <p className="text-xs text-ink-subtle leading-relaxed">
                       {article.description}
                     </p>
                   </Link>

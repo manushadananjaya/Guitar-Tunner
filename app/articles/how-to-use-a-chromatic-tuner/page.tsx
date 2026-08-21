@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "How to Use a Chromatic Tuner: Complete Guide for Guitarists",
+  title: "How to Use a Chromatic Tuner",
   description:
-    "Learn what a chromatic tuner is, how it differs from a standard tuner, how to read cents and the needle, and how to use it for standard tuning, alternate tunings, and intonation checks.",
+    "Read cents, needles, and note names correctly, and learn what a chromatic tuner shows you that a simple guitar tuner does not.",
   alternates: { canonical: "/articles/how-to-use-a-chromatic-tuner" },
   openGraph: {
     title: "How to Use a Chromatic Tuner",
@@ -49,13 +49,15 @@ export default function ArticlePage() {
       slug="how-to-use-a-chromatic-tuner"
       title="How to Use a Chromatic Tuner"
       description="Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning."
-      datePublished="2024-11-22"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={8}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-        alt: "Digital guitar tuner device",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/tuner-gauge.png",
+        alt:
+          "GuitarTunePro's chromatic tuner showing the needle gauge, detected note, and cent offset",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -182,14 +184,14 @@ export default function ArticlePage() {
         tablet, or computer.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80"
           alt="Guitar being tuned with digital tuner"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Online tuners work through your device's microphone for instant pitch
           detection. Photo: Unsplash
         </figcaption>

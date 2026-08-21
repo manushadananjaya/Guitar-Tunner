@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "How to Tune a Guitar by Ear: Relative Tuning Methods Explained",
+  title: "How to Tune a Guitar by Ear",
   description:
-    "Learn how to tune your guitar by ear using the 5th fret method, harmonics method, and octave method. Develop relative pitch and understand why digital tuners are still essential.",
+    "Relative tuning, the fifth-fret method, and harmonics — how to get in tune with no tuner, and how to train your ear doing it.",
   alternates: { canonical: "/articles/how-to-tune-a-guitar-by-ear" },
   openGraph: {
     title: "How to Tune a Guitar by Ear",
@@ -49,8 +49,8 @@ export default function ArticlePage() {
       slug="how-to-tune-a-guitar-by-ear"
       title="How to Tune a Guitar by Ear"
       description="A detailed guide to the 5th fret method, harmonic tuning, and octave matching — plus why relative ear tuning and digital tuners both have important roles."
-      datePublished="2024-11-20"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=900&q=80",
@@ -153,14 +153,14 @@ export default function ArticlePage() {
         need perfect pitch to hear it.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
           alt="Guitarist practicing ear training"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Ear training is one of the most valuable skills a guitarist can
           develop. Photo: Unsplash
         </figcaption>
@@ -277,14 +277,14 @@ export default function ArticlePage() {
         needing to re-pluck the reference string.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80"
           alt="Guitar fretboard showing harmonic positions"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Natural harmonics produce pure tones ideal for relative tuning. Photo:
           Unsplash
         </figcaption>

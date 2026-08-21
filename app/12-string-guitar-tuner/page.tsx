@@ -5,7 +5,7 @@ import { otherInstrumentsFor } from "@/lib/instrumentPages";
 
 export const metadata: Metadata = {
   title:
-    "12-String Guitar Tuner — Free Online 12-String Tuner",
+    "12-String Guitar Tuner — Free Online",
   description:
     "Free online 12-string guitar tuner. Tune all six courses and their octave pairs with your microphone, right on this page. No download required.",
   alternates: { canonical: "/12-string-guitar-tuner" },

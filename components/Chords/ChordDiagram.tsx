@@ -65,7 +65,7 @@ export default function ChordDiagram({
         const x = stringX(i);
         if (fret === null) {
           return (
-            <g key={`m${i}`} stroke="#71717a" strokeWidth={1.6} strokeLinecap="round">
+            <g key={`m${i}`} className="text-ink-subtle" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round">
               <line x1={x - 4} y1={PAD_TOP - 16} x2={x + 4} y2={PAD_TOP - 8} />
               <line x1={x - 4} y1={PAD_TOP - 8} x2={x + 4} y2={PAD_TOP - 16} />
             </g>
@@ -79,7 +79,8 @@ export default function ChordDiagram({
               cy={PAD_TOP - 12}
               r={4}
               fill="none"
-              stroke="#71717a"
+              className="text-ink-subtle"
+              stroke="currentColor"
               strokeWidth={1.6}
             />
           );
@@ -95,7 +96,8 @@ export default function ChordDiagram({
           width={STRING_GAP * (STRINGS - 1) + 2}
           height={4}
           rx={1}
-          fill="#a1a1aa"
+          className="text-ink-muted"
+          fill="currentColor"
         />
       ) : (
         <text
@@ -103,7 +105,8 @@ export default function ChordDiagram({
           y={fretY(1) + 4}
           textAnchor="end"
           fontSize={11}
-          fill="#71717a"
+          fill="currentColor"
+          className="text-ink-subtle"
           fontFamily="ui-monospace, monospace"
         >
           {baseFret}
@@ -118,7 +121,8 @@ export default function ChordDiagram({
           y1={PAD_TOP + i * FRET_GAP}
           x2={PAD_X + STRING_GAP * (STRINGS - 1)}
           y2={PAD_TOP + i * FRET_GAP}
-          stroke="#3f3f46"
+          className="text-line-strong"
+          stroke="currentColor"
           strokeWidth={1}
         />
       ))}
@@ -131,7 +135,8 @@ export default function ChordDiagram({
           y1={PAD_TOP}
           x2={stringX(i)}
           y2={PAD_TOP + FRET_GAP * FRET_COUNT}
-          stroke="#3f3f46"
+          className="text-line-strong"
+          stroke="currentColor"
           strokeWidth={1}
         />
       ))}
@@ -148,7 +153,8 @@ export default function ChordDiagram({
           }
           height={12}
           rx={6}
-          fill="#22d3ee"
+          className="text-brass"
+          fill="currentColor"
         />
       )}
 
@@ -165,7 +171,8 @@ export default function ChordDiagram({
             cx={stringX(i)}
             cy={fretY(relative)}
             r={6}
-            fill="#22d3ee"
+            className="text-brass"
+            fill="currentColor"
           />
         );
       })}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, ChevronRight } from "lucide-react";
+import { SITE_AUTHOR } from "@/lib/author";
 
 export interface FAQItem {
   question: string;
@@ -22,6 +23,8 @@ export interface ArticleLayoutProps {
     src: string;
     alt: string;
     credit?: string;
+    /** Photos crop well; UI screenshots do not. Defaults to "cover". */
+    fit?: "cover" | "contain";
   };
   faqs?: FAQItem[];
   relatedArticles?: RelatedArticle[];
@@ -56,11 +59,20 @@ export default function ArticleLayout({
     description,
     datePublished,
     dateModified: dateModified ?? datePublished,
-    author: {
-      "@type": "Organization",
-      name: "GuitarTunePro",
-      url: siteUrl,
-    },
+    // A named Person is the stronger E-E-A-T signal, but only ships once a
+    // real one is configured — see lib/author.ts.
+    author: SITE_AUTHOR
+      ? {
+          "@type": "Person",
+          name: SITE_AUTHOR.name,
+          description: SITE_AUTHOR.bio,
+          ...(SITE_AUTHOR.url && { url: `${siteUrl}${SITE_AUTHOR.url}` }),
+        }
+      : {
+          "@type": "Organization",
+          name: "GuitarTunePro",
+          url: siteUrl,
+        },
     publisher: {
       "@type": "Organization",
       name: "GuitarTunePro",
@@ -100,7 +112,7 @@ export default function ArticleLayout({
       : null;
 
   return (
-    <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+    <div className="min-h-screen bg-canvas text-ink pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -113,38 +125,53 @@ export default function ArticleLayout({
       )}
 
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <main className="relative z-10 max-w-3xl mx-auto px-5 pt-10 sm:pt-16">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-zinc-500 mb-6">
-          <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-ink-subtle mb-6">
+          <Link href="/" className="hover:text-brass transition-colors">Home</Link>
           {isArticle && (
             <>
               <ChevronRight className="w-3 h-3" />
-              <Link href="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link>
+              <Link href="/articles" className="hover:text-brass transition-colors">Articles</Link>
             </>
           )}
           <ChevronRight className="w-3 h-3" />
-          <span className="text-zinc-400 truncate max-w-[180px]">{title}</span>
+          <span className="text-ink-muted truncate max-w-[180px]">{title}</span>
         </nav>
 
         <Link
           href={isArticle ? "/articles" : "/"}
-          className="inline-flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors mb-6"
+          className="inline-flex items-center text-sm text-brass hover:text-brass-hover transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" /> {isArticle ? "Back to Articles" : "Back to Tuner"}
         </Link>
 
         {/* Article Header */}
         <header className="mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight mb-4">
             {title}
           </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed mb-5">{description}</p>
-          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500">
+          <p className="text-ink-muted text-lg leading-relaxed mb-5">{description}</p>
+          <div className="flex flex-wrap items-center gap-4 text-xs text-ink-subtle">
+            {SITE_AUTHOR && (
+              <span className="text-ink-muted">
+                By{" "}
+                {SITE_AUTHOR.url ? (
+                  <Link
+                    href={SITE_AUTHOR.url}
+                    className="text-brass hover:text-brass-hover transition-colors"
+                  >
+                    {SITE_AUTHOR.name}
+                  </Link>
+                ) : (
+                  SITE_AUTHOR.name
+                )}
+              </span>
+            )}
             <span className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" />
               {new Date(datePublished).toLocaleDateString("en-US", {
@@ -162,15 +189,19 @@ export default function ArticleLayout({
 
         {/* Hero Image */}
         {heroImage && (
-          <figure className="mb-10 rounded-2xl overflow-hidden border border-white/5">
+          <figure className="mb-10 rounded-2xl overflow-hidden border border-line">
             <img
               src={heroImage.src}
               alt={heroImage.alt}
-              className="w-full h-56 sm:h-72 object-cover"
+              className={`w-full h-56 sm:h-72 ${
+                heroImage.fit === "contain"
+                  ? "object-contain bg-surface-sunken/60 p-3"
+                  : "object-cover"
+              }`}
               loading="eager"
             />
             {heroImage.credit && (
-              <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+              <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
                 {heroImage.credit}
               </figcaption>
             )}
@@ -182,19 +213,19 @@ export default function ArticleLayout({
           className={[
             "prose prose-invert prose-cyan max-w-none",
             // Headings
-            "prose-headings:font-bold prose-headings:text-white",
+            "prose-headings:font-bold prose-headings:text-ink",
             "prose-h2:text-2xl prose-h2:mt-0 prose-h2:mb-4",
             "prose-h3:text-lg prose-h3:mt-0 prose-h3:mb-3",
             // Paragraphs
-            "prose-p:leading-[1.85] prose-p:text-zinc-300 prose-p:mb-6 prose-p:mt-0",
+            "prose-p:leading-[1.85] prose-p:text-ink prose-p:mb-6 prose-p:mt-0",
             // Lists
-            "prose-li:text-zinc-300 prose-li:leading-relaxed prose-li:mb-1",
+            "prose-li:text-ink prose-li:leading-relaxed prose-li:mb-1",
             "prose-ul:my-5 prose-ol:my-5 prose-ul:space-y-1",
             // Strong / links
-            "prose-strong:text-zinc-100 prose-strong:font-semibold",
-            "prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300",
+            "prose-strong:text-ink prose-strong:font-semibold",
+            "prose-a:text-brass prose-a:no-underline hover:prose-a:text-brass-hover",
             // Section separators via arbitrary variants
-            "[&>h2]:mt-14 [&>h2]:pt-8 [&>h2]:border-t [&>h2]:border-zinc-800",
+            "[&>h2]:mt-14 [&>h2]:pt-8 [&>h2]:border-t [&>h2]:border-line",
             "[&>h3]:mt-9 [&>h3]:mb-3",
             // Figure / blockquote spacing
             "prose-figure:my-8",
@@ -204,38 +235,52 @@ export default function ArticleLayout({
         </div>
 
         {/* CTA Banner */}
-        <div className="mt-14 rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 sm:p-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400 mb-2">
+        <div className="mt-14 rounded-2xl border border-brass/30 bg-brass/5 p-6 sm:p-8 text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-brass mb-2">
             Ready to tune?
           </p>
-          <p className="text-zinc-300 mb-5">
+          <p className="text-ink mb-5">
             Use GuitarTunePro's free online tuner — works directly in your browser, no app download needed.
           </p>
           <Link
             href="/"
-            className="inline-block bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 rounded-full text-sm transition-colors"
+            className="inline-block bg-brass hover:bg-brass-hover text-brass-contrast font-bold px-6 py-3 rounded-full text-sm transition-colors"
           >
             Use Our Free Chromatic Guitar Tuner →
           </Link>
         </div>
 
+        {/* Author box — the visible half of the E-E-A-T signal */}
+        {SITE_AUTHOR && (
+          <section className="mt-14 rounded-2xl border border-line bg-surface/40 p-6">
+            <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle mb-3">
+              About the author
+            </p>
+            <p className="font-bold text-ink">{SITE_AUTHOR.name}</p>
+            <p className="text-xs text-brass mb-2">{SITE_AUTHOR.role}</p>
+            <p className="text-sm leading-relaxed text-ink-muted">
+              {SITE_AUTHOR.bio}
+            </p>
+          </section>
+        )}
+
         {/* FAQ Section */}
         {faqs && faqs.length > 0 && (
           <section className="mt-14" aria-labelledby="faq-heading">
-            <h2 id="faq-heading" className="text-2xl font-bold text-white mb-6">
+            <h2 id="faq-heading" className="text-2xl font-bold text-ink mb-6">
               Frequently Asked Questions
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, i) => (
                 <details
                   key={i}
-                  className="group rounded-xl border border-zinc-800 bg-zinc-900/40 p-5"
+                  className="group rounded-xl border border-line bg-surface/40 p-5"
                 >
-                  <summary className="flex cursor-pointer items-center justify-between gap-4 font-semibold text-zinc-100 list-none">
+                  <summary className="flex cursor-pointer items-center justify-between gap-4 font-semibold text-ink list-none">
                     <span>{faq.question}</span>
-                    <ChevronRight className="w-4 h-4 shrink-0 text-cyan-400 transition-transform group-open:rotate-90" />
+                    <ChevronRight className="w-4 h-4 shrink-0 text-brass transition-transform group-open:rotate-90" />
                   </summary>
-                  <p className="mt-4 text-sm leading-relaxed text-zinc-400">{faq.answer}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-ink-muted">{faq.answer}</p>
                 </details>
               ))}
             </div>
@@ -245,7 +290,7 @@ export default function ArticleLayout({
         {/* Related Articles */}
         {relatedArticles && relatedArticles.length > 0 && (
           <section className="mt-14" aria-labelledby="related-heading">
-            <h2 id="related-heading" className="text-2xl font-bold text-white mb-6">
+            <h2 id="related-heading" className="text-2xl font-bold text-ink mb-6">
               Related Articles
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -253,12 +298,12 @@ export default function ArticleLayout({
                 <Link
                   key={article.slug}
                   href={`/articles/${article.slug}`}
-                  className="group block rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-cyan-500/40 hover:bg-zinc-800/50 transition-all"
+                  className="group block rounded-xl border border-line bg-surface/40 p-5 hover:border-brass/40 hover:bg-surface-raised/50 transition-all"
                 >
-                  <p className="font-semibold text-zinc-100 group-hover:text-cyan-400 transition-colors mb-1.5 leading-snug">
+                  <p className="font-semibold text-ink group-hover:text-brass transition-colors mb-1.5 leading-snug">
                     {article.title}
                   </p>
-                  <p className="text-xs text-zinc-500 leading-relaxed">{article.description}</p>
+                  <p className="text-xs text-ink-subtle leading-relaxed">{article.description}</p>
                 </Link>
               ))}
             </div>

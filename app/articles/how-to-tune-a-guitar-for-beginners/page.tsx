@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "How to Tune a Guitar for Beginners: Complete Step-by-Step Guide",
+  title: "How to Tune a Guitar for Beginners",
   description:
-    "Learn exactly how to tune a guitar for the first time. This beginner's guide covers standard tuning, using an online tuner, reading cents, and pro tips for keeping your guitar in tune.",
+    "Tune your guitar from scratch — by microphone or by ear — with a clear step-by-step method and the mistakes beginners usually make.",
   alternates: { canonical: "/articles/how-to-tune-a-guitar-for-beginners" },
   openGraph: {
     title: "How to Tune a Guitar for Beginners",
@@ -49,13 +49,15 @@ export default function ArticlePage() {
       slug="how-to-tune-a-guitar-for-beginners"
       title="How to Tune a Guitar for Beginners"
       description="A complete, step-by-step guide to tuning your guitar for the very first time — from learning string names to reading your tuner and keeping your guitar in tune longer."
-      datePublished="2024-11-01"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={8}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80",
-        alt: "Close-up of guitar headstock tuning pegs",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/headstock-guide.png",
+        alt:
+          "Interactive headstock diagram showing the six tuning pegs for standard E A D G B E tuning",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -213,14 +215,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=900&q=80"
           alt="Guitar tuning pegs close up"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           The tuning pegs are located on the headstock of the guitar. Photo:
           Unsplash
         </figcaption>
@@ -289,14 +291,14 @@ export default function ArticlePage() {
         perfectly in tune.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
           alt="Guitarist practicing with guitar in hand"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Practice tuning regularly — it becomes second nature within a few
           weeks. Photo: Unsplash
         </figcaption>

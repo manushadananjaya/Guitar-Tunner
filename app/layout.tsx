@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,6 +36,12 @@ export const metadata: Metadata = {
   description:
     "Professional guitar tuner with real-time pitch detection and high accuracy. Supports 6-string, 7-string, 12-string guitars, bass, and ukulele. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.",
   applicationName: "GuitarTunePro",
+  manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "GuitarTunePro",
+    statusBarStyle: "black-translucent",
+  },
   generator: "v0.app",
   category: "music",
   alternates: {
@@ -106,6 +114,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+  // Follows the system preference. An explicit in-app theme choice is not a
+  // media query, so ThemeToggle also syncs this tag on change.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ede5d7" },
+    { media: "(prefers-color-scheme: dark)", color: "#17120e" },
+  ],
 };
 
 export default function RootLayout({
@@ -170,19 +184,27 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased tracking-[-0.01em] bg-[#050510] text-zinc-100 min-h-screen flex flex-col relative"
+        className="font-sans antialiased tracking-[-0.01em] bg-canvas text-ink min-h-screen flex flex-col relative"
         suppressHydrationWarning
       >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
         {/* Global ambient background glow */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-950/15 blur-[130px]" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-cyan-950/15 blur-[130px]" />
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
         </div>
         <Navbar />
         <div className="flex-1 w-full relative z-10">
           {children}
         </div>
         <Footer />
+        </ThemeProvider>
+        <ServiceWorkerRegistrar />
         <Analytics />
         <Script
           strategy="afterInteractive"

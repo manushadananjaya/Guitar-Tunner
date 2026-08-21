@@ -111,14 +111,41 @@ export const CHORD_BY_SLUG = new Map(CHORDS.map((chord) => [chord.slug, chord]))
 export const getChord = (slug: string) => CHORD_BY_SLUG.get(slug);
 
 /** Other chords worth showing on a chord's page. */
+/** Rotate a list so it begins just after `from`, wrapping around. */
+function rotateAfter<T>(items: T[], from: number): T[] {
+  if (items.length === 0) return items;
+  const start = ((from % items.length) + items.length) % items.length;
+  return [...items.slice(start), ...items.slice(0, start)];
+}
+
 export function relatedChords(chord: Chord, limit = 8): Chord[] {
-  const sameRoot = CHORDS.filter(
-    (other) =>
-      other.root.slug === chord.root.slug && other.slug !== chord.slug,
+  // Both lists preserve the canonical ROOTS / QUALITIES order, so rotating
+  // each to start just after this chord's own position turns the link graph
+  // into a ring: every chord links forward to its neighbours, and therefore
+  // every chord receives links back from the ones behind it.
+  //
+  // Slicing from index 0 instead — as this did originally — meant all 156
+  // pages linked to the same handful of siblings, leaving the qualities late
+  // in the array (6, m6, add9, dim, aug, 5) with no inbound link at all
+  // except the /chords index.
+  const qualityIndex = QUALITIES.findIndex(
+    (q) => q.slug === chord.quality.slug,
   );
-  const sameQuality = CHORDS.filter(
-    (other) =>
-      other.quality.slug === chord.quality.slug && other.slug !== chord.slug,
+  const rootIndex = ROOTS.findIndex((r) => r.slug === chord.root.slug);
+
+  const sameRoot = rotateAfter(
+    CHORDS.filter(
+      (other) =>
+        other.root.slug === chord.root.slug && other.slug !== chord.slug,
+    ),
+    qualityIndex,
+  );
+  const sameQuality = rotateAfter(
+    CHORDS.filter(
+      (other) =>
+        other.quality.slug === chord.quality.slug && other.slug !== chord.slug,
+    ),
+    rootIndex,
   );
 
   const seen = new Set<string>();
@@ -133,6 +160,35 @@ export function relatedChords(chord: Chord, limit = 8): Chord[] {
     }
   }
   return out;
+}
+
+/**
+ * Other chords built from exactly the same set of pitch classes.
+ *
+ * Not a curiosity — it is why C6 and Am7 are interchangeable in practice, and
+ * knowing it doubles the chords a player can reach from one shape. Computed by
+ * comparing pitch-class sets, so it is true by construction.
+ */
+export function sameNotesAs(chord: Chord): Chord[] {
+  const mine = expectedPitchClasses(chord.root, chord.quality).join(',');
+  return CHORDS.filter(
+    (other) =>
+      other.slug !== chord.slug &&
+      expectedPitchClasses(other.root, other.quality).join(',') === mine,
+  );
+}
+
+/** The chord this one most naturally resolves to or decorates, if any. */
+export function parentChord(chord: Chord): Chord | undefined {
+  const toMajor = ['sus2', 'sus4', '6', 'add9'];
+  const toMinor = ['m6'];
+  if (toMajor.includes(chord.quality.slug)) {
+    return getChord(chordSlug(chord.root, QUALITIES[0]));
+  }
+  if (toMinor.includes(chord.quality.slug)) {
+    return getChord(`${chord.root.slug}-minor`);
+  }
+  return undefined;
 }
 
 export interface ValidationIssue {

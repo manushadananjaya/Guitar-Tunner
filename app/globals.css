@@ -10,37 +10,136 @@
   --font-mono: var(--font-mono), ui-monospace, "JetBrains Mono", monospace;
 }
 
+/* ── Palette ──────────────────────────────────────────
+ * Warm and instrument-like rather than neon-on-black: aged spruce and
+ * rosewood for surfaces, brass/amber as the accent. Light is the base
+ * definition; `.dark` overrides the same names so every component can be
+ * written once against semantic tokens.
+ *
+ * Elevation is expressed as a real ladder — canvas → surface → raised —
+ * instead of one flat colour with faint borders, which is what made the
+ * old dark UI read as undesigned.
+ */
 :root {
-  --background: #0a0e27;
-  --foreground: #f0f0ff;
-  --card: #12172d;
-  --card-foreground: #f0f0ff;
-  --primary: #f0f0ff;
-  --primary-foreground: #0a0e27;
-  --secondary: #2d3448;
-  --secondary-foreground: #f0f0ff;
-  --muted: #2d3448;
-  --muted-foreground: #9095a8;
-  --accent: #2d3448;
-  --accent-foreground: #f0f0ff;
-  --destructive: #ff0000;
-  --destructive-foreground: #ff6b9d;
-  --border: #2d3448;
-  --input: #2d3448;
-  --ring: #5a6b8a;
-  --neon-cyan: #00d9ff;
-  --neon-purple: #b537f2;
-  --neon-blue: #0099ff;
-  --neon-green: #00ff00;
-  --neon-pink: #ff006e;
-  --tuner-in-tune: #00ff00;
-  --tuner-slightly-flat: #ffaa00;
-  --tuner-flat: #ff6600;
-  --tuner-out-of-tune: #ff0000;
+  /* Surfaces, low to high. The canvas is deliberately a few steps darker
+     than the cards — when they were nearly the same value the whole page
+     read as one flat sheet with no sense of what sits on top. */
+  --canvas: #ede5d7; /* page ground — warm paper */
+  --surface: #fdfaf5;
+  --surface-raised: #ffffff;
+  --surface-sunken: #e3d9c7;
+
+  /* Text. Values chosen to clear WCAG AA (4.5:1) against --canvas at body
+     size — the first pass failed at 2.9:1 for subtle text, which is most of
+     the captions and labels on the site. Verified by scripts/audit-contrast. */
+  --foreground: #241d16; /* 13.3:1 */
+  --foreground-muted: #5b4d3f; /* 6.9:1 */
+  --foreground-subtle: #6f6152; /* 4.8:1 */
+
+  /* Lines */
+  --border: #d8cab3;
+  --border-strong: #bfab8d;
+
+  /* Brass accent. Darkened so brass-on-canvas text clears 4.5:1 — at #a86a12
+     it measured 3.55:1, which fails for links and labels at body size. */
+  --accent: #8a5610; /* 4.9:1 on canvas */
+  --accent-hover: #6f4409;
+  --accent-contrast: #fffdf8; /* text on an accent fill */
+  --accent-soft: #f6e7cd; /* tinted fill */
+
+  /* Functional tuner states. Kept clearly distinct — these communicate
+     correctness, so they must not be sacrificed to the palette. */
+  --in-tune: #2a6f3d; /* 4.9:1 — #2f7d45 measured 4.12:1, under AA */
+  --near: #b3760c;
+  --off: #b23b2e;
+  --flat: #2f6d8f;
+
+  /* shadcn compatibility — these names are used by components/ui/* */
+  --background: var(--canvas);
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-contrast);
+  --secondary: var(--surface-sunken);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface-sunken);
+  --muted-foreground: var(--foreground-muted);
+  --accent-foreground: var(--accent-contrast);
+  --destructive: var(--off);
+  --destructive-foreground: #fffdf8;
+  --input: var(--border);
+  --ring: var(--accent);
+
   --radius: 0.625rem;
 }
 
+.dark {
+  /* Espresso and warm charcoal, not blue-black */
+  --canvas: #17120e;
+  --surface: #201a15;
+  --surface-raised: #2a221b;
+  --surface-sunken: #120e0b;
+
+  --foreground: #f4ece0;
+  --foreground-muted: #b8ab9b; /* 8.7:1 on dark surface */
+  --foreground-subtle: #968878; /* 5.2:1 — was 4.43:1, just under AA */
+
+  --border: #382e25;
+  --border-strong: #4d4034;
+
+  /* Brighter brass reads well on a dark warm ground */
+  --accent: #e0a340;
+  --accent-hover: #f0b95e;
+  --accent-contrast: #1a1410;
+  --accent-soft: #3a2c17;
+
+  --in-tune: #5cc47c;
+  --near: #e0a340;
+  --off: #e0705f;
+  --flat: #6bb0d6;
+
+  --background: var(--canvas);
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-contrast);
+  --secondary: var(--surface-sunken);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface-sunken);
+  --muted-foreground: var(--foreground-muted);
+  --accent-foreground: var(--accent-contrast);
+  --destructive: var(--off);
+  --destructive-foreground: #1a1410;
+  --input: var(--border);
+  --ring: var(--accent);
+}
+
 @theme inline {
+  /* One step below text-xs, for eyebrow labels and dense metadata. Replaces
+     21 ad-hoc text-[10px]/text-[11px] values — eyeballed sizes are what make
+     a type system feel improvised, and 10px is below comfortable reading. */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-2xs--line-height: 1.45;
+
+  /* Semantic utilities: bg-canvas, bg-surface, text-muted, border-line, … */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-ink: var(--foreground);
+  --color-ink-muted: var(--foreground-muted);
+  --color-ink-subtle: var(--foreground-subtle);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-brass: var(--accent);
+  --color-brass-hover: var(--accent-hover);
+  --color-brass-contrast: var(--accent-contrast);
+  --color-brass-soft: var(--accent-soft);
+  --color-in-tune: var(--in-tune);
+  --color-near: var(--near);
+  --color-off: var(--off);
+  --color-flat: var(--flat);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -130,6 +229,13 @@
 
   .touch-button {
     @apply min-h-12 min-w-12 active:scale-95 transition-transform duration-100;
+  }
+
+  /* Small uppercase section label. This exact combination was repeated with
+     two different tracking values across the site; defining it once keeps
+     the rhythm consistent and makes it adjustable in one place. */
+  .eyebrow {
+    @apply text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle;
   }
 }
 

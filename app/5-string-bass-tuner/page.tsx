@@ -5,7 +5,7 @@ import { otherInstrumentsFor } from "@/lib/instrumentPages";
 
 export const metadata: Metadata = {
   title:
-    "5-String Bass Tuner — Free Online B E A D G Tuner",
+    "5-String Bass Tuner — B E A D G",
   description:
     "Free online 5-string bass tuner. Tune B E A D G with your microphone, right on this page. Handles the low B at 30.87 Hz — no download required.",
   alternates: { canonical: "/5-string-bass-tuner" },

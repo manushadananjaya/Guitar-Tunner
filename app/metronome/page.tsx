@@ -4,7 +4,7 @@ import ToolPageLayout from "@/components/ToolPageLayout";
 import { Metronome } from "@/components/Metronome/Metronome";
 
 export const metadata: Metadata = {
-  title: "Online Metronome — Free Metronome with Tap Tempo",
+  title: "Online Metronome with Tap Tempo",
   description:
     "Free online metronome. Accurate BPM from 30 to 300, tap tempo, time signatures, and subdivisions. Runs in your browser — no download required.",
   alternates: { canonical: "/metronome" },

@@ -227,25 +227,27 @@ export function ProfessionalTuner({
   if (!isMount) return null;
 
   return (
-    <div className="w-full text-white flex flex-col items-center z-10 relative">
+    <div className="w-full text-ink flex flex-col items-center z-10 relative">
       {/* Tuner Controls Bar */}
-      <div className="w-full max-w-5xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-transparent">
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row justify-between items-center gap-3 bg-transparent">
         {/* Toggle options */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 bg-zinc-900/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
+          <div className="flex items-center gap-3 bg-surface/40 backdrop-blur-md px-4 py-2 rounded-full border border-line">
             <div
               className={cn(
                 "w-2 h-2 rounded-full animate-pulse",
-                isRecording ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-zinc-600",
+                isRecording
+                  ? "bg-in-tune shadow-[0_0_8px_var(--in-tune)]"
+                  : "bg-line-strong",
               )}
             ></div>
-            <span className="text-xs font-mono font-medium text-zinc-400 uppercase tracking-wider">
+            <span className="text-xs font-mono font-medium text-ink-muted uppercase tracking-wider">
               {isRecording ? "Monitoring" : "Standby"}
             </span>
           </div>
           
-          <div className="hidden sm:flex items-center gap-3 bg-zinc-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5">
-            <span className="text-xs text-zinc-400 font-medium">Auto-select string</span>
+          <div className="hidden sm:flex items-center gap-3 bg-surface/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-line">
+            <span className="text-xs text-ink-muted font-medium">Auto-select string</span>
             <Switch
               checked={autoSelectString}
               onCheckedChange={setAutoSelectString}
@@ -260,8 +262,8 @@ export function ProfessionalTuner({
           className={cn(
             "h-11 w-full sm:w-auto rounded-full px-6 text-xs font-bold tracking-wider uppercase transition-smooth",
             isRecording
-              ? "bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500/30"
-              : "bg-cyan-500 text-zinc-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/15 hover:shadow-cyan-400/25",
+              ? "bg-off/20 border border-off/40 text-off hover:bg-off/30"
+              : "bg-brass text-brass-contrast hover:bg-brass-hover shadow-lg shadow-brass/15 hover:shadow-brass/25",
           )}
         >
           {isRecording ? (
@@ -276,23 +278,19 @@ export function ProfessionalTuner({
         </Button>
       </div>
 
-      {!isRecording && (
-        <div className="mb-4 w-full max-w-5xl px-4 sm:px-6">
-          <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 px-6 py-4 text-sm text-cyan-200/90 text-center backdrop-blur-sm animate-smooth-fade">
-            ✨ Click <span className="font-bold text-cyan-400">Start Recording</span> to activate the tuner, then pluck one string at a time.
-          </div>
-        </div>
-      )}
+      {/* The idle instruction lives in the "Action Required" panel inside the
+          tuner card. A separate full-width banner said the same thing a third
+          time and pushed the gauge below the fold on mobile. */}
 
       {/* Main Tuner Card / Display Panel */}
-      <div className="w-full max-w-5xl px-4 sm:px-6 flex flex-col items-center gap-8 pb-12">
+      <div className="w-full max-w-5xl px-4 sm:px-6 flex flex-col items-center gap-5 sm:gap-6 pb-12">
         {/* Mobile Switch toggles (only shown on mobile) */}
-        <div className="w-full sm:hidden flex items-center justify-between px-2 pb-2 border-b border-white/5">
+        <div className="w-full sm:hidden flex items-center justify-between px-2 pb-2 border-b border-line">
           <div>
-            <p className="text-sm font-semibold text-zinc-100">
+            <p className="text-sm font-semibold text-ink">
               Auto-select string
             </p>
-            <p className="text-[10px] text-zinc-500">
+            <p className="text-2xs text-ink-subtle">
               Switches to string automatically
             </p>
           </div>
@@ -304,9 +302,9 @@ export function ProfessionalTuner({
         </div>
 
         {/* 1. Gauge & Dial */}
-        <div className="w-full bg-zinc-950/30 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl relative overflow-hidden">
+        <div className="w-full bg-surface-sunken/30 border border-line rounded-3xl p-5 sm:p-6 backdrop-blur-md shadow-2xl relative overflow-hidden">
           {/* Inner decorative light */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-linear-to-r from-transparent via-cyan-500/10 to-transparent" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-linear-to-r from-transparent via-brass/10 to-transparent" />
           
           <TunerDisplay
             note={noteData}
@@ -314,16 +312,26 @@ export function ProfessionalTuner({
             frequency={smoothedFreq}
             isInTune={isInTune}
             isListening={isRecording}
+            targetNote={(() => {
+              const target =
+                currentTuning.frequencies[selectedStringIndex] ?? 0;
+              if (target <= 0) return undefined;
+              const n = frequencyToNote(target);
+              return `${n.name}${n.octave}`;
+            })()}
+            targetFrequency={
+              currentTuning.frequencies[selectedStringIndex] ?? undefined
+            }
           />
           
           {/* Unified high-fidelity Guidance Panel */}
-          <div className="mt-6 pt-6 border-t border-white/5 w-full max-w-xl mx-auto flex flex-col sm:grid sm:grid-cols-2 gap-4 items-stretch text-center sm:text-left">
+          <div className="mt-6 pt-6 border-t border-line w-full max-w-xl mx-auto flex flex-col sm:grid sm:grid-cols-2 gap-4 items-stretch text-center sm:text-left">
             {/* Column 1: Action Required */}
-            <div className="bg-zinc-900/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1.5">
+            <div className="bg-surface/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
+              <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle mb-1.5">
                 Action Required
               </p>
-              <p className="text-sm sm:text-base font-semibold text-zinc-200">
+              <p className="text-sm sm:text-base font-semibold text-ink">
                 {!isRecording
                   ? "Start tuner and pluck highlighted note."
                   : isInTune
@@ -335,18 +343,18 @@ export function ProfessionalTuner({
             </div>
 
             {/* Column 2: Peg Rotation / Cent Offset */}
-            <div className="bg-zinc-900/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-1.5">
+            <div className="bg-surface/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
+              <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle mb-1.5">
                 Peg Rotation & Offset
               </p>
               <p
                 className={cn(
                   "text-base sm:text-lg font-bold tracking-tight transition-colors duration-300",
                   !isRecording
-                    ? "text-zinc-500"
+                    ? "text-ink-subtle"
                     : isInTune
-                      ? "text-emerald-400"
-                      : "text-cyan-400",
+                      ? "text-in-tune"
+                      : "text-brass",
                 )}
               >
                 {!isRecording
@@ -358,9 +366,9 @@ export function ProfessionalTuner({
                       : "↺ Loosen peg"}
               </p>
               {isRecording && (
-                <p className="mt-1 text-xs font-mono tracking-wider text-zinc-500">
+                <p className="mt-1 text-xs font-mono tracking-wider text-ink-subtle">
                   OFFSET:{" "}
-                  <span className={cn(cents > 0 ? "text-rose-400" : cents < 0 ? "text-blue-400" : "text-emerald-400")}>
+                  <span className={cn(cents > 0 ? "text-off" : cents < 0 ? "text-flat" : "text-in-tune")}>
                     {cents > 0 ? "+" : ""}{cents.toFixed(1)}
                   </span>{" "}
                   CENTS
@@ -371,14 +379,14 @@ export function ProfessionalTuner({
         </div>
 
         {/* Mobile view selector switcher (Hidden on Desktop) */}
-        <div className="flex md:hidden w-full bg-zinc-950/60 p-1 rounded-full border border-white/5">
+        <div className="flex md:hidden w-full bg-surface-sunken/60 p-1 rounded-full border border-line">
           <button
             onClick={() => setActiveView("headstock")}
             className={cn(
               "flex-1 text-center py-2.5 rounded-full text-xs font-bold tracking-wider transition-all duration-300 uppercase",
               activeView === "headstock"
-                ? "bg-cyan-500 text-zinc-950 shadow-md shadow-cyan-500/20"
-                : "text-zinc-400 hover:text-zinc-200",
+                ? "bg-brass text-brass-contrast shadow-md shadow-brass/20"
+                : "text-ink-muted hover:text-ink",
             )}
           >
             Visual Pegs
@@ -388,8 +396,8 @@ export function ProfessionalTuner({
             className={cn(
               "flex-1 text-center py-2.5 rounded-full text-xs font-bold tracking-wider transition-all duration-300 uppercase",
               activeView === "fretboard"
-                ? "bg-cyan-500 text-zinc-950 shadow-md shadow-cyan-500/20"
-                : "text-zinc-400 hover:text-zinc-200",
+                ? "bg-brass text-brass-contrast shadow-md shadow-brass/20"
+                : "text-ink-muted hover:text-ink",
             )}
           >
             String Selector
@@ -401,7 +409,7 @@ export function ProfessionalTuner({
           {/* Headstock Pegs View */}
           <div
             className={cn(
-              "w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col justify-center transition-all duration-200",
+              "w-full bg-surface-sunken/20 border border-line rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col justify-center transition-all duration-200",
               activeView === "headstock" ? "block" : "hidden md:block",
             )}
           >
@@ -418,15 +426,15 @@ export function ProfessionalTuner({
           {/* Fretboard Strings View */}
           <div
             className={cn(
-              "w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col items-center justify-between transition-all duration-200",
+              "w-full bg-surface-sunken/20 border border-line rounded-3xl p-4 sm:p-6 backdrop-blur-sm shadow-xl flex flex-col items-center justify-between transition-all duration-200",
               activeView === "fretboard" ? "block" : "hidden md:block",
             )}
           >
             <div className="text-center mb-2 px-4 hidden md:block pt-6">
-              <h3 className="text-xl font-semibold tracking-tight text-zinc-100">
+              <h3 className="text-xl font-semibold tracking-tight text-ink">
                 Fretboard Strings
               </h3>
-              <p className="text-sm text-zinc-400 mt-1">
+              <p className="text-sm text-ink-muted mt-1">
                 Interactive layout for manual note selection.
               </p>
             </div>
@@ -443,7 +451,7 @@ export function ProfessionalTuner({
         </div>
 
         {/* 3. Settings panel: Guitar Type & Tuning Mode */}
-        <div className="w-full bg-zinc-950/20 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+        <div className="w-full bg-surface-sunken/20 border border-line rounded-3xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
           <TunerControls
             currentGuitarType={guitarType}
             onGuitarTypeChange={(type) => {
@@ -464,26 +472,26 @@ export function ProfessionalTuner({
         </div>
 
         {/* 4. Guidelines section */}
-        <section className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/10 p-5 sm:p-6 backdrop-blur-sm">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
+        <section className="w-full rounded-2xl border border-line bg-surface/10 p-5 sm:p-6 backdrop-blur-sm">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-brass">
             Quick Tuning Guidelines
           </h2>
-          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-zinc-300">
+          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-ink">
             <li className="flex gap-2">
-              <span className="text-cyan-400 font-bold">1.</span>
-              <span>Tap the <span className="font-semibold text-zinc-100">Start Recording</span> button at the top to initialize your microphone.</span>
+              <span className="text-brass font-bold">1.</span>
+              <span>Tap the <span className="font-semibold text-ink">Start Recording</span> button at the top to initialize your microphone.</span>
             </li>
             <li className="flex gap-2">
-              <span className="text-cyan-400 font-bold">2.</span>
+              <span className="text-brass font-bold">2.</span>
               <span>Pluck one string cleanly at a time. Let it vibrate naturally to get a continuous frequency reading.</span>
             </li>
             <li className="flex gap-2">
-              <span className="text-cyan-400 font-bold">3.</span>
-              <span>Adjust your tuning pegs until the dial centers in the <span className="font-semibold text-emerald-400">green zone</span> (around 0 cents).</span>
+              <span className="text-brass font-bold">3.</span>
+              <span>Adjust your tuning pegs until the dial centers in the <span className="font-semibold text-in-tune">green zone</span> (around 0 cents).</span>
             </li>
             <li className="flex gap-2">
-              <span className="text-cyan-400 font-bold">4.</span>
-              <span>Watch indicators: <span className="text-cyan-400 font-semibold">cyan</span> is currently selected note, <span className="text-emerald-400 font-semibold">green</span> is the automatically detected audio feed.</span>
+              <span className="text-brass font-bold">4.</span>
+              <span>Watch indicators: <span className="text-brass font-semibold">amber</span> is the currently selected note, <span className="text-in-tune font-semibold">green</span> is the automatically detected audio feed.</span>
             </li>
           </ul>
         </section>

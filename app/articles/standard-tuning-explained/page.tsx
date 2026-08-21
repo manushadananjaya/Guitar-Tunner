@@ -4,9 +4,9 @@ import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
   title:
-    "Standard Guitar Tuning Explained: E A D G B E Notes, History & Why It Works",
+    "Standard Tuning Explained: E A D G B E",
   description:
-    "Understand the notes of standard guitar tuning (E2-A2-D3-G3-B3-E4), the musical intervals between strings, why the G-B interval is a major third, and why standard tuning is the universal default for guitarists worldwide.",
+    "The notes of standard tuning (E2-A2-D3-G3-B3-E4), the intervals between strings, and why the G-B major third is the odd one out.",
   alternates: { canonical: "/articles/standard-tuning-explained" },
   openGraph: {
     title: "Standard Guitar Tuning Explained",
@@ -50,8 +50,8 @@ export default function ArticlePage() {
       slug="standard-tuning-explained"
       title="Standard Tuning Explained"
       description="A deep dive into E-A-D-G-B-E standard tuning: what the notes are, why the intervals are what they are, the history behind it, and how it shapes everything from chords to scales."
-      datePublished="2024-11-08"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80",
@@ -133,11 +133,11 @@ export default function ArticlePage() {
         string to the thinnest, highest-pitched string, the notes are:
       </p>
 
-      <div className="bg-zinc-900/60 p-6 rounded-xl border border-white/5 my-6 text-center">
-        <div className="text-2xl tracking-[0.25em] font-bold font-mono text-cyan-400 mb-3">
+      <div className="bg-surface/60 p-6 rounded-xl border border-line my-6 text-center">
+        <div className="text-2xl tracking-[0.18em] font-bold font-mono text-brass mb-3">
           E2 — A2 — D3 — G3 — B3 — E4
         </div>
-        <div className="text-sm text-zinc-500 tracking-wide">
+        <div className="text-sm text-ink-subtle tracking-wide">
           String 6 · String 5 · String 4 · String 3 · String 2 · String 1
         </div>
       </div>
@@ -175,14 +175,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
           alt="Guitar headstock showing six tuning pegs"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Six strings, each tuned to a precise pitch. Photo: Unsplash
         </figcaption>
       </figure>
@@ -259,14 +259,14 @@ export default function ArticlePage() {
         patterns to be played with fewer fret-position shifts.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80"
           alt="Guitarist playing chords on acoustic guitar"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Standard tuning makes open chords and barre chords ergonomically
           accessible. Photo: Unsplash
         </figcaption>

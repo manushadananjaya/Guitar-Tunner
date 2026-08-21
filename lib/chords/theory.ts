@@ -318,6 +318,55 @@ export function expectedPitchClasses(
   ].sort((a, b) => a - b);
 }
 
+/** Scale degrees of a major scale, in semitones. */
+const MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11];
+
+/** The seven diatonic chords of a major key, by scale degree. */
+const DIATONIC_TRIADS = ['major', 'minor', 'minor', 'major', 'major', 'minor', 'dim'];
+const DIATONIC_SEVENTHS = ['maj7', 'm7', 'm7', 'maj7', '7', 'm7', 'dim'];
+const ROMAN = ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'];
+
+export interface KeyMembership {
+  /** Tonic of the major key, e.g. "G". */
+  key: string;
+  /** Roman numeral of this chord within that key, e.g. "IV". */
+  numeral: string;
+}
+
+/**
+ * The major keys this chord belongs to, with its roman numeral in each.
+ *
+ * Real, per-chord music theory rather than boilerplate: C major is I of C,
+ * IV of G, and V of F, and that set differs for every chord in the library.
+ * Only defined for qualities that occur diatonically — sus, 6, add9, aug and
+ * power chords are not diatonic triads, so they return an empty list rather
+ * than a fabricated one.
+ */
+export function keysContaining(
+  root: Root,
+  quality: ChordQuality,
+): KeyMembership[] {
+  const table =
+    DIATONIC_TRIADS.includes(quality.slug) &&
+    ['major', 'minor', 'dim'].includes(quality.slug)
+      ? DIATONIC_TRIADS
+      : ['maj7', 'm7', '7'].includes(quality.slug)
+        ? DIATONIC_SEVENTHS
+        : null;
+  if (!table) return [];
+
+  const out: KeyMembership[] = [];
+  for (const tonic of ROOTS) {
+    for (let degree = 0; degree < 7; degree++) {
+      if (table[degree] !== quality.slug) continue;
+      const degreePitch = (tonic.pitchClass + MAJOR_SCALE[degree]) % 12;
+      if (degreePitch !== root.pitchClass) continue;
+      out.push({ key: tonic.name, numeral: ROMAN[degree] });
+    }
+  }
+  return out;
+}
+
 export const chordSlug = (root: Root, quality: ChordQuality) =>
   quality.slug === 'major' ? root.slug : `${root.slug}-${quality.slug}`;
 

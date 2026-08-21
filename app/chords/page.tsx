@@ -7,7 +7,7 @@ import { CHORDS, ROOTS, QUALITIES, getChord, chordSlug } from "@/lib/chords";
 const SITE_URL = "https://www.guitartunepro.com";
 
 export const metadata: Metadata = {
-  title: "Guitar Chords — Free Chord Library with Diagrams",
+  title: "Guitar Chords — Free Chord Library",
   description:
     "Free guitar chord library. Diagrams and audio for major, minor, 7th, sus, dim, aug and more, in every key. Every shape verified against chord theory.",
   alternates: { canonical: "/chords" },
@@ -51,33 +51,33 @@ export default function ChordsIndexPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+    <div className="min-h-screen bg-canvas text-ink pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <main className="relative z-10 max-w-5xl mx-auto px-5 pt-8 sm:pt-10">
         <nav
           aria-label="Breadcrumb"
-          className="flex items-center gap-1.5 text-xs text-zinc-500 mb-5"
+          className="flex items-center gap-1.5 text-xs text-ink-subtle mb-5"
         >
-          <Link href="/" className="hover:text-cyan-400 transition-colors">
+          <Link href="/" className="hover:text-brass transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-zinc-400">Chords</span>
+          <span className="text-ink-muted">Chords</span>
         </nav>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight mb-3">
           Guitar Chord Library
         </h1>
-        <p className="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-2xl">
+        <p className="text-ink-muted text-base sm:text-lg leading-relaxed max-w-2xl">
           {CHORDS.length} chords and {totalVoicings} voicings, with diagrams you
           can read and audio you can check yourself against. Every shape here is
           verified against chord theory — if a fingering does not sound the
@@ -86,10 +86,10 @@ export default function ChordsIndexPage() {
 
         {/* Start here */}
         <section className="mt-12" aria-labelledby="first-heading">
-          <h2 id="first-heading" className="text-2xl font-bold text-white mb-2">
+          <h2 id="first-heading" className="text-2xl font-bold text-ink mb-2">
             Start With These Eight
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-2xl">
+          <p className="text-ink-muted mb-6 max-w-2xl">
             If you are new, learn these before anything else. Between them they
             cover an enormous amount of popular music, and none needs a barre.
           </p>
@@ -102,14 +102,14 @@ export default function ChordsIndexPage() {
                 <Link
                   key={slug}
                   href={`/chords/${slug}`}
-                  className="group rounded-2xl border border-zinc-800 bg-zinc-900/30 p-4 flex flex-col items-center hover:border-cyan-500/40 hover:bg-zinc-800/40 transition-all"
+                  className="group rounded-2xl border border-line bg-surface/30 p-4 flex flex-col items-center hover:border-brass/40 hover:bg-surface-raised/40 transition-all"
                 >
                   <ChordDiagram
                     voicing={voicing}
                     title={`${chord.ascii} chord diagram`}
                     className="w-full max-w-[110px] h-auto"
                   />
-                  <span className="mt-2.5 text-sm font-bold text-zinc-100 group-hover:text-cyan-400 transition-colors">
+                  <span className="mt-2.5 text-sm font-bold text-ink group-hover:text-brass transition-colors">
                     {chord.name}
                   </span>
                 </Link>
@@ -120,17 +120,17 @@ export default function ChordsIndexPage() {
 
         {/* Full browse grid */}
         <section className="mt-16" aria-labelledby="browse-heading">
-          <h2 id="browse-heading" className="text-2xl font-bold text-white mb-2">
+          <h2 id="browse-heading" className="text-2xl font-bold text-ink mb-2">
             Browse Every Chord
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-2xl">
+          <p className="text-ink-muted mb-6 max-w-2xl">
             Pick a root note, then a chord type.
           </p>
 
           <div className="space-y-8">
             {ROOTS.map((root) => (
               <div key={root.slug}>
-                <h3 className="text-lg font-bold text-cyan-400 mb-3">
+                <h3 className="text-lg font-bold text-brass mb-3">
                   {root.name}
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ export default function ChordsIndexPage() {
                       <Link
                         key={slug}
                         href={`/chords/${slug}`}
-                        className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-sm text-zinc-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-colors"
+                        className="rounded-lg border border-line bg-surface/40 px-3 py-1.5 text-sm text-ink hover:border-brass/40 hover:text-brass transition-colors"
                       >
                         {chord.name}
                       </Link>
@@ -155,7 +155,7 @@ export default function ChordsIndexPage() {
         </section>
 
         {/* Long-form guidance */}
-        <section className="mt-16 prose prose-invert prose-cyan max-w-none prose-headings:text-white prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3 prose-p:text-zinc-300 prose-p:leading-[1.85] prose-li:text-zinc-300 prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300 prose-strong:text-zinc-100">
+        <section className="mt-16 prose prose-invert prose-cyan max-w-none prose-headings:text-ink prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3 prose-p:text-ink prose-p:leading-[1.85] prose-li:text-ink prose-a:text-brass prose-a:no-underline hover:prose-a:text-brass-hover prose-strong:text-ink">
           <h2>How to Read a Chord Diagram</h2>
           <p>
             A chord diagram is the fretboard seen head-on, as though the guitar
@@ -317,16 +317,16 @@ export default function ChordsIndexPage() {
           </p>
         </section>
 
-        <div className="mt-14 rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 sm:p-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400 mb-2">
+        <div className="mt-14 rounded-2xl border border-brass/30 bg-brass/5 p-6 sm:p-8 text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-brass mb-2">
             Before you play
           </p>
-          <p className="text-zinc-300 mb-5">
+          <p className="text-ink mb-5">
             Get in tune in about thirty seconds, free and in your browser.
           </p>
           <Link
             href="/"
-            className="inline-block bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 rounded-full text-sm transition-colors"
+            className="inline-block bg-brass hover:bg-brass-hover text-brass-contrast font-bold px-6 py-3 rounded-full text-sm transition-colors"
           >
             Open the Free Guitar Tuner →
           </Link>

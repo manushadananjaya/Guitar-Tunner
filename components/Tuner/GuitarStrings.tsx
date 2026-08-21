@@ -56,8 +56,8 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
                   className={cn(
                     "w-px h-full transition-colors duration-300 relative",
                     isActive
-                      ? "bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]"
-                      : "bg-zinc-600 group-hover:bg-zinc-400",
+                      ? "bg-brass-hover shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+                      : "bg-line-strong group-hover:bg-ink-subtle",
                   )}
                   style={{
                     width: `${thickness}px`,
@@ -80,10 +80,10 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
               {/* Top Peg (Visual) */}
               <div
                 className={cn(
-                  "w-3 h-3 rounded-full border border-zinc-700 bg-zinc-900 z-10 transition-colors",
+                  "w-3 h-3 rounded-full border border-line-strong bg-surface z-10 transition-colors",
                   isActive
-                    ? "border-cyan-500 bg-cyan-900"
-                    : "group-hover:border-zinc-500",
+                    ? "border-brass bg-brass/20"
+                    : "group-hover:border-line-strong",
                 )}
               />
 
@@ -93,13 +93,13 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
                   className={cn(
                     "flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full border text-sm sm:text-base font-bold transition-all duration-300",
                     isActive
-                      ? "bg-cyan-500/20 border-cyan-500 text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.3)]"
-                      : "bg-zinc-800 border-zinc-700 text-zinc-400 group-hover:border-zinc-500 group-hover:text-zinc-200",
+                      ? "bg-brass/20 border-brass text-brass shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+                      : "bg-surface-raised border-line-strong text-ink-muted group-hover:border-line-strong group-hover:text-ink",
                   )}
                 >
                   {note}
                   {/* String Index helper (optional, small) */}
-                  <span className="absolute -bottom-5 text-[10px] text-zinc-600 font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="absolute -bottom-5 text-2xs text-ink-subtle font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                     {index + 1}
                   </span>
                 </div>

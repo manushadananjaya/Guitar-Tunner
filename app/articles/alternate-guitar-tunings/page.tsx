@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Alternate Guitar Tunings: Drop D, Open G, DADGAD & More Explained",
+  title: "Alternate Guitar Tunings You Should Try",
   description:
-    "Explore the most popular alternate guitar tunings including Drop D, Open G, Open D, Open E, DADGAD, half-step down, and full-step down. Learn how each tuning sounds, famous songs in each, and how to tune to them.",
+    "Drop D, Open G, Open D, Open E, DADGAD, half-step and full-step down — how each one sounds, famous songs, and how to tune to them.",
   alternates: { canonical: "/articles/alternate-guitar-tunings" },
   openGraph: {
     title: "Alternate Guitar Tunings You Should Try",
@@ -49,13 +49,15 @@ export default function ArticlePage() {
       slug="alternate-guitar-tunings"
       title="Alternate Guitar Tunings You Should Try"
       description="A comprehensive guide to the most popular alternate guitar tunings — what they sound like, which artists use them, and how to tune to each one."
-      datePublished="2024-11-15"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={11}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=900&q=80",
-        alt: "Acoustic guitar being played with fingerpicking technique",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/tuning-presets.png",
+        alt:
+          "Instrument and tuning preset selector showing Standard, Drop D, Open G, DADGAD and more",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -139,14 +141,14 @@ export default function ArticlePage() {
         alternate tuning.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
           alt="Guitar headstock with tuning pegs"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Alternate tunings transform the fretboard into a new instrument.
           Photo: Unsplash
         </figcaption>
@@ -252,14 +254,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1455395916590-81afcd2e9d49?w=900&q=80"
           alt="Guitarist playing slide guitar"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Open tunings are ideal for slide guitar playing. Photo: Unsplash
         </figcaption>
       </figure>

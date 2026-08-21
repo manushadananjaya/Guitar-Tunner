@@ -95,8 +95,8 @@ export function ChordPlayer({ notes, label, className }: ChordPlayerProps) {
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors",
         isPlaying
-          ? "border-cyan-400/60 bg-cyan-500/20 text-cyan-300"
-          : "border-zinc-700 bg-zinc-900/60 text-zinc-300 hover:border-cyan-500/50 hover:text-cyan-400",
+          ? "border-brass/60 bg-brass/20 text-brass-hover"
+          : "border-line-strong bg-surface/60 text-ink hover:border-brass/50 hover:text-brass",
         className,
       )}
     >

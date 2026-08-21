@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "validate:chords": "tsx scripts/validate-chords.ts"
+    "validate:chords": "tsx scripts/validate-chords.ts",
+    "audit:contrast": "node scripts/audit-contrast.mjs",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "audit:links": "node scripts/audit-links.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -68,6 +71,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "glob": "^13.0.6",
+    "playwright": "^1.62.1",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
     "tsx": "^4.23.12",

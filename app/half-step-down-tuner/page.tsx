@@ -5,7 +5,7 @@ import { otherTunersFor } from "@/lib/tunerPages";
 
 export const metadata: Metadata = {
   title:
-    "Half Step Down Tuner — Free Online E♭ Guitar Tuner",
+    "Half Step Down Tuner — E♭ Tuning",
   description:
     "Free online half step down guitar tuner. Tune to E♭ A♭ D♭ G♭ B♭ E♭ with your microphone, right on this page. Used by Hendrix, SRV, and Guns N' Roses.",
   alternates: { canonical: "/half-step-down-tuner" },

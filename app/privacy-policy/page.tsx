@@ -22,31 +22,31 @@ export default function PrivacyPolicyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050510] text-zinc-300 pb-20">
+    <div className="min-h-screen bg-canvas text-ink pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
       />
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <main className="relative z-10 max-w-3xl mx-auto px-5 pt-10 sm:pt-16">
         <Link
           href="/"
-          className="inline-flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors mb-8"
+          className="inline-flex items-center text-sm text-brass hover:text-brass-hover transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
         </Link>
 
         <header className="mb-10">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-3">
             Privacy Policy
           </h1>
-          <p className="text-sm text-zinc-500">Last updated: {lastUpdated}</p>
+          <p className="text-sm text-ink-subtle">Last updated: {lastUpdated}</p>
         </header>
 
-        <div className="prose prose-invert prose-zinc prose-headings:text-white prose-headings:font-semibold prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-zinc-400 prose-p:leading-relaxed prose-li:text-zinc-400 max-w-none space-y-0">
+        <div className="prose prose-invert prose-zinc prose-headings:text-ink prose-headings:font-semibold prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3 prose-p:text-ink-muted prose-p:leading-relaxed prose-li:text-ink-muted max-w-none space-y-0">
           <p>
             This Privacy Policy describes how GuitarTunePro ("we", "our", or
             "us"), operated by the GuitarTunePro team, collects, uses, and shares information when you
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
           </p>
 
           <h2>1. Information We Collect</h2>
-          <h3 className="text-lg font-semibold text-zinc-100 mt-6 mb-2">
+          <h3 className="text-lg font-semibold text-ink mt-6 mb-2">
             a) Microphone Audio
           </h3>
           <p>
@@ -71,7 +71,7 @@ export default function PrivacyPolicyPage() {
             immediately released when you stop the tuner or close the page.
           </p>
 
-          <h3 className="text-lg font-semibold text-zinc-100 mt-6 mb-2">
+          <h3 className="text-lg font-semibold text-ink mt-6 mb-2">
             b) Usage Analytics
           </h3>
           <p>
@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
             installing the{" "}
             <a
               href="https://tools.google.com/dlpage/gaoptout"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-brass hover:text-brass-hover transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -99,7 +99,7 @@ export default function PrivacyPolicyPage() {
             .
           </p>
 
-          <h3 className="text-lg font-semibold text-zinc-100 mt-6 mb-2">
+          <h3 className="text-lg font-semibold text-ink mt-6 mb-2">
             c) Advertising
           </h3>
           <p>
@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
             You may opt out of personalized advertising by visiting{" "}
             <a
               href="https://www.google.com/settings/ads"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-brass hover:text-brass-hover transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
             . For more information on how Google uses your data, see{" "}
             <a
               href="https://policies.google.com/technologies/partner-sites"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-brass hover:text-brass-hover transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
             .
           </p>
 
-          <h3 className="text-lg font-semibold text-zinc-100 mt-6 mb-2">
+          <h3 className="text-lg font-semibold text-ink mt-6 mb-2">
             d) Log Data
           </h3>
           <p>
@@ -270,7 +270,7 @@ export default function PrivacyPolicyPage() {
               <strong>Website:</strong>{" "}
               <a
                 href="https://www.guitartunepro.com/contact"
-                className="text-cyan-400 hover:text-cyan-300 transition-colors"
+                className="text-brass hover:text-brass-hover transition-colors"
               >
                 www.guitartunepro.com/contact
               </a>
@@ -281,16 +281,16 @@ export default function PrivacyPolicyPage() {
           </ul>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-zinc-800 flex flex-wrap gap-4 text-sm text-zinc-500">
-          <Link href="/" className="hover:text-cyan-400 transition-colors">
+        <div className="mt-12 pt-8 border-t border-line flex flex-wrap gap-4 text-sm text-ink-subtle">
+          <Link href="/" className="hover:text-brass transition-colors">
             Home
           </Link>
-          <Link href="/about" className="hover:text-cyan-400 transition-colors">
+          <Link href="/about" className="hover:text-brass transition-colors">
             About
           </Link>
           <Link
             href="/articles"
-            className="hover:text-cyan-400 transition-colors"
+            className="hover:text-brass transition-colors"
           >
             Articles
           </Link>

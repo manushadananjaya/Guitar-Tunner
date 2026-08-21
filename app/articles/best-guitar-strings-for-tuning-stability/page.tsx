@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Best Guitar Strings for Tuning Stability: Brands, Materials & Gauges",
+  title: "Best Guitar Strings for Tuning Stability",
   description:
-    "Find the best guitar strings for tuning stability. We compare coated vs uncoated strings, nickel vs steel, light vs heavy gauges, and review top brands including Elixir, D'Addario, Ernie Ball, and more.",
+    "Coated vs uncoated, nickel vs steel, light vs heavy gauge — which strings actually hold pitch, and how the main brands compare.",
   alternates: {
     canonical: "/articles/best-guitar-strings-for-tuning-stability",
   },
@@ -51,8 +51,8 @@ export default function ArticlePage() {
       slug="best-guitar-strings-for-tuning-stability"
       title="Best Guitar Strings for Tuning Stability"
       description="A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar."
-      datePublished="2024-11-18"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={10}
       heroImage={{
         src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",
@@ -151,14 +151,14 @@ export default function ArticlePage() {
         pitch after bending.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
           alt="Guitar strings on acoustic guitar"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Fresh, high-quality strings are essential for reliable tuning. Photo:
           Unsplash
         </figcaption>
@@ -308,14 +308,14 @@ export default function ArticlePage() {
         while the heavier low strings maintain tension when dropped.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
           alt="Electric guitar strings and pickups"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           String gauge directly impacts tone and tuning stability. Photo:
           Unsplash
         </figcaption>

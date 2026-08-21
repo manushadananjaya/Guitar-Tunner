@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Drop D Tuning Guide: How to Tune, Play Power Chords & Famous Songs",
+  title: "Drop D Tuning Guide for Rock and Metal",
   description:
-    "The complete guide to Drop D tuning for rock and metal guitar. Learn how to tune to Drop D, why it makes power chords easier, which string gauges to use, and famous songs written in Drop D.",
+    "Tune to Drop D (D A D G B E), play one-finger power chords, and learn the riffs that made this the go-to rock and metal tuning.",
   alternates: { canonical: "/articles/drop-d-tuning-guide" },
   openGraph: {
     title: "Drop D Tuning Guide for Rock and Metal",
@@ -49,13 +49,15 @@ export default function ArticlePage() {
       slug="drop-d-tuning-guide"
       title="Drop D Tuning Guide for Rock and Metal"
       description="Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever."
-      datePublished="2024-11-12"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={9}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
-        alt: "Electric guitar with distortion for rock music",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/drop-d-frequency-chart.png",
+        alt:
+          "Drop D string frequency chart: D2 73.42 Hz, A2 110 Hz, D3 146.83 Hz, G3 196 Hz, B3 246.94 Hz, E4 329.63 Hz",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -134,23 +136,23 @@ export default function ArticlePage() {
         exactly one whole step (two semitones) from E2 to D2.
       </p>
 
-      <div className="bg-zinc-900/60 p-6 rounded-xl border border-white/5 my-6 text-center">
+      <div className="bg-surface/60 p-6 rounded-xl border border-line my-6 text-center">
         <div className="flex items-center justify-center gap-4 font-mono font-bold">
           <div className="text-center">
-            <div className="text-xs text-zinc-500 mb-2">Standard</div>
-            <div className="text-xl text-zinc-300 tracking-widest">
+            <div className="text-xs text-ink-subtle mb-2">Standard</div>
+            <div className="text-xl text-ink tracking-widest">
               E·A·D·G·B·E
             </div>
           </div>
-          <div className="text-cyan-400 text-2xl">→</div>
+          <div className="text-brass text-2xl">→</div>
           <div className="text-center">
-            <div className="text-xs text-zinc-500 mb-2">Drop D</div>
-            <div className="text-xl text-cyan-400 tracking-widest">
-              <span className="text-rose-400">D</span>·A·D·G·B·E
+            <div className="text-xs text-ink-subtle mb-2">Drop D</div>
+            <div className="text-xl text-brass tracking-widest">
+              <span className="text-off">D</span>·A·D·G·B·E
             </div>
           </div>
         </div>
-        <p className="text-xs text-zinc-500 mt-4">
+        <p className="text-xs text-ink-subtle mt-4">
           Only the 6th string changes — from E down to D.
         </p>
       </div>
@@ -201,14 +203,14 @@ export default function ArticlePage() {
         hear a clean, locked-in unison octave when they're in tune.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
           alt="Rock guitarist playing electric guitar"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Drop D tuning is the foundation of rock and metal guitar. Photo:
           Unsplash
         </figcaption>
@@ -319,14 +321,14 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=900&q=80"
           alt="Concert guitarist performing live"
           className="w-full h-52 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Many iconic rock performances are built on Drop D tuning. Photo:
           Unsplash
         </figcaption>

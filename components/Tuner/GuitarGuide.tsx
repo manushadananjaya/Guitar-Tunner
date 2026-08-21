@@ -57,10 +57,10 @@ export function GuitarGuide({
           className={cn(
             "w-12 h-9 sm:w-16 sm:h-10 rounded-md xl:rounded-lg border backdrop-blur-sm transition-all duration-300 shadow flex items-center justify-center font-bold text-sm sm:text-base cursor-pointer focus:outline-none",
             isSelected
-              ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.3)] z-10 scale-110"
+              ? "bg-brass/20 border-brass text-brass-hover shadow-[0_0_15px_rgba(34,211,238,0.3)] z-10 scale-110"
               : isDetected
-                ? "bg-emerald-500/20 border-emerald-400 text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.3)] z-10"
-                : "bg-zinc-800/80 border-zinc-700 text-zinc-500 hover:bg-zinc-700/80 hover:text-zinc-300",
+                ? "bg-in-tune/20 border-in-tune text-in-tune shadow-[0_0_15px_rgba(52,211,153,0.3)] z-10"
+                : "bg-surface-raised/80 border-line-strong text-ink-subtle hover:bg-surface-raised/80 hover:text-ink",
           )}
           style={{
             transform: isSelected
@@ -77,10 +77,10 @@ export function GuitarGuide({
           className={cn(
             "h-1.5 sm:h-2 rounded-full transition-all duration-300",
             isSelected
-              ? "bg-linear-to-r from-cyan-400 to-cyan-500/20 w-4 sm:w-6 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+              ? "bg-linear-to-r from-brass-hover to-brass/20 w-4 sm:w-6 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
               : isDetected
-                ? "bg-linear-to-r from-emerald-400 to-emerald-500/20 w-4 sm:w-6"
-                : "bg-linear-to-r from-zinc-700 to-zinc-800/50 w-3 sm:w-5",
+                ? "bg-linear-to-r from-in-tune to-in-tune/20 w-4 sm:w-6"
+                : "bg-linear-to-r from-line-strong to-surface-raised/50 w-3 sm:w-5",
           )}
           style={{ transform: isLeft ? "none" : "rotate(180deg)" }}
         />
@@ -90,10 +90,10 @@ export function GuitarGuide({
           className={cn(
             "w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full border-2 transition-all duration-300 z-20",
             isSelected
-              ? "bg-cyan-950 border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+              ? "bg-brass/20 border-brass shadow-[0_0_8px_rgba(34,211,238,0.8)]"
               : isDetected
-                ? "bg-emerald-950 border-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
-                : "bg-zinc-900 border-zinc-600",
+                ? "bg-in-tune/20 border-in-tune shadow-[0_0_8px_rgba(52,211,153,0.8)]"
+                : "bg-surface border-line-strong",
           )}
         />
       </div>
@@ -103,10 +103,10 @@ export function GuitarGuide({
   return (
     <section className="w-full relative py-6 flex flex-col items-center">
       <div className="text-center mb-6 px-4">
-        <h3 className="text-xl font-semibold tracking-tight text-zinc-100">
+        <h3 className="text-xl font-semibold tracking-tight text-ink">
           Headstock Alignment
         </h3>
-        <p className="text-sm text-zinc-400 mt-1">
+        <p className="text-sm text-ink-muted mt-1">
           Tap a peg to tune that string specifically.
         </p>
       </div>
@@ -114,11 +114,11 @@ export function GuitarGuide({
       {/* Abstract Headstock Container */}
       <div className="relative flex justify-between w-full min-h-[320px] max-w-[280px] mx-auto">
         {/* Center Beam (The Neck/Headstock Base) */}
-        <div className="absolute left-1/2 top-4 bottom-[-40px] w-14 sm:w-16 -translate-x-1/2 bg-zinc-800/40 border border-zinc-700/50 rounded-t-2xl shadow-2xl backdrop-blur-xl">
+        <div className="absolute left-1/2 top-4 bottom-[-40px] w-14 sm:w-16 -translate-x-1/2 bg-surface-raised/40 border border-line-strong/50 rounded-t-2xl shadow-2xl backdrop-blur-xl">
           {/* Gradient glow inside the beam */}
           <div className="absolute inset-0 rounded-t-2xl bg-linear-to-b from-white/5 to-transparent pointer-events-none" />
           {/* Fretboard fadeout at bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-surface-sunken via-surface-sunken/80 to-transparent" />
         </div>
 
         {/* Left Pegs */}

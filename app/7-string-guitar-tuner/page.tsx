@@ -5,7 +5,7 @@ import { otherInstrumentsFor } from "@/lib/instrumentPages";
 
 export const metadata: Metadata = {
   title:
-    "7-String Guitar Tuner — Free Online B E A D G B E Tuner",
+    "7-String Guitar Tuner — B E A D G B E",
   description:
     "Free online 7-string guitar tuner. Tune B E A D G B E with your microphone, right on this page. Handles the low B at 61.74 Hz — no download required.",
   alternates: { canonical: "/7-string-guitar-tuner" },

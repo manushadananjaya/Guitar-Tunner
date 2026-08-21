@@ -39,37 +39,37 @@ export function HomepageContent() {
   return (
     <div className="w-full bg-transparent relative">
       {/* Section Divider Decorative Line */}
-      <div className="w-full h-px bg-linear-to-r from-transparent via-zinc-800 to-transparent" />
+      <div className="w-full h-px bg-linear-to-r from-transparent via-line to-transparent" />
 
       {/* About Section */}
       <section className="max-w-5xl mx-auto px-6 py-20 sm:py-28 relative">
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
             About GuitarTunePro
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-ink mb-6 tracking-tight leading-tight">
             The Free Online{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brass-hover to-blue-500">
               Chromatic Guitar Tuner
             </span>
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-ink-muted text-lg max-w-2xl mx-auto leading-relaxed">
             Professional-grade pitch detection in your browser. No download, no
             subscription, no compromise.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-12">
-          <div className="bg-zinc-950/20 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl space-y-4 text-zinc-300 text-base leading-relaxed">
+          <div className="bg-surface-sunken/20 border border-line rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl space-y-4 text-ink text-base leading-relaxed">
             <p>
-              <strong className="text-white font-semibold">GuitarTunePro</strong> is a{" "}
-              <strong className="text-cyan-300 font-semibold">
+              <strong className="text-ink font-semibold">GuitarTunePro</strong> is a{" "}
+              <strong className="text-brass-hover font-semibold">
                 free online chromatic guitar tuner
               </strong>{" "}
               built for players of all skill levels — from first-time beginners to
               touring professionals. It runs entirely in your web browser using
               the Web Audio API, which means you can{" "}
-              <strong className="text-zinc-100 font-semibold">
+              <strong className="text-ink font-semibold">
                 tune your guitar with a microphone
               </strong>{" "}
               on any device without installing anything.
@@ -79,7 +79,7 @@ export function HomepageContent() {
               GuitarTunePro uses an optimized YIN-inspired autocorrelation
               algorithm operating at a 48 kHz sample rate with a 4096-sample
               processing window. This delivers{" "}
-              <strong className="text-cyan-300 font-semibold">
+              <strong className="text-brass-hover font-semibold">
                 high accuracy pitch detection
               </strong>{" "}
               to within ±1 cent — precise enough for studio recording, live
@@ -87,10 +87,10 @@ export function HomepageContent() {
             </p>
           </div>
 
-          <div className="bg-zinc-950/20 border border-white/5 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl space-y-4 text-zinc-300 text-base leading-relaxed">
+          <div className="bg-surface-sunken/20 border border-line rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl space-y-4 text-ink text-base leading-relaxed">
             <p>
               The tuner supports{" "}
-              <strong className="text-white font-semibold">
+              <strong className="text-ink font-semibold">
                 6-string, 7-string, 12-string, bass, and ukulele
               </strong>
               , with presets for Standard (E A D G B E), Drop D, Half-Step Down,
@@ -119,7 +119,7 @@ export function HomepageContent() {
           ].map((f) => (
             <span
               key={f}
-              className="text-xs font-semibold text-zinc-300 border border-white/5 bg-zinc-900/20 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm hover:border-cyan-500/20 transition-smooth"
+              className="text-xs font-semibold text-ink border border-line bg-surface/20 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm hover:border-brass/20 transition-smooth"
             >
               {f}
             </span>
@@ -130,13 +130,13 @@ export function HomepageContent() {
       {/* Alternate tuner pages */}
       <section className="max-w-5xl mx-auto px-6 py-12 relative">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
             Alternate Tuning Tools
           </div>
-          <h2 className="text-3xl font-extrabold text-white mb-4 tracking-tight">
+          <h2 className="text-3xl font-extrabold text-ink mb-4 tracking-tight">
             Dedicated Alternate Tuners
           </h2>
-          <p className="text-zinc-400 text-sm max-w-xl mx-auto">
+          <p className="text-ink-muted text-sm max-w-xl mx-auto">
             Each page below is a full working tuner, pre-loaded with the correct
             target notes so you can switch tunings in seconds.
           </p>
@@ -147,20 +147,20 @@ export function HomepageContent() {
             <Link
               key={page.href}
               href={page.href}
-              className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
+              className="group rounded-3xl border border-line bg-surface-sunken/20 p-6 sm:p-8 hover:border-brass/30 hover:bg-brass/5 hover:shadow-lg hover:shadow-brass/5 transition-smooth flex flex-col justify-between min-h-48"
             >
               <div>
-                <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
+                <div className="font-mono text-base font-bold text-brass mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
                   {page.notes.split(" ").join(" · ")}
                 </div>
-                <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="font-bold text-lg text-ink mb-2 group-hover:text-brass-hover transition-colors">
                   {page.label} Tuner
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-ink-muted leading-relaxed">
                   {page.blurb}
                 </p>
               </div>
-              <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
+              <div className="text-xs text-brass font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
                 Open {page.label} Tuner →
               </div>
             </Link>
@@ -172,17 +172,17 @@ export function HomepageContent() {
       <section className="max-w-5xl mx-auto px-6 pt-12 relative">
         <Link
           href="/chords"
-          className="group block rounded-3xl border border-white/5 bg-zinc-950/20 p-8 sm:p-10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-smooth"
+          className="group block rounded-3xl border border-line bg-surface-sunken/20 p-8 sm:p-10 hover:border-brass/30 hover:bg-brass/5 transition-smooth"
         >
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 tracking-tight group-hover:text-cyan-300 transition-colors">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brass-hover transition-colors">
             Guitar Chord Library
           </h2>
-          <p className="text-sm text-zinc-400 leading-relaxed max-w-xl">
+          <p className="text-sm text-ink-muted leading-relaxed max-w-xl">
             Diagrams and audio for major, minor, 7th, sus, diminished and
             augmented chords in every key — every shape checked against chord
             theory before it ships.
           </p>
-          <span className="inline-flex items-center gap-1 text-xs text-cyan-400 font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
+          <span className="inline-flex items-center gap-1 text-xs text-brass font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
             Browse the Chord Library →
           </span>
         </Link>
@@ -192,7 +192,7 @@ export function HomepageContent() {
       <section className="max-w-5xl mx-auto px-6 py-12 relative">
         <Link
           href="/metronome"
-          className="group block rounded-3xl border border-white/5 bg-zinc-950/20 p-8 sm:p-10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-smooth"
+          className="group block rounded-3xl border border-line bg-surface-sunken/20 p-8 sm:p-10 hover:border-brass/30 hover:bg-brass/5 transition-smooth"
         >
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
             <div className="flex gap-2 shrink-0" aria-hidden="true">
@@ -201,22 +201,22 @@ export function HomepageContent() {
                   key={i}
                   className={
                     i === 0
-                      ? "w-5 h-5 rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee]"
-                      : "w-4 h-4 rounded-full bg-zinc-700 self-center"
+                      ? "w-5 h-5 rounded-full bg-brass-hover shadow-[0_0_16px_#22d3ee]"
+                      : "w-4 h-4 rounded-full bg-surface-raised self-center"
                   }
                 />
               ))}
             </div>
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 tracking-tight group-hover:text-cyan-300 transition-colors">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brass-hover transition-colors">
                 Free Online Metronome
               </h2>
-              <p className="text-sm text-zinc-400 leading-relaxed max-w-xl">
+              <p className="text-sm text-ink-muted leading-relaxed max-w-xl">
                 Tuning is half of it. Set a tempo from 30 to 300 BPM, tap the
                 beat you want, and practise against sample-accurate timing —
                 with time signatures, subdivisions, and an accented downbeat.
               </p>
-              <span className="inline-flex items-center gap-1 text-xs text-cyan-400 font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
+              <span className="inline-flex items-center gap-1 text-xs text-brass font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
                 Open the Metronome →
               </span>
             </div>
@@ -227,13 +227,13 @@ export function HomepageContent() {
       {/* Instrument tuner pages */}
       <section className="max-w-5xl mx-auto px-6 py-12 relative">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
             Other Instruments
           </div>
-          <h2 className="text-3xl font-extrabold text-white mb-4 tracking-tight">
+          <h2 className="text-3xl font-extrabold text-ink mb-4 tracking-tight">
             Not a 6-String?
           </h2>
-          <p className="text-zinc-400 text-sm max-w-xl mx-auto">
+          <p className="text-ink-muted text-sm max-w-xl mx-auto">
             The same pitch detection engine, pre-configured for bass, ukulele,
             and extended-range guitars.
           </p>
@@ -244,20 +244,20 @@ export function HomepageContent() {
             <Link
               key={page.href}
               href={page.href}
-              className="group rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-cyan-500/30 hover:bg-cyan-500/5 hover:shadow-lg hover:shadow-cyan-500/5 transition-smooth flex flex-col justify-between min-h-48"
+              className="group rounded-3xl border border-line bg-surface-sunken/20 p-6 sm:p-8 hover:border-brass/30 hover:bg-brass/5 hover:shadow-lg hover:shadow-brass/5 transition-smooth flex flex-col justify-between min-h-48"
             >
               <div>
-                <div className="font-mono text-base font-bold text-cyan-400 mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
+                <div className="font-mono text-base font-bold text-brass mb-3 tracking-wider group-hover:scale-105 origin-left transition-transform duration-300">
                   {page.notes.split(" ").join(" · ")}
                 </div>
-                <h3 className="font-bold text-lg text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="font-bold text-lg text-ink mb-2 group-hover:text-brass-hover transition-colors">
                   {page.label} Tuner
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="text-xs text-ink-muted leading-relaxed">
                   {page.blurb}
                 </p>
               </div>
-              <div className="text-xs text-cyan-400 font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
+              <div className="text-xs text-brass font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
                 Open {page.label} Tuner →
               </div>
             </Link>
@@ -267,22 +267,22 @@ export function HomepageContent() {
 
       {/* Online Guitar Tuner SEO Article Guide */}
       <section className="max-w-5xl mx-auto px-6 py-16 sm:py-24 relative">
-        <div className="w-full h-px bg-linear-to-r from-transparent via-zinc-800 to-transparent mb-16" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-line to-transparent mb-16" />
         
-        <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight">
+        <h2 className="text-3xl font-extrabold text-ink mb-8 tracking-tight">
           Complete Online Guitar Tuner Guide
         </h2>
 
-        <div className="bg-zinc-950/10 border border-white/5 rounded-3xl p-6 sm:p-10 backdrop-blur-sm shadow-xl">
-          <article className="prose prose-invert max-w-none text-zinc-300 leading-relaxed space-y-6 text-base">
+        <div className="bg-surface-sunken/10 border border-line rounded-3xl p-6 sm:p-10 backdrop-blur-sm shadow-xl">
+          <article className="prose prose-invert max-w-none text-ink leading-relaxed space-y-6 text-base">
             <div>
-              <h3 className="text-xl font-bold text-white mb-3">
+              <h3 className="text-xl font-bold text-ink mb-3">
                 How to Tune Your Guitar by Ear or with a Mic
               </h3>
               <p>
                 Tuning your guitar is the most important skill you can learn as a
                 beginner. An out-of-tune guitar will make even the greatest players
-                sound bad. Our <strong className="text-cyan-400 font-semibold">online guitar tuner</strong> simplifies this
+                sound bad. Our <strong className="text-brass font-semibold">online guitar tuner</strong> simplifies this
                 process. Simply allow microphone access, pluck a string, and our
                 advanced pitch detection algorithm will tell you exactly which note
                 you are playing and whether it is too sharp (high) or flat (low).
@@ -290,7 +290,7 @@ export function HomepageContent() {
               <p className="mt-3">
                 The standard tuning for a 6-string guitar, starting from the
                 thickest string (lowest pitch) to the thinnest string (highest
-                pitch), is <strong className="text-zinc-100 font-semibold">E - A - D - G - B - E</strong>. A helpful
+                pitch), is <strong className="text-ink font-semibold">E - A - D - G - B - E</strong>. A helpful
                 mnemonic device to remember these notes is: "<strong>E</strong>ddie{" "}
                 <strong>A</strong>te <strong>D</strong>ynamite, <strong>G</strong>
                 ood <strong>B</strong>ye <strong>E</strong>ddie".
@@ -298,7 +298,7 @@ export function HomepageContent() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-white mb-3">
+              <h3 className="text-xl font-bold text-ink mb-3">
                 Exploring Alternative Tunings
               </h3>
               <p>
@@ -307,35 +307,35 @@ export function HomepageContent() {
                 chords easier to play. Our tuner supports dozens of alternative
                 tunings instantly.
               </p>
-              <ul className="list-disc list-inside space-y-2 mt-3 ml-2 text-zinc-400 text-sm">
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2 text-ink-muted text-sm">
                 <li>
-                  <strong className="text-zinc-200">Drop D (D A D G B E):</strong> Popular in rock and metal
+                  <strong className="text-ink">Drop D (D A D G B E):</strong> Popular in rock and metal
                   for easy, heavy power chords. Lower the thick E string down a
                   whole step to D.
                 </li>
                 <li>
-                  <strong className="text-zinc-200">Open G (D G D G B D):</strong> A favorite of blues players
+                  <strong className="text-ink">Open G (D G D G B D):</strong> A favorite of blues players
                   and the Rolling Stones. Strumming all strings open produces a G
                   major chord.
                 </li>
                 <li>
-                  <strong className="text-zinc-200">Half-Step Down (Eb Ab Db Gb Bb Eb):</strong> Lowers the
+                  <strong className="text-ink">Half-Step Down (Eb Ab Db Gb Bb Eb):</strong> Lowers the
                   tension on the strings, making bending easier, and creates a
                   darker, heavier tone.
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-white/5">
-              <h3 className="text-lg font-bold text-white mb-4">
+            <div className="pt-4 border-t border-line">
+              <h3 className="text-lg font-bold text-ink mb-4">
                 Frequently Asked Questions
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="text-sm font-semibold text-zinc-100 mb-1">
+                  <h4 className="text-sm font-semibold text-ink mb-1">
                     Is the online guitar tuner accurate?
                   </h4>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-sm text-ink-muted leading-relaxed">
                     Yes, GuitarTunePro uses the Web Audio API and highly precise
                     algorithmic pitch detection. It is accurate to within ±1
                     cent, making it suitable for professional stage setup,
@@ -343,10 +343,10 @@ export function HomepageContent() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-zinc-100 mb-1">
+                  <h4 className="text-sm font-semibold text-ink mb-1">
                     Why isn't the tuner hearing my guitar?
                   </h4>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-sm text-ink-muted leading-relaxed">
                     Ensure that you have granted microphone permissions in your
                     browser. If you are using an electric guitar without an
                     amplifier, the acoustic sound may be too quiet. Try moving your
@@ -366,16 +366,16 @@ export function HomepageContent() {
         aria-labelledby="faq-heading"
       >
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-4 border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
             FAQ
           </div>
           <h2
             id="faq-heading"
-            className="text-3xl font-extrabold text-white mb-3 tracking-tight"
+            className="text-3xl font-extrabold text-ink mb-3 tracking-tight"
           >
             Frequently Asked Questions
           </h2>
-          <p className="text-zinc-400 text-sm max-w-xl mx-auto">
+          <p className="text-ink-muted text-sm max-w-xl mx-auto">
             Everything you need to know about using GuitarTunePro.
           </p>
         </div>
@@ -384,12 +384,12 @@ export function HomepageContent() {
           {faqs.map((faq) => (
             <div
               key={faq.question}
-              className="rounded-3xl border border-white/5 bg-zinc-950/20 p-6 sm:p-8 hover:border-white/10 transition-smooth"
+              className="rounded-3xl border border-line bg-surface-sunken/20 p-6 sm:p-8 hover:border-line transition-smooth"
             >
-              <h3 className="font-bold text-white mb-2.5 leading-snug">
+              <h3 className="font-bold text-ink mb-2.5 leading-snug">
                 {faq.question}
               </h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
+              <p className="text-sm text-ink-muted leading-relaxed">
                 {faq.answer}
               </p>
             </div>
@@ -399,50 +399,50 @@ export function HomepageContent() {
 
       {/* Internal links to articles */}
       <section className="max-w-5xl mx-auto px-6 py-12 pb-24 text-center relative">
-        <div className="w-full h-px bg-linear-to-r from-transparent via-zinc-800 to-transparent mb-12" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-line to-transparent mb-12" />
         
-        <p className="text-zinc-500 text-sm mb-6 uppercase tracking-wider font-semibold">
+        <p className="text-ink-subtle text-sm mb-6 uppercase tracking-wider font-semibold">
           New to guitar tuning? Explore our free guides:
         </p>
         <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-3 text-sm">
           <Link
             href="/articles/how-to-tune-a-guitar-for-beginners"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             How to Tune a Guitar for Beginners
           </Link>
-          <span className="text-zinc-700 hidden sm:inline">·</span>
+          <span className="text-ink-subtle hidden sm:inline">·</span>
           <Link
             href="/articles/standard-tuning-explained"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             Standard Tuning Explained
           </Link>
-          <span className="text-zinc-700 hidden sm:inline">·</span>
+          <span className="text-ink-subtle hidden sm:inline">·</span>
           <Link
             href="/articles/alternate-guitar-tunings"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             Alternate Guitar Tunings
           </Link>
-          <span className="text-zinc-700 hidden sm:inline">·</span>
+          <span className="text-ink-subtle hidden sm:inline">·</span>
           <Link
             href="/articles/why-your-guitar-goes-out-of-tune"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             Why Your Guitar Goes Out of Tune
           </Link>
-          <span className="text-zinc-700 hidden sm:inline">·</span>
+          <span className="text-ink-subtle hidden sm:inline">·</span>
           <Link
             href="/articles/how-to-use-a-chromatic-tuner"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             How to Use a Chromatic Tuner
           </Link>
-          <span className="text-zinc-700 hidden sm:inline">·</span>
+          <span className="text-ink-subtle hidden sm:inline">·</span>
           <Link
             href="/articles/drop-d-tuning-guide"
-            className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+            className="text-brass hover:text-brass-hover font-semibold transition-colors"
           >
             Drop D Tuning Guide
           </Link>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
 
 export const metadata: Metadata = {
-  title: "Does a Capo Affect Guitar Tuning? How to Stay in Tune with a Capo",
+  title: "Does a Capo Affect Guitar Tuning?",
   description:
-    "Find out why a capo can cause your guitar to go out of tune, how capo pressure and nut action affect pitch, and exactly how to compensate for capo-induced tuning changes.",
+    "Why a capo pushes strings sharp, how clamping force and action make it worse, and how to compensate so you stay in tune.",
   alternates: { canonical: "/articles/does-a-capo-affect-guitar-tuning" },
   openGraph: {
     title: "Does a Capo Affect Guitar Tuning?",
@@ -22,34 +22,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Does a Capo Affect Guitar Tuning?",
-  "description": "Yes — and here's why. A guide to how capos interact with your guitar's pitch, and practical tips to stay perfectly in tune when using one.",
-  "image": "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-12-01",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="does-a-capo-affect-guitar-tuning"
       title="Does a Capo Affect Guitar Tuning?"
       description="Yes — and here's why. A guide to how capos interact with your guitar's pitch, and practical tips to stay perfectly in tune when using one."
-      datePublished="2024-12-01"
-      dateModified="2026-03-29"
+      datePublished="2026-03-23"
+      dateModified="2026-08-21"
       readingTimeMinutes={7}
       heroImage={{
         src: "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=900&q=80",
@@ -193,14 +173,14 @@ export default function ArticlePage() {
         and nut friction.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-white/5">
+      <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
           src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
           alt="Guitar fretboard with capo showing string positioning"
           className="w-full h-48 object-cover"
           loading="lazy"
         />
-        <figcaption className="text-xs text-zinc-500 text-center py-2 bg-zinc-900/50">
+        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
           Capo placement angle affects how evenly it presses each string. Photo:
           Unsplash
         </figcaption>
