@@ -32,7 +32,12 @@ export interface Author {
   url?: string;
 }
 
-export const SITE_AUTHOR: Author | null = null;
+export const SITE_AUTHOR: Author | null = {
+  name: "Manusha Dananjaya",
+  role: "Developer & founder, GuitarTunePro",
+  bio: "Manusha builds web tools and started GuitarTunePro after finding most free online tuners slow, ad-cluttered, or inaccurate. GuitarTunePro's pitch detection, tuning presets, and chord library are all custom-built and verified against equal-temperament reference frequencies rather than copied from another tool.",
+  url: "/about",
+};
 
 export const ORGANISATION = {
   name: "GuitarTunePro",

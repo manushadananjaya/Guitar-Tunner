@@ -23,34 +23,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How to Tune a Guitar for Beginners",
-  "description": "A complete, step-by-step guide to tuning your guitar for the very first time — from learning string names to reading your tuner and keeping your guitar in tune longer.",
-  "image": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-01",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="how-to-tune-a-guitar-for-beginners"
       title="How to Tune a Guitar for Beginners"
       description="A complete, step-by-step guide to tuning your guitar for the very first time — from learning string names to reading your tuner and keeping your guitar in tune longer."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={8}
       heroImage={{
         src: "/screenshots/headstock-guide.png",

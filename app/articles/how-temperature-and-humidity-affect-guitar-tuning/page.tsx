@@ -25,34 +25,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How Temperature and Humidity Affect Guitar Tuning",
-  "description": "A detailed guide to understanding environmental effects on your guitar — why wood expands and contracts, how strings respond to temperature changes, and how to protect your instrument.",
-  "image": "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-28",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="how-temperature-and-humidity-affect-guitar-tuning"
       title="How Temperature and Humidity Affect Guitar Tuning"
       description="A detailed guide to understanding environmental effects on your guitar — why wood expands and contracts, how strings respond to temperature changes, and how to protect your instrument."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={9}
       heroImage={{
         src: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",

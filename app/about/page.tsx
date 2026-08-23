@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Mic, Music, Globe, ShieldCheck } from "lucide-react";
+import { SITE_AUTHOR } from "@/lib/author";
 
 export const metadata: Metadata = {
   title: "About Us — Free Online Guitar Tuner",
   description:
-    "GuitarTunePro is a free, browser-based guitar tuner with real-time pitch detection. How it works, and why we built it.",
+    "GuitarTunePro is a free, browser-based guitar tuner with real-time pitch detection. How it works, who built it, and why.",
   alternates: { canonical: "/about" },
 };
 
@@ -25,6 +26,13 @@ export default function AboutPage() {
         url: "https://www.guitartunepro.com/Logo.png",
       },
     },
+    ...(SITE_AUTHOR && {
+      author: {
+        "@type": "Person",
+        name: SITE_AUTHOR.name,
+        description: SITE_AUTHOR.bio,
+      },
+    }),
   };
 
   return (
@@ -60,8 +68,15 @@ export default function AboutPage() {
             </h1>
           </div>
           <p className="text-ink-muted text-lg leading-relaxed">
-            A free, professional-grade guitar tuner that works in your browser —
-            no installation, no subscription, no compromise on accuracy.
+            A free guitar tuner that works in your browser — no installation,
+            no subscription, and accuracy backed by{" "}
+            <Link
+              href="/accuracy"
+              className="text-brass hover:text-brass-hover transition-colors"
+            >
+              published test data
+            </Link>
+            , not just a marketing claim.
           </p>
         </header>
 
@@ -113,10 +128,16 @@ export default function AboutPage() {
                 High-Accuracy Pitch Detection
               </h3>
               <p className="text-sm text-ink-muted leading-relaxed">
-                We use an optimized autocorrelation algorithm (YIN-inspired)
-                running at 48kHz sample rate with a 4096-sample FFT to achieve
-                high-precision pitch detection across the full guitar frequency
-                range (40Hz–1kHz).
+                We use a YIN-inspired autocorrelation algorithm — not an FFT —
+                analyzing 4096 audio samples at a 48kHz sample rate to estimate
+                pitch across the full guitar frequency range (40Hz–1kHz). See{" "}
+                <Link
+                  href="/accuracy"
+                  className="text-brass hover:text-brass-hover transition-colors"
+                >
+                  measured accuracy data
+                </Link>
+                .
               </p>
             </div>
             <div className="rounded-xl border border-line bg-surface/40 p-5">
@@ -200,6 +221,18 @@ export default function AboutPage() {
           </ul>
         </section>
 
+        {/* Author */}
+        {SITE_AUTHOR && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-ink mb-4">Who Built This</h2>
+            <div className="rounded-xl border border-line bg-surface/40 p-6">
+              <p className="font-bold text-ink text-lg">{SITE_AUTHOR.name}</p>
+              <p className="text-sm text-brass mb-3">{SITE_AUTHOR.role}</p>
+              <p className="leading-relaxed text-ink-muted">{SITE_AUTHOR.bio}</p>
+            </div>
+          </section>
+        )}
+
         {/* Learning Resources */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-ink mb-4">
@@ -225,7 +258,9 @@ export default function AboutPage() {
             Contact & Support
           </h2>
           <p className="leading-relaxed mb-3">
-            GuitarTunePro is developed and maintained by the GuitarTunePro team. We welcome feedback, bug reports, and feature suggestions.
+            GuitarTunePro is developed and maintained by{" "}
+            {SITE_AUTHOR ? SITE_AUTHOR.name : "a small team"}. We welcome
+            feedback, bug reports, and feature suggestions.
           </p>
           <p className="leading-relaxed text-sm text-ink-muted">
             For support inquiries, please visit our{" "}

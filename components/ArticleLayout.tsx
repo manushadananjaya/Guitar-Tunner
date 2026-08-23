@@ -184,6 +184,16 @@ export default function ArticleLayout({
               <Clock className="w-3.5 h-3.5" />
               {readingTimeMinutes} min read
             </span>
+            {dateModified && dateModified !== datePublished && (
+              <span className="text-ink-subtle">
+                Last updated{" "}
+                {new Date(dateModified).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            )}
           </div>
         </header>
 
@@ -236,11 +246,8 @@ export default function ArticleLayout({
 
         {/* CTA Banner */}
         <div className="mt-14 rounded-2xl border border-brass/30 bg-brass/5 p-6 sm:p-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-brass mb-2">
+          <p className="text-sm font-semibold uppercase tracking-widest text-brass mb-4">
             Ready to tune?
-          </p>
-          <p className="text-ink mb-5">
-            Use GuitarTunePro's free online tuner — works directly in your browser, no app download needed.
           </p>
           <Link
             href="/"

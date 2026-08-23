@@ -23,34 +23,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Acoustic vs Electric Guitar Tuning Differences",
-  "description": "A practical comparison of how acoustic and electric guitars differ when it comes to tuning stability, string tension, bridge types, and the tools needed to stay in tune.",
-  "image": "https://images.unsplash.com/photo-1501612780327-45045538702b?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-25",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="acoustic-vs-electric-guitar-tuning"
       title="Acoustic vs Electric Guitar Tuning Differences"
       description="A practical comparison of how acoustic and electric guitars differ when it comes to tuning stability, string tension, bridge types, and the tools needed to stay in tune."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={8}
       heroImage={{
         src: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=900&q=80",

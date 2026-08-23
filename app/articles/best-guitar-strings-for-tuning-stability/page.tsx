@@ -25,34 +25,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Best Guitar Strings for Tuning Stability",
-  "description": "A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar.",
-  "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-18",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="best-guitar-strings-for-tuning-stability"
       title="Best Guitar Strings for Tuning Stability"
       description="A practical guide to choosing strings that stay in tune — comparing materials, gauges, coatings, and top brands for electric, acoustic, and bass guitar."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={10}
       heroImage={{
         src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",

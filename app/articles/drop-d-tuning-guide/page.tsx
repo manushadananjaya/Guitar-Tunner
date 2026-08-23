@@ -23,34 +23,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Drop D Tuning Guide for Rock and Metal",
-  "description": "Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever.",
-  "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-12",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="drop-d-tuning-guide"
       title="Drop D Tuning Guide for Rock and Metal"
       description="Everything you need to know about Drop D — from how to tune to it in seconds, to the one-finger power chord technique that changed rock guitar forever."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={9}
       heroImage={{
         src: "/screenshots/drop-d-frequency-chart.png",
@@ -68,7 +48,7 @@ export default function ArticlePage() {
         {
           question: "How do I quickly tune from standard to Drop D?",
           answer:
-            "The fastest method: fret the 7th fret of the 6th string. This note should be the same as the open 5th string (A). Now while fretting the 7th fret, loosen the 6th string tuning peg until the harmonic at the 7th fret matches the open A string. Alternatively, use the free GuitarTunePro online tuner set to Drop D mode.",
+            "The most reliable ear-based method: pluck the open 4th string (D3) and the open 6th string together, then loosen the 6th string tuning peg until it rings a clean octave below the 4th string. You can also fret the 6th string at the 7th fret and loosen it until that note matches the open 5th string (A2) — once correctly tuned to D2, the 7th fret sits a perfect fifth above, which is A2. For an instant, exact reading, use the free GuitarTunePro online tuner set to Drop D mode.",
         },
         {
           question: "What is the Drop D power chord shape?",
@@ -173,35 +153,38 @@ export default function ArticlePage() {
         the tuner reads D at 0 cents. Done — the whole process takes about 10
         seconds.
       </p>
-      <h3>Method 2: Harmonic Method (No Tuner Needed)</h3>
-      <p>This is the fastest ear-based method used by guitarists on stage:</p>
+      <h3>Method 2: Octave Method (Recommended)</h3>
+      <p>
+        The open 4th string is D3. Your target for the 6th string is D2 —
+        exactly one octave lower. Pluck both strings simultaneously and loosen
+        the 6th string's tuning peg until they ring as the same note an octave
+        apart. You'll hear a clean, locked-in unison octave when they're in
+        tune. This is the most reliable ear-based method because the two
+        strings share a note name, so any mismatch is obvious.
+      </p>
+      <h3>Method 3: Fretted Fifth Method</h3>
+      <p>
+        This ear-based method uses the 5th string as a fixed reference — no
+        harmonics required, just a fretted note:
+      </p>
       <ol>
-        <li>Play the open 5th string (A).</li>
-        <li>Simultaneously fret the 6th string at the 7th fret.</li>
+        <li>Play the open 5th string (A2) and let it ring.</li>
         <li>
-          The 7th fret of the 6th string in standard tuning is a B — but you
-          want it to match the A below it.
+          Fret the 6th string at the 7th fret and pluck it. In standard
+          tuning this note is B2 — clearly sharp of the open A.
         </li>
         <li>
-          Loosen the 6th string tuning peg while both strings ring together
-          until they are in unison. This will actually give you D at the 5th
-          fret — not quite right...
+          Slowly loosen the 6th string tuning peg while plucking both notes
+          together, listening for the fretted note to drop into unison with
+          the open A string.
+        </li>
+        <li>
+          Stop when they match exactly. A perfect fifth sits 7 semitones
+          above its root, and D2 + 7 semitones = A2 — so once the 6th string
+          is correctly dropped to D, its 7th fret will always match the open
+          5th string.
         </li>
       </ol>
-      <p>
-        A more accurate version: fret the 6th string at the 5th fret and match
-        it to the open 4th string (D). Since the 5th fret of the 6th string in
-        standard tuning is A, you need to loosen it until the 5th fret matches
-        the open D string (D3). This is exactly one whole step — dropping from E
-        to D.
-      </p>
-      <h3>Method 3: Use the 4th String Octave</h3>
-      <p>
-        The 4th string open is D3. Your target for the 6th string is D2 —
-        exactly one octave lower. Pluck both simultaneously and tune the 6th
-        string until both strings ring as the same note an octave apart. You'll
-        hear a clean, locked-in unison octave when they're in tune.
-      </p>
 
       <figure className="my-8 rounded-xl overflow-hidden border border-line">
         <img
@@ -376,7 +359,7 @@ export default function ArticlePage() {
       </p>
       <ul>
         <li>
-          <strong>Drop C (D-G-C-F-A-D):</strong> Drop D shifted down a whole
+          <strong>Drop C (C-G-C-F-A-D):</strong> Drop D shifted down a whole
           step. Used extensively in metalcore.
         </li>
         <li>

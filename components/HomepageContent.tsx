@@ -11,7 +11,7 @@ export const faqs = [
   {
     question: "How accurate is the tuner?",
     answer:
-      "GuitarTunePro uses a high-accuracy pitch detection algorithm running at a 48 kHz sample rate with a 4096-sample FFT window. This gives ±1 cent precision — accurate enough for professional use, live performance, and studio recording.",
+      "GuitarTunePro uses an autocorrelation, YIN-inspired pitch detection algorithm analyzing 4096 audio samples at a 48 kHz sample rate. In our own synthesized-signal testing, single-reading error stayed under 5 cents per string in quiet conditions and under about 8 cents worst-case with background noise present — see the full methodology and test data at /accuracy.",
   },
   {
     question: "Does this work on mobile?",
@@ -54,7 +54,8 @@ export function HomepageContent() {
             </span>
           </h2>
           <p className="text-ink-muted text-lg max-w-2xl mx-auto leading-relaxed">
-            Professional-grade pitch detection in your browser. No download, no
+            Autocorrelation-based pitch detection in your browser, with
+            measured accuracy data to back it up. No download, no
             subscription, no compromise.
           </p>
         </div>
@@ -76,14 +77,17 @@ export function HomepageContent() {
             </p>
             <p>
               Unlike many tuners that rely on simple frequency estimation,
-              GuitarTunePro uses an optimized YIN-inspired autocorrelation
-              algorithm operating at a 48 kHz sample rate with a 4096-sample
-              processing window. This delivers{" "}
-              <strong className="text-brass-hover font-semibold">
-                high accuracy pitch detection
-              </strong>{" "}
-              to within ±1 cent — precise enough for studio recording, live
-              performance, and critical ear training.
+              GuitarTunePro uses a YIN-inspired autocorrelation algorithm
+              operating at a 48 kHz sample rate with a 4096-sample processing
+              window — not an FFT. We've{" "}
+              <Link
+                href="/accuracy"
+                className="text-brass-hover font-semibold hover:text-brass transition-colors"
+              >
+                tested and published the actual measured accuracy
+              </Link>{" "}
+              rather than quoting a bare precision figure with nothing behind
+              it.
             </p>
           </div>
 
@@ -99,7 +103,14 @@ export function HomepageContent() {
               without touching the screen.
             </p>
             <p>
-              GuitarTunePro is developed and maintained by the GuitarTunePro team. All audio processing happens locally on your device — no audio
+              GuitarTunePro is built and maintained by{" "}
+              <Link
+                href="/about"
+                className="text-brass-hover font-semibold hover:text-brass transition-colors"
+              >
+                Manusha Dananjaya
+              </Link>
+              . All audio processing happens locally on your device — no audio
               data is ever sent to a server. The tuner is completely free and
               always will be.
             </p>
@@ -111,7 +122,7 @@ export function HomepageContent() {
           {[
             "No Download Required",
             "Works on Mobile",
-            "±1 Cent Accuracy",
+            "Accuracy Data Published",
             "Auto String Detection",
             "10+ Tuning Presets",
             "Bass & Ukulele Support",

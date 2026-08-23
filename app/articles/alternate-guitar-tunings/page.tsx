@@ -23,34 +23,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Alternate Guitar Tunings You Should Try",
-  "description": "A comprehensive guide to the most popular alternate guitar tunings — what they sound like, which artists use them, and how to tune to each one.",
-  "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-15",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="alternate-guitar-tunings"
       title="Alternate Guitar Tunings You Should Try"
       description="A comprehensive guide to the most popular alternate guitar tunings — what they sound like, which artists use them, and how to tune to each one."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={11}
       heroImage={{
         src: "/screenshots/tuning-presets.png",

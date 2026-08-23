@@ -23,34 +23,14 @@ export const metadata: Metadata = {
 export default function ArticlePage() {
   return (
         <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How to Use a Chromatic Tuner",
-  "description": "Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning.",
-  "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-  "author": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "url": "https://www.guitartunepro.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "GuitarTunePro",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.guitartunepro.com/Logo.png"
-    }
-  },
-  "datePublished": "2024-11-22",
-  "dateModified": "2026-03-29"
-}) }} />
+      {/* ArticleLayout emits the Article JSON-LD; a second one here would
+          conflict with it. */}
       <ArticleLayout
       slug="how-to-use-a-chromatic-tuner"
       title="How to Use a Chromatic Tuner"
       description="Everything you need to know about chromatic tuners — how they work, how to read the display, and how to use them for any guitar tuning."
       datePublished="2026-03-23"
-      dateModified="2026-08-21"
+      dateModified="2026-08-23"
       readingTimeMinutes={8}
       heroImage={{
         src: "/screenshots/tuner-gauge.png",
@@ -362,9 +342,11 @@ export default function ArticlePage() {
       <p>
         Ready to tune? Try our{" "}
         <Link href="/">free online chromatic guitar tuner</Link> — it works
-        directly in your browser, requires no download, and delivers
-        professional-grade accuracy for standard tuning, Drop D, Open G,
-        half-step down, and any other alternate tuning.
+        directly in your browser, requires no download, and covers standard
+        tuning, Drop D, Open G, half-step down, and any other alternate
+        tuning. See our{" "}
+        <Link href="/accuracy">measured accuracy data</Link> for exactly how
+        precise it is.
       </p>
     </ArticleLayout>
     </>

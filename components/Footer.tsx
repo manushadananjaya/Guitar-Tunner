@@ -35,6 +35,12 @@ export function Footer() {
             Articles
           </Link>
           <Link
+            href="/accuracy"
+            className="hover:text-brass transition-colors duration-200"
+          >
+            Accuracy
+          </Link>
+          <Link
             href="/contact"
             className="hover:text-brass transition-colors duration-200"
           >
@@ -59,7 +65,7 @@ export function Footer() {
           <p className="text-xs font-semibold text-ink-subtle tracking-wider flex items-center gap-1.5 uppercase">
             Made with <span className="text-off text-xs animate-pulse">❤️</span> by{" "}
             <Link href="/about" className="text-brass hover:text-brass-hover transition-colors">
-              GuitarTunePro
+              Manusha Dananjaya
             </Link>
           </p>
           <p className="text-2xs text-ink-subtle">
