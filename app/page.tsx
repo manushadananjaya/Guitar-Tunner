@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   // The root layout's title template only applies to CHILD segments, and this
   // page shares the root segment with it — so the brand must be spelled out
   // here. Every other page omits it and lets the template append it.
-  title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
+  title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
   description:
-    "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
+    "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
+    title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
     description:
-      "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
+      "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     type: "website",
     url: "https://www.guitartunepro.com",
     siteName: "GuitarTunePro",
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         url: "/Logo.png",
         width: 1200,
         height: 630,
-        alt: "GuitarTunePro — Free Online Chromatic Guitar Tuner",
+        alt: "GuitarTunePro — Free Online Guitar Tuner",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
+    title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
     description:
-      "Tune your guitar with a microphone—free, no app download. High accuracy chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
+      "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     images: ["/Logo.png"],
   },
 };
@@ -49,7 +49,7 @@ export default function Home() {
       price: "0",
       priceCurrency: "USD"
     },
-    description: "Free online chromatic guitar tuner. Tune your guitar with a microphone on any device. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download required.",
+    description: "Free online guitar tuner. Tune your guitar with a microphone on any device using a chromatic pitch detector. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download required.",
     featureList: [
       "Real-time chromatic pitch detection",
       "6-string, 7-string, 12-string, bass, and ukulele support",
@@ -94,8 +94,8 @@ export default function Home() {
             Free Online Guitar Tuner
           </h1>
           <p className="mt-2 text-ink-muted text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Tune by microphone in your browser — accurate to a single cent. No
-            app, no signup. Works for guitar, bass, and ukulele.
+            Tune by microphone in your browser, using a chromatic pitch
+            detector. No app, no signup. Works for guitar, bass, and ukulele.
           </p>
         </header>
         <ProfessionalTuner />

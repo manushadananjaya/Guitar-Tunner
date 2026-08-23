@@ -374,7 +374,7 @@ export default function ArticlePage() {
         floating bridge setup or nut re-cutting, don't hesitate to visit a
         luthier — the cost is well worth the improvement in playability and
         stability. Once your guitar is holding its pitch, use our{" "}
-        <Link href="/">free online chromatic guitar tuner</Link>{" "}
+        <Link href="/">free guitar tuner</Link>{" "}
         to verify every string is perfectly set before you play.
       </p>
     </ArticleLayout>

@@ -367,7 +367,7 @@ export default function ArticlePage() {
       <p>
         Remember: the best guitarists in the world tune their instruments
         constantly. It's not a sign of being a beginner — it's a sign of taking
-        the music seriously. Use our <Link href="/">free online chromatic guitar tuner</Link> every time you play, and your ear
+        the music seriously. Use our <Link href="/">free online guitar tuner</Link> every time you play, and your ear
         will gradually learn to recognize when a string sounds even slightly
         off.
       </p>

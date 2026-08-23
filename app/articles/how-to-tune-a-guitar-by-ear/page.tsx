@@ -368,7 +368,7 @@ export default function ArticlePage() {
         The combination of ear-trained musicianship and digital accuracy is what
         professional musicians use. Learn to hear when something is off, and
         verify with our{" "}
-        <Link href="/">free online chromatic guitar tuner</Link>{" "}
+        <Link href="/">free online guitar tuner</Link>{" "}
         when precision matters — no download required, works on any device.
       </p>
     </ArticleLayout>
