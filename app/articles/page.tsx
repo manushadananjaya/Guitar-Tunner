@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { ArrowLeft, Clock, ChevronRight } from "lucide-react";
+import {
+  ARTICLES,
+  ARTICLE_CATEGORIES,
+  articlesInCategory,
+} from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "Guitar Tuning Guides & Articles",
@@ -19,135 +24,6 @@ export const metadata: Metadata = {
     ],
   },
 };
-
-const categories = [
-  {
-    label: "Getting Started",
-    color: "cyan",
-    articles: [
-      {
-        title: "How to Tune a Guitar for Beginners",
-        slug: "how-to-tune-a-guitar-for-beginners",
-        description:
-          "Step-by-step guide to tuning for the first time — from string names to reading cents on a tuner.",
-        readingTime: 8,
-        image:
-          "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=70",
-      },
-      {
-        title: "Standard Tuning Explained",
-        slug: "standard-tuning-explained",
-        description:
-          "The notes, intervals, and history behind E-A-D-G-B-E — the universal guitar tuning.",
-        readingTime: 8,
-        image:
-          "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&q=70",
-      },
-      {
-        title: "How to Use a Chromatic Tuner",
-        slug: "how-to-use-a-chromatic-tuner",
-        description:
-          "Master the needle, cents, and note display on any chromatic guitar tuner.",
-        readingTime: 8,
-        image:
-          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70",
-      },
-      {
-        title: "How to Tune a Guitar by Ear",
-        slug: "how-to-tune-a-guitar-by-ear",
-        description:
-          "The 5th fret method, harmonics, and octave matching — develop your musical ear.",
-        readingTime: 9,
-        image:
-          "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=600&q=70",
-      },
-    ],
-  },
-  {
-    label: "Alternate Tunings",
-    color: "violet",
-    articles: [
-      {
-        title: "Alternate Guitar Tunings You Should Try",
-        slug: "alternate-guitar-tunings",
-        description:
-          "Drop D, Open G, Open D, DADGAD, half-step down, and more — explained and explored.",
-        readingTime: 11,
-        image:
-          "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=70",
-      },
-      {
-        title: "Drop D Tuning Guide for Rock and Metal",
-        slug: "drop-d-tuning-guide",
-        description:
-          "How to tune to Drop D, one-finger power chords, and famous songs in Drop D.",
-        readingTime: 9,
-        image:
-          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=70",
-      },
-      {
-        title: "Acoustic vs Electric Guitar Tuning",
-        slug: "acoustic-vs-electric-guitar-tuning",
-        description:
-          "How string gauges, bridges, and materials create different tuning challenges on each guitar type.",
-        readingTime: 8,
-        image:
-          "https://images.unsplash.com/photo-1501612780327-45045538702b?w=600&q=70",
-      },
-      {
-        title: "Does a Capo Affect Guitar Tuning?",
-        slug: "does-a-capo-affect-guitar-tuning",
-        description:
-          "Why capos cause pitch changes and the right way to compensate for them.",
-        readingTime: 7,
-        image:
-          "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=600&q=70",
-      },
-    ],
-  },
-  {
-    label: "Maintenance & Setup",
-    color: "emerald",
-    articles: [
-      {
-        title: "Why Your Guitar Goes Out of Tune",
-        slug: "why-your-guitar-goes-out-of-tune",
-        description:
-          "9 causes of tuning instability — worn nuts, bad stringing, temperature changes — and how to fix each.",
-        readingTime: 9,
-        image:
-          "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=600&q=70",
-      },
-      {
-        title: "Best Guitar Strings for Tuning Stability",
-        slug: "best-guitar-strings-for-tuning-stability",
-        description:
-          "Coated vs uncoated, nickel vs steel, light vs heavy — a complete guide to string selection.",
-        readingTime: 10,
-        image:
-          "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=70",
-      },
-      {
-        title: "How Temperature and Humidity Affect Guitar Tuning",
-        slug: "how-temperature-and-humidity-affect-guitar-tuning",
-        description:
-          "How wood movement, seasonal humidity, and extreme temperatures affect your guitar's pitch.",
-        readingTime: 9,
-        image:
-          "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",
-      },
-      {
-        title: "How to Intonate Your Guitar",
-        slug: "how-to-intonate-your-guitar",
-        description:
-          "Step-by-step saddle adjustment guide to set perfect intonation across the fretboard.",
-        readingTime: 10,
-        image:
-          "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=600&q=70",
-      },
-    ],
-  },
-];
 
 const colorMap: Record<string, { badge: string; accent: string; dot: string }> =
   {
@@ -216,8 +92,8 @@ export default function ArticlesIndex() {
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-4 mb-14">
           {[
-            { label: "Free Guides", value: "12+" },
-            { label: "Topics Covered", value: "3" },
+            { label: "Free Guides", value: `${ARTICLES.length}` },
+            { label: "Topics Covered", value: `${ARTICLE_CATEGORIES.length}` },
             { label: "Avg. Read Time", value: "9 min" },
           ].map((stat) => (
             <div
@@ -231,8 +107,9 @@ export default function ArticlesIndex() {
         </div>
 
         {/* Categories */}
-        {categories.map((category) => {
+        {ARTICLE_CATEGORIES.map((category) => {
           const c = colorMap[category.color];
+          const items = articlesInCategory(category.label);
           return (
             <section key={category.label} className="mb-14">
               <div className="flex items-center gap-3 mb-6">
@@ -243,12 +120,12 @@ export default function ArticlesIndex() {
                 <span
                   className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${c.badge}`}
                 >
-                  {category.articles.length} guides
+                  {items.length} guides
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {category.articles.map((article) => (
+                {items.map((article) => (
                   <Link
                     href={`/articles/${article.slug}`}
                     key={article.slug}

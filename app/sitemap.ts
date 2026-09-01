@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { TUNER_PAGES } from '@/lib/tunerPages';
 import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
-import { CHORDS } from '@/lib/chords';
+import { INDEXED_CHORDS } from '@/lib/chords/curation';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    ...CHORDS.map((chord) => ({
+    ...INDEXED_CHORDS.map((chord) => ({
       url: `${siteUrl}/chords/${chord.slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
@@ -49,6 +49,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/authors/manusha-dananjaya`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${siteUrl}/accuracy`,

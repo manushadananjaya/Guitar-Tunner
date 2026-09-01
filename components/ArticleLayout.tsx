@@ -64,9 +64,11 @@ export default function ArticleLayout({
     author: SITE_AUTHOR
       ? {
           "@type": "Person",
+          "@id": `${siteUrl}${SITE_AUTHOR.url}#person`,
           name: SITE_AUTHOR.name,
           description: SITE_AUTHOR.bio,
-          ...(SITE_AUTHOR.url && { url: `${siteUrl}${SITE_AUTHOR.url}` }),
+          url: `${siteUrl}${SITE_AUTHOR.url}`,
+          knowsAbout: SITE_AUTHOR.knowsAbout,
         }
       : {
           "@type": "Organization",

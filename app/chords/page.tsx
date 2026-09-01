@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import ChordDiagram from "@/components/Chords/ChordDiagram";
 import { CHORDS, ROOTS, QUALITIES, getChord, chordSlug } from "@/lib/chords";
+import { isChordIndexed } from "@/lib/chords/curation";
 
 const SITE_URL = "https://www.guitartunepro.com";
 
@@ -118,40 +119,86 @@ export default function ChordsIndexPage() {
           </div>
         </section>
 
-        {/* Full browse grid */}
+        {/* Common chords, grouped by root */}
         <section className="mt-16" aria-labelledby="browse-heading">
           <h2 id="browse-heading" className="text-2xl font-bold text-ink mb-2">
-            Browse Every Chord
+            Common Guitar Chords
           </h2>
           <p className="text-ink-muted mb-6 max-w-2xl">
-            Pick a root note, then a chord type.
+            The open and barre chords you reach for most, grouped by root note.
           </p>
 
           <div className="space-y-8">
-            {ROOTS.map((root) => (
-              <div key={root.slug}>
-                <h3 className="text-lg font-bold text-brass mb-3">
-                  {root.name}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {QUALITIES.map((quality) => {
-                    const slug = chordSlug(root, quality);
-                    const chord = getChord(slug);
-                    if (!chord) return null;
-                    return (
+            {ROOTS.map((root) => {
+              const chips = QUALITIES.map((quality) =>
+                getChord(chordSlug(root, quality)),
+              ).filter(
+                (chord): chord is NonNullable<typeof chord> =>
+                  !!chord && isChordIndexed(chord.slug),
+              );
+              if (chips.length === 0) return null;
+              return (
+                <div key={root.slug}>
+                  <h3 className="text-lg font-bold text-brass mb-3">
+                    {root.name}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {chips.map((chord) => (
                       <Link
-                        key={slug}
-                        href={`/chords/${slug}`}
+                        key={chord.slug}
+                        href={`/chords/${chord.slug}`}
                         className="rounded-lg border border-line bg-surface/40 px-3 py-1.5 text-sm text-ink hover:border-brass/40 hover:text-brass transition-colors"
                       >
                         {chord.name}
                       </Link>
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
+          {/* The full root × quality matrix — augmented triads, minor 6ths, and
+              extended chords in every key. Still here, still linked, just not
+              the first thing a visitor (or a crawler) meets. */}
+          <details className="mt-10 rounded-xl border border-line bg-surface/30 p-5">
+            <summary className="cursor-pointer text-sm font-semibold text-ink">
+              Show every chord type in every key
+              <span className="text-ink-subtle font-normal">
+                {" "}
+                — augmented, minor 6th, and extended voicings
+              </span>
+            </summary>
+            <div className="mt-6 space-y-6">
+              {ROOTS.map((root) => {
+                const rest = QUALITIES.map((quality) =>
+                  getChord(chordSlug(root, quality)),
+                ).filter(
+                  (chord): chord is NonNullable<typeof chord> =>
+                    !!chord && !isChordIndexed(chord.slug),
+                );
+                if (rest.length === 0) return null;
+                return (
+                  <div key={root.slug}>
+                    <h3 className="text-sm font-bold text-brass mb-2">
+                      {root.name}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {rest.map((chord) => (
+                        <Link
+                          key={chord.slug}
+                          href={`/chords/${chord.slug}`}
+                          className="rounded-lg border border-line bg-surface/40 px-3 py-1.5 text-sm text-ink hover:border-brass/40 hover:text-brass transition-colors"
+                        >
+                          {chord.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </details>
         </section>
 
         {/* Long-form guidance */}

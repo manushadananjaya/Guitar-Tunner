@@ -13,6 +13,7 @@ import {
   sameNotesAs,
   parentChord,
 } from "@/lib/chords";
+import { isChordIndexed } from "@/lib/chords/curation";
 
 /** Well-known progressions, keyed by the numeral this chord occupies. */
 const PROGRESSIONS: Record<string, { pattern: string; note: string }[]> = {
@@ -69,6 +70,12 @@ export async function generateMetadata({
     description,
     alternates: { canonical: `/chords/${chord.slug}` },
     openGraph: { title: `${chord.ascii} Guitar Chord`, description },
+    // The library covers every root × quality combination. Only the chords
+    // players actually look up are indexed; the long tail stays crawlable and
+    // linked but out of the index. See lib/chords/curation.ts.
+    ...(isChordIndexed(chord.slug)
+      ? {}
+      : { robots: { index: false, follow: true } }),
   };
 }
 
