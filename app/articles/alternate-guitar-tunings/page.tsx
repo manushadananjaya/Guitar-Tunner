@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import StringPitchDiagram from "@/components/diagrams/StringPitchDiagram";
 
 export const metadata: Metadata = {
   title: "Alternate Guitar Tunings You Should Try",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
       "Drop D, Open G, DADGAD and more alternate tunings explored in detail.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1200&q=80",
-        alt: "Guitarist playing acoustic guitar",
+        url: "https://www.guitartunepro.com/screenshots/tuning-presets.png",
+        alt: "GuitarTunePro alternate tuning presets",
       },
     ],
   },
@@ -121,19 +122,6 @@ export default function ArticlePage() {
         alternate tuning.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
-          alt="Guitar headstock with tuning pegs"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Alternate tunings transform the fretboard into a new instrument.
-          Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>Drop D (D-A-D-G-B-E)</h2>
       <p>
         Drop D is the most popular alternate tuning in rock and metal. Only the
@@ -141,6 +129,11 @@ export default function ArticlePage() {
         tuning. This creates one-finger power chords on the bottom three strings
         and adds a heavier, lower bass note.
       </p>
+      <StringPitchDiagram
+        notes={["D", "A", "D", "G", "B", "E"]}
+        markChangesFromStandard
+        caption="Drop D"
+      />
       <ul>
         <li>
           <strong>Best for:</strong> Rock, metal, grunge, alternative
@@ -234,17 +227,11 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1455395916590-81afcd2e9d49?w=900&q=80"
-          alt="Guitarist playing slide guitar"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Open tunings are ideal for slide guitar playing. Photo: Unsplash
-        </figcaption>
-      </figure>
+      <StringPitchDiagram
+        notes={["E", "B", "E", "G♯", "B", "E"]}
+        markChangesFromStandard
+        caption="Open E — strumming the open strings sounds an E major chord"
+      />
 
       <h2>DADGAD</h2>
       <p>

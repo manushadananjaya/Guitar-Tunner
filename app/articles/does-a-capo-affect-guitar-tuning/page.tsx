@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     description: "Why capos cause tuning issues and how to fix them.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=1200&q=80",
-        alt: "Capo on guitar fretboard",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -31,11 +31,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-21"
       readingTimeMinutes={7}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=900&q=80",
-        alt: "Capo clamped on guitar neck",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question: "Does using a capo put my guitar out of tune?",
@@ -172,19 +167,6 @@ export default function ArticlePage() {
         Some strings may be held slightly sharp by the combination of capo force
         and nut friction.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
-          alt="Guitar fretboard with capo showing string positioning"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Capo placement angle affects how evenly it presses each string. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>How to Minimize Capo Tuning Problems</h2>
       <h3>1. Tune After Placing the Capo</h3>

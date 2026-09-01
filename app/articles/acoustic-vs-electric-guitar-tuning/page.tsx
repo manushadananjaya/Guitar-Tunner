@@ -13,8 +13,8 @@ export const metadata: Metadata = {
       "Why acoustic and electric guitars behave differently when tuning.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=1200&q=80",
-        alt: "Acoustic and electric guitar side by side",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -32,11 +32,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-23"
       readingTimeMinutes={8}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=900&q=80",
-        alt: "Acoustic guitar and electric guitar",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question:
@@ -147,19 +142,6 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
-          alt="Acoustic guitar strings close-up"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Acoustic guitars use heavier strings, creating more tension and tuning
-          challenges. Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>String Materials: Bronze vs. Nickel</h2>
       <p>
         Acoustic and electric guitars use fundamentally different string
@@ -262,19 +244,6 @@ export default function ArticlePage() {
           Floyd Rose can hold tune through extreme whammy bar use.
         </li>
       </ul>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
-          alt="Electric guitar bridge and strings"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Electric guitar bridge design is the most important factor in tuning
-          stability. Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>Tuner Types for Each Guitar</h2>
       <p>

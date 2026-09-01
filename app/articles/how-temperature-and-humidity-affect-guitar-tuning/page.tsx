@@ -15,8 +15,8 @@ export const metadata: Metadata = {
       "Protect your guitar from environmental damage and tuning instability.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=1200&q=80",
-        alt: "Acoustic guitar body and wood grain",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -34,11 +34,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-23"
       readingTimeMinutes={9}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80",
-        alt: "Acoustic guitar body showing wood grain detail",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question: "What is the ideal humidity for storing a guitar?",
@@ -146,19 +141,6 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80"
-          alt="Guitar neck and fretboard detail"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          The guitar neck is highly sensitive to humidity changes throughout the
-          year. Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>How Humidity Affects Tuning Specifically</h2>
       <p>Humidity changes affect tuning through two main pathways:</p>
       <h3>Neck Relief Changes</h3>
@@ -251,19 +233,6 @@ export default function ArticlePage() {
         <li>The bridge can lift or separate from the top</li>
         <li>Structural wood can warp permanently</li>
       </ul>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=900&q=80"
-          alt="Guitar stored properly in case"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Proper storage in a case with humidity control is the best guitar
-          protection. Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>How to Protect Your Guitar</h2>
       <h3>Store in a Case</h3>

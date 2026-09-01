@@ -13,8 +13,8 @@ export const metadata: Metadata = {
       "Identify the exact cause of tuning instability and fix it permanently.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=1200&q=80",
-        alt: "Guitar tuning pegs and headstock",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -32,11 +32,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-23"
       readingTimeMinutes={9}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=900&q=80",
-        alt: "Guitar headstock close-up showing tuning machines",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question:
@@ -156,19 +151,6 @@ export default function ArticlePage() {
         widen or reshape them inexpensively.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80"
-          alt="Close-up of guitar nut and first fret"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          The nut is one of the most overlooked causes of tuning instability.
-          Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>3. Poor String Winding Technique</h2>
       <p>
         How you wrap a string around its tuning post has a major impact on
@@ -285,19 +267,6 @@ export default function ArticlePage() {
         locking nut is the gold standard — once properly set up, it holds tune
         extremely well.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
-          alt="Electric guitar body and bridge"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Electric guitars with floating bridges require careful setup for
-          stable tuning. Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>8. Poor Guitar Setup (Neck Relief and Action)</h2>
       <p>

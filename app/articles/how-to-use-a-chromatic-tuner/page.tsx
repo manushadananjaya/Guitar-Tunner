@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import CentGauge from "@/components/diagrams/CentGauge";
 
 export const metadata: Metadata = {
   title: "How to Use a Chromatic Tuner",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
       "Master your chromatic tuner for standard and alternate tunings.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
-        alt: "Guitar tuner device",
+        url: "https://www.guitartunepro.com/screenshots/tuner-gauge.png",
+        alt: "GuitarTunePro chromatic tuner display",
       },
     ],
   },
@@ -164,19 +165,6 @@ export default function ArticlePage() {
         tablet, or computer.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80"
-          alt="Guitar being tuned with digital tuner"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Online tuners work through your device's microphone for instant pitch
-          detection. Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>Reading the Tuner Display</h2>
       <p>
         Every chromatic tuner, whether hardware or software, shows the same
@@ -208,6 +196,12 @@ export default function ArticlePage() {
           and red (or orange/yellow) for out of tune.
         </li>
       </ul>
+
+      <CentGauge
+        cents={7}
+        note="A"
+        caption="A reading of +7 cents: the note is A, but slightly sharp. Ease the string down until the needle drops into the centre band."
+      />
 
       <h2>Step-by-Step: How to Use a Chromatic Tuner</h2>
       <ol>

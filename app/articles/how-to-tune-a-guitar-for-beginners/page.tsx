@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import StringPitchDiagram from "@/components/diagrams/StringPitchDiagram";
+import CentGauge from "@/components/diagrams/CentGauge";
 
 export const metadata: Metadata = {
   title: "How to Tune a Guitar for Beginners",
@@ -13,8 +15,8 @@ export const metadata: Metadata = {
       "Step-by-step guide to tuning your guitar for the first time using a digital tuner.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=80",
-        alt: "Beginner tuning a guitar",
+        url: "https://www.guitartunepro.com/screenshots/headstock-guide.png",
+        alt: "GuitarTunePro headstock guide showing which peg to turn for each string",
       },
     ],
   },
@@ -165,6 +167,12 @@ export default function ArticlePage() {
         Does Good By Everyone." Pick whichever sticks in your head.
       </p>
 
+      <StringPitchDiagram
+        notes={["E", "A", "D", "G", "B", "E"]}
+        detail={["E2 · 82.4 Hz", "A2 · 110 Hz", "D3 · 146.8 Hz", "G3 · 196 Hz", "B3 · 246.9 Hz", "E4 · 329.6 Hz"]}
+        caption="Standard tuning: the six open strings from thickest to thinnest"
+      />
+
       <h2>Step 2: Understanding Your Tuner</h2>
       <p>
         A tuner is a device (or app) that listens to the pitch of each string
@@ -195,18 +203,11 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=900&q=80"
-          alt="Guitar tuning pegs close up"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          The tuning pegs are located on the headstock of the guitar. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
+      <CentGauge
+        cents={-12}
+        note="E"
+        caption="A string that reads 12 cents flat. Keep turning the peg until the needle sits in the middle and the reading settles near 0."
+      />
 
       <h2>Step 3: Tune the Low E String (6th String)</h2>
       <p>
@@ -270,19 +271,6 @@ export default function ArticlePage() {
         pass will require fewer and smaller adjustments until everything sits
         perfectly in tune.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
-          alt="Guitarist practicing with guitar in hand"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Practice tuning regularly — it becomes second nature within a few
-          weeks. Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>Common Beginner Mistakes</h2>
       <h3>Tuning down instead of up</h3>

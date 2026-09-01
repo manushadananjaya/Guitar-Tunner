@@ -11,7 +11,7 @@ export function generateMetadata(): Metadata {
   if (!SITE_AUTHOR) return {};
   return {
     title: `${SITE_AUTHOR.name} — Author`,
-    description: `${SITE_AUTHOR.name}, ${SITE_AUTHOR.role}. ${SITE_AUTHOR.bio}`,
+    description: `${SITE_AUTHOR.name} is ${SITE_AUTHOR.role.toLowerCase()}. He builds the tuner and writes the guitar tuning and setup guides on GuitarTunePro.`,
     alternates: { canonical: SITE_AUTHOR.url },
     openGraph: {
       title: `${SITE_AUTHOR.name} — GuitarTunePro`,

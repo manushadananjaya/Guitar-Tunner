@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import CentGauge from "@/components/diagrams/CentGauge";
 
 export const metadata: Metadata = {
   title: "How to Intonate Your Guitar",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
       "Fix guitars that sound out of tune higher up the neck with this saddle adjustment guide.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=1200&q=80",
-        alt: "Electric guitar bridge and saddles",
+        url: "https://www.guitartunepro.com/screenshots/tuner-gauge.png",
+        alt: "Checking intonation with GuitarTunePro",
       },
     ],
   },
@@ -33,9 +34,11 @@ export default function ArticlePage() {
       dateModified="2026-08-23"
       readingTimeMinutes={10}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80",
-        alt: "Electric guitar bridge showing individual saddles",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/tuner-gauge.png",
+        alt:
+          "GuitarTunePro's chromatic tuner reading the pitch of a fretted note for an intonation check",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -155,19 +158,6 @@ export default function ArticlePage() {
         the nut) shortens it, making fretted notes sharper.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80"
-          alt="Guitar bridge saddles close-up"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Individual bridge saddles are adjusted to set intonation for each
-          string. Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>What You Need to Check and Set Intonation</h2>
       <ul>
         <li>
@@ -229,6 +219,12 @@ export default function ArticlePage() {
         </li>
       </ol>
 
+      <CentGauge
+        cents={9}
+        note="E"
+        caption="The 12th-fret note reading +9 cents sharp while the open string is at 0. The saddle for that string needs to move back to lengthen it."
+      />
+
       <h2>Step 3: Adjust the Saddle</h2>
       <p>
         On most electric guitars (Stratocaster, Telecaster, Gibson-style
@@ -270,19 +266,6 @@ export default function ArticlePage() {
         converge on the correct saddle position. Be patient — small adjustments
         make a big difference.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
-          alt="Guitarist checking intonation with tuner"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Patience and a precise tuner are the keys to perfect intonation.
-          Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>Step 5: Do a Full-Fretboard Check</h2>
       <p>After setting the 12th fret for each string, do a broader check:</p>

@@ -139,7 +139,10 @@ export function HomepageContent() {
       </section>
 
       {/* Alternate tuner pages */}
-      <section className="max-w-5xl mx-auto px-6 py-12 relative">
+      <section
+        id="tunings"
+        className="max-w-5xl mx-auto px-6 py-12 relative scroll-mt-20"
+      >
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
             Alternate Tuning Tools

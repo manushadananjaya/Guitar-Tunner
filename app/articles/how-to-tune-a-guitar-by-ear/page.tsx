@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import FretMatchDiagram from "@/components/diagrams/FretMatchDiagram";
 
 export const metadata: Metadata = {
   title: "How to Tune a Guitar by Ear",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
       "Step-by-step relative tuning methods to develop your musical ear.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=1200&q=80",
-        alt: "Guitarist listening carefully while tuning",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -32,11 +33,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-23"
       readingTimeMinutes={9}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1605020420620-20c943cc4669?w=900&q=80",
-        alt: "Guitarist concentrating while listening to guitar pitch",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question: "Can anyone learn to tune by ear?",
@@ -133,19 +129,6 @@ export default function ArticlePage() {
         need perfect pitch to hear it.
       </p>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&q=80"
-          alt="Guitarist practicing ear training"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Ear training is one of the most valuable skills a guitarist can
-          develop. Photo: Unsplash
-        </figcaption>
-      </figure>
-
       <h2>Getting a Reference Pitch</h2>
       <p>
         Tuning by ear requires a starting reference pitch — one string that you
@@ -192,6 +175,7 @@ export default function ArticlePage() {
         </li>
         <li>2nd string, 5th fret = open 1st string (both are E)</li>
       </ul>
+      <FretMatchDiagram caption="The 5th-fret method. Each brass dot is the fret you press; its pitch matches the open ring on the string above. The G–B pair uses the 4th fret." />
       <p>
         <strong>Remember the exception:</strong> Between the G (3rd) and B (2nd)
         strings, use the 4th fret instead of the 5th, because the interval is a
@@ -256,19 +240,6 @@ export default function ArticlePage() {
         adjust the tuner, so you can hear the beating in real time without
         needing to re-pluck the reference string.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80"
-          alt="Guitar fretboard showing harmonic positions"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Natural harmonics produce pure tones ideal for relative tuning. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>Method 3: Octave Matching</h2>
       <p>

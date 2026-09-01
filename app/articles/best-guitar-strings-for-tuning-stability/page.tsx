@@ -15,8 +15,8 @@ export const metadata: Metadata = {
       "Which string brands and materials hold pitch the longest — a detailed comparison.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&q=80",
-        alt: "Guitar strings close-up",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -34,11 +34,6 @@ export default function ArticlePage() {
       datePublished="2026-03-23"
       dateModified="2026-08-23"
       readingTimeMinutes={10}
-      heroImage={{
-        src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=900&q=80",
-        alt: "Close-up of guitar strings on fretboard",
-        credit: "Photo: Unsplash",
-      }}
       faqs={[
         {
           question:
@@ -130,19 +125,6 @@ export default function ArticlePage() {
         changes become less predictable — meaning it won't return to the same
         pitch after bending.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
-          alt="Guitar strings on acoustic guitar"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Fresh, high-quality strings are essential for reliable tuning. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>String Materials: What's the Difference?</h2>
       <h3>Nickel-Wound (Electric Guitar)</h3>
@@ -287,19 +269,6 @@ export default function ArticlePage() {
         10-52) gives you light strings for easy lead playing on the top strings
         while the heavier low strings maintain tension when dropped.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
-          alt="Electric guitar strings and pickups"
-          className="w-full h-48 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          String gauge directly impacts tone and tuning stability. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>Top String Recommendations by Playing Style</h2>
       <h3>Rock / Metal Electric</h3>

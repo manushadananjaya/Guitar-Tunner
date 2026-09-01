@@ -18,8 +18,8 @@ export const metadata: Metadata = {
       "Comprehensive guitar tuning guides for beginners and advanced players.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=80",
-        alt: "Guitar headstock tuning guide",
+        url: "https://www.guitartunepro.com/Logo.png",
+        alt: "GuitarTunePro — free online guitar tuner",
       },
     ],
   },
@@ -31,6 +31,11 @@ const colorMap: Record<string, { badge: string; accent: string; dot: string }> =
       badge: "bg-brass/10 text-brass border-brass/20",
       accent: "group-hover:text-brass",
       dot: "bg-brass",
+    },
+    amber: {
+      badge: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+      accent: "group-hover:text-amber-500",
+      dot: "bg-amber-500",
     },
     violet: {
       badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",
@@ -131,14 +136,7 @@ export default function ArticlesIndex() {
                     key={article.slug}
                     className="group block rounded-2xl border border-line bg-surface/40 overflow-hidden hover:border-line-strong hover:bg-surface-raised/50 transition-all duration-300"
                   >
-                    <div className="h-36 overflow-hidden">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    </div>
+                    <div className={`h-1 w-full ${c.dot}`} />
                     <div className="p-5">
                       <h3
                         className={`font-semibold text-ink ${c.accent} transition-colors mb-2 leading-snug`}

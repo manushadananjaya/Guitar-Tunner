@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import StringPitchDiagram from "@/components/diagrams/StringPitchDiagram";
 
 export const metadata: Metadata = {
   title: "Drop D Tuning Guide for Rock and Metal",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
       "How to tune to Drop D, easy power chord shapes, and famous songs in Drop D.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=80",
-        alt: "Electric guitar for rock music",
+        url: "https://www.guitartunepro.com/screenshots/drop-d-frequency-chart.png",
+        alt: "Drop D string frequency chart",
       },
     ],
   },
@@ -143,6 +144,13 @@ export default function ArticlePage() {
         ergonomic impact is massive.
       </p>
 
+      <StringPitchDiagram
+        notes={["D", "A", "D", "G", "B", "E"]}
+        detail={["D2 · 73.42 Hz", "A2 · 110 Hz", "D3 · 146.83 Hz", "G3 · 196 Hz", "B3 · 246.94 Hz", "E4 · 329.63 Hz"]}
+        markChangesFromStandard
+        caption="Drop D — only the 6th string moves, from E2 down to D2"
+      />
+
       <h2>How to Tune to Drop D</h2>
       <h3>Method 1: Use an Online Tuner (Fastest)</h3>
       <p>
@@ -185,19 +193,6 @@ export default function ArticlePage() {
           5th string.
         </li>
       </ol>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=900&q=80"
-          alt="Rock guitarist playing electric guitar"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Drop D tuning is the foundation of rock and metal guitar. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>The One-Finger Power Chord — The Game Changer</h2>
       <p>
@@ -303,19 +298,6 @@ export default function ArticlePage() {
           and crushing chorus all live in Drop D.
         </li>
       </ul>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=900&q=80"
-          alt="Concert guitarist performing live"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Many iconic rock performances are built on Drop D tuning. Photo:
-          Unsplash
-        </figcaption>
-      </figure>
 
       <h2>String Gauge Considerations for Drop D</h2>
       <p>

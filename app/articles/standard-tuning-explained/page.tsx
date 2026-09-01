@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ArticleLayout from "@/components/ArticleLayout";
+import StringPitchDiagram from "@/components/diagrams/StringPitchDiagram";
 
 export const metadata: Metadata = {
   title:
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
       "Why E-A-D-G-B-E is the universal guitar tuning and how the intervals work.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1200&q=80",
-        alt: "Guitar fretboard close-up",
+        url: "https://www.guitartunepro.com/screenshots/tuning-presets.png",
+        alt: "Standard tuning selected in GuitarTunePro",
       },
     ],
   },
@@ -34,9 +35,10 @@ export default function ArticlePage() {
       dateModified="2026-08-23"
       readingTimeMinutes={8}
       heroImage={{
-        src: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=900&q=80",
-        alt: "Close-up of guitar fretboard and strings",
-        credit: "Photo: Unsplash",
+        src: "/screenshots/tuning-presets.png",
+        alt: "GuitarTunePro tuning preset selector with Standard EADGBE selected",
+        credit: "Screenshot: GuitarTunePro",
+        fit: "contain",
       }}
       faqs={[
         {
@@ -155,17 +157,11 @@ export default function ArticlePage() {
         </li>
       </ul>
 
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=900&q=80"
-          alt="Guitar headstock showing six tuning pegs"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Six strings, each tuned to a precise pitch. Photo: Unsplash
-        </figcaption>
-      </figure>
+      <StringPitchDiagram
+        notes={["E", "A", "D", "G", "B", "E"]}
+        detail={["E2 · 82.41 Hz", "A2 · 110.00 Hz", "D3 · 146.83 Hz", "G3 · 196.00 Hz", "B3 · 246.94 Hz", "E4 · 329.63 Hz"]}
+        caption="Standard tuning, thickest string to thinnest"
+      />
 
       <h2>The Intervals Between Strings</h2>
       <p>
@@ -238,19 +234,6 @@ export default function ArticlePage() {
         less at that string crossing, allowing most pentatonic and major scale
         patterns to be played with fewer fret-position shifts.
       </p>
-
-      <figure className="my-8 rounded-xl overflow-hidden border border-line">
-        <img
-          src="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=900&q=80"
-          alt="Guitarist playing chords on acoustic guitar"
-          className="w-full h-52 object-cover"
-          loading="lazy"
-        />
-        <figcaption className="text-xs text-ink-subtle text-center py-2 bg-surface/50">
-          Standard tuning makes open chords and barre chords ergonomically
-          accessible. Photo: Unsplash
-        </figcaption>
-      </figure>
 
       <h2>A Brief History of Standard Tuning</h2>
       <p>
