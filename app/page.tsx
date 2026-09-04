@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   // The root layout's title template only applies to CHILD segments, and this
   // page shares the root segment with it — so the brand must be spelled out
   // here. Every other page omits it and lets the template append it.
-  title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
+  title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
   description:
     "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
+    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
     description:
       "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Guitar Tuner — Chromatic Tuner | GuitarTunePro",
+    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
     description:
       "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
     images: ["/Logo.png"],
