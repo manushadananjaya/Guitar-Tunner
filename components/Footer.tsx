@@ -31,6 +31,7 @@ export function Footer() {
         heading: "Tools",
         links: [
           { label: "Guitar Tuner", href: "/" },
+          { label: "Vocal Pitch Detector", href: "/vocal-pitch-detector" },
           { label: "Chord Library", href: "/chords" },
           { label: "Metronome", href: "/metronome" },
           { label: "Tuner Accuracy", href: "/accuracy" },

@@ -238,6 +238,42 @@ export function HomepageContent() {
         </Link>
       </section>
 
+      {/* Vocal pitch detector cross-promo */}
+      <section className="max-w-5xl mx-auto px-6 py-12 relative">
+        <Link
+          href="/vocal-pitch-detector"
+          className="group block rounded-3xl border border-line bg-surface-sunken/20 p-8 sm:p-10 hover:border-brass/30 hover:bg-brass/5 transition-smooth"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+            <div
+              className="flex items-end gap-1.5 shrink-0 h-12"
+              aria-hidden="true"
+            >
+              {[7, 4, 10, 6, 12, 5].map((h, i) => (
+                <span
+                  key={i}
+                  className="w-1.5 rounded-full bg-brass-hover"
+                  style={{ height: `${h * 4}px` }}
+                />
+              ))}
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brass-hover transition-colors">
+                Vocal Pitch Detector
+              </h2>
+              <p className="text-sm text-ink-muted leading-relaxed max-w-xl">
+                Sing or hum and see the note, the frequency, and how many cents
+                sharp or flat you are — in real time. Includes a scrolling pitch
+                graph, a vocal range finder, and a note-matching trainer.
+              </p>
+              <span className="inline-flex items-center gap-1 text-xs text-brass font-bold pt-4 group-hover:translate-x-1 transition-transform duration-300">
+                Open the Vocal Pitch Detector →
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
       {/* Instrument tuner pages */}
       <section className="max-w-5xl mx-auto px-6 py-12 relative">
         <div className="text-center mb-10">

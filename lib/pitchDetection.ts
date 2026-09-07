@@ -1,9 +1,22 @@
 // Autocorrelation-based pitch detection
-// Optimized for guitar frequencies (40Hz - 1000Hz)
+// Defaults are tuned for guitar (40Hz - 1000Hz); pass PitchRangeOptions to
+// widen the range for other sources such as the human voice.
 
 const MIN_FREQUENCY = 40;
 const MAX_FREQUENCY = 1000;
 const CONFIDENCE_THRESHOLD = 0.72;
+const RMS_GATE = 0.003;
+
+export interface PitchRangeOptions {
+  /** Lowest fundamental to look for, in Hz. Default 40. */
+  minFrequency?: number;
+  /** Highest fundamental to look for, in Hz. Default 1000. */
+  maxFrequency?: number;
+  /** Autocorrelation confidence required to report a pitch. Default 0.72. */
+  confidenceThreshold?: number;
+  /** RMS below which the frame is treated as silence. Default 0.003. */
+  rmsGate?: number;
+}
 
 export interface PitchDetectionResult {
   frequency: number;
@@ -16,7 +29,14 @@ export interface PitchDetectionResult {
 export function detectPitch(
   audioData: Float32Array,
   sampleRate: number,
+  options: PitchRangeOptions = {},
 ): PitchDetectionResult {
+  const minFrequency = options.minFrequency ?? MIN_FREQUENCY;
+  const maxFrequency = options.maxFrequency ?? MAX_FREQUENCY;
+  const confidenceThreshold =
+    options.confidenceThreshold ?? CONFIDENCE_THRESHOLD;
+  const rmsGate = options.rmsGate ?? RMS_GATE;
+
   const size = audioData.length;
 
   // Calculate RMS (energy) to detect silence
@@ -27,7 +47,7 @@ export function detectPitch(
   rms = Math.sqrt(rms / size);
 
   // If signal is too quiet, no pitch detected
-  if (rms < 0.003) {
+  if (rms < rmsGate) {
     return { frequency: 0, confidence: 0, detected: false };
   }
 
@@ -42,8 +62,8 @@ export function detectPitch(
   }
 
   // Calculate minimum lag based on frequency range
-  const minLag = Math.round(sampleRate / MAX_FREQUENCY);
-  const maxLag = Math.round(sampleRate / MIN_FREQUENCY);
+  const minLag = Math.round(sampleRate / maxFrequency);
+  const maxLag = Math.round(sampleRate / minFrequency);
 
   // Find the first peak in the autocorrelation
   let bestLag = 0;
@@ -64,7 +84,7 @@ export function detectPitch(
   confidence = (2 * bestValue) / acf[0];
   confidence = Math.max(0, Math.min(1, confidence));
 
-  if (confidence < CONFIDENCE_THRESHOLD || bestLag === 0) {
+  if (confidence < confidenceThreshold || bestLag === 0) {
     return { frequency: 0, confidence, detected: false };
   }
 
@@ -72,7 +92,7 @@ export function detectPitch(
   const frequency = sampleRate / bestLag;
 
   // Validate frequency is in expected range
-  if (frequency < MIN_FREQUENCY || frequency > MAX_FREQUENCY) {
+  if (frequency < minFrequency || frequency > maxFrequency) {
     return { frequency: 0, confidence: 0, detected: false };
   }
 
@@ -222,18 +242,39 @@ export class PitchSmoother {
   }
 }
 
+export interface PitchDetectorOptions extends PitchRangeOptions {
+  /** Median window for the internal smoother. Default 5. */
+  smoothingWindow?: number;
+  /** Reject readings that are ~an octave from the running pitch unless their
+   *  confidence clearly beats it. Useful for voice. Default false. */
+  octaveGuard?: boolean;
+}
+
 // Real-time pitch detection with configurable algorithm
 export class PitchDetector {
   private smoother: PitchSmoother;
   private lastFrequency: number = 0;
   private readonly algorithm: "autocorrelation" | "fft" = "autocorrelation";
+  private readonly range: PitchRangeOptions;
+  private readonly octaveGuard: boolean;
 
-  constructor(smoothingWindow: number = 5) {
-    this.smoother = new PitchSmoother(smoothingWindow);
+  constructor(options: number | PitchDetectorOptions = 5) {
+    const opts: PitchDetectorOptions =
+      typeof options === "number" ? { smoothingWindow: options } : options;
+    this.smoother = new PitchSmoother(opts.smoothingWindow ?? 5);
+    this.range = {
+      minFrequency: opts.minFrequency,
+      maxFrequency: opts.maxFrequency,
+      confidenceThreshold: opts.confidenceThreshold,
+      rmsGate: opts.rmsGate,
+    };
+    this.octaveGuard = opts.octaveGuard ?? false;
   }
 
   // Keep track of confidence
   private currentConfidence: number = 0;
+  // Consecutive frames the octave guard has rejected a similar jump for.
+  private octaveRejectCount: number = 0;
 
   detect(audioData: Float32Array, sampleRate: number): PitchDetectionResult {
     // Check if there's signal
@@ -255,9 +296,38 @@ export class PitchDetector {
     // Detect pitch using selected algorithm
     let result: PitchDetectionResult;
     if (this.algorithm === "autocorrelation") {
-      result = detectPitch(gated, sampleRate);
+      result = detectPitch(gated, sampleRate, this.range);
     } else {
       result = detectPitchFFT(gated, sampleRate);
+    }
+
+    // Octave-error guard: autocorrelation frequently reports half or double
+    // the true fundamental on voice. If the new reading is ~an octave from the
+    // running pitch and its confidence does not clearly beat what we already
+    // have, treat it as a miss so the smoother keeps the stable value.
+    if (
+      this.octaveGuard &&
+      result.detected &&
+      this.lastFrequency > 0 &&
+      result.frequency > 0
+    ) {
+      const ratio = result.frequency / this.lastFrequency;
+      const nearOctave =
+        (ratio > 1.8 && ratio < 2.2) || (ratio > 0.45 && ratio < 0.55);
+      // Let a genuine, sustained octave leap through after a few frames so the
+      // guard corrects glitches without trapping the reading at the old octave.
+      if (
+        nearOctave &&
+        result.confidence < this.currentConfidence + 0.12 &&
+        this.octaveRejectCount < 4
+      ) {
+        result.detected = false;
+        this.octaveRejectCount++;
+      } else {
+        this.octaveRejectCount = 0;
+      }
+    } else {
+      this.octaveRejectCount = 0;
     }
 
     // Smooth the result
@@ -279,5 +349,6 @@ export class PitchDetector {
     this.smoother.reset();
     this.lastFrequency = 0;
     this.currentConfidence = 0;
+    this.octaveRejectCount = 0;
   }
 }

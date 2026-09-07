@@ -101,6 +101,16 @@ export const ARTICLES: ArticleMeta[] = [
     dateModified: "2026-09-02",
   },
   {
+    slug: "how-to-find-your-vocal-range",
+    title: "How to Find Your Vocal Range",
+    description:
+      "Measure your range in a few minutes with a pitch detector, read it as note names, and understand what it does and does not say about your voice type.",
+    category: "Playing & Practice",
+    readingTime: 8,
+    datePublished: "2026-09-07",
+    dateModified: "2026-09-07",
+  },
+  {
     slug: "guitar-fretboard-notes-map",
     title: "The Guitar Fretboard Notes Map",
     description:

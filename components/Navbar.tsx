@@ -53,6 +53,7 @@ export function Navbar() {
   const tailLinks = [
     { name: "Chords", href: "/chords" },
     { name: "Metronome", href: "/metronome" },
+    { name: "Vocal Tuner", href: "/vocal-pitch-detector" },
     { name: "Articles", href: "/articles" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
