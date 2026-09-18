@@ -362,3 +362,85 @@ page · 0 invalid JSON-LD · 0 images without alt text · 0 orphans · 0 dead en
 - `ProfessionalTuner` still renders `null` before mount, so tool pages carry
   less server-rendered content than they appear to. Googlebot renders JS, but
   a skeleton would be safer — same note as Step 1.
+
+---
+
+## Step 10 — Three tools that only this site has  ✅ DONE
+
+AdSense's "low value content" wording asks for *unique* tools and *sustained
+user interest*. The tuner, metronome and chord library are good but every
+competitor has them. These three are not commodity pages, and one of them is
+built to bring people back daily.
+
+### `/chord-finder` — reverse chord lookup
+
+Tap frets on a 15-fret board, get the chord name. `lib/chords/identify.ts` is
+`validateChordLibrary` run backwards: it computes the pitch classes the
+fingering actually sounds and searches every root × quality formula. Because
+both directions share the formulas, anything this names is under that name in
+`/chords`, and vice versa.
+
+- Works in all 13 six-string tunings. `lib/tuningMidi.ts` derives MIDI numbers
+  from `TUNING_PRESETS` frequencies so the tuner and the finder can never
+  disagree about what a tuning is.
+- Names slash chords / inversions (C/E), recognises omitted 5ths on 4-note
+  chords, ranks complete > slash > simpler, and spells notes from the
+  winning chord (C♯ E♯ G♯, not C♯ F G♯).
+- URL carries state (`?t=dadgad&f=0-0-0-0-0-0`) — every shape is a link.
+
+### `/ear-training` — interval & chord-type trainer
+
+Intervals (13, three levels, up/down/harmonic) and chord types (9, three
+levels, strummed/arpeggio). Song cue on every miss. Session score, streak,
+best streak and per-answer accuracy in localStorage — the "weak spots" list
+only appears after 4+ attempts and under 80%. Keyboard: R / N / 1–9.
+
+This is the return-visit feature. Everything else on the site is one-and-done.
+
+### `/string-tension-calculator`
+
+Per-string tension from gauge, scale and pitch using the standard
+`T = UW·(2LF)²/386.4`. Plain steel is exact from geometry; wound unit weight
+is a fitted quadratic (`d²·(0.196 − 0.3d)`) — verified against published
+10–46 figures: 17.6/19.5/18.5/16.6/15.4/16.3 lb vs 17.5/19.5/18.4/16.6/15.4/16.2,
+total 104.0 vs 103.6. The genuinely useful part is the recommendation: for
+each string, the *stocked* single gauge whose tension in the chosen tuning
+matches the chosen set in standard. Reference is anchored to the chosen set
+(`baseline`), so loading the suggestions is judged against the original feel
+rather than against itself.
+
+### Shared plumbing
+
+- `lib/synth.ts` — the plucked-string synth extracted from `ChordPlayer`, with
+  one page-wide `AudioContext`. All three tools and the chord pages now sound
+  like the same instrument.
+- `lib/toolPages.ts` — registry driving the navbar **Tools** menu, the footer,
+  the sitemap and each tool's cross-links. Navbar bar is now Tuner + four
+  menus; Chords/Metronome/Vocal moved into Tools.
+- `lib/intervals.ts` — interval names and song cues, used by both the finder
+  (two-note shapes) and the trainer.
+- Homepage gained a "Practice & Setup" grid for the three new tools.
+
+Verified in a real browser (Playwright, production build): C → C/E when the
+low E is opened, E5 named as a power chord (not "Octave" — a bug caught and
+fixed in the interval measure), E shape in Drop D → E7/D, DADGAD open strings
+→ Dsus4 from a shared URL; trainer answers via keyboard and persists stats;
+10–46 in Drop C reads 77% and the suggested 11–59 set lands at 103%; Tools
+menu lists all six; no horizontal overflow at 390 px; zero console errors
+(the only 404 is Vercel's analytics script, absent locally).
+
+### Bug found along the way
+
+The fretboard's `aria-label`s and the notes table numbered strings backwards
+(state index 5 is the high E — string **1**). Visual layout was right, labels
+were not. Caught because the Playwright test clicked "String 6, fret 0" and
+the URL showed string 1 muting.
+
+### Not done
+
+- No ESLint config exists in the repo (`npm run lint` fails on ESLint 10), so
+  the new files are type-checked but not linted. Pre-existing.
+- Wound-string unit weight is one fit for nickel-wound; bronze acoustic sets
+  reuse it with a stated ±3%. A per-material table would tighten this.
+- The ear trainer's stats are per device. Accounts would let streaks follow a
+  user, but that needs a backend the site does not have.

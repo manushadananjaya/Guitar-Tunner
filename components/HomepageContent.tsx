@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
+import { TOOL_PAGES } from "@/lib/toolPages";
 
 export const faqs = [
   {
@@ -176,6 +177,46 @@ export function HomepageContent() {
               </div>
               <div className="text-xs text-brass font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
                 Open {page.label} Tuner →
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Practice & setup tools */}
+      <section className="max-w-5xl mx-auto px-6 pt-12 relative" aria-labelledby="tools-heading">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-brass uppercase tracking-widest mb-4 border border-brass/25 bg-brass/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+            Practice &amp; Setup
+          </div>
+          <h2 id="tools-heading" className="text-3xl sm:text-4xl font-extrabold text-ink mb-3 tracking-tight">
+            More Than a Tuner
+          </h2>
+          <p className="text-ink-muted max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+            Name a chord from its shape, train your ear on a guitar tone, and
+            work out which strings to buy before you tune down.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {TOOL_PAGES.filter((tool) =>
+            ["/chord-finder", "/ear-training", "/string-tension-calculator"].includes(tool.href),
+          ).map((tool) => (
+            <Link
+              key={tool.href}
+              href={tool.href}
+              className="group flex flex-col justify-between rounded-2xl border border-line bg-surface-sunken/20 p-6 hover:border-brass/30 hover:bg-brass/5 transition-smooth"
+            >
+              <div>
+                <p className="text-2xs font-bold uppercase tracking-widest text-brass mb-2">
+                  {tool.tagline}
+                </p>
+                <h3 className="font-bold text-lg text-ink mb-2 group-hover:text-brass-hover transition-colors">
+                  {tool.label}
+                </h3>
+                <p className="text-xs text-ink-muted leading-relaxed">{tool.blurb}</p>
+              </div>
+              <div className="text-xs text-brass font-bold group-hover:translate-x-1 transition-transform duration-300 pt-4 flex items-center gap-1">
+                Open {tool.label} →
               </div>
             </Link>
           ))}

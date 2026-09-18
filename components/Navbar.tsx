@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
+import { TOOL_PAGES } from "@/lib/toolPages";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 /** Shape shared by TUNER_PAGES and INSTRUMENT_PAGES entries. */
@@ -18,7 +19,20 @@ const MENUS: {
   entries: MenuEntry[];
   align: "center" | "end";
   width: string;
+  /** Notes are note names (mono) by default; taglines read better in sans. */
+  plainNotes?: boolean;
 }[] = [
+  {
+    name: "Tools",
+    entries: TOOL_PAGES.map((tool) => ({
+      href: tool.href,
+      label: tool.label,
+      notes: tool.tagline,
+    })),
+    align: "center",
+    width: "w-80",
+    plainNotes: true,
+  },
   { name: "Tunings", entries: TUNER_PAGES, align: "center", width: "w-72" },
   {
     name: "Instruments",
@@ -39,13 +53,8 @@ const MENUS: {
   },
 ];
 
-/** Tools that stay visible in the bar — the rest live under "More". */
-const TOOL_LINKS = [
-  { name: "Tuner", href: "/", exact: true },
-  { name: "Chords", href: "/chords" },
-  { name: "Metronome", href: "/metronome" },
-  { name: "Vocal Tuner", href: "/vocal-pitch-detector" },
-];
+/** Links that stay visible in the bar — everything else lives in a menu. */
+const TOOL_LINKS = [{ name: "Tuner", href: "/", exact: true }];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -189,7 +198,12 @@ export function Navbar() {
                                 {entry.label}
                               </span>
                               {entry.notes && (
-                                <span className="font-mono text-2xs text-ink-subtle">
+                                <span
+                                  className={cn(
+                                    "text-2xs text-ink-subtle",
+                                    !menu.plainNotes && "font-mono",
+                                  )}
+                                >
                                   {entry.notes}
                                 </span>
                               )}
@@ -262,7 +276,12 @@ export function Navbar() {
                     >
                       <span className="text-sm font-medium">{entry.label}</span>
                       {entry.notes && (
-                        <span className="font-mono text-2xs text-ink-subtle">
+                        <span
+                          className={cn(
+                            "text-2xs text-ink-subtle",
+                            !menu.plainNotes && "font-mono",
+                          )}
+                        >
                           {entry.notes}
                         </span>
                       )}

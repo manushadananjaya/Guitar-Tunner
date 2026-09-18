@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { ARTICLES } from "@/lib/articles";
+import { TOOL_PAGES } from "@/lib/toolPages";
 import { SITE_AUTHOR } from "@/lib/author";
 
 /** A few high-intent tuning pages to surface directly; the rest sit behind
@@ -31,9 +32,7 @@ export function Footer() {
         heading: "Tools",
         links: [
           { label: "Guitar Tuner", href: "/" },
-          { label: "Vocal Pitch Detector", href: "/vocal-pitch-detector" },
-          { label: "Chord Library", href: "/chords" },
-          { label: "Metronome", href: "/metronome" },
+          ...TOOL_PAGES.map((tool) => ({ label: tool.label, href: tool.href })),
           { label: "Tuner Accuracy", href: "/accuracy" },
         ],
       },

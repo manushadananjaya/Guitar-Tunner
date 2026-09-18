@@ -3,6 +3,7 @@ import { TUNER_PAGES } from '@/lib/tunerPages';
 import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
 import { INDEXED_CHORDS } from '@/lib/chords/curation';
 import { ARTICLES } from '@/lib/articles';
+import { TOOL_PAGES } from '@/lib/toolPages';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -27,24 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: [`${siteUrl}/Logo.png`],
     },
     ...toolPages,
-    {
-      url: `${siteUrl}/metronome`,
+    ...TOOL_PAGES.map((tool) => ({
+      url: `${siteUrl}${tool.href}`,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: tool.href === '/chords' ? ('weekly' as const) : ('monthly' as const),
       priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/vocal-pitch-detector`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/chords`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
+    })),
     ...INDEXED_CHORDS.map((chord) => ({
       url: `${siteUrl}/chords/${chord.slug}`,
       lastModified: now,
