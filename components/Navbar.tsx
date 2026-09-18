@@ -10,11 +10,41 @@ import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 /** Shape shared by TUNER_PAGES and INSTRUMENT_PAGES entries. */
-type MenuEntry = { href: string; label: string; notes: string };
+type MenuEntry = { href: string; label: string; notes?: string };
 
-const MENUS: { name: string; entries: MenuEntry[] }[] = [
-  { name: "Tunings", entries: TUNER_PAGES },
-  { name: "Instruments", entries: INSTRUMENT_PAGES },
+/** `align` keeps the right-most panel from spilling past the shell. */
+const MENUS: {
+  name: string;
+  entries: MenuEntry[];
+  align: "center" | "end";
+  width: string;
+}[] = [
+  { name: "Tunings", entries: TUNER_PAGES, align: "center", width: "w-72" },
+  {
+    name: "Instruments",
+    entries: INSTRUMENT_PAGES,
+    align: "center",
+    width: "w-72",
+  },
+  {
+    name: "More",
+    align: "end",
+    width: "w-56",
+    entries: [
+      { href: "/articles", label: "Articles" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+      { href: "/accuracy", label: "Accuracy" },
+    ],
+  },
+];
+
+/** Tools that stay visible in the bar — the rest live under "More". */
+const TOOL_LINKS = [
+  { name: "Tuner", href: "/", exact: true },
+  { name: "Chords", href: "/chords" },
+  { name: "Metronome", href: "/metronome" },
+  { name: "Vocal Tuner", href: "/vocal-pitch-detector" },
 ];
 
 export function Navbar() {
@@ -22,6 +52,9 @@ export function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const pathname = usePathname();
   const menusRef = useRef<HTMLDivElement>(null);
+
+  const isActive = (href: string, exact = false) =>
+    exact ? pathname === href : pathname.startsWith(href);
 
   // Close the desktop dropdowns on outside click or Escape.
   useEffect(() => {
@@ -50,48 +83,58 @@ export function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
-  const tailLinks = [
-    { name: "Chords", href: "/chords" },
-    { name: "Metronome", href: "/metronome" },
-    { name: "Vocal Tuner", href: "/vocal-pitch-detector" },
-    { name: "Articles", href: "/articles" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-  ];
+  /** Desktop bar item: a low-contrast pill that fills in on hover/active. */
+  const barItem = (active: boolean) =>
+    cn(
+      "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/60",
+      active
+        ? "bg-brass/12 text-brass"
+        : "text-ink-muted hover:bg-surface-sunken hover:text-ink",
+    );
 
   return (
-    <nav className="w-full bg-canvas/80 backdrop-blur-md border-b border-line sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-50 w-full border-b border-line bg-canvas/85 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/70">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-sm">
+          <Link
+            href="/"
+            className="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/60"
+          >
+            <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg ring-1 ring-line">
               <img
                 src="/Logo.png"
-                alt="GuitarTunePro Logo"
-                className="w-full h-full object-cover"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full object-cover"
               />
-            </div>
-            <span className="font-bold text-xl tracking-tight text-ink">
+            </span>
+            <span className="text-lg font-bold tracking-tight text-ink">
               GuitarTunePro<span className="text-brass">.</span>
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6" ref={menusRef}>
-            <Link
-              href="/"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-brass",
-                pathname === "/" ? "text-brass" : "text-ink",
-              )}
-            >
-              Tuner
-            </Link>
+          <div
+            className="hidden items-center gap-1 lg:flex"
+            ref={menusRef}
+          >
+            {TOOL_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={barItem(isActive(link.href, link.exact))}
+              >
+                {link.name}
+              </Link>
+            ))}
+
+            <span aria-hidden="true" className="mx-2 h-5 w-px bg-line" />
 
             {MENUS.map((menu) => {
-              const active = menu.entries.some(
-                (entry) => entry.href === pathname,
+              const active = menu.entries.some((entry) =>
+                isActive(entry.href),
               );
               const expanded = openMenu === menu.name;
 
@@ -99,52 +142,60 @@ export function Navbar() {
                 <div key={menu.name} className="relative">
                   <button
                     type="button"
-                    onClick={() =>
-                      setOpenMenu(expanded ? null : menu.name)
-                    }
+                    onClick={() => setOpenMenu(expanded ? null : menu.name)}
                     aria-expanded={expanded}
                     aria-haspopup="true"
                     className={cn(
-                      "flex items-center gap-1 text-sm font-medium transition-colors hover:text-brass",
-                      active ? "text-brass" : "text-ink",
+                      barItem(active || expanded),
+                      "flex items-center gap-1",
                     )}
                   >
                     {menu.name}
                     <ChevronDown
                       className={cn(
-                        "w-3.5 h-3.5 transition-transform",
+                        "h-3.5 w-3.5 transition-transform duration-200",
                         expanded && "rotate-180",
                       )}
                     />
                   </button>
 
                   {expanded && (
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-72 rounded-2xl border border-line bg-surface-raised p-2 shadow-2xl shadow-black/60">
+                    <div
+                      className={cn(
+                        "absolute top-full mt-2 rounded-2xl border border-line bg-surface-raised p-1.5",
+                        "shadow-xl shadow-ink/10 dark:shadow-black/50",
+                        menu.width,
+                        menu.align === "end"
+                          ? "right-0"
+                          : "left-1/2 -translate-x-1/2",
+                      )}
+                    >
                       <div className="grid gap-0.5">
-                        {menu.entries.map((entry) => (
-                          <Link
-                            key={entry.href}
-                            href={entry.href}
-                            className={cn(
-                              "flex items-baseline justify-between gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-surface-raised/60",
-                              pathname === entry.href && "bg-brass/10",
-                            )}
-                          >
-                            <span
+                        {menu.entries.map((entry) => {
+                          const current = pathname === entry.href;
+                          return (
+                            <Link
+                              key={entry.href}
+                              href={entry.href}
+                              aria-current={current ? "page" : undefined}
                               className={cn(
-                                "text-sm font-medium whitespace-nowrap",
-                                pathname === entry.href
-                                  ? "text-brass"
-                                  : "text-ink",
+                                "flex items-baseline justify-between gap-3 rounded-xl px-3 py-2 transition-colors",
+                                current
+                                  ? "bg-brass/12 text-brass"
+                                  : "text-ink hover:bg-surface-sunken",
                               )}
                             >
-                              {entry.label}
-                            </span>
-                            <span className="font-mono text-2xs text-ink-subtle">
-                              {entry.notes}
-                            </span>
-                          </Link>
-                        ))}
+                              <span className="whitespace-nowrap text-sm font-medium">
+                                {entry.label}
+                              </span>
+                              {entry.notes && (
+                                <span className="font-mono text-2xs text-ink-subtle">
+                                  {entry.notes}
+                                </span>
+                              )}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -152,32 +203,20 @@ export function Navbar() {
               );
             })}
 
-            {tailLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-brass",
-                  pathname.startsWith(link.href)
-                    ? "text-brass"
-                    : "text-ink",
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <span aria-hidden="true" className="mx-2 h-5 w-px bg-line" />
             <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="flex items-center gap-1 lg:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsOpen((open) => !open)}
-              className="text-ink-muted hover:text-ink focus:outline-none"
+              aria-expanded={isOpen}
               aria-label="Toggle menu"
+              className="rounded-lg p-2 text-ink-muted transition-colors hover:bg-surface-sunken hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/60"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -185,28 +224,17 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden bg-canvas border-b border-line absolute w-full left-0 top-16 shadow-xl shadow-black/50 max-h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="px-4 pt-2 pb-4 space-y-1">
-            <Link
-              href="/"
-              className={cn(
-                "block px-3 py-2 rounded-md text-base font-medium hover:text-ink hover:bg-surface-raised/50",
-                pathname === "/"
-                  ? "text-brass bg-surface-raised/30"
-                  : "text-ink",
-              )}
-            >
-              Tuner
-            </Link>
-            {tailLinks.map((link) => (
+        <div className="absolute left-0 top-16 max-h-[calc(100vh-4rem)] w-full overflow-y-auto border-b border-line bg-canvas shadow-xl shadow-ink/10 dark:shadow-black/50 lg:hidden">
+          <div className="space-y-0.5 px-4 pb-6 pt-3">
+            {TOOL_LINKS.map((link) => (
               <Link
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className={cn(
-                  "block px-3 py-2 rounded-md text-base font-medium hover:text-ink hover:bg-surface-raised/50",
-                  pathname.startsWith(link.href)
-                    ? "text-brass bg-surface-raised/30"
-                    : "text-ink",
+                  "block rounded-lg px-3 py-2.5 text-base font-medium transition-colors",
+                  isActive(link.href, link.exact)
+                    ? "bg-brass/12 text-brass"
+                    : "text-ink hover:bg-surface-sunken",
                 )}
               >
                 {link.name}
@@ -215,32 +243,38 @@ export function Navbar() {
 
             {MENUS.map((menu) => (
               <React.Fragment key={menu.name}>
-                <p className="px-3 pt-4 pb-1 text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
+                <p className="px-3 pb-1 pt-5 text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
                   {menu.name}
                 </p>
-                {menu.entries.map((entry) => (
-                  <Link
-                    key={entry.href}
-                    href={entry.href}
-                    className={cn(
-                      "flex items-baseline justify-between gap-3 px-3 py-2 rounded-md hover:bg-surface-raised/50",
-                      pathname === entry.href
-                        ? "text-brass bg-surface-raised/30"
-                        : "text-ink",
-                    )}
-                  >
-                    <span className="text-sm font-medium">{entry.label}</span>
-                    <span className="font-mono text-2xs text-ink-subtle">
-                      {entry.notes}
-                    </span>
-                  </Link>
-                ))}
+                {menu.entries.map((entry) => {
+                  const current = pathname === entry.href;
+                  return (
+                    <Link
+                      key={entry.href}
+                      href={entry.href}
+                      aria-current={current ? "page" : undefined}
+                      className={cn(
+                        "flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 transition-colors",
+                        current
+                          ? "bg-brass/12 text-brass"
+                          : "text-ink hover:bg-surface-sunken",
+                      )}
+                    >
+                      <span className="text-sm font-medium">{entry.label}</span>
+                      {entry.notes && (
+                        <span className="font-mono text-2xs text-ink-subtle">
+                          {entry.notes}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
               </React.Fragment>
             ))}
 
             <Link
               href="/privacy-policy"
-              className="block px-3 py-2 mt-3 rounded-md text-sm text-ink-muted hover:text-ink hover:bg-surface-raised/50"
+              className="mt-4 block rounded-lg px-3 py-2 text-sm text-ink-muted transition-colors hover:bg-surface-sunken hover:text-ink"
             >
               Privacy
             </Link>
