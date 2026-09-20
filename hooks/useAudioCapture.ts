@@ -32,7 +32,11 @@ export function useAudioCapture(options: AudioCaptureOptions = {}) {
   const streamRef = useRef<MediaStream | null>(null);
   const animationFrameRef = useRef<number | null>(null);
 
-  const [isSupported, setIsSupported] = useState(false);
+  // Optimistic: the real check needs `window`, so it only runs in the effect
+  // below. Starting at false would put a "browser not supported" message in
+  // the server HTML of every page that renders a mic UI, and flash it at
+  // every visitor before the effect corrected it.
+  const [isSupported, setIsSupported] = useState(true);
   const [state, setState] = useState<AudioCaptureState>({
     isActive: false,
     permission: 'idle',

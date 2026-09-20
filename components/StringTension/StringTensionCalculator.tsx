@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { SIX_STRING_TUNINGS, getMidiTuning, midiNoteName } from "@/lib/tuningMidi";
 import {
@@ -41,7 +41,6 @@ function feel(ratio: number): { label: string; tone: string } {
 }
 
 export function StringTensionCalculator() {
-  const [mounted, setMounted] = useState(false);
   const [tuningKey, setTuningKey] = useState("standard");
   const [setKey, setSetKey] = useState("e10");
   const [scaleChoice, setScaleChoice] = useState("25.5");
@@ -59,8 +58,6 @@ export function StringTensionCalculator() {
     STRING_SETS.find((s) => s.key === "e10")!.gauges,
   );
   const [unit, setUnit] = useState<"lb" | "kg">("lb");
-
-  useEffect(() => setMounted(true), []);
 
   const scale =
     scaleChoice === CUSTOM_SCALE
@@ -113,17 +110,13 @@ export function StringTensionCalculator() {
   const suggestionDiffers = rows.some((r) => r.suggested !== r.gauge);
   const fmt = (lb: number) => (unit === "lb" ? lb : lbToKg(lb)).toFixed(1);
 
-  if (!mounted) {
-    return (
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="h-[640px] rounded-3xl border border-line bg-surface-sunken/30 animate-pulse" />
-      </div>
-    );
-  }
-
   const selectClass =
     "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-brass/40";
 
+  // Rendered on the server too. Every value on the first pass is a
+  // deterministic constant and the browser APIs live in effects and
+  // handlers, so the markup matches. Gating on a mount effect kept this
+  // whole tool out of the initial HTML until hydration finished.
   return (
     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col gap-5">
       {/* Inputs */}

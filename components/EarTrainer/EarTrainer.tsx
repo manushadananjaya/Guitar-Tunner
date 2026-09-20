@@ -119,7 +119,6 @@ function makeQuestion(
 }
 
 export function EarTrainer() {
-  const [mounted, setMounted] = useState(false);
   const [mode, setMode] = useState<Mode>("intervals");
   const [level, setLevel] = useState<Level>("beginner");
   const [direction, setDirection] = useState<Direction>("ascending");
@@ -134,7 +133,6 @@ export function EarTrainer() {
 
   useEffect(() => {
     setStats(loadStats());
-    setMounted(true);
   }, []);
 
   const play = useCallback((q: Question) => {
@@ -239,13 +237,8 @@ export function EarTrainer() {
       .slice(0, 4);
   }, [stats, mode]);
 
-  if (!mounted) {
-    return (
-      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="h-[560px] rounded-3xl border border-line bg-surface-sunken/30 animate-pulse" />
-      </div>
-    );
-  }
+  // Stats come from localStorage in an effect and start empty, so the first
+  // render is deterministic and needs no mount gate to match the server.
 
   const accuracy = session.asked > 0 ? Math.round((100 * session.correct) / session.asked) : null;
 

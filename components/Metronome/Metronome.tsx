@@ -32,7 +32,6 @@ const SUBDIVISIONS = [
 const TIME_SIGNATURES = [2, 3, 4, 5, 6, 7];
 
 export function Metronome() {
-  const [mounted, setMounted] = useState(false);
   const metronome = useMetronome();
   const {
     isPlaying,
@@ -50,8 +49,6 @@ export function Metronome() {
     toggle,
     tap,
   } = metronome;
-
-  useEffect(() => setMounted(true), []);
 
   // Space toggles, arrows nudge tempo — but never while the user is typing.
   useEffect(() => {
@@ -85,15 +82,9 @@ export function Metronome() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [bpm, setBpm, toggle, tap]);
 
-  // The hook owns an AudioContext, so render nothing until mounted to keep the
-  // server and client markup identical.
-  if (!mounted) {
-    return (
-      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="h-[520px] rounded-3xl border border-line bg-surface-sunken/30 animate-pulse" />
-      </div>
-    );
-  }
+  // The AudioContext is created lazily inside the hook's handlers, not during
+  // render, so there is nothing browser-only on the first pass and the server
+  // and client markup match without a mount gate.
 
   // The beat dots show main beats; subdivisions sound but aren't drawn.
   const activeBeat =

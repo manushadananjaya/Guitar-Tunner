@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Mic, MicOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -20,13 +20,10 @@ const MODES: { id: Mode; label: string }[] = [
 ];
 
 export function VocalTuner() {
-  const [mounted, setMounted] = useState(false);
   const [mode, setMode] = useState<Mode>("trail");
   const [audioBuffer, setAudioBuffer] = useState<Float32Array | null>(null);
   const [target, setTarget] = useState<number | null>(null);
   const [targetLabel, setTargetLabel] = useState<string>("");
-
-  useEffect(() => setMounted(true), []);
 
   const {
     state: audio,
@@ -48,8 +45,10 @@ export function VocalTuner() {
     else requestMicrophone();
   };
 
-  if (!mounted) return null;
-
+  // Rendered on the server too. Every value on the first pass is a
+  // deterministic constant and the browser APIs live in effects and
+  // handlers, so the markup matches. Gating on a mount effect kept this
+  // whole tool out of the initial HTML until hydration finished.
   return (
     <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
       {/* Status + mic control */}
