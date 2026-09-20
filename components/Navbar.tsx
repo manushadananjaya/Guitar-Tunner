@@ -112,10 +112,16 @@ export function Navbar() {
             className="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/60"
           >
             <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg ring-1 ring-line">
+              {/* 192px asset, not /Logo.png: that file is a 4000x4000, 239 KB
+                  PNG, and images.unoptimized is on, so it shipped in full on
+                  every page to fill a 32px box. */}
               <img
-                src="/Logo.png"
+                src="/android-chrome-192x192.png"
                 alt=""
                 aria-hidden="true"
+                width={192}
+                height={192}
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </span>

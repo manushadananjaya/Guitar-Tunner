@@ -31,7 +31,6 @@ export function ProfessionalTuner({
   initialTuning = "standard",
   initialGuitarType = "sixString",
 }: ProfessionalTunerProps = {}) {
-  const [isMount, setIsMount] = useState(false);
   const [tuningMode, setTuningMode] = useState(initialTuning);
   const [guitarType, setGuitarType] = useState(initialGuitarType);
   const [selectedStringIndex, setSelectedStringIndex] = useState(0);
@@ -40,10 +39,6 @@ export function ProfessionalTuner({
   );
   const [autoSelectString, setAutoSelectString] = useState(true);
   const [activeView, setActiveView] = useState<"headstock" | "fretboard">("headstock");
-
-  useEffect(() => {
-    setIsMount(true);
-  }, []);
 
   // Tuning data
   const currentTuning = useMemo(
@@ -224,8 +219,14 @@ export function ProfessionalTuner({
   const [cents, setCents] = useState(0);
   const [isInTune, setIsInTune] = useState(false);
 
-  if (!isMount) return null;
-
+  // No mount gate here. This used to `return null` until a mount effect fired,
+  // which kept the entire above-the-fold tuner out of the server HTML and out
+  // of the first paint — it only appeared once the client bundle (framer-motion
+  // included) had downloaded and hydrated, popping in and shoving the page down.
+  // The gate is unnecessary: every value rendered on the first pass is a
+  // deterministic constant (idle readout, 0 cents, mic off), and the only
+  // browser APIs live inside effects and event handlers, so the server render
+  // and the first client render match.
   return (
     <div className="w-full text-ink flex flex-col items-center z-10 relative">
       {/* Tuner Controls Bar */}

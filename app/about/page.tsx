@@ -58,8 +58,11 @@ export default function AboutPage() {
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl overflow-hidden">
               <img
-                src="/Logo.png"
+                src="/android-chrome-192x192.png"
                 alt="GuitarTunePro logo"
+                width={192}
+                height={192}
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
