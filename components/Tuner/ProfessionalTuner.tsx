@@ -219,6 +219,25 @@ export function ProfessionalTuner({
   const [cents, setCents] = useState(0);
   const [isInTune, setIsInTune] = useState(false);
 
+  // Strings that have held in tune this session — drives the progress dots
+  // and the "what next" prompt once every string is done. A short hold
+  // stops a needle passing through zero from counting.
+  const [tunedStrings, setTunedStrings] = useState<number[]>([]);
+  useEffect(() => {
+    setTunedStrings([]);
+  }, [guitarType, tuningMode]);
+  useEffect(() => {
+    if (!isRecording || !isInTune || detectedStringIndex !== selectedStringIndex) return;
+    const timer = window.setTimeout(() => {
+      setTunedStrings((prev) =>
+        prev.includes(selectedStringIndex) ? prev : [...prev, selectedStringIndex],
+      );
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [isRecording, isInTune, selectedStringIndex, detectedStringIndex]);
+  const allTuned =
+    currentTuning.notes.length > 0 && tunedStrings.length === currentTuning.notes.length;
+
   // No mount gate here. This used to `return null` until a mount effect fired,
   // which kept the entire above-the-fold tuner out of the server HTML and out
   // of the first paint — it only appeared once the client bundle (framer-motion
@@ -378,6 +397,60 @@ export function ProfessionalTuner({
             </div>
           </div>
         </div>
+
+        {/* Tuning progress, then where to go once the instrument is in tune */}
+        {(isRecording || tunedStrings.length > 0) && (
+          <div className="w-full rounded-2xl border border-line bg-surface/30 px-5 py-4 backdrop-blur-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle">
+                In tune this session · {tunedStrings.length}/{currentTuning.notes.length}
+              </p>
+              <ol className="flex gap-1.5" aria-label="Strings tuned">
+                {currentTuning.notes.map((note, i) => (
+                  <li
+                    key={i}
+                    className={cn(
+                      "flex h-7 min-w-7 items-center justify-center rounded-full px-1.5 text-2xs font-mono font-bold transition-colors",
+                      tunedStrings.includes(i)
+                        ? "bg-in-tune text-white"
+                        : "bg-surface-sunken text-ink-subtle",
+                    )}
+                  >
+                    {note}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            {allTuned && (
+              <div className="mt-4 border-t border-line pt-4" role="status">
+                <p className="text-base font-semibold text-ink">
+                  All {currentTuning.notes.length} strings in tune. Now play something:
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link
+                    href="/practice-routine"
+                    className="rounded-full bg-brass px-4 py-2 text-sm font-bold text-brass-contrast hover:bg-brass-hover transition-colors"
+                  >
+                    Today&apos;s practice routine
+                  </Link>
+                  {[
+                    { href: "/strumming-patterns", label: "Strumming patterns" },
+                    { href: "/scales", label: "Scale explorer" },
+                    { href: "/chord-progressions", label: "Jam over a backing loop" },
+                  ].map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="rounded-full border border-line-strong bg-surface/60 px-4 py-2 text-sm font-semibold text-ink hover:border-brass/50 hover:text-brass transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Mobile view selector switcher (Hidden on Desktop) */}
         <div className="flex md:hidden w-full bg-surface-sunken/60 p-1 rounded-full border border-line">

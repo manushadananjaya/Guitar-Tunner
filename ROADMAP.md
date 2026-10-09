@@ -444,3 +444,76 @@ the URL showed string 1 muting.
   reuse it with a stated ±3%. A per-material table would tighten this.
 - The ear trainer's stats are per device. Accounts would let streaks follow a
   user, but that needs a backend the site does not have.
+
+---
+
+## Step 11 — Practice tools and return visits  ✅ DONE (2026-10-09)
+
+GSC at the time: ~82 clicks / ~1,000 impressions, CTR ~8% — people click when
+they see the site, but it is shown for too few queries. So each new tool
+targets a query the site did not cover, and several are built to bring people
+back daily rather than once.
+
+### Nine new tools (all in `lib/toolPages.ts`, so nav/footer/sitemap follow)
+
+| Route | What it does |
+|---|---|
+| `/practice-routine` | Timed 10/20/30-min routines, daily chord pair + scale + strum pattern, streak, 12-week calendar |
+| `/scales` | 12 scales × 12 keys × every 6-string tuning on a fretboard; positions, intervals, playback, drone |
+| `/fretboard-trainer` | Name-the-note / find-the-note quiz, per-string accuracy, answer times |
+| `/chord-transposer` | Paste a chord sheet, transpose with alignment kept, key detection, diagrams, capo hint |
+| `/capo-calculator` | Ranks capo frets by open-shape score; shapes ↔ capo ↔ sounding key; server-rendered capo chart |
+| `/strumming-patterns` | 12 patterns, sequenced strums over real voicings, beat highlight |
+| `/chord-progressions` | Roman-numeral builder, 10 presets, loops as a backing track, shareable URL |
+| `/circle-of-fifths` | Clickable SVG circle, signatures, diatonic chords, cadence playback |
+| `/intonation-checker` | Mic: 12th-fret harmonic vs fretted 12th per string, saddle direction |
+
+### Shared plumbing
+
+- `lib/music/scales.ts` — scales, letter-based spelling (F♯ major has E♯),
+  keys, signatures, diatonic chords. `lib/music/transpose.ts` — chord-symbol
+  parser (strict, so lyric words like "Be" do not parse), sheet transposition,
+  key guessing, capo scoring. `lib/music/libraryChord.ts` maps a symbol onto
+  the chord library for diagrams/audio.
+- `hooks/useLoopScheduler.ts` — the metronome's lookahead scheduler,
+  generalised to a looping step grid (strumming trainer + progression player).
+- `lib/synth.ts` — `strumAt`, `mutedStrumAt`, `clickAt`, `startDrone`.
+- `lib/practiceLog.ts` — on-device practice log. The ear trainer, fretboard
+  trainer, scales, strumming trainer and progression builder all call
+  `logPractice`, so using any of them keeps the streak alive.
+- `components/Fretboard/Fretboard.tsx`, `components/Segmented.tsx` — shared UI.
+- Strumming patterns are checked by `validatePattern` (down on even slots, up
+  on odd — the hand never stops), not trusted.
+
+### Engagement hooks in existing pages
+
+- Tuner (`ProfessionalTuner`): strings that hold in tune for 0.6 s light up;
+  once all are tuned, a "now play something" panel links to the routine,
+  strumming, scales and the backing loop.
+- Homepage "More Than a Tuner" grid now features six tools, led by the routine.
+- Navbar Tools menu is two columns (15 entries).
+
+### Bug fixed along the way: `prose` never worked
+
+The layouts use `prose prose-h2:…` classes from `@tailwindcss/typography`,
+which was never installed — so every article and tool page rendered h2s at
+body size and lists with no markers. Rather than add the dependency (both
+`package-lock.json` and `pnpm-lock.yaml` exist, and changing one risks the
+deploy), `app/globals.css` now defines zero-specificity `:where(.prose)` rules
+for headings, lists, links, code and blockquotes. Existing utilities still win.
+
+### Verified
+
+`tsc` clean, `npm run build` clean, `validate:chords` passes, `audit:links`
+126 pages / 0 orphans / 0 dead ends / depth ≤ 2. `audit:seo` — all new pages
+within title/description limits; 3 long titles remain on pre-existing pages
+(chord-finder, ear-training, string-tension-calculator), left alone since they
+may already rank. Playwright against the production build: 65 checks covering
+every tool's main interaction, URL deep links, 375 px overflow, and both mic
+tools with Chromium fake audio (E3 tone → intonation "Good"; flat E2 → tuner
+marks string 6).
+
+### Not done
+
+- Practice history is per device (no backend), so streaks do not sync.
+- Intonation checker is six-string only, like the other tuning-aware tools.

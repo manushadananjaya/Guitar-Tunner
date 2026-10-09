@@ -7,6 +7,7 @@ import { strum, playMelody } from "@/lib/synth";
 import { INTERVALS, type Interval } from "@/lib/intervals";
 import { QUALITIES, type ChordQuality } from "@/lib/chords/theory";
 import { midiNoteName } from "@/lib/tuningMidi";
+import { logPractice } from "@/lib/practiceLog";
 
 type Mode = "intervals" | "chords";
 type Level = "beginner" | "intermediate" | "advanced";
@@ -179,6 +180,8 @@ export function EarTrainer() {
         saveStats(nextStats);
         return nextStats;
       });
+      // Counts toward the practice streak on /practice-routine.
+      logPractice("ear-training");
     },
     [question, chosen, mode, session.streak],
   );

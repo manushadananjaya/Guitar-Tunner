@@ -13,6 +13,13 @@ export interface ToolPageEntry {
 
 export const TOOL_PAGES: ToolPageEntry[] = [
   {
+    href: "/practice-routine",
+    label: "Practice Routine",
+    tagline: "Daily plan & streaks",
+    blurb:
+      "A timed 10, 20 or 30 minute routine with a new chord pair, scale and strumming pattern every day — and a streak and calendar to keep you coming back.",
+  },
+  {
     href: "/chords",
     label: "Chord Library",
     tagline: "Diagrams & audio",
@@ -27,6 +34,48 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Tap the frets you are holding and find out what chord it is — in standard or any alternate tuning, with slash chords and inversions named correctly.",
   },
   {
+    href: "/chord-transposer",
+    label: "Chord Transposer",
+    tagline: "Change a song's key",
+    blurb:
+      "Paste a chord sheet and move it to any key. Chords stay lined up over the lyrics, sharps and flats follow the new key, and every chord comes with a diagram.",
+  },
+  {
+    href: "/capo-calculator",
+    label: "Capo Calculator",
+    tagline: "Easiest capo fret",
+    blurb:
+      "Type a song's chords and see which capo position turns them into open shapes — or work out what key you are really in with the capo on.",
+  },
+  {
+    href: "/chord-progressions",
+    label: "Chord Progressions",
+    tagline: "Build & loop a backing track",
+    blurb:
+      "Build a progression in any key or start from a classic — pop, 12-bar blues, ii–V–I — then loop it as a backing track to practise over.",
+  },
+  {
+    href: "/scales",
+    label: "Scale Explorer",
+    tagline: "Every scale, every key",
+    blurb:
+      "Pentatonic, blues, major, minor and the modes on the whole fretboard, in any key and tuning — with positions, playback, and a drone to improvise over.",
+  },
+  {
+    href: "/circle-of-fifths",
+    label: "Circle of Fifths",
+    tagline: "Keys & their chords",
+    blurb:
+      "Click any key to see its signature, scale, relative minor and the chords that belong to it — and hear them on a guitar tone.",
+  },
+  {
+    href: "/fretboard-trainer",
+    label: "Fretboard Trainer",
+    tagline: "Learn the neck",
+    blurb:
+      "Name the note at a fret or find a note on a string. Short quizzes with streaks, answer times, and accuracy tracked for each string.",
+  },
+  {
     href: "/ear-training",
     label: "Ear Training",
     tagline: "Intervals & chords",
@@ -34,11 +83,11 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Hear an interval or a chord, name it, and track your streak. Short rounds you can do every day, played on a guitar-like tone rather than a beep.",
   },
   {
-    href: "/string-tension-calculator",
-    label: "String Tension",
-    tagline: "Gauge & tuning",
+    href: "/strumming-patterns",
+    label: "Strumming Patterns",
+    tagline: "Play-along trainer",
     blurb:
-      "See how much tension each string carries in any tuning and scale length, and which gauges would restore normal feel when you tune down.",
+      "Twelve strumming patterns from four downs to sixteenth-note funk, strummed over real chords at any tempo with every stroke highlighted as it lands.",
   },
   {
     href: "/metronome",
@@ -53,6 +102,20 @@ export const TOOL_PAGES: ToolPageEntry[] = [
     tagline: "Sing, see the note",
     blurb:
       "Sing or hum and see the note, the frequency, and how many cents sharp or flat you are — in real time. Includes a scrolling pitch graph and a vocal range finder.",
+  },
+  {
+    href: "/intonation-checker",
+    label: "Intonation Checker",
+    tagline: "Set up your saddles",
+    blurb:
+      "Compare the 12th-fret harmonic with the fretted note on each string through your mic, and find out which way to move each saddle.",
+  },
+  {
+    href: "/string-tension-calculator",
+    label: "String Tension",
+    tagline: "Gauge & tuning",
+    blurb:
+      "See how much tension each string carries in any tuning and scale length, and which gauges would restore normal feel when you tune down.",
   },
 ];
 

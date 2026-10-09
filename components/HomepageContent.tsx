@@ -193,14 +193,20 @@ export function HomepageContent() {
             More Than a Tuner
           </h2>
           <p className="text-ink-muted max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            Name a chord from its shape, train your ear on a guitar tone, and
-            work out which strings to buy before you tune down.
+            A daily practice plan with a streak to keep, scales on the whole
+            neck, strumming you can play along with, and a transposer for any
+            song — all free, all in your browser.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {TOOL_PAGES.filter((tool) =>
-            ["/chord-finder", "/ear-training", "/string-tension-calculator"].includes(tool.href),
-          ).map((tool) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            "/practice-routine",
+            "/scales",
+            "/strumming-patterns",
+            "/chord-transposer",
+            "/ear-training",
+            "/chord-finder",
+          ].map((href) => TOOL_PAGES.find((tool) => tool.href === href)!).map((tool) => (
             <Link
               key={tool.href}
               href={tool.href}

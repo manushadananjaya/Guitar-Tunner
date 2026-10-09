@@ -21,6 +21,8 @@ const MENUS: {
   width: string;
   /** Notes are note names (mono) by default; taglines read better in sans. */
   plainNotes?: boolean;
+  /** Long menus split into two columns so they fit on a laptop screen. */
+  twoColumn?: boolean;
 }[] = [
   {
     name: "Tools",
@@ -30,8 +32,9 @@ const MENUS: {
       notes: tool.tagline,
     })),
     align: "center",
-    width: "w-80",
+    width: "w-[40rem]",
     plainNotes: true,
+    twoColumn: true,
   },
   { name: "Tunings", entries: TUNER_PAGES, align: "center", width: "w-72" },
   {
@@ -185,7 +188,7 @@ export function Navbar() {
                           : "left-1/2 -translate-x-1/2",
                       )}
                     >
-                      <div className="grid gap-0.5">
+                      <div className={cn("grid gap-0.5", menu.twoColumn && "grid-cols-2 gap-x-1")}>
                         {menu.entries.map((entry) => {
                           const current = pathname === entry.href;
                           return (
