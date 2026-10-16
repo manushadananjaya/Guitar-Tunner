@@ -567,8 +567,7 @@ translation, to stay clear of scaled-content signals.
   with its own root layout.
 - Practice tools, chords and articles are English only; post-tuning links
   from Spanish pages point at them.
-- Next candidates: Portuguese (`/pt/afinador-de-violao`), more Spanish
-  tunings (Drop D, medio tono abajo).
+- Superseded by Step 16 (all tuner pages in four languages, html lang fixed).
 
 ## Step 14 — Tuner upgrades: reference tone, reference pitch, low-note fixes  ✅ DONE
 
@@ -617,3 +616,51 @@ For links from teachers, lesson blogs and clubs.
       instrument page — keyword-rich widget links count as a link scheme.
 - [x] Verified cross-origin from a page on another port with a fake mic:
       Spanish, dark, bass → "Mi, +0 cents · Afinada"; zero ad/GA/SW requests.
+
+## Step 16 — Every tuner page in Spanish, Portuguese, French and German  ✅ DONE
+
+23 tuner pages × 4 languages (88 new, plus the 4 hand-written Spanish ones).
+Scope chosen by the user: tuner pages only — tools, chords and articles stay
+English, which keeps clear of scaled-content risk.
+
+- [x] `lib/i18n/pages.ts` registry: every language's URL for each English
+      tuner page (localized slugs: /pt/afinador-de-bandolim,
+      /fr/accordeur-alto, /de/geige-stimmen …). Drives hreflang, sitemap,
+      navbar selector, cross-links.
+- [x] `lib/i18n/content/{es,pt,fr,de}.ts`: each page's own intro, sections
+      and FAQ — written per language with local context (violão vs guitarra,
+      bandolim/choro, viola de arco vs caipira, Bensusan/DADGAD, German H and
+      Es/As/Des, 443 Hz orchestras), not machine-templated.
+- [x] `LocalizedTunerPage` renders them; the how-to steps are generated from
+      the tuning data, so every note and frequency matches what the tuner
+      listens for. Decimal comma in pt/fr/de; French non-breaking spaces.
+- [x] Tuner UI in all five languages; note names Do/Dó/Do solfège, German
+      letters with **H** (a German B is B♭ — showing B would mistune string 2).
+- [x] Navbar language selector (desktop dropdown, mobile row) linking to the
+      same page in each language; links stay in the DOM for crawlers. Footer
+      links every language home. Logo and "Tuner" link go to the language home.
+
+### SEO
+
+- [x] hreflang en/es/pt/fr/de + x-default on all 115 tuner URLs, in page
+      metadata and as sitemap `xhtml:link` alternates (690 links).
+- [x] Self-referencing canonicals; localized titles/descriptions within
+      limits (`audit:seo`: 0 duplicates, 0 new long titles); `og:locale` +
+      `alternateLocale`; WebApplication JSON-LD with `inLanguage`; localized
+      FAQPage and BreadcrumbList.
+- [x] **`<html lang>` is now correct per language.** Routes moved into
+      `app/(site)` (English), `app/es` and `app/[lang]`, each a root layout
+      sharing `RootShell` — a single root layout can't vary `lang` on static
+      pages. URLs unchanged.
+- [x] Multiple root layouts left unmatched URLs with Next's bare 404, so
+      `app/global-not-found.tsx` (experimental `globalNotFound` flag) gives a
+      styled 404 with real 404 status; localized `not-found` per root layout.
+- [x] Verified: all 115 URLs 200, unknown paths 404, `audit:links` no
+      orphans or dead ends, Playwright language switching, German fake-mic B
+      string reads "H, −1 cents".
+
+### Not done
+
+- Navbar menus and footer columns stay English on translated pages.
+- Translated pages are new; expect weeks before they rank. Submit the
+  sitemap in Search Console.

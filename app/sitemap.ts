@@ -4,7 +4,11 @@ import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
 import { INDEXED_CHORDS } from '@/lib/chords/curation';
 import { ARTICLES } from '@/lib/articles';
 import { TOOL_PAGES } from '@/lib/toolPages';
-import { ES_PAGES, languageAlternates } from '@/lib/i18n/esPages';
+import {
+  TRANSLATED_LOCALES,
+  TRANSLATED_PAGES,
+  languageAlternates,
+} from '@/lib/i18n/pages';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -38,13 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...withAlternates(page.href),
   }));
 
-  const spanishPages: MetadataRoute.Sitemap = ES_PAGES.map((page) => ({
-    url: `${siteUrl}${page.es}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.9,
-    ...withAlternates(page.es),
-  }));
+  const translatedPages: MetadataRoute.Sitemap = TRANSLATED_LOCALES.flatMap(
+    (locale) =>
+      TRANSLATED_PAGES.map((page) => ({
+        url: `${siteUrl}${page[locale]}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: page.en === '/' ? 0.9 : 0.8,
+        ...withAlternates(page[locale]),
+      })),
+  );
 
   return [
     {
@@ -56,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: [`${siteUrl}/Logo.png`],
     },
     ...toolPages,
-    ...spanishPages,
+    ...translatedPages,
     ...TOOL_PAGES.map((tool) => ({
       url: `${siteUrl}${tool.href}`,
       lastModified: now,

@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
-import {
-  languageAlternates,
-  otherEsPagesFor,
-} from "@/lib/i18n/esPages";
+import { languageAlternates } from "@/lib/i18n/pages";
+import { otherPagesFor } from "@/lib/i18n/content";
 
 const PATH = "/es/afinador-de-bajo";
 
@@ -14,6 +12,7 @@ export const metadata: Metadata = {
     "Afinador de bajo online y gratis. Afina tu bajo de 4 cuerdas (Mi La Re Sol) con el micrófono, aquí mismo. Preciso hasta el Mi grave de 41 Hz, sin descargas.",
   alternates: { canonical: PATH, languages: languageAlternates(PATH) },
   openGraph: {
+    locale: "es_ES",
     title: "Afinador de bajo online gratis",
     description:
       "Afina tu bajo con el micrófono de tu móvil o computadora. Gratis y sin descargas.",
@@ -47,7 +46,7 @@ export default function AfinadorBajoPage() {
         description="Afina tu bajo de 4 cuerdas (Mi La Re Sol) con el micrófono. El afinador ya está configurado para bajo: pulsa Activar micrófono y toca una cuerda."
         canonicalPath={PATH}
         initialGuitarType="bass"
-        otherTuners={otherEsPagesFor(PATH)}
+        otherTuners={otherPagesFor(PATH, "es")}
         faqs={[
           {
             question: "¿Cuál es la afinación estándar del bajo?",

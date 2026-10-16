@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Note } from '@/lib/noteMap';
-import { TUNER_TEXT, noteParts, type Locale } from '@/lib/i18n/tuner';
+import { TUNER_TEXT, localDecimal, noteParts, type Locale } from '@/lib/i18n/tuner';
 
 interface TunerDisplayProps {
   note: Note;
@@ -108,7 +108,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
                   {t.frequency}
                 </span>
                 <span className="text-ink font-mono text-xl">
-                  {frequency.toFixed(1)}{" "}
+                  {localDecimal(frequency, 1, locale)}{" "}
                   <span className="text-ink-subtle text-sm">Hz</span>
                 </span>
               </div>
@@ -136,7 +136,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
             targetFrequency !== undefined &&
             targetFrequency > 0 && (
               <p className="text-ink-subtle font-mono text-xs uppercase tracking-widest">
-                {t.target} {targetFrequency.toFixed(2)} Hz
+                {t.target} {localDecimal(targetFrequency, 2, locale)} Hz
                 {referencePitch !== 440 && (
                   <span className="text-brass"> · {t.reference(referencePitch)}</span>
                 )}

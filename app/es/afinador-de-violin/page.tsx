@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
-import {
-  languageAlternates,
-  otherEsPagesFor,
-} from "@/lib/i18n/esPages";
+import { languageAlternates } from "@/lib/i18n/pages";
+import { otherPagesFor } from "@/lib/i18n/content";
 
 const PATH = "/es/afinador-de-violin";
 
@@ -14,6 +12,7 @@ export const metadata: Metadata = {
     "Afinador de violín online y gratis. Afina tu violín en Sol Re La Mi con el micrófono, aquí mismo. Para todos los tamaños, de 1/16 a 4/4, sin descargas.",
   alternates: { canonical: PATH, languages: languageAlternates(PATH) },
   openGraph: {
+    locale: "es_ES",
     title: "Afinador de violín online gratis",
     description:
       "Afina tu violín con el micrófono de tu móvil o computadora. Gratis y sin descargas.",
@@ -48,7 +47,7 @@ export default function AfinadorViolinPage() {
         canonicalPath={PATH}
         initialGuitarType="violin"
         chartCaption="Estas son las frecuencias exactas que busca el afinador, con La4 = 440 Hz y temperamento igual. La cuerda 1 es el Mi, la más aguda y fina."
-        otherTuners={otherEsPagesFor(PATH)}
+        otherTuners={otherPagesFor(PATH, "es")}
         faqs={[
           {
             question: "¿Cuáles son las notas de las cuerdas del violín?",

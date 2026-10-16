@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { FAQItem, RelatedArticle } from "@/components/ArticleLayout";
 import type { Locale } from "@/lib/i18n/tuner";
-import { counterpartOf } from "@/lib/i18n/esPages";
 
 export interface ToolPageLayoutProps {
   /** H1, and the breadcrumb leaf. */
@@ -42,6 +41,30 @@ const SHELL_TEXT = {
     otherTools: "Otras herramientas",
     related: "Lecturas relacionadas",
   },
+  pt: {
+    home: "Início",
+    homeHref: "/pt",
+    tool: "ferramenta",
+    faq: "Perguntas frequentes",
+    otherTools: "Outras ferramentas",
+    related: "Leituras relacionadas",
+  },
+  fr: {
+    home: "Accueil",
+    homeHref: "/fr",
+    tool: "outil",
+    faq: "Questions fréquentes",
+    otherTools: "Autres outils",
+    related: "À lire aussi",
+  },
+  de: {
+    home: "Startseite",
+    homeHref: "/de",
+    tool: "Tool",
+    faq: "Häufige Fragen",
+    otherTools: "Weitere Tools",
+    related: "Weiterlesen",
+  },
 } as const;
 
 const SITE_URL = "https://www.guitartunepro.com";
@@ -62,7 +85,6 @@ export default function ToolPageLayout({
   children,
 }: ToolPageLayoutProps) {
   const text = SHELL_TEXT[locale];
-  const counterpart = counterpartOf(canonicalPath);
   const faqJsonLd =
     faqs && faqs.length > 0
       ? {
@@ -119,10 +141,9 @@ export default function ToolPageLayout({
       <main className="relative z-10">
         {/* Header — deliberately compact so the tool stays above the fold */}
         <div className="max-w-5xl mx-auto px-5 pt-8 sm:pt-10">
-          <div className="flex items-center justify-between gap-4 mb-5">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-xs text-ink-subtle"
+            className="flex items-center gap-1.5 text-xs text-ink-subtle mb-5"
           >
             <Link
               href={text.homeHref}
@@ -133,17 +154,6 @@ export default function ToolPageLayout({
             <ChevronRight className="w-3 h-3" />
             <span className="text-ink-muted">{title}</span>
           </nav>
-          {counterpart && (
-            <Link
-              href={counterpart.href}
-              hrefLang={counterpart.lang}
-              lang={counterpart.lang}
-              className="shrink-0 rounded-full border border-line px-3 py-1 text-xs text-ink-muted hover:border-brass/40 hover:text-brass transition-colors"
-            >
-              {counterpart.label}
-            </Link>
-          )}
-          </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight mb-3">
             {title}

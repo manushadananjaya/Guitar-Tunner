@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
-import {
-  languageAlternates,
-  otherEsPagesFor,
-} from "@/lib/i18n/esPages";
+import { languageAlternates } from "@/lib/i18n/pages";
+import { otherPagesFor } from "@/lib/i18n/content";
 
 const PATH = "/es/afinador-de-ukelele";
 
@@ -14,6 +12,7 @@ export const metadata: Metadata = {
     "Afinador de ukelele online y gratis. Afina tu ukelele en Sol Do Mi La con el micrófono, aquí mismo. Para soprano, concierto y tenor, sin descargas.",
   alternates: { canonical: PATH, languages: languageAlternates(PATH) },
   openGraph: {
+    locale: "es_ES",
     title: "Afinador de ukelele online gratis",
     description:
       "Afina tu ukelele con el micrófono de tu móvil o computadora. Gratis y sin descargas.",
@@ -48,7 +47,7 @@ export default function AfinadorUkelelePage() {
         canonicalPath={PATH}
         initialGuitarType="ukulele"
         chartCaption="Estas son las frecuencias exactas que busca el afinador, con La4 = 440 Hz y temperamento igual. Fíjate en que la cuerda 4 (Sol) no es la más grave: la afinación del ukelele es reentrante y el Sol queda por encima del Do y del Mi."
-        otherTuners={otherEsPagesFor(PATH)}
+        otherTuners={otherPagesFor(PATH, "es")}
         faqs={[
           {
             question: "¿Cuál es la afinación estándar del ukelele?",

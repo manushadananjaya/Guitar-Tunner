@@ -3,12 +3,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { TOOL_PAGES } from "@/lib/toolPages";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { LANGUAGE_NAMES, LOCALES, type Locale } from "@/lib/i18n/tuner";
+import { localeOfPath, versionsOf } from "@/lib/i18n/pages";
+
+/** The bar's "Tuner" link, in the language of the page being viewed. */
+const TUNER_LABEL: Record<Locale, string> = {
+  en: "Tuner",
+  es: "Afinador",
+  pt: "Afinador",
+  fr: "Accordeur",
+  de: "Stimmgerät",
+};
+
+const homeOf = (locale: Locale) => (locale === "en" ? "/" : `/${locale}`);
 
 /** Shape shared by TUNER_PAGES and INSTRUMENT_PAGES entries. */
 type MenuEntry = { href: string; label: string; notes?: string };
@@ -58,14 +71,24 @@ const MENUS: {
   },
 ];
 
-/** Links that stay visible in the bar — everything else lives in a menu. */
-const TOOL_LINKS = [{ name: "Tuner", href: "/", exact: true }];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const pathname = usePathname();
-  const menusRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname() ?? "/";
+  const locale = localeOfPath(pathname);
+  const home = homeOf(locale);
+  // Links that stay visible in the bar — everything else lives in a menu.
+  const TOOL_LINKS = [{ name: TUNER_LABEL[locale], href: home, exact: true }];
+  // The same page in each language when it is translated; otherwise that
+  // language's home page.
+  const versions = versionsOf(pathname);
+  const languageLinks = LOCALES.map((l) => ({
+    locale: l,
+    name: LANGUAGE_NAMES[l],
+    href: versions ? versions[l] : homeOf(l),
+  }));
+  const languageExpanded = openMenu === "Language";  const menusRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string, exact = false) =>
     exact ? pathname === href : pathname.startsWith(href);
@@ -113,7 +136,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Link
-            href="/"
+            href={home}
             className="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/60"
           >
             <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg ring-1 ring-line">
@@ -229,6 +252,58 @@ export function Navbar() {
             })}
 
             <span aria-hidden="true" className="mx-2 h-5 w-px bg-line" />
+
+            {/* Language. The panel is hidden rather than unmounted, so the
+                links to every language version stay crawlable. */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() =>
+                  setOpenMenu(languageExpanded ? null : "Language")
+                }
+                aria-expanded={languageExpanded}
+                aria-haspopup="true"
+                aria-label={`Language: ${LANGUAGE_NAMES[locale]}`}
+                className={cn(barItem(languageExpanded), "flex items-center gap-1.5")}
+              >
+                <Globe className="h-4 w-4" aria-hidden="true" />
+                <span className="text-xs font-semibold uppercase">{locale}</span>
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 transition-transform duration-200",
+                    languageExpanded && "rotate-180",
+                  )}
+                />
+              </button>
+              <div
+                className={cn(
+                  "absolute right-0 top-full mt-2 w-44 rounded-2xl border border-line bg-surface-raised p-1.5",
+                  "shadow-xl shadow-ink/10 dark:shadow-black/50",
+                  !languageExpanded && "hidden",
+                )}
+              >
+                {languageLinks.map((link) => (
+                  <Link
+                    key={link.locale}
+                    href={link.href}
+                    hrefLang={link.locale}
+                    lang={link.locale}
+                    aria-current={link.locale === locale ? "page" : undefined}
+                    className={cn(
+                      "flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors",
+                      link.locale === locale
+                        ? "bg-brass/12 text-brass"
+                        : "text-ink hover:bg-surface-sunken",
+                    )}
+                  >
+                    {link.name}
+                    <span className="text-2xs uppercase text-ink-subtle">
+                      {link.locale}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
             <ThemeToggle />
           </div>
 
@@ -251,6 +326,26 @@ export function Navbar() {
       {isOpen && (
         <div className="absolute left-0 top-16 max-h-[calc(100vh-4rem)] w-full overflow-y-auto border-b border-line bg-canvas shadow-xl shadow-ink/10 dark:shadow-black/50 lg:hidden">
           <div className="space-y-0.5 px-4 pb-6 pt-3">
+            <div className="flex flex-wrap gap-1.5 px-1 pb-3" aria-label="Language">
+              <Globe className="mr-1 mt-1.5 h-4 w-4 text-ink-subtle" aria-hidden="true" />
+              {languageLinks.map((link) => (
+                <Link
+                  key={link.locale}
+                  href={link.href}
+                  hrefLang={link.locale}
+                  lang={link.locale}
+                  aria-current={link.locale === locale ? "page" : undefined}
+                  className={cn(
+                    "rounded-full border px-3 py-1 text-xs font-semibold transition-colors",
+                    link.locale === locale
+                      ? "border-brass/50 bg-brass/12 text-brass"
+                      : "border-line text-ink-muted hover:text-ink",
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
             {TOOL_LINKS.map((link) => (
               <Link
                 key={link.href}

@@ -3,7 +3,7 @@ import { ProfessionalTuner } from "@/components/Tuner/ProfessionalTuner";
 import { getTuningForGuitar, scaleTuning } from "@/lib/tuningPresets";
 import { frequencyToNote } from "@/lib/noteMap";
 import type { FAQItem, RelatedArticle } from "@/components/ArticleLayout";
-import { localNote, type Locale } from "@/lib/i18n/tuner";
+import { localDecimal, localNote, type Locale } from "@/lib/i18n/tuner";
 
 export interface TunerPageLayoutProps {
   title: string;
@@ -56,6 +56,45 @@ const CHART_TEXT = {
     frequency: "Frecuencia",
     otherTunings: "Otros afinadores",
   },
+  pt: {
+    caption: (a4: number) =>
+      `Estas são as frequências exatas que o afinador procura, com Lá4 = ${a4} Hz e temperamento igual. A corda 1 é a mais fina (a mais aguda).`,
+    courseHeading: "Frequências por par de cordas",
+    stringHeading: "Frequências corda por corda",
+    course: "Par",
+    string: "Corda",
+    main: "Corda principal",
+    pair: "Corda dupla",
+    note: "Nota",
+    frequency: "Frequência",
+    otherTunings: "Outros afinadores",
+  },
+  fr: {
+    caption: (a4: number) =>
+      `Voici les fréquences exactes que l’accordeur recherche, avec La4 = ${a4} Hz en tempérament égal. La corde 1 est la plus fine (la plus aiguë).`,
+    courseHeading: "Fréquences par chœur",
+    stringHeading: "Fréquences corde par corde",
+    course: "Chœur",
+    string: "Corde",
+    main: "Corde principale",
+    pair: "Corde doublée",
+    note: "Note",
+    frequency: "Fréquence",
+    otherTunings: "Autres accordeurs",
+  },
+  de: {
+    caption: (a4: number) =>
+      `Das sind die genauen Zielfrequenzen dieses Stimmgeräts bei A4 = ${a4} Hz in gleichstufiger Stimmung. Saite 1 ist die dünnste (höchste) Saite.`,
+    courseHeading: "Frequenzen pro Saitenpaar",
+    stringHeading: "Frequenzen Saite für Saite",
+    course: "Paar",
+    string: "Saite",
+    main: "Hauptsaite",
+    pair: "Paarsaite",
+    note: "Ton",
+    frequency: "Frequenz",
+    otherTunings: "Weitere Stimmgeräte",
+  },
 } as const;
 
 export default function TunerPageLayout({
@@ -84,9 +123,10 @@ export default function TunerPageLayout({
     // Name on the 440 grid: at A = 432 the A string is still "A".
     const note = frequencyToNote((frequency * 440) / (initialReference ?? 440));
     const name = `${note.name}${note.octave}`;
-    // Spanish readers get solfège first, with the letter name many chord
-    // charts and tabs use alongside it: "Mi2 (E2)".
-    return locale === "en" ? name : `${localNote(name, locale)} (${name})`;
+    // Local name first, with the letter name chord charts and tabs use
+    // alongside it when they differ: "Mi2 (E2)", "H3 (B3)", but just "E2".
+    const local = localNote(name, locale);
+    return local === name ? name : `${local} (${name})`;
   };
 
   // "courses" pairs adjacent entries: a 12-string is 6 courses of 2 strings,
@@ -99,8 +139,8 @@ export default function TunerPageLayout({
           const pair = tuning.frequencies[c * 2 + 1];
           return {
             number: courseCount - c,
-            main: { note: label(main), frequency: main.toFixed(2) },
-            pair: { note: label(pair), frequency: pair.toFixed(2) },
+            main: { note: label(main), frequency: localDecimal(main, 2, locale) },
+            pair: { note: label(pair), frequency: localDecimal(pair, 2, locale) },
           };
         })
       : [];
@@ -110,7 +150,7 @@ export default function TunerPageLayout({
       ? tuning.frequencies.map((frequency, i) => ({
           number: tuning.frequencies.length - i,
           note: label(frequency),
-          frequency: frequency.toFixed(2),
+          frequency: localDecimal(frequency, 2, locale),
         }))
       : [];
 

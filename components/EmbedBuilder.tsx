@@ -10,13 +10,16 @@ import {
 } from "@/lib/tuningPresets";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { TUNER_PAGES } from "@/lib/tunerPages";
-import { LOCALES, type Locale } from "@/lib/i18n/tuner";
+import { LANGUAGE_NAMES, LOCALES, type Locale } from "@/lib/i18n/tuner";
 
 const SITE_URL = "https://www.guitartunepro.com";
 
-const LANGUAGE_NAMES: Record<Locale, string> = {
-  en: "English",
-  es: "Español",
+const CREDIT: Record<Locale, string> = {
+  en: "Free online tuner by",
+  es: "Afinador gratis de",
+  pt: "Afinador grátis do",
+  fr: "Accordeur gratuit par",
+  de: "Kostenloses Stimmgerät von",
 };
 
 /** The page the credit link points at: the dedicated page for the chosen
@@ -54,8 +57,7 @@ export function EmbedBuilder() {
   }, [guitarType, tuning, lang, theme, a4]);
 
   const snippet = useMemo(() => {
-    const label =
-      lang === "es" ? "Afinador gratis de" : "Free online tuner by";
+    const label = CREDIT[lang];
     return [
       `<iframe src="${SITE_URL}/embed/tuner${query}" title="GuitarTunePro tuner" width="100%" height="${height}" style="max-width:480px;border:0;border-radius:16px" allow="microphone" loading="lazy"></iframe>`,
       `<p style="max-width:480px;margin:6px 0 0;font:13px/1.4 sans-serif;text-align:center">${label} <a href="${SITE_URL}${creditHref(guitarType, tuning)}">GuitarTunePro</a></p>`,

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { ARTICLES } from "@/lib/articles";
+import { LANGUAGE_NAMES, LOCALES } from "@/lib/i18n/tuner";
 import { TOOL_PAGES } from "@/lib/toolPages";
 import { SITE_AUTHOR } from "@/lib/author";
 
@@ -114,7 +115,25 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 text-2xs text-ink-subtle">
+        {/* A crawlable path to every language's tuner from every page. */}
+        <nav
+          aria-label="Languages"
+          className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"
+        >
+          {LOCALES.map((locale) => (
+            <Link
+              key={locale}
+              href={locale === "en" ? "/" : `/${locale}`}
+              hrefLang={locale}
+              lang={locale}
+              className="text-ink-muted hover:text-brass transition-colors duration-200"
+            >
+              {LANGUAGE_NAMES[locale]}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-6 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 text-2xs text-ink-subtle">
           <p>
             © {currentYear} GuitarTunePro. Built by{" "}
             <Link

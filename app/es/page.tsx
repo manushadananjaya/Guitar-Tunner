@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
-import { languageAlternates, otherEsPagesFor } from "@/lib/i18n/esPages";
+import { languageAlternates } from "@/lib/i18n/pages";
+import { otherPagesFor } from "@/lib/i18n/content";
 
 export const metadata: Metadata = {
   title: "Afinador de guitarra online gratis",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "Afinador de guitarra online y gratis. Afina tu guitarra con el micrófono, aquí mismo: afinación estándar, Drop D, medio tono abajo y más. Sin descargas.",
   alternates: { canonical: "/es", languages: languageAlternates("/es") },
   openGraph: {
+    locale: "es_ES",
     title: "Afinador de guitarra online gratis",
     description:
       "Afina tu guitarra con el micrófono de tu móvil o computadora. Gratis y sin descargas.",
@@ -41,7 +43,7 @@ export default function AfinadorGuitarraPage() {
         title="Afinador de guitarra"
         description="Afina tu guitarra con el micrófono, directamente en esta página. Pulsa Activar micrófono y toca una cuerda: el afinador detecta cuál es y te dice hacia dónde girar la clavija."
         canonicalPath="/es"
-        otherTuners={otherEsPagesFor("/es")}
+        otherTuners={otherPagesFor("/es", "es")}
         faqs={[
           {
             question: "¿Cuáles son las notas de la guitarra en afinación estándar?",

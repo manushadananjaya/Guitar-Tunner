@@ -8,6 +8,9 @@ const SITE_URL = "https://www.guitartunepro.com";
 const POWERED_BY: Record<Locale, string> = {
   en: "Free online tuner by",
   es: "Afinador gratis de",
+  pt: "Afinador grátis do",
+  fr: "Accordeur gratuit par",
+  de: "Kostenloses Stimmgerät von",
 };
 
 export interface EmbedTunerProps {
