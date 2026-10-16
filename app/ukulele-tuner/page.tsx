@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { languageAlternates } from "@/lib/i18n/esPages";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
 import { otherInstrumentsFor } from "@/lib/instrumentPages";
@@ -7,7 +8,10 @@ export const metadata: Metadata = {
   title: "Ukulele Tuner — Free Online GCEA Ukulele Tuner",
   description:
     "Free online ukulele tuner. Tune your uke to standard GCEA with your microphone, right on this page. Works for soprano, concert, and tenor — no download.",
-  alternates: { canonical: "/ukulele-tuner" },
+  alternates: {
+    canonical: "/ukulele-tuner",
+    languages: languageAlternates("/ukulele-tuner"),
+  },
   openGraph: {
     title: "Ukulele Tuner — Free Online GCEA Ukulele Tuner",
     description:

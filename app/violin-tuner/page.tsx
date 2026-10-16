@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { languageAlternates } from "@/lib/i18n/esPages";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
 import { otherInstrumentsFor } from "@/lib/instrumentPages";
@@ -7,7 +8,10 @@ export const metadata: Metadata = {
   title: "Violin Tuner — Free Online G D A E Tuner",
   description:
     "Free online violin tuner. Tune your violin to G D A E with your microphone, right on this page. Works for every size from 1/16 to 4/4 — no download.",
-  alternates: { canonical: "/violin-tuner" },
+  alternates: {
+    canonical: "/violin-tuner",
+    languages: languageAlternates("/violin-tuner"),
+  },
   openGraph: {
     title: "Violin Tuner — Free Online G D A E Tuner",
     description:

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { languageAlternates } from "@/lib/i18n/esPages";
 import Link from "next/link";
 import TunerPageLayout from "@/components/TunerPageLayout";
 import { otherInstrumentsFor } from "@/lib/instrumentPages";
@@ -7,7 +8,10 @@ export const metadata: Metadata = {
   title: "Bass Tuner — Free Online Bass Guitar Tuner",
   description:
     "Free online bass guitar tuner. Tune your 4-string bass (E A D G) with your microphone, right on this page. Accurate down to 41 Hz — no download required.",
-  alternates: { canonical: "/bass-tuner" },
+  alternates: {
+    canonical: "/bass-tuner",
+    languages: languageAlternates("/bass-tuner"),
+  },
   openGraph: {
     title: "Bass Tuner — Free Online Bass Guitar Tuner",
     description:

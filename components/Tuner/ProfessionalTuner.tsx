@@ -16,6 +16,7 @@ import {
   Note,
 } from "@/lib/noteMap";
 import { cn } from "@/lib/utils";
+import { TUNER_TEXT, localNote, type Locale } from "@/lib/i18n/tuner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Mic, MicOff, Settings2 } from "lucide-react";
@@ -25,12 +26,16 @@ interface ProfessionalTunerProps {
   initialTuning?: string;
   /** Instrument key to load on mount, e.g. "bass". Defaults to 6-string guitar. */
   initialGuitarType?: string;
+  /** UI language. Defaults to English. */
+  locale?: Locale;
 }
 
 export function ProfessionalTuner({
   initialTuning = "standard",
   initialGuitarType = "sixString",
+  locale = "en",
 }: ProfessionalTunerProps = {}) {
+  const t = TUNER_TEXT[locale];
   const [tuningMode, setTuningMode] = useState(initialTuning);
   const [guitarType, setGuitarType] = useState(initialGuitarType);
   const [selectedStringIndex, setSelectedStringIndex] = useState(0);
@@ -264,16 +269,16 @@ export function ProfessionalTuner({
               )}
             ></div>
             <span className="text-xs font-mono font-medium text-ink-muted uppercase tracking-wider">
-              {isRecording ? "Monitoring" : "Standby"}
+              {isRecording ? t.monitoring : t.standby}
             </span>
           </div>
           
           <div className="hidden sm:flex items-center gap-3 bg-surface/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-line">
-            <span className="text-xs text-ink-muted font-medium">Auto-select string</span>
+            <span className="text-xs text-ink-muted font-medium">{t.autoSelect}</span>
             <Switch
               checked={autoSelectString}
               onCheckedChange={setAutoSelectString}
-              aria-label="Toggle automatic played string selection"
+              aria-label={t.autoSelectAria}
             />
           </div>
         </div>
@@ -290,11 +295,11 @@ export function ProfessionalTuner({
         >
           {isRecording ? (
             <span className="inline-flex items-center gap-2">
-              <MicOff className="h-4 w-4" /> Stop Recording
+              <MicOff className="h-4 w-4" /> {t.stop}
             </span>
           ) : (
             <span className="inline-flex items-center gap-2">
-              <Mic className="h-4 w-4" /> Start Recording
+              <Mic className="h-4 w-4" /> {t.start}
             </span>
           )}
         </Button>
@@ -310,16 +315,16 @@ export function ProfessionalTuner({
         <div className="w-full sm:hidden flex items-center justify-between px-2 pb-2 border-b border-line">
           <div>
             <p className="text-sm font-semibold text-ink">
-              Auto-select string
+              {t.autoSelect}
             </p>
             <p className="text-2xs text-ink-subtle">
-              Switches to string automatically
+              {t.autoSelectHint}
             </p>
           </div>
           <Switch
             checked={autoSelectString}
             onCheckedChange={setAutoSelectString}
-            aria-label="Toggle automatic played string selection"
+            aria-label={t.autoSelectAria}
           />
         </div>
 
@@ -334,12 +339,13 @@ export function ProfessionalTuner({
             frequency={smoothedFreq}
             isInTune={isInTune}
             isListening={isRecording}
+            locale={locale}
             targetNote={(() => {
               const target =
                 currentTuning.frequencies[selectedStringIndex] ?? 0;
               if (target <= 0) return undefined;
               const n = frequencyToNote(target);
-              return `${n.name}${n.octave}`;
+              return localNote(`${n.name}${n.octave}`, locale);
             })()}
             targetFrequency={
               currentTuning.frequencies[selectedStringIndex] ?? undefined
@@ -351,23 +357,23 @@ export function ProfessionalTuner({
             {/* Column 1: Action Required */}
             <div className="bg-surface/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
               <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle mb-1.5">
-                Action Required
+                {t.actionRequired}
               </p>
               <p className="text-sm sm:text-base font-semibold text-ink">
                 {!isRecording
-                  ? "Start tuner and pluck highlighted note."
+                  ? t.actionIdle
                   : isInTune
-                    ? "In tune. No turn needed."
+                    ? t.actionInTune
                     : cents < 0
-                      ? "Pitch is low. Tighten peg."
-                      : "Pitch is high. Loosen peg."}
+                      ? t.actionLow
+                      : t.actionHigh}
               </p>
             </div>
 
             {/* Column 2: Peg Rotation / Cent Offset */}
             <div className="bg-surface/15 border border-white/[0.03] rounded-2xl p-4 sm:p-5 flex flex-col justify-center">
               <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle mb-1.5">
-                Peg Rotation & Offset
+                {t.pegOffset}
               </p>
               <p
                 className={cn(
@@ -380,16 +386,16 @@ export function ProfessionalTuner({
                 )}
               >
                 {!isRecording
-                  ? "Standby"
+                  ? t.standby
                   : isInTune
-                    ? "Perfect"
+                    ? t.perfect
                     : cents < 0
-                      ? "↻ Tighten peg"
-                      : "↺ Loosen peg"}
+                      ? t.tighten
+                      : t.loosen}
               </p>
               {isRecording && (
                 <p className="mt-1 text-xs font-mono tracking-wider text-ink-subtle">
-                  OFFSET:{" "}
+                  {t.offsetLabel}:{" "}
                   <span className={cn(cents > 0 ? "text-off" : cents < 0 ? "text-flat" : "text-in-tune")}>
                     {cents > 0 ? "+" : ""}{cents.toFixed(1)}
                   </span>{" "}
@@ -405,9 +411,9 @@ export function ProfessionalTuner({
           <div className="w-full rounded-2xl border border-line bg-surface/30 px-5 py-4 backdrop-blur-sm">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle">
-                In tune this session · {tunedStrings.length}/{currentTuning.notes.length}
+                {t.sessionProgress(tunedStrings.length, currentTuning.notes.length)}
               </p>
-              <ol className="flex gap-1.5" aria-label="Strings tuned">
+              <ol className="flex gap-1.5" aria-label={t.stringsTuned}>
                 {currentTuning.notes.map((note, i) => (
                   <li
                     key={i}
@@ -418,7 +424,7 @@ export function ProfessionalTuner({
                         : "bg-surface-sunken text-ink-subtle",
                     )}
                   >
-                    {note}
+                    {localNote(note, locale)}
                   </li>
                 ))}
               </ol>
@@ -426,24 +432,24 @@ export function ProfessionalTuner({
             {allTuned && (
               <div className="mt-4 border-t border-line pt-4" role="status">
                 <p className="text-base font-semibold text-ink">
-                  All {currentTuning.notes.length} strings in tune. Now play something:
+                  {t.allTuned(currentTuning.notes.length)}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
                     href={isBowed ? "/metronome" : "/practice-routine"}
                     className="rounded-full bg-brass px-4 py-2 text-sm font-bold text-brass-contrast hover:bg-brass-hover transition-colors"
                   >
-                    {isBowed ? "Practise with the metronome" : "Today’s practice routine"}
+                    {isBowed ? t.metronome : t.practiceRoutine}
                   </Link>
                   {(isBowed
                     ? [
-                        { href: "/ear-training", label: "Ear training" },
-                        { href: "/chord-progressions", label: "Play over a backing loop" },
+                        { href: "/ear-training", label: t.earTraining },
+                        { href: "/chord-progressions", label: t.playOverLoop },
                       ]
                     : [
-                        { href: "/strumming-patterns", label: "Strumming patterns" },
-                        { href: "/scales", label: "Scale explorer" },
-                        { href: "/chord-progressions", label: "Jam over a backing loop" },
+                        { href: "/strumming-patterns", label: t.strumming },
+                        { href: "/scales", label: t.scales },
+                        { href: "/chord-progressions", label: t.backingLoop },
                       ]
                   ).map((item) => (
                     <Link
@@ -471,7 +477,7 @@ export function ProfessionalTuner({
                 : "text-ink-muted hover:text-ink",
             )}
           >
-            Visual Pegs
+            {t.visualPegs}
           </button>
           <button
             onClick={() => setActiveView("fretboard")}
@@ -482,7 +488,7 @@ export function ProfessionalTuner({
                 : "text-ink-muted hover:text-ink",
             )}
           >
-            String Selector
+            {t.stringSelector}
           </button>
         </div>
 
@@ -502,6 +508,7 @@ export function ProfessionalTuner({
               cents={cents}
               isListening={isRecording}
               onSelectString={setSelectedStringIndex}
+              locale={locale}
             />
           </div>
 
@@ -514,10 +521,10 @@ export function ProfessionalTuner({
           >
             <div className="text-center mb-2 px-4 hidden md:block pt-6">
               <h3 className="text-xl font-semibold tracking-tight text-ink">
-                Fretboard Strings
+                {t.fretboardTitle}
               </h3>
               <p className="text-sm text-ink-muted mt-1">
-                Interactive layout for manual note selection.
+                {t.fretboardHint}
               </p>
             </div>
             <div className="w-full flex-1 flex items-center justify-center">
@@ -527,6 +534,7 @@ export function ProfessionalTuner({
                 detectedStringIndex={detectedStringIndex}
                 onSelectString={setSelectedStringIndex}
                 isListening={isRecording}
+                locale={locale}
               />
             </div>
           </div>
@@ -536,6 +544,7 @@ export function ProfessionalTuner({
         <div className="w-full bg-surface-sunken/20 border border-line rounded-3xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
           <TunerControls
             currentGuitarType={guitarType}
+            locale={locale}
             onGuitarTypeChange={(type) => {
               setGuitarType(type);
               setDetectedStringIndex(null);
@@ -556,25 +565,15 @@ export function ProfessionalTuner({
         {/* 4. Guidelines section */}
         <section className="w-full rounded-2xl border border-line bg-surface/10 p-5 sm:p-6 backdrop-blur-sm">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-brass">
-            Quick Tuning Guidelines
+            {t.guidelinesTitle}
           </h2>
           <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-ink">
-            <li className="flex gap-2">
-              <span className="text-brass font-bold">1.</span>
-              <span>Tap the <span className="font-semibold text-ink">Start Recording</span> button at the top to initialize your microphone.</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-brass font-bold">2.</span>
-              <span>Pluck one string cleanly at a time. Let it vibrate naturally to get a continuous frequency reading.</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-brass font-bold">3.</span>
-              <span>Adjust your tuning pegs until the dial centers in the <span className="font-semibold text-in-tune">green zone</span> (around 0 cents).</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="text-brass font-bold">4.</span>
-              <span>Watch indicators: <span className="text-brass font-semibold">amber</span> is the currently selected note, <span className="text-in-tune font-semibold">green</span> is the automatically detected audio feed.</span>
-            </li>
+            {t.guidelines.map((item, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="text-brass font-bold">{i + 1}.</span>
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
         </section>
       </div>

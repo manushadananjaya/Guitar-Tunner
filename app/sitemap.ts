@@ -4,10 +4,28 @@ import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
 import { INDEXED_CHORDS } from '@/lib/chords/curation';
 import { ARTICLES } from '@/lib/articles';
 import { TOOL_PAGES } from '@/lib/toolPages';
+import { ES_PAGES, languageAlternates } from '@/lib/i18n/esPages';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const siteUrl = 'https://www.guitartunepro.com';
+
+  // Both sides of each translated pair list each other, per Google's
+  // sitemap hreflang guidance.
+  const withAlternates = (path: string) => {
+    const languages = languageAlternates(path);
+    if (!languages) return {};
+    return {
+      alternates: {
+        languages: Object.fromEntries(
+          Object.entries(languages).map(([lang, href]) => [
+            lang,
+            `${siteUrl}${href === '/' ? '' : href}`,
+          ]),
+        ),
+      },
+    };
+  };
 
   const toolPages: MetadataRoute.Sitemap = [
     ...TUNER_PAGES,
@@ -17,17 +35,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'monthly',
     priority: 0.9,
+    ...withAlternates(page.href),
+  }));
+
+  const spanishPages: MetadataRoute.Sitemap = ES_PAGES.map((page) => ({
+    url: `${siteUrl}${page.es}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.9,
+    ...withAlternates(page.es),
   }));
 
   return [
     {
       url: siteUrl,
+      ...withAlternates('/'),
       lastModified: now,
       changeFrequency: 'daily',
       priority: 1,
       images: [`${siteUrl}/Logo.png`],
     },
     ...toolPages,
+    ...spanishPages,
     ...TOOL_PAGES.map((tool) => ({
       url: `${siteUrl}${tool.href}`,
       lastModified: now,

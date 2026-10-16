@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { TUNER_TEXT, localNote, type Locale } from "@/lib/i18n/tuner";
 
 interface GuitarGuideProps {
   strings: string[];
@@ -11,6 +12,7 @@ interface GuitarGuideProps {
   cents: number;
   isListening: boolean;
   onSelectString: (index: number) => void;
+  locale?: Locale;
 }
 
 export function GuitarGuide({
@@ -20,7 +22,9 @@ export function GuitarGuide({
   cents,
   isListening,
   onSelectString,
+  locale = "en",
 }: GuitarGuideProps) {
+  const t = TUNER_TEXT[locale];
   const centOffset = Math.max(-50, Math.min(50, cents));
   const stringCount = strings.length;
   // Dynamic layout: Bass guitars (4 strings) are often inline on one side, but we'll do 3x3 for standard, half-half for others.
@@ -67,9 +71,9 @@ export function GuitarGuide({
               ? `rotate(${isLeft ? rotation : -rotation}deg) scale(1.1)`
               : "none",
           }}
-          aria-label={`Select string ${index + 1} (${note})`}
+          aria-label={t.selectString(stringCount - index, localNote(note, locale))}
         >
-          {note}
+          {localNote(note, locale)}
         </button>
 
         {/* Peg Shaft */}
@@ -104,10 +108,10 @@ export function GuitarGuide({
     <section className="w-full relative py-6 flex flex-col items-center">
       <div className="text-center mb-6 px-4">
         <h3 className="text-xl font-semibold tracking-tight text-ink">
-          Headstock Alignment
+          {t.headstockTitle}
         </h3>
         <p className="text-sm text-ink-muted mt-1">
-          Tap a peg to tune that string specifically.
+          {t.headstockHint}
         </p>
       </div>
 

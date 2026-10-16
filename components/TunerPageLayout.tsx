@@ -3,6 +3,7 @@ import { ProfessionalTuner } from "@/components/Tuner/ProfessionalTuner";
 import { getTuningForGuitar } from "@/lib/tuningPresets";
 import { frequencyToNote } from "@/lib/noteMap";
 import type { FAQItem, RelatedArticle } from "@/components/ArticleLayout";
+import { localNote, type Locale } from "@/lib/i18n/tuner";
 
 export interface TunerPageLayoutProps {
   title: string;
@@ -21,11 +22,38 @@ export interface TunerPageLayoutProps {
   relatedArticles?: RelatedArticle[];
   /** Sibling tuner pages, for crawlable lateral links. */
   otherTuners?: { label: string; href: string }[];
+  locale?: Locale;
   children: React.ReactNode;
 }
 
-const DEFAULT_CAPTION =
-  "These are the exact target frequencies this tuner listens for, at A4 = 440 Hz equal temperament. String 1 is the thinnest (highest) string.";
+const CHART_TEXT = {
+  en: {
+    caption:
+      "These are the exact target frequencies this tuner listens for, at A4 = 440 Hz equal temperament. String 1 is the thinnest (highest) string.",
+    courseHeading: "Course-by-Course Frequency Chart",
+    stringHeading: "String-by-String Frequency Chart",
+    course: "Course",
+    string: "String",
+    main: "Main String",
+    pair: "Paired String",
+    note: "Note",
+    frequency: "Frequency",
+    otherTunings: "Other Tunings",
+  },
+  es: {
+    caption:
+      "Estas son las frecuencias exactas que busca el afinador, con La4 = 440 Hz y temperamento igual. La cuerda 1 es la más fina (la más aguda).",
+    courseHeading: "Frecuencias por orden",
+    stringHeading: "Frecuencias cuerda por cuerda",
+    course: "Orden",
+    string: "Cuerda",
+    main: "Cuerda principal",
+    pair: "Cuerda doble",
+    note: "Nota",
+    frequency: "Frecuencia",
+    otherTunings: "Otros afinadores",
+  },
+} as const;
 
 export default function TunerPageLayout({
   title,
@@ -38,14 +66,19 @@ export default function TunerPageLayout({
   faqs,
   relatedArticles,
   otherTuners,
+  locale = "en",
   children,
 }: TunerPageLayoutProps) {
+  const text = CHART_TEXT[locale];
   // Derive the chart from the same source the tuner listens against, so the
   // published frequencies can never drift from what the tool actually targets.
   const tuning = getTuningForGuitar(initialGuitarType, initialTuning);
   const label = (frequency: number) => {
     const note = frequencyToNote(frequency);
-    return `${note.name}${note.octave}`;
+    const name = `${note.name}${note.octave}`;
+    // Spanish readers get solfège first, with the letter name many chord
+    // charts and tabs use alongside it: "Mi2 (E2)".
+    return locale === "en" ? name : `${localNote(name, locale)} (${name})`;
   };
 
   // "courses" pairs adjacent entries: a 12-string is 6 courses of 2 strings,
@@ -79,34 +112,34 @@ export default function TunerPageLayout({
         id="string-chart-heading"
         className="text-2xl font-bold text-ink mb-4"
       >
-        {chartMode === "courses"
-          ? "Course-by-Course Frequency Chart"
-          : "String-by-String Frequency Chart"}
+        {chartMode === "courses" ? text.courseHeading : text.stringHeading}
       </h2>
       <p className="text-ink-muted leading-relaxed mb-5">
-        {chartCaption ?? DEFAULT_CAPTION}
+        {chartCaption ?? text.caption}
       </p>
       <div className="overflow-x-auto rounded-xl border border-line">
         <table className="w-full text-sm">
           <thead className="bg-surface/60 text-ink-muted">
             <tr>
               <th className="px-4 py-3 text-left font-semibold">
-                {chartMode === "courses" ? "Course" : "String"}
+                {chartMode === "courses" ? text.course : text.string}
               </th>
               {chartMode === "courses" ? (
                 <>
                   <th className="px-4 py-3 text-left font-semibold">
-                    Main String
+                    {text.main}
                   </th>
                   <th className="px-4 py-3 text-left font-semibold">
-                    Paired String
+                    {text.pair}
                   </th>
                 </>
               ) : (
                 <>
-                  <th className="px-4 py-3 text-left font-semibold">Note</th>
                   <th className="px-4 py-3 text-left font-semibold">
-                    Frequency
+                    {text.note}
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold">
+                    {text.frequency}
                   </th>
                 </>
               )}
@@ -161,13 +194,15 @@ export default function TunerPageLayout({
         <ProfessionalTuner
           initialTuning={initialTuning}
           initialGuitarType={initialGuitarType}
+          locale={locale}
         />
       }
       afterTool={chart}
       faqs={faqs}
       relatedArticles={relatedArticles}
       otherTools={otherTuners}
-      otherToolsHeading="Other Tunings"
+      otherToolsHeading={text.otherTunings}
+      locale={locale}
     >
       {children}
     </ToolPageLayout>

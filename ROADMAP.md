@@ -540,3 +540,32 @@ Reach beyond guitarists: each is a real tuner page, not a doorway.
   in `lib/pitchDetection.ts`; it only reads via harmonics.
 - The tuner is fixed at A = 440. String pages tell orchestral players to aim
   for +8 cents at A = 442 rather than offering a reference-pitch setting.
+
+## Step 13 — Spanish tuner pages  ✅ DONE (pass one)
+
+Spanish searches ("afinador de guitarra", "afinador de bajo"…) are a large,
+less contested market. Started with four tool pages rather than a bulk
+translation, to stay clear of scaled-content signals.
+
+- [x] `/es`, `/es/afinador-de-bajo`, `/es/afinador-de-ukelele`,
+      `/es/afinador-de-violin` — hand-written Spanish prose and FAQ, not a
+      line-by-line translation (adds a solfège ↔ letter-name section)
+- [x] Whole tuner UI translatable via `lib/i18n/tuner.tsx` (`locale` prop on
+      `ProfessionalTuner`, `TunerPageLayout`, `ToolPageLayout`); Spanish shows
+      notes in solfège (Mi, La, Re…), chart shows "Mi2 (E2)"
+- [x] `lib/i18n/esPages.ts` registry drives hreflang (both sides +
+      x-default), sitemap `xhtml:link` alternates, the English/Español switch
+      on paired pages, and Spanish cross-links
+- [x] Verified: build, `audit:seo`, `audit:links`, hreflang in served HTML,
+      Playwright with a fake-mic E2 tone on `/es` → "Mi, +3 cents · Afinada"
+
+### Not done
+
+- Navbar and footer stay English on Spanish pages; `<html lang>` is "en"
+  site-wide (the root layout is shared), so Spanish content carries
+  `lang="es"` on its wrapper instead. A proper fix is a `(es)` route group
+  with its own root layout.
+- Practice tools, chords and articles are English only; post-tuning links
+  from Spanish pages point at them.
+- Next candidates: Portuguese (`/pt/afinador-de-violao`), more Spanish
+  tunings (Drop D, medio tono abajo).

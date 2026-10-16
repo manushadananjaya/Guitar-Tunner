@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { languageAlternates } from "@/lib/i18n/esPages";
 import { ProfessionalTuner } from '@/components/Tuner/ProfessionalTuner';
 import { HomepageContent, faqs } from '@/components/HomepageContent';
 
@@ -9,7 +11,10 @@ export const metadata: Metadata = {
   title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
   description:
     "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: languageAlternates("/"),
+  },
   openGraph: {
     title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
     description:
@@ -96,6 +101,16 @@ export default function Home() {
           <p className="mt-2 text-ink-muted text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Tune by microphone in your browser, using a chromatic pitch
             detector. No app, no signup. Works for guitar, bass, ukulele, and more.
+          </p>
+          <p className="mt-3 text-xs text-ink-subtle">
+            <Link
+              href="/es"
+              hrefLang="es"
+              lang="es"
+              className="underline underline-offset-2 hover:text-brass"
+            >
+              Afinador de guitarra en español
+            </Link>
           </p>
         </header>
         <ProfessionalTuner />

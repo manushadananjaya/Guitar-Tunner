@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { FAQItem, RelatedArticle } from "@/components/ArticleLayout";
+import type { Locale } from "@/lib/i18n/tuner";
+import { counterpartOf } from "@/lib/i18n/esPages";
 
 export interface ToolPageLayoutProps {
   /** H1, and the breadcrumb leaf. */
@@ -17,8 +19,30 @@ export interface ToolPageLayoutProps {
   /** Crawlable lateral links to sibling tools. */
   otherTools?: { label: string; href: string }[];
   otherToolsHeading?: string;
+  /** Page language. Spanish pages also get lang="es" on their content, since
+   *  the root layout's <html lang> is shared by every route. */
+  locale?: Locale;
   children: React.ReactNode;
 }
+
+const SHELL_TEXT = {
+  en: {
+    home: "Home",
+    homeHref: "/",
+    tool: "tool",
+    faq: "Frequently Asked Questions",
+    otherTools: "Other Tools",
+    related: "Related Reading",
+  },
+  es: {
+    home: "Inicio",
+    homeHref: "/es",
+    tool: "herramienta",
+    faq: "Preguntas frecuentes",
+    otherTools: "Otras herramientas",
+    related: "Lecturas relacionadas",
+  },
+} as const;
 
 const SITE_URL = "https://www.guitartunepro.com";
 
@@ -33,9 +57,12 @@ export default function ToolPageLayout({
   faqs,
   relatedArticles,
   otherTools,
-  otherToolsHeading = "Other Tools",
+  otherToolsHeading,
+  locale = "en",
   children,
 }: ToolPageLayoutProps) {
+  const text = SHELL_TEXT[locale];
+  const counterpart = counterpartOf(canonicalPath);
   const faqJsonLd =
     faqs && faqs.length > 0
       ? {
@@ -53,7 +80,12 @@ export default function ToolPageLayout({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: text.home,
+        item: locale === "en" ? SITE_URL : `${SITE_URL}${text.homeHref}`,
+      },
       {
         "@type": "ListItem",
         position: 2,
@@ -64,7 +96,10 @@ export default function ToolPageLayout({
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-ink pb-20">
+    <div
+      className="min-h-screen bg-canvas text-ink pb-20"
+      lang={locale === "en" ? undefined : locale}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -84,16 +119,31 @@ export default function ToolPageLayout({
       <main className="relative z-10">
         {/* Header — deliberately compact so the tool stays above the fold */}
         <div className="max-w-5xl mx-auto px-5 pt-8 sm:pt-10">
+          <div className="flex items-center justify-between gap-4 mb-5">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-xs text-ink-subtle mb-5"
+            className="flex items-center gap-1.5 text-xs text-ink-subtle"
           >
-            <Link href="/" className="hover:text-brass transition-colors">
-              Home
+            <Link
+              href={text.homeHref}
+              className="hover:text-brass transition-colors"
+            >
+              {text.home}
             </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-ink-muted">{title}</span>
           </nav>
+          {counterpart && (
+            <Link
+              href={counterpart.href}
+              hrefLang={counterpart.lang}
+              lang={counterpart.lang}
+              className="shrink-0 rounded-full border border-line px-3 py-1 text-xs text-ink-muted hover:border-brass/40 hover:text-brass transition-colors"
+            >
+              {counterpart.label}
+            </Link>
+          )}
+          </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-tight mb-3">
             {title}
@@ -103,7 +153,7 @@ export default function ToolPageLayout({
           </p>
         </div>
 
-        <section aria-label={`${title} tool`} className="mt-8">
+        <section aria-label={locale === "en" ? `${title} ${text.tool}` : title} className="mt-8">
           {tool}
         </section>
 
@@ -131,7 +181,7 @@ export default function ToolPageLayout({
           {faqs && faqs.length > 0 && (
             <section className="mt-14" aria-labelledby="faq-heading">
               <h2 id="faq-heading" className="text-2xl font-bold text-ink mb-6">
-                Frequently Asked Questions
+                {text.faq}
               </h2>
               <div className="space-y-4">
                 {faqs.map((faq, i) => (
@@ -158,7 +208,7 @@ export default function ToolPageLayout({
                 id="other-tools-heading"
                 className="text-2xl font-bold text-ink mb-6"
               >
-                {otherToolsHeading}
+                {otherToolsHeading ?? text.otherTools}
               </h2>
               <div className="flex flex-wrap gap-2.5">
                 {otherTools.map((item) => (
@@ -180,7 +230,7 @@ export default function ToolPageLayout({
                 id="related-heading"
                 className="text-2xl font-bold text-ink mb-6"
               >
-                Related Reading
+                {text.related}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {relatedArticles.map((article) => (

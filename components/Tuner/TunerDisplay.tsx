@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Note } from '@/lib/noteMap';
+import { TUNER_TEXT, noteParts, type Locale } from '@/lib/i18n/tuner';
 
 interface TunerDisplayProps {
   note: Note;
@@ -16,6 +17,7 @@ interface TunerDisplayProps {
   targetNote?: string;
   /** Target frequency in Hz for the selected string. */
   targetFrequency?: number;
+  locale?: Locale;
 }
 
 export const TunerDisplay: React.FC<TunerDisplayProps> = ({
@@ -26,7 +28,10 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
   isListening,
   targetNote,
   targetFrequency,
+  locale = 'en',
 }) => {
+  const t = TUNER_TEXT[locale];
+  const live = noteParts(note.name ?? '', locale);
   // Clamp cents for display purposes to avoid needle going wild
   const clampedCents = Math.max(-50, Math.min(50, cents));
   const angle = (clampedCents / 50) * 45; // +/- 45 degrees swing
@@ -61,10 +66,10 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
           aria-atomic="true"
           aria-label={
             isListening && frequency > 0
-              ? `${note.name}, ${cents > 0 ? "+" : ""}${cents.toFixed(0)} cents`
+              ? `${live.base}${live.accidental}, ${cents > 0 ? "+" : ""}${cents.toFixed(0)} cents`
               : targetNote
-                ? `Ready to tune ${targetNote}`
-                : "Tuner idle"
+                ? t.readyToTune(targetNote)
+                : t.idle
           }
           className={cn(
             "font-black tracking-tighter transition-colors duration-200 select-none leading-none",
@@ -81,9 +86,9 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
         >
           {isListening && frequency > 0 ? (
             <>
-              {note.name?.charAt(0)}
+              {live.base}
               <span className="text-4xl sm:text-5xl align-top ml-1">
-                {note.name?.slice(1)}
+                {live.accidental}
               </span>
             </>
           ) : (
@@ -97,7 +102,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
             <>
               <div className="flex items-center gap-3">
                 <span className="text-ink-subtle font-mono text-xs uppercase tracking-widest">
-                  Frequency
+                  {t.frequency}
                 </span>
                 <span className="text-ink font-mono text-xl">
                   {frequency.toFixed(1)}{" "}
@@ -106,7 +111,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-ink-subtle font-mono text-xs uppercase tracking-widest">
-                  Offset
+                  {t.offset}
                 </span>
                 <span
                   className={cn(
@@ -128,7 +133,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
             targetFrequency !== undefined &&
             targetFrequency > 0 && (
               <p className="text-ink-subtle font-mono text-xs uppercase tracking-widest">
-                Target {targetFrequency.toFixed(2)} Hz
+                {t.target} {targetFrequency.toFixed(2)} Hz
               </p>
             )
           )}
@@ -199,8 +204,8 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
         </motion.div>
 
         {/* Text indicators for Flat/Sharp */}
-        <div className="absolute bottom-2 left-4 text-2xs font-bold tracking-widest text-ink-subtle">FLAT</div>
-        <div className="absolute bottom-2 right-4 text-2xs font-bold tracking-widest text-ink-subtle">SHARP</div>
+        <div className="absolute bottom-2 left-4 text-2xs font-bold tracking-widest text-ink-subtle">{t.flat}</div>
+        <div className="absolute bottom-2 right-4 text-2xs font-bold tracking-widest text-ink-subtle">{t.sharp}</div>
       </div>
     </div>
   );

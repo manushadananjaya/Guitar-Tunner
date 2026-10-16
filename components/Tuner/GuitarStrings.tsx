@@ -3,7 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Tuning, GuitarType } from "@/lib/tuningPresets";
+import { Tuning } from "@/lib/tuningPresets";
+import { TUNER_TEXT, localNote, type Locale } from "@/lib/i18n/tuner";
 
 interface GuitarStringsProps {
   currentTuning: Tuning;
@@ -11,6 +12,7 @@ interface GuitarStringsProps {
   detectedStringIndex: number | null;
   onSelectString: (index: number) => void;
   isListening: boolean;
+  locale?: Locale;
 }
 
 export const GuitarStrings: React.FC<GuitarStringsProps> = ({
@@ -19,7 +21,9 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
   detectedStringIndex,
   onSelectString,
   isListening,
+  locale = "en",
 }) => {
+  const t = TUNER_TEXT[locale];
   return (
     <div className="relative flex justify-center gap-2 sm:gap-4 md:gap-6 py-8 px-4 w-full select-none">
       {/* Strings container */}
@@ -48,7 +52,7 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
               key={index}
               onClick={() => onSelectString(index)}
               className="group relative flex flex-col items-center justify-between h-full w-8 sm:w-10 focus:outline-none"
-              aria-label={`Select string ${note}`}
+              aria-label={t.selectString(currentTuning.notes.length - index, localNote(note, locale))}
             >
               {/* String line */}
               <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-center h-full w-2">
@@ -97,7 +101,7 @@ export const GuitarStrings: React.FC<GuitarStringsProps> = ({
                       : "bg-surface-raised border-line-strong text-ink-muted group-hover:border-line-strong group-hover:text-ink",
                   )}
                 >
-                  {note}
+                  {localNote(note, locale)}
                   {/* String Index helper (optional, small) */}
                   <span className="absolute -bottom-5 text-2xs text-ink-subtle font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                     {index + 1}
