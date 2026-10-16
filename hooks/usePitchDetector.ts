@@ -9,6 +9,9 @@ export interface PitchDetectorOptions {
   accuracyCents?: number;
   smoothingFactor?: number;
   updateRate?: number; // milliseconds between updates
+  /** Lowest fundamental to search for, in Hz. Defaults to the detector's
+   *  40 Hz — lower it only for instruments that go below that. */
+  minFrequency?: number;
 }
 
 export interface PitchDetectorState {
@@ -28,9 +31,20 @@ export function usePitchDetector(
     accuracyCents = 5,
     smoothingFactor = 0.7,
     updateRate = 30,
+    minFrequency,
   } = options;
 
-  const detectorRef = useRef<PitchDetector>(new PitchDetector(5));
+  const detectorRef = useRef<PitchDetector>(
+    new PitchDetector({ smoothingWindow: 5, minFrequency }),
+  );
+  // Rebuild when the range changes (switching to or from 5-string bass).
+  // Searching lower than needed costs CPU and invites octave errors.
+  const rangeRef = useRef(minFrequency);
+  useEffect(() => {
+    if (rangeRef.current === minFrequency) return;
+    rangeRef.current = minFrequency;
+    detectorRef.current = new PitchDetector({ smoothingWindow: 5, minFrequency });
+  }, [minFrequency]);
   const lastUpdateRef = useRef<number>(0);
   const smoothedFreqRef = useRef<number>(0);
   const lastDetectionTimeRef = useRef<number>(0);

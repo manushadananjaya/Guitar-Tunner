@@ -3,7 +3,14 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { GUITAR_TYPES, TUNING_PRESETS } from '@/lib/tuningPresets';
+import {
+  GUITAR_TYPES,
+  REFERENCE_PITCH_MAX,
+  REFERENCE_PITCH_MIN,
+  REFERENCE_PITCH_PRESETS,
+  TUNING_PRESETS,
+} from '@/lib/tuningPresets';
+import { Minus, Plus } from 'lucide-react';
 import { TUNER_TEXT, instrumentName, presetName, type Locale } from '@/lib/i18n/tuner';
 
 interface TunerControlsProps {
@@ -13,6 +20,8 @@ interface TunerControlsProps {
   onTuningChange: (mode: string) => void;
   className?: string;
   locale?: Locale;
+  referencePitch?: number;
+  onReferencePitchChange?: (a4: number) => void;
 }
 
 export const TunerControls: React.FC<TunerControlsProps> = ({
@@ -22,6 +31,8 @@ export const TunerControls: React.FC<TunerControlsProps> = ({
   onTuningChange,
   className,
   locale = 'en',
+  referencePitch = 440,
+  onReferencePitchChange,
 }) => {
   const t = TUNER_TEXT[locale];
   const supportsPresets = currentGuitarType === 'sixString';
@@ -80,6 +91,59 @@ export const TunerControls: React.FC<TunerControlsProps> = ({
           )}
         </div>
       </div>
+
+      {onReferencePitchChange && (
+        <div className="mt-5 border-t border-line pt-5 space-y-2">
+          <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">
+            {t.referencePitch}
+          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center rounded-xl border border-line bg-surface/60">
+              <button
+                type="button"
+                onClick={() => onReferencePitchChange(referencePitch - 1)}
+                disabled={referencePitch <= REFERENCE_PITCH_MIN}
+                aria-label={t.lower}
+                className="flex h-11 w-11 items-center justify-center text-ink-muted hover:text-brass disabled:opacity-40"
+              >
+                <Minus className="h-4 w-4" />
+              </button>
+              <span
+                className="min-w-28 text-center font-mono text-sm font-semibold text-ink"
+                aria-live="polite"
+              >
+                {t.reference(referencePitch)}
+              </span>
+              <button
+                type="button"
+                onClick={() => onReferencePitchChange(referencePitch + 1)}
+                disabled={referencePitch >= REFERENCE_PITCH_MAX}
+                aria-label={t.higher}
+                className="flex h-11 w-11 items-center justify-center text-ink-muted hover:text-brass disabled:opacity-40"
+              >
+                <Plus className="h-4 w-4" />
+              </button>
+            </div>
+            {REFERENCE_PITCH_PRESETS.map((a4) => (
+              <Button
+                key={a4}
+                type="button"
+                variant="outline"
+                onClick={() => onReferencePitchChange(a4)}
+                aria-pressed={referencePitch === a4}
+                className={cn(
+                  'h-11 rounded-xl border-line bg-surface/60 px-3 font-mono text-xs',
+                  referencePitch === a4 &&
+                    'border-brass/60 bg-brass/10 text-brass-hover hover:bg-brass/15'
+                )}
+              >
+                {a4}
+              </Button>
+            ))}
+          </div>
+          <p className="text-xs text-ink-subtle">{t.referenceHint}</p>
+        </div>
+      )}
     </div>
   );
 };

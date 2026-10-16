@@ -28,7 +28,7 @@ export default function ArticlePage() {
         title="432 Hz vs 440 Hz Tuning"
         description="A=440 Hz is the reference almost every tuner uses. 432 Hz is the alternative you keep hearing about. Here is what the difference actually is, and what it changes."
         datePublished="2026-09-02"
-        dateModified="2026-09-02"
+        dateModified="2026-10-17"
         readingTimeMinutes={8}
         faqs={[
           {
@@ -183,10 +183,13 @@ export default function ArticlePage() {
           setting called <strong>calibration</strong>, <strong>A4</strong>, or{" "}
           <strong>reference</strong>, usually shown as a number near 440. Set it
           to 432 and tune each string normally — the tuner recalculates all the
-          targets for you.
+          targets for you. Our <Link href="/432-hz-tuner">432 Hz tuner</Link>{" "}
+          opens with that already set, and the settings panel on every other
+          tuner page has the same control.
         </p>
         <p>
-          If your tuner is fixed at 440, you can still get close by ear: tune
+          If you are using a hardware tuner fixed at 440, you can still get
+          close by ear: tune
           the guitar to itself using the{" "}
           <Link href="/articles/how-to-tune-a-guitar-by-ear">
             5th-fret method

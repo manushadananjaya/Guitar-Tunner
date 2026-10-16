@@ -51,19 +51,22 @@ export function detectPitch(
     return { frequency: 0, confidence: 0, detected: false };
   }
 
-  // Calculate autocorrelation
+  // Calculate minimum lag based on frequency range
+  const minLag = Math.round(sampleRate / maxFrequency);
+  const maxLag = Math.round(sampleRate / minFrequency);
+
+  // Calculate autocorrelation — only as far as the search below and the
+  // peak refinement can reach. Lags past that were computed and never read,
+  // roughly doubling the cost of every frame.
+  const lagLimit = Math.min(size, Math.min(maxLag, Math.floor(size / 2)) + 6);
   const acf = new Float32Array(size);
-  for (let lag = 0; lag < size; lag++) {
+  for (let lag = 0; lag < lagLimit; lag++) {
     let sum = 0;
     for (let i = 0; i < size - lag; i++) {
       sum += audioData[i] * audioData[i + lag];
     }
     acf[lag] = sum;
   }
-
-  // Calculate minimum lag based on frequency range
-  const minLag = Math.round(sampleRate / maxFrequency);
-  const maxLag = Math.round(sampleRate / minFrequency);
 
   // Find the first peak in the autocorrelation
   let bestLag = 0;
@@ -88,8 +91,34 @@ export function detectPitch(
     return { frequency: 0, confidence, detected: false };
   }
 
+  // Refine the peak. The raw ACF sums fewer products at longer lags, which
+  // tilts it downward and drags the peak towards shorter lags — a sharp bias
+  // that reached 10+ cents on a 5-string bass's low B. Normalising by the
+  // overlap length removes the tilt; a parabola through the three samples
+  // around the peak then recovers the fraction of a sample the integer lag
+  // throws away (up to ~12 cents of quantisation on the high E). Peak
+  // *selection* above is unchanged, so this cannot introduce octave errors.
+  const norm = (lag: number) => acf[lag] / (size - lag);
+  let peakLag = bestLag;
+  for (let step = 0; step < 3; step++) {
+    if (peakLag + 2 < size && norm(peakLag + 1) > norm(peakLag)) peakLag++;
+    else if (peakLag - 1 > minLag && norm(peakLag - 1) > norm(peakLag)) peakLag--;
+    else break;
+  }
+  let refinedLag = peakLag;
+  if (peakLag - 1 >= minLag && peakLag + 1 < size) {
+    const y0 = norm(peakLag - 1);
+    const y1 = norm(peakLag);
+    const y2 = norm(peakLag + 1);
+    const denominator = y0 - 2 * y1 + y2;
+    if (denominator < 0) {
+      const offset = (0.5 * (y0 - y2)) / denominator;
+      if (Math.abs(offset) < 1) refinedLag = peakLag + offset;
+    }
+  }
+
   // Convert lag to frequency
-  const frequency = sampleRate / bestLag;
+  const frequency = sampleRate / refinedLag;
 
   // Validate frequency is in expected range
   if (frequency < minFrequency || frequency > maxFrequency) {

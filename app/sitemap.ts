@@ -83,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/accuracy`,
-      lastModified: new Date('2026-08-23'),
+      lastModified: new Date('2026-10-17'),
       changeFrequency: 'monthly',
       priority: 0.6,
     },

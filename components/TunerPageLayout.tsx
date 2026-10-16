@@ -1,6 +1,6 @@
 import ToolPageLayout from "@/components/ToolPageLayout";
 import { ProfessionalTuner } from "@/components/Tuner/ProfessionalTuner";
-import { getTuningForGuitar } from "@/lib/tuningPresets";
+import { getTuningForGuitar, scaleTuning } from "@/lib/tuningPresets";
 import { frequencyToNote } from "@/lib/noteMap";
 import type { FAQItem, RelatedArticle } from "@/components/ArticleLayout";
 import { localNote, type Locale } from "@/lib/i18n/tuner";
@@ -23,13 +23,16 @@ export interface TunerPageLayoutProps {
   /** Sibling tuner pages, for crawlable lateral links. */
   otherTuners?: { label: string; href: string }[];
   locale?: Locale;
+  /** Concert pitch for this page, e.g. 432. The chart and the tuner both use
+   *  it; omitted means 440 and the player's saved preference. */
+  initialReference?: number;
   children: React.ReactNode;
 }
 
 const CHART_TEXT = {
   en: {
-    caption:
-      "These are the exact target frequencies this tuner listens for, at A4 = 440 Hz equal temperament. String 1 is the thinnest (highest) string.",
+    caption: (a4: number) =>
+      `These are the exact target frequencies this tuner listens for, at A4 = ${a4} Hz equal temperament. String 1 is the thinnest (highest) string.`,
     courseHeading: "Course-by-Course Frequency Chart",
     stringHeading: "String-by-String Frequency Chart",
     course: "Course",
@@ -41,8 +44,8 @@ const CHART_TEXT = {
     otherTunings: "Other Tunings",
   },
   es: {
-    caption:
-      "Estas son las frecuencias exactas que busca el afinador, con La4 = 440 Hz y temperamento igual. La cuerda 1 es la más fina (la más aguda).",
+    caption: (a4: number) =>
+      `Estas son las frecuencias exactas que busca el afinador, con La4 = ${a4} Hz y temperamento igual. La cuerda 1 es la más fina (la más aguda).`,
     courseHeading: "Frecuencias por orden",
     stringHeading: "Frecuencias cuerda por cuerda",
     course: "Orden",
@@ -67,14 +70,19 @@ export default function TunerPageLayout({
   relatedArticles,
   otherTuners,
   locale = "en",
+  initialReference,
   children,
 }: TunerPageLayoutProps) {
   const text = CHART_TEXT[locale];
   // Derive the chart from the same source the tuner listens against, so the
   // published frequencies can never drift from what the tool actually targets.
-  const tuning = getTuningForGuitar(initialGuitarType, initialTuning);
+  const tuning = scaleTuning(
+    getTuningForGuitar(initialGuitarType, initialTuning),
+    initialReference ?? 440,
+  );
   const label = (frequency: number) => {
-    const note = frequencyToNote(frequency);
+    // Name on the 440 grid: at A = 432 the A string is still "A".
+    const note = frequencyToNote((frequency * 440) / (initialReference ?? 440));
     const name = `${note.name}${note.octave}`;
     // Spanish readers get solfège first, with the letter name many chord
     // charts and tabs use alongside it: "Mi2 (E2)".
@@ -115,7 +123,7 @@ export default function TunerPageLayout({
         {chartMode === "courses" ? text.courseHeading : text.stringHeading}
       </h2>
       <p className="text-ink-muted leading-relaxed mb-5">
-        {chartCaption ?? text.caption}
+        {chartCaption ?? text.caption(initialReference ?? 440)}
       </p>
       <div className="overflow-x-auto rounded-xl border border-line">
         <table className="w-full text-sm">
@@ -195,6 +203,7 @@ export default function TunerPageLayout({
           initialTuning={initialTuning}
           initialGuitarType={initialGuitarType}
           locale={locale}
+          initialReference={initialReference}
         />
       }
       afterTool={chart}

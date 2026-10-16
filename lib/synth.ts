@@ -45,7 +45,18 @@ export function pluck(
   peak: number,
   length = NOTE_LENGTH,
 ) {
-  const fundamental = midiToFrequency(midi);
+  pluckFrequency(ctx, midiToFrequency(midi), at, peak, length);
+}
+
+/** `pluck` by frequency rather than MIDI note — for pitches that are not on
+ *  the A = 440 grid, such as a tuner set to A = 432. */
+export function pluckFrequency(
+  ctx: AudioContext,
+  fundamental: number,
+  at: number,
+  peak: number,
+  length = NOTE_LENGTH,
+) {
 
   const voice = ctx.createGain();
   voice.gain.setValueAtTime(0.0001, at);
@@ -76,6 +87,13 @@ export function strum(notes: number[], gap = STRUM_OFFSET): number {
   const peak = 0.28 / Math.max(notes.length, 1) + 0.03;
   notes.forEach((midi, i) => pluck(ctx, midi, start + i * gap, peak));
   return notes.length * gap + 0.5;
+}
+
+/** One long note to tune against by ear. Returns its duration in seconds. */
+export function playReferenceNote(frequency: number, length = 3): number {
+  const ctx = getAudioContext();
+  pluckFrequency(ctx, frequency, ctx.currentTime + 0.05, 0.3, length);
+  return length;
 }
 
 /** Play notes one after another — a melodic interval or arpeggio. */

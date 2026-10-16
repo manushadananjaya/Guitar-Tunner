@@ -569,3 +569,31 @@ translation, to stay clear of scaled-content signals.
   from Spanish pages point at them.
 - Next candidates: Portuguese (`/pt/afinador-de-violao`), more Spanish
   tunings (Drop D, medio tono abajo).
+
+## Step 14 — Tuner upgrades: reference tone, reference pitch, low-note fixes  ✅ DONE
+
+- [x] **Play the target note** under the gauge (`playReferenceNote` in
+      `lib/synth.ts`). Detection is ignored while it sounds, or the mic would
+      hear the speaker and mark the string tuned.
+- [x] **Reference pitch** 415–466 Hz with 432/440/442/443 shortcuts in the
+      settings panel, saved per device. `scaleTuning` retargets every string;
+      notes are still named on the 440 grid so A = 432 reads "A".
+- [x] **`/432-hz-tuner`** page (in the Tunings registry); the 432 article now
+      links to it.
+- [x] **Octave folding**: phone mics often hear a bass string's 2nd harmonic.
+      String detection already tolerated octaves, but cents did not, so a bass
+      low E could read +1200 and say "loosen". `foldOctave` fixes the reading
+      unless another string matches better.
+- [x] **5-string low B**: detector floor drops below 40 Hz only for
+      instruments that need it (`minFrequency` on `usePitchDetector`).
+- [x] **Detector accuracy**: normalised ACF + parabolic interpolation around
+      the chosen peak (selection unchanged, so no new octave errors). Quiet
+      mean error 2.0 → 1.0 cents across six strings; high E 4.54 → 0.17.
+      `/accuracy` table re-run and updated. ACF now stops at the largest lag
+      it can use — about half the per-frame work for guitar.
+
+### Known
+
+- Low B (30.87 Hz) still reads roughly +4 to +13 cents on a synthetic tone:
+  a 4096-sample window holds only ~2.6 periods. A bigger window would fix it
+  but quadruples the O(n²) autocorrelation cost.

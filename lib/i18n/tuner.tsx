@@ -115,6 +115,12 @@ export interface TunerText {
   sharp: string;
   guidelinesTitle: string;
   guidelines: ReactNode[];
+  playNote: (note: string) => string;
+  referencePitch: string;
+  referenceHint: string;
+  lower: string;
+  higher: string;
+  reference: (a4: number) => string;
 }
 
 export const TUNER_TEXT: Record<Locale, TunerText> = {
@@ -164,6 +170,13 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     idle: "Tuner idle",
     flat: "FLAT",
     sharp: "SHARP",
+    playNote: (note) => `Play ${note}`,
+    referencePitch: "Reference Pitch",
+    referenceHint:
+      "Concert pitch for A4. 440 is the standard; many orchestras use 442.",
+    lower: "Lower reference pitch",
+    higher: "Raise reference pitch",
+    reference: (a4) => `A4 = ${a4} Hz`,
     guidelinesTitle: "Quick Tuning Guidelines",
     guidelines: [
       <>
@@ -235,6 +248,13 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     idle: "Afinador en espera",
     flat: "BAJO",
     sharp: "ALTO",
+    playNote: (note) => `Escuchar ${note}`,
+    referencePitch: "Diapasón",
+    referenceHint:
+      "Frecuencia del La4. El estándar es 440; muchas orquestas usan 442.",
+    lower: "Bajar el diapasón",
+    higher: "Subir el diapasón",
+    reference: (a4) => `La4 = ${a4} Hz`,
     guidelinesTitle: "Consejos rápidos",
     guidelines: [
       <>

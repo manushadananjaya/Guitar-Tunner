@@ -13,6 +13,8 @@ export interface TunerPageEntry {
   notes: string;
   /** One-line description for homepage cards. */
   blurb: string;
+  /** Concert pitch, when the page is about pitch rather than tuning. */
+  reference?: number;
 }
 
 export const TUNER_PAGES: TunerPageEntry[] = [
@@ -94,6 +96,15 @@ export const TUNER_PAGES: TunerPageEntry[] = [
     notes: "D G C F A D",
     blurb:
       "D standard — all six strings down a whole step for weight without new shapes.",
+  },
+  {
+    href: "/432-hz-tuner",
+    label: "432 Hz",
+    tuning: "standard",
+    notes: "A = 432 Hz",
+    reference: 432,
+    blurb:
+      "Standard tuning about a third of a semitone lower, with A at 432 Hz instead of 440.",
   },
 ];
 

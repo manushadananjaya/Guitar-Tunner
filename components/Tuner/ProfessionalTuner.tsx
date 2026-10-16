@@ -8,7 +8,14 @@ import { TunerControls } from "./Controls";
 import { GuitarGuide } from "./GuitarGuide";
 import { useAudioCapture } from "@/hooks/useAudioCapture";
 import { usePitchDetector } from "@/hooks/usePitchDetector";
-import { BOWED_INSTRUMENTS, getTuningForGuitar } from "@/lib/tuningPresets";
+import {
+  BOWED_INSTRUMENTS,
+  STANDARD_A4,
+  clampReferencePitch,
+  getTuningForGuitar,
+  scaleTuning,
+} from "@/lib/tuningPresets";
+import { playReferenceNote } from "@/lib/synth";
 import {
   detectPlayingString,
   frequencyToNote,
@@ -19,7 +26,23 @@ import { cn } from "@/lib/utils";
 import { TUNER_TEXT, localNote, type Locale } from "@/lib/i18n/tuner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Mic, MicOff, Settings2 } from "lucide-react";
+import { Mic, MicOff, Volume2 } from "lucide-react";
+
+const REFERENCE_PITCH_KEY = "gtp:referencePitch";
+
+/** Phone microphones barely register the fundamental of a bass string, so
+ *  the detector often reports the 2nd or 4th harmonic instead. When the
+ *  reading sits an octave or two from the target, fold it back — a string
+ *  physically cannot be tuned an octave off, so the octave is never the
+ *  information the player needs. */
+function foldOctave(frequency: number, target: number): number {
+  const direct = Math.abs(centsFromFrequency(frequency, target));
+  for (const factor of [0.5, 2, 0.25]) {
+    const folded = Math.abs(centsFromFrequency(frequency * factor, target));
+    if (folded < 100 && folded < direct) return frequency * factor;
+  }
+  return frequency;
+}
 
 interface ProfessionalTunerProps {
   /** Tuning preset key to load on mount, e.g. "dropD". Defaults to standard. */
@@ -28,14 +51,44 @@ interface ProfessionalTunerProps {
   initialGuitarType?: string;
   /** UI language. Defaults to English. */
   locale?: Locale;
+  /** Concert pitch to start at, e.g. 432. When omitted the player's last
+   *  choice is restored, falling back to 440. */
+  initialReference?: number;
+  /** Tuner, string buttons and settings only — for the embeddable widget. */
+  compact?: boolean;
 }
 
 export function ProfessionalTuner({
   initialTuning = "standard",
   initialGuitarType = "sixString",
   locale = "en",
+  initialReference,
+  compact = false,
 }: ProfessionalTunerProps = {}) {
   const t = TUNER_TEXT[locale];
+  const [referencePitch, setReferencePitchState] = useState(
+    clampReferencePitch(initialReference ?? STANDARD_A4),
+  );
+  // A page that names its pitch (the 432 Hz tuner) wins; elsewhere, restore
+  // what the player last chose. Read after mount so SSR markup matches.
+  useEffect(() => {
+    if (initialReference !== undefined) return;
+    try {
+      const saved = Number(window.localStorage.getItem(REFERENCE_PITCH_KEY));
+      if (saved) setReferencePitchState(clampReferencePitch(saved));
+    } catch {
+      // Storage blocked (private mode, sandboxed iframe) — stay at 440.
+    }
+  }, [initialReference]);
+  const setReferencePitch = (value: number) => {
+    const next = clampReferencePitch(value);
+    setReferencePitchState(next);
+    try {
+      window.localStorage.setItem(REFERENCE_PITCH_KEY, String(next));
+    } catch {
+      // Not persisted; the choice still applies for this visit.
+    }
+  };
   const [tuningMode, setTuningMode] = useState(initialTuning);
   const [guitarType, setGuitarType] = useState(initialGuitarType);
   const [selectedStringIndex, setSelectedStringIndex] = useState(0);
@@ -45,11 +98,20 @@ export function ProfessionalTuner({
   const [autoSelectString, setAutoSelectString] = useState(true);
   const [activeView, setActiveView] = useState<"headstock" | "fretboard">("headstock");
 
-  // Tuning data
-  const currentTuning = useMemo(
+  // Tuning data. `baseTuning` is at A = 440 and names the notes;
+  // `currentTuning` is what the tuner actually listens for.
+  const baseTuning = useMemo(
     () => getTuningForGuitar(guitarType, tuningMode),
     [guitarType, tuningMode],
   );
+  const currentTuning = useMemo(
+    () => scaleTuning(baseTuning, referencePitch),
+    [baseTuning, referencePitch],
+  );
+  // Only instruments below the detector's default 40 Hz floor (5-string
+  // bass) or close to it (bass low E) widen the search.
+  const lowestTarget = Math.min(...currentTuning.frequencies);
+  const minFrequency = lowestTarget < 45 ? lowestTarget * 0.8 : undefined;
   const targetFrequency = useMemo(() => {
     const safeIndex = Math.min(
       selectedStringIndex,
@@ -82,7 +144,20 @@ export function ProfessionalTuner({
     accuracyCents: 5,
     smoothingFactor: 0.55,
     updateRate: 16,
+    minFrequency,
   });
+
+  // While the reference note plays, the microphone hears the speaker. Ignore
+  // it, or the tuner would "tune" the string to its own reference tone.
+  const referenceToneUntilRef = useRef(0);
+  const [playingReference, setPlayingReference] = useState(false);
+  const playReference = () => {
+    if (targetFrequency <= 0) return;
+    const seconds = playReferenceNote(targetFrequency);
+    referenceToneUntilRef.current = Date.now() + seconds * 1000 + 250;
+    setPlayingReference(true);
+    window.setTimeout(() => setPlayingReference(false), seconds * 1000);
+  };
 
   // Processing logic loop
   useEffect(() => {
@@ -102,6 +177,10 @@ export function ProfessionalTuner({
     }
 
     if (confidence < 0.2) {
+      return;
+    }
+
+    if (Date.now() < referenceToneUntilRef.current) {
       return;
     }
 
@@ -180,12 +259,20 @@ export function ProfessionalTuner({
 
     const targetFreqForCalc =
       currentTuning.frequencies[selectedStringIndex] ?? targetFrequency;
-    const rawCents = centsFromFrequency(filteredFreq, targetFreqForCalc);
+    // Fold only when no other string explains the reading better — playing
+    // the high E with the low E selected must not read as an in-tune low E.
+    const readingFreq =
+      !detectedString || detectedString.stringIndex === selectedStringIndex
+        ? foldOctave(filteredFreq, targetFreqForCalc)
+        : filteredFreq;
+    if (readingFreq !== filteredFreq) setSmoothedFreq(readingFreq);
+    const rawCents = centsFromFrequency(readingFreq, targetFreqForCalc);
     const filteredCents = centsSmootherRef.current * 0.72 + rawCents * 0.28;
     centsSmootherRef.current = filteredCents;
 
     setCents(filteredCents);
-    setNoteData(frequencyToNote(filteredFreq));
+    // Name notes on the 440 grid so A = 432 still reads "A", not "G♯ +31".
+    setNoteData(frequencyToNote((readingFreq * STANDARD_A4) / referencePitch));
     setIsInTune(Math.abs(filteredCents) <= 5);
   }, [
     detected,
@@ -195,6 +282,7 @@ export function ProfessionalTuner({
     selectedStringIndex,
     autoSelectString,
     targetFrequency,
+    referencePitch,
   ]);
 
   const toggleMic = () => {
@@ -244,6 +332,13 @@ export function ProfessionalTuner({
     currentTuning.notes.length > 0 && tunedStrings.length === currentTuning.notes.length;
   // Guitar practice tools are no use to a violinist; point them elsewhere.
   const isBowed = BOWED_INSTRUMENTS.has(guitarType);
+
+  const targetLabel = (() => {
+    const base = baseTuning.frequencies[selectedStringIndex] ?? 0;
+    if (base <= 0) return undefined;
+    const n = frequencyToNote(base);
+    return localNote(`${n.name}${n.octave}`, locale);
+  })();
 
   // No mount gate here. This used to `return null` until a mount effect fired,
   // which kept the entire above-the-fold tuner out of the server HTML and out
@@ -310,8 +405,14 @@ export function ProfessionalTuner({
           time and pushed the gauge below the fold on mobile. */}
 
       {/* Main Tuner Card / Display Panel */}
-      <div className="w-full max-w-5xl px-4 sm:px-6 flex flex-col items-center gap-5 sm:gap-6 pb-12">
+      <div
+        className={cn(
+          "w-full max-w-5xl px-4 sm:px-6 flex flex-col items-center gap-5 sm:gap-6",
+          compact ? "pb-4" : "pb-12",
+        )}
+      >
         {/* Mobile Switch toggles (only shown on mobile) */}
+        {!compact && (
         <div className="w-full sm:hidden flex items-center justify-between px-2 pb-2 border-b border-line">
           <div>
             <p className="text-sm font-semibold text-ink">
@@ -327,6 +428,7 @@ export function ProfessionalTuner({
             aria-label={t.autoSelectAria}
           />
         </div>
+        )}
 
         {/* 1. Gauge & Dial */}
         <div className="w-full bg-surface-sunken/30 border border-line rounded-3xl p-5 sm:p-6 backdrop-blur-md shadow-2xl relative overflow-hidden">
@@ -340,18 +442,42 @@ export function ProfessionalTuner({
             isInTune={isInTune}
             isListening={isRecording}
             locale={locale}
-            targetNote={(() => {
-              const target =
-                currentTuning.frequencies[selectedStringIndex] ?? 0;
-              if (target <= 0) return undefined;
-              const n = frequencyToNote(target);
-              return localNote(`${n.name}${n.octave}`, locale);
-            })()}
+            targetNote={targetLabel}
             targetFrequency={
               currentTuning.frequencies[selectedStringIndex] ?? undefined
             }
+            referencePitch={referencePitch}
           />
+
+          {/* Hear the target — for tuning by ear, or when the mic is noisy. */}
+          {targetLabel && (
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={playReference}
+                disabled={playingReference}
+                className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-4 py-2 text-xs font-semibold text-ink hover:border-brass/50 hover:text-brass disabled:opacity-60 transition-colors"
+              >
+                <Volume2 className="h-4 w-4" aria-hidden="true" />
+                {t.playNote(targetLabel)}
+              </button>
+            </div>
+          )}
+
+          {compact && (
+            <p className="mt-4 text-center text-sm font-semibold text-ink" role="status">
+              {!isRecording
+                ? t.actionIdle
+                : isInTune
+                  ? t.actionInTune
+                  : cents < 0
+                    ? t.actionLow
+                    : t.actionHigh}
+            </p>
+          )}
           
+          {!compact && (
+          <>
           {/* Unified high-fidelity Guidance Panel */}
           <div className="mt-6 pt-6 border-t border-line w-full max-w-xl mx-auto flex flex-col sm:grid sm:grid-cols-2 gap-4 items-stretch text-center sm:text-left">
             {/* Column 1: Action Required */}
@@ -404,10 +530,12 @@ export function ProfessionalTuner({
               )}
             </div>
           </div>
+          </>
+          )}
         </div>
 
         {/* Tuning progress, then where to go once the instrument is in tune */}
-        {(isRecording || tunedStrings.length > 0) && (
+        {!compact && (isRecording || tunedStrings.length > 0) && (
           <div className="w-full rounded-2xl border border-line bg-surface/30 px-5 py-4 backdrop-blur-sm">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-2xs font-bold uppercase tracking-[0.18em] text-ink-subtle">
@@ -466,6 +594,39 @@ export function ProfessionalTuner({
           </div>
         )}
 
+        {compact ? (
+          <div
+            className="flex flex-wrap justify-center gap-2"
+            role="group"
+            aria-label={t.stringSelector}
+          >
+            {currentTuning.notes.map((note, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setSelectedStringIndex(i)}
+                aria-pressed={i === selectedStringIndex}
+                aria-label={t.selectString(
+                  currentTuning.notes.length - i,
+                  localNote(note, locale),
+                )}
+                className={cn(
+                  "h-10 min-w-10 rounded-full border px-3 text-sm font-bold transition-colors",
+                  i === selectedStringIndex
+                    ? "border-brass bg-brass/15 text-brass"
+                    : i === detectedStringIndex
+                      ? "border-in-tune bg-in-tune/15 text-in-tune"
+                      : tunedStrings.includes(i)
+                        ? "border-in-tune/40 text-in-tune"
+                        : "border-line-strong bg-surface/60 text-ink-muted hover:text-ink",
+                )}
+              >
+                {localNote(note, locale)}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <>
         {/* Mobile view selector switcher (Hidden on Desktop) */}
         <div className="flex md:hidden w-full bg-surface-sunken/60 p-1 rounded-full border border-line">
           <button
@@ -545,6 +706,8 @@ export function ProfessionalTuner({
           <TunerControls
             currentGuitarType={guitarType}
             locale={locale}
+            referencePitch={referencePitch}
+            onReferencePitchChange={setReferencePitch}
             onGuitarTypeChange={(type) => {
               setGuitarType(type);
               setDetectedStringIndex(null);
@@ -576,6 +739,8 @@ export function ProfessionalTuner({
             ))}
           </ul>
         </section>
+          </>
+        )}
       </div>
     </div>
   );

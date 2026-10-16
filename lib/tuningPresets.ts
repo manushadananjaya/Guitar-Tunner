@@ -1,6 +1,28 @@
 // Standard note frequencies for equal temperament tuning
 const A4 = 440; // Reference note
 
+/** Concert pitch every table in this file is written at. */
+export const STANDARD_A4 = A4;
+
+/** Reference pitches the tuner accepts. 415 is baroque pitch; 466 is a
+ *  semitone up. Anything outside that is a mistake, not a preference. */
+export const REFERENCE_PITCH_MIN = 415;
+export const REFERENCE_PITCH_MAX = 466;
+export const REFERENCE_PITCH_PRESETS = [432, 440, 442, 443];
+
+export function clampReferencePitch(value: number): number {
+  if (!Number.isFinite(value)) return A4;
+  return Math.min(REFERENCE_PITCH_MAX, Math.max(REFERENCE_PITCH_MIN, Math.round(value)));
+}
+
+/** The same tuning at a different concert pitch. Every string moves by the
+ *  same ratio, so the intervals between them are untouched. */
+export function scaleTuning(tuning: Tuning, a4: number): Tuning {
+  if (a4 === A4) return tuning;
+  const ratio = a4 / A4;
+  return { ...tuning, frequencies: tuning.frequencies.map((f) => f * ratio) };
+}
+
 export type Tuning = {
   name: string;
   notes: string[];

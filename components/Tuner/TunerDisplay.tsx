@@ -18,6 +18,8 @@ interface TunerDisplayProps {
   /** Target frequency in Hz for the selected string. */
   targetFrequency?: number;
   locale?: Locale;
+  /** Shown beside the target when it is not the standard 440. */
+  referencePitch?: number;
 }
 
 export const TunerDisplay: React.FC<TunerDisplayProps> = ({
@@ -29,6 +31,7 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
   targetNote,
   targetFrequency,
   locale = 'en',
+  referencePitch = 440,
 }) => {
   const t = TUNER_TEXT[locale];
   const live = noteParts(note.name ?? '', locale);
@@ -134,6 +137,9 @@ export const TunerDisplay: React.FC<TunerDisplayProps> = ({
             targetFrequency > 0 && (
               <p className="text-ink-subtle font-mono text-xs uppercase tracking-widest">
                 {t.target} {targetFrequency.toFixed(2)} Hz
+                {referencePitch !== 440 && (
+                  <span className="text-brass"> · {t.reference(referencePitch)}</span>
+                )}
               </p>
             )
           )}

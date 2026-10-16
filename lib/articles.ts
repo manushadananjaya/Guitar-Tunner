@@ -78,7 +78,7 @@ export const ARTICLES: ArticleMeta[] = [
     category: "Getting Started",
     readingTime: 8,
     datePublished: "2026-09-02",
-    dateModified: "2026-09-02",
+    dateModified: "2026-10-17",
   },
   {
     slug: "beginner-guitar-chord-progressions",
