@@ -52,7 +52,7 @@ export default function Home() {
     description: "Free online guitar tuner. Tune your guitar with a microphone on any device using a chromatic pitch detector. Supports Standard, Drop D, Open G, Half-Step Down, and more — no download required.",
     featureList: [
       "Real-time chromatic pitch detection",
-      "6-string, 7-string, 12-string, bass, and ukulele support",
+      "6-string, 7-string, 12-string, bass, ukulele, mandolin, banjo, violin, viola, and cello support",
       "Standard, Drop D, Open G, Open D, Half-Step Down, and 10+ tuning presets",
       "Auto string detection",
       "Autocorrelation-based pitch detection, tested and documented at /accuracy",
@@ -95,7 +95,7 @@ export default function Home() {
           </h1>
           <p className="mt-2 text-ink-muted text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Tune by microphone in your browser, using a chromatic pitch
-            detector. No app, no signup. Works for guitar, bass, and ukulele.
+            detector. No app, no signup. Works for guitar, bass, ukulele, and more.
           </p>
         </header>
         <ProfessionalTuner />

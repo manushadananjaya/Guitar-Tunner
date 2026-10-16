@@ -178,7 +178,7 @@ export default function AboutPage() {
           <ul className="space-y-3 text-sm leading-relaxed">
             {[
               "Standard, Drop D, Half-Step Down, Full-Step Down, Open G, Open D, Open A, and more tuning presets",
-              "6-string, 7-string, 12-string, bass guitar, and ukulele support",
+              "6-string, 7-string, 12-string, bass guitar, ukulele, mandolin, banjo, violin, viola, and cello support",
               "Automatic string detection — the tuner identifies which string you're playing",
               "Smooth needle display with real-time cent offset readout",
               "Headstock peg guide showing which direction to turn each peg",

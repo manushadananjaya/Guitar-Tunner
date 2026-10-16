@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | GuitarTunePro",
   },
   description:
-    "Professional guitar tuner with real-time pitch detection and high accuracy. Supports 6-string, 7-string, 12-string guitars, bass, and ukulele. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.",
+    "Professional guitar tuner with real-time pitch detection and high accuracy. Supports 6-string, 7-string, 12-string guitars, bass, ukulele, mandolin, banjo, violin, viola, and cello. Multiple tuning modes including Standard, Drop D, Open G, and more. Works on any device with a microphone.",
   applicationName: "GuitarTunePro",
   manifest: "/site.webmanifest",
   appleWebApp: {
@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     "guitar pitch detector",
     "bass tuner",
     "ukulele tuner",
+    "violin tuner",
+    "mandolin tuner",
+    "banjo tuner",
     "drop d tuning",
     "real-time tuner",
   ],

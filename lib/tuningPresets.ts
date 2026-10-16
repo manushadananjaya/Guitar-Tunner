@@ -216,7 +216,41 @@ export const GUITAR_TYPES: Record<string, GuitarType> = {
     displayName: 'Ukulele',
     strings: 4,
   },
+  baritoneUkulele: {
+    name: 'baritoneUkulele',
+    displayName: 'Baritone Ukulele',
+    strings: 4,
+  },
+  mandolin: {
+    name: 'mandolin',
+    displayName: 'Mandolin',
+    strings: 8,
+  },
+  banjo: {
+    name: 'banjo',
+    displayName: '5-String Banjo',
+    strings: 5,
+  },
+  violin: {
+    name: 'violin',
+    displayName: 'Violin',
+    strings: 4,
+  },
+  viola: {
+    name: 'viola',
+    displayName: 'Viola',
+    strings: 4,
+  },
+  cello: {
+    name: 'cello',
+    displayName: 'Cello',
+    strings: 4,
+  },
 };
+
+/** Bowed instruments. Peg-and-fine-tuner, not machine heads, and guitar
+ *  practice links make no sense for them. */
+export const BOWED_INSTRUMENTS = new Set(['violin', 'viola', 'cello']);
 
 // Bass tuning (E1-A1-D2-G2)
 export const BASS_TUNING: Tuning = {
@@ -294,6 +328,81 @@ export const TWELVE_STRING_TUNING: Tuning = {
   ],
 };
 
+// Baritone ukulele: linear D G B E, the top four strings of a guitar
+export const BARITONE_UKULELE_TUNING: Tuning = {
+  name: 'Baritone Ukulele Standard',
+  notes: ['D', 'G', 'B', 'E'],
+  frequencies: [
+    freqFromSemitones(-19), // D3
+    freqFromSemitones(-14), // G3
+    freqFromSemitones(-10), // B3
+    freqFromSemitones(-5), // E4
+  ],
+};
+
+// Mandolin: four unison pairs, tuned in fifths like a violin. Both strings of
+// a course share one target, so the tuner treats each course as one string.
+export const MANDOLIN_TUNING: Tuning = {
+  name: 'Mandolin Standard',
+  notes: ['G', 'D', 'A', 'E'],
+  frequencies: [
+    freqFromSemitones(-14), // G3
+    freqFromSemitones(-7), // D4
+    freqFromSemitones(0), // A4
+    freqFromSemitones(7), // E5
+  ],
+};
+
+// 5-string banjo, open G. Stored string 5 → string 1, like the ukulele: the
+// short 5th string is a reentrant high G4, not the lowest note.
+export const BANJO_TUNING: Tuning = {
+  name: 'Open G',
+  notes: ['G', 'D', 'G', 'B', 'D'],
+  frequencies: [
+    freqFromSemitones(-2), // G4 (short 5th string)
+    freqFromSemitones(-19), // D3
+    freqFromSemitones(-14), // G3
+    freqFromSemitones(-10), // B3
+    freqFromSemitones(-7), // D4
+  ],
+};
+
+// Violin: fifths from G3
+export const VIOLIN_TUNING: Tuning = {
+  name: 'Violin Standard',
+  notes: ['G', 'D', 'A', 'E'],
+  frequencies: [
+    freqFromSemitones(-14), // G3
+    freqFromSemitones(-7), // D4
+    freqFromSemitones(0), // A4
+    freqFromSemitones(7), // E5
+  ],
+};
+
+// Viola: a fifth below the violin
+export const VIOLA_TUNING: Tuning = {
+  name: 'Viola Standard',
+  notes: ['C', 'G', 'D', 'A'],
+  frequencies: [
+    freqFromSemitones(-21), // C3
+    freqFromSemitones(-14), // G3
+    freqFromSemitones(-7), // D4
+    freqFromSemitones(0), // A4
+  ],
+};
+
+// Cello: an octave below the viola
+export const CELLO_TUNING: Tuning = {
+  name: 'Cello Standard',
+  notes: ['C', 'G', 'D', 'A'],
+  frequencies: [
+    freqFromSemitones(-33), // C2
+    freqFromSemitones(-26), // G2
+    freqFromSemitones(-19), // D3
+    freqFromSemitones(-12), // A3
+  ],
+};
+
 // Accuracy modes
 export const ACCURACY_MODES: Record<string, AccuracyMode> = {
   beginner: {
@@ -329,6 +438,18 @@ export function getTuningForGuitar(
       return FIVE_STRING_BASS_TUNING;
     case 'ukulele':
       return UKULELE_TUNING;
+    case 'baritoneUkulele':
+      return BARITONE_UKULELE_TUNING;
+    case 'mandolin':
+      return MANDOLIN_TUNING;
+    case 'banjo':
+      return BANJO_TUNING;
+    case 'violin':
+      return VIOLIN_TUNING;
+    case 'viola':
+      return VIOLA_TUNING;
+    case 'cello':
+      return CELLO_TUNING;
     case 'sixString':
     default:
       return TUNING_PRESETS[tuningPreset] || TUNING_PRESETS.standard;

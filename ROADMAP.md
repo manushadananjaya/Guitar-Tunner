@@ -517,3 +517,26 @@ marks string 6).
 
 - Practice history is per device (no backend), so streaks do not sync.
 - Intonation checker is six-string only, like the other tuning-aware tools.
+
+## Step 12 — Six more instrument tuners  ✅ DONE
+
+Reach beyond guitarists: each is a real tuner page, not a doorway.
+
+- [x] `/violin-tuner`, `/viola-tuner`, `/cello-tuner`, `/mandolin-tuner`,
+      `/banjo-tuner` (5-string, open G), `/baritone-ukulele-tuner`
+- [x] Tunings in `lib/tuningPresets.ts`, entries in `lib/instrumentPages.ts`
+      (navbar, footer, homepage grid and sitemap pick them up); Instruments
+      menu is now two columns
+- [x] Banjo stored 5th-string-first like the reentrant ukulele; mandolin
+      courses are unison so each course is one target
+- [x] Bowed instruments (`BOWED_INSTRUMENTS`) get metronome / ear-training
+      links in the post-tuning prompt instead of guitar practice tools
+- [x] All 25 new string targets verified against A4 = 440 equal temperament;
+      `tsc`, build, `audit:seo`, `audit:links` clean
+
+### Known, not fixed
+
+- The 5-string bass low B (30.87 Hz) sits below the detector's 40 Hz floor
+  in `lib/pitchDetection.ts`; it only reads via harmonics.
+- The tuner is fixed at A = 440. String pages tell orchestral players to aim
+  for +8 cents at A = 442 rather than offering a reference-pitch setting.

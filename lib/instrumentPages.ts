@@ -54,6 +54,54 @@ export const INSTRUMENT_PAGES: InstrumentPageEntry[] = [
     blurb:
       "Six courses of paired strings, four of them tuned in octaves. Chiming and full.",
   },
+  {
+    href: "/baritone-ukulele-tuner",
+    label: "Baritone Ukulele",
+    guitarType: "baritoneUkulele",
+    notes: "D G B E",
+    blurb:
+      "Linear DGBE tuning — the same as a guitar's top four strings, not GCEA.",
+  },
+  {
+    href: "/mandolin-tuner",
+    label: "Mandolin",
+    guitarType: "mandolin",
+    notes: "GG DD AA EE",
+    blurb:
+      "Four unison pairs tuned in fifths, the same notes as a violin.",
+  },
+  {
+    href: "/banjo-tuner",
+    label: "Banjo",
+    guitarType: "banjo",
+    notes: "g D G B D",
+    blurb:
+      "5-string banjo in open G, with the short high 5th string that drones over everything.",
+  },
+  {
+    href: "/violin-tuner",
+    label: "Violin",
+    guitarType: "violin",
+    notes: "G D A E",
+    blurb:
+      "Tune in fifths from the A, with pegs for big moves and fine tuners for the last few cents.",
+  },
+  {
+    href: "/viola-tuner",
+    label: "Viola",
+    guitarType: "viola",
+    notes: "C G D A",
+    blurb:
+      "A fifth below the violin. Shares the violin's top three strings and adds a low C.",
+  },
+  {
+    href: "/cello-tuner",
+    label: "Cello",
+    guitarType: "cello",
+    notes: "C G D A",
+    blurb:
+      "The viola's strings an octave lower, down to C2 at 65.41 Hz.",
+  },
 ];
 
 /** Cross-links for one instrument page: every sibling except itself. */

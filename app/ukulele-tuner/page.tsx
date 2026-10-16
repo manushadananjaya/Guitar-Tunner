@@ -61,7 +61,7 @@ export default function UkuleleTunerPage() {
           {
             question: "Do baritone ukuleles use GCEA?",
             answer:
-              "No. Baritone ukuleles tune D G B E, the same as the top four strings of a guitar. This page tunes standard GCEA, so it does not apply to baritones — though you can switch the instrument selector above to a guitar and tune the D, G, B, and E strings.",
+              "No. Baritone ukuleles tune D G B E, the same as the top four strings of a guitar. This page tunes standard GCEA, so it does not apply to baritones — use the baritone ukulele tuner instead, which is set to D G B E.",
           },
           {
             question: "Why does my new ukulele keep going out of tune?",
@@ -167,7 +167,9 @@ export default function UkuleleTunerPage() {
         <p>
           The exception is the <strong>baritone</strong> (about 30 inches), which
           tunes <strong>D G B E</strong> — identical to the top four strings of
-          a guitar. If you have a baritone, this page's preset will not fit it.
+          a guitar. If you have a baritone, this page's preset will not fit it
+          — use the <Link href="/baritone-ukulele-tuner">baritone ukulele
+          tuner</Link> instead.
         </p>
 
         <h2>High G vs. Low G</h2>

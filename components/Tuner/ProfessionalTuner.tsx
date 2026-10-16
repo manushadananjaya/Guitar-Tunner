@@ -8,7 +8,7 @@ import { TunerControls } from "./Controls";
 import { GuitarGuide } from "./GuitarGuide";
 import { useAudioCapture } from "@/hooks/useAudioCapture";
 import { usePitchDetector } from "@/hooks/usePitchDetector";
-import { getTuningForGuitar } from "@/lib/tuningPresets";
+import { BOWED_INSTRUMENTS, getTuningForGuitar } from "@/lib/tuningPresets";
 import {
   detectPlayingString,
   frequencyToNote,
@@ -237,6 +237,8 @@ export function ProfessionalTuner({
   }, [isRecording, isInTune, selectedStringIndex, detectedStringIndex]);
   const allTuned =
     currentTuning.notes.length > 0 && tunedStrings.length === currentTuning.notes.length;
+  // Guitar practice tools are no use to a violinist; point them elsewhere.
+  const isBowed = BOWED_INSTRUMENTS.has(guitarType);
 
   // No mount gate here. This used to `return null` until a mount effect fired,
   // which kept the entire above-the-fold tuner out of the server HTML and out
@@ -428,16 +430,22 @@ export function ProfessionalTuner({
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
-                    href="/practice-routine"
+                    href={isBowed ? "/metronome" : "/practice-routine"}
                     className="rounded-full bg-brass px-4 py-2 text-sm font-bold text-brass-contrast hover:bg-brass-hover transition-colors"
                   >
-                    Today&apos;s practice routine
+                    {isBowed ? "Practise with the metronome" : "Today’s practice routine"}
                   </Link>
-                  {[
-                    { href: "/strumming-patterns", label: "Strumming patterns" },
-                    { href: "/scales", label: "Scale explorer" },
-                    { href: "/chord-progressions", label: "Jam over a backing loop" },
-                  ].map((item) => (
+                  {(isBowed
+                    ? [
+                        { href: "/ear-training", label: "Ear training" },
+                        { href: "/chord-progressions", label: "Play over a backing loop" },
+                      ]
+                    : [
+                        { href: "/strumming-patterns", label: "Strumming patterns" },
+                        { href: "/scales", label: "Scale explorer" },
+                        { href: "/chord-progressions", label: "Jam over a backing loop" },
+                      ]
+                  ).map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}

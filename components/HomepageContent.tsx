@@ -27,7 +27,7 @@ export const faqs = [
   {
     question: "What instruments can I tune?",
     answer:
-      "The tuner supports 6-string guitar, 7-string guitar, 12-string guitar, bass guitar (4-string and 5-string), and ukulele. Switch between instrument types from the selector above the string display.",
+      "The tuner supports 6-string guitar, 7-string guitar, 12-string guitar, bass guitar (4-string and 5-string), ukulele, baritone ukulele, mandolin, 5-string banjo, violin, viola, and cello. Switch between instruments from the selector below the tuner, or open the dedicated page for your instrument.",
   },
   {
     question: "Is the tuner completely free?",
@@ -96,7 +96,8 @@ export function HomepageContent() {
             <p>
               The tuner supports{" "}
               <strong className="text-ink font-semibold">
-                6-string, 7-string, 12-string, bass, and ukulele
+                6-string, 7-string, 12-string, bass, ukulele, mandolin, banjo,
+                violin, viola, and cello
               </strong>
               , with presets for Standard (E A D G B E), Drop D, Half-Step Down,
               Open G, Open D, DADGAD, and more. Automatic string detection
@@ -332,7 +333,7 @@ export function HomepageContent() {
           </h2>
           <p className="text-ink-muted text-sm max-w-xl mx-auto">
             The same pitch detection engine, pre-configured for bass, ukulele,
-            and extended-range guitars.
+            mandolin, banjo, extended-range guitars, and the orchestral strings.
           </p>
         </div>
 

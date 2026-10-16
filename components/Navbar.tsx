@@ -41,7 +41,8 @@ const MENUS: {
     name: "Instruments",
     entries: INSTRUMENT_PAGES,
     align: "center",
-    width: "w-72",
+    width: "w-[34rem]",
+    twoColumn: true,
   },
   {
     name: "More",
