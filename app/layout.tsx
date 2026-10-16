@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { HideOnEmbed } from "@/components/HideOnEmbed";
 import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -179,12 +180,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3345965156522280"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </head>
       <body
         className="font-sans antialiased tracking-[-0.01em] bg-canvas text-ink min-h-screen flex flex-col relative"
@@ -201,30 +196,48 @@ export default function RootLayout({
           <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
         </div>
-        <Navbar />
+        <HideOnEmbed>
+          <Navbar />
+        </HideOnEmbed>
         <div className="flex-1 w-full relative z-10">
           {children}
         </div>
-        <Footer />
+        <HideOnEmbed>
+          <Footer />
+        </HideOnEmbed>
         </ThemeProvider>
-        <ServiceWorkerRegistrar />
+        <HideOnEmbed>
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3345965156522280"
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        </HideOnEmbed>
+        <HideOnEmbed>
+          <ServiceWorkerRegistrar />
+        </HideOnEmbed>
         <Analytics />
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-B97Q2JFSRP"
-        />
-        <Script
-          id="gtag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-B97Q2JFSRP');
-            `,
-          }}
-        />
+        {/* Not on the embedded widget: its pages promise site owners that
+            their visitors get no tracking cookies. */}
+        <HideOnEmbed>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-B97Q2JFSRP"
+          />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-B97Q2JFSRP');
+              `,
+            }}
+          />
+        </HideOnEmbed>
       </body>
     </html>
   );

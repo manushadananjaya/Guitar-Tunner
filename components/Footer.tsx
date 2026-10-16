@@ -34,6 +34,7 @@ export function Footer() {
           { label: "Guitar Tuner", href: "/" },
           ...TOOL_PAGES.map((tool) => ({ label: tool.label, href: tool.href })),
           { label: "Tuner Accuracy", href: "/accuracy" },
+          { label: "Tuner for Your Website", href: "/embed-tuner" },
         ],
       },
       {

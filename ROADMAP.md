@@ -597,3 +597,23 @@ translation, to stay clear of scaled-content signals.
 - Low B (30.87 Hz) still reads roughly +4 to +13 cents on a synthetic tone:
   a 4096-sample window holds only ~2.6 periods. A bigger window would fix it
   but quadruples the O(n²) autocorrelation cost.
+
+## Step 15 — Embeddable tuner widget  ✅ DONE
+
+For links from teachers, lesson blogs and clubs.
+
+- [x] `/embed/tuner` — compact `ProfessionalTuner` (`compact` prop: gauge,
+      play button, string chips), options from the query string
+      (`instrument`, `tuning`, `lang`, `a4`, `theme`); unknown values fall
+      back to defaults. `noindex, follow`, canonical to the builder.
+- [x] `HideOnEmbed` drops the navbar, footer, AdSense, GA and the service
+      worker on `/embed/*` — AdSense must not serve inside someone else's
+      frame, and the builder page promises no tracking cookies.
+- [x] `?theme=` uses next-themes `forcedTheme`, never `setTheme`: the
+      builder's preview frame is same-origin, and a saved theme would have
+      flipped the whole site for that visitor (caught in testing).
+- [x] `/embed-tuner` builder: options, live preview, copy button. Credit
+      link uses the brand as anchor text and points at the matching
+      instrument page — keyword-rich widget links count as a link scheme.
+- [x] Verified cross-origin from a page on another port with a fake mic:
+      Spanish, dark, bass → "Mi, +0 cents · Afinada"; zero ad/GA/SW requests.

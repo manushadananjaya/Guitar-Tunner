@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
  *  everywhere; only the /es pages pass "es". */
 export type Locale = "en" | "es";
 
+export const LOCALES: Locale[] = ["en", "es"];
+
 const SOLFEGE: Record<string, string> = {
   C: "Do",
   D: "Re",

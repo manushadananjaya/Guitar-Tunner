@@ -53,6 +53,7 @@ const MENUS: {
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
       { href: "/accuracy", label: "Accuracy" },
+      { href: "/embed-tuner", label: "Tuner for Your Site" },
     ],
   },
 ];
