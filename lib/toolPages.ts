@@ -13,6 +13,13 @@ export interface ToolPageEntry {
 
 export const TOOL_PAGES: ToolPageEntry[] = [
   {
+    href: "/daily-challenge",
+    label: "Daily Challenge",
+    tagline: "5 questions a day",
+    blurb:
+      "Two intervals, two chord types and a fretboard note — the same five for everyone today, one try each. Keep a streak and share your score.",
+  },
+  {
     href: "/practice-routine",
     label: "Practice Routine",
     tagline: "Daily plan & streaks",

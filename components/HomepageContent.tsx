@@ -201,12 +201,12 @@ export function HomepageContent() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
+            "/daily-challenge",
             "/practice-routine",
             "/scales",
             "/strumming-patterns",
             "/chord-transposer",
             "/ear-training",
-            "/chord-finder",
           ].map((href) => TOOL_PAGES.find((tool) => tool.href === href)!).map((tool) => (
             <Link
               key={tool.href}

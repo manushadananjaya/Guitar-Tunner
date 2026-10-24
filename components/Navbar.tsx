@@ -49,7 +49,13 @@ const MENUS: {
     plainNotes: true,
     twoColumn: true,
   },
-  { name: "Tunings", entries: TUNER_PAGES, align: "center", width: "w-72" },
+  {
+    name: "Tunings",
+    entries: [...TUNER_PAGES, { href: "/tunings", label: "All tunings", notes: "Chart" }],
+    align: "center",
+    width: "w-[34rem]",
+    twoColumn: true,
+  },
   {
     name: "Instruments",
     entries: INSTRUMENT_PAGES,

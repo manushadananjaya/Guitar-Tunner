@@ -18,6 +18,7 @@ import {
 import { ROUTINES, dailyPicks, type Routine } from "@/lib/practiceRoutines";
 import ChordDiagram from "@/components/Chords/ChordDiagram";
 import { Segmented } from "@/components/Segmented";
+import { ShareStreak } from "@/components/PracticeRoutine/ShareStreak";
 
 const WEEKS = 12;
 const ROUTINE_KEY = "gtp-practice-routine";
@@ -254,6 +255,15 @@ export function PracticeRoutine() {
         </p>
       )}
 
+      {today && practisedToday && streak >= 2 && !finished && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface/40 px-4 py-3">
+          <p className="text-sm text-ink">
+            <Flame className="inline h-4 w-4 text-brass -mt-0.5" /> {streak} days in a row. Worth showing off.
+          </p>
+          <ShareStreak days={streak} best={best} last30={last30} />
+        </div>
+      )}
+
       {/* Today's picks */}
       <div className="rounded-3xl border border-line bg-surface-sunken/30 p-5 sm:p-6 backdrop-blur-md shadow-2xl">
         <p className="eyebrow mb-4">
@@ -317,6 +327,9 @@ export function PracticeRoutine() {
           <p className="mt-1 text-sm text-ink-muted">
             Logged on this device. Tomorrow brings a new chord pair, scale, and pattern.
           </p>
+          <div className="mt-4 flex justify-center">
+            <ShareStreak days={streak} best={best} last30={last30} />
+          </div>
         </div>
       )}
 

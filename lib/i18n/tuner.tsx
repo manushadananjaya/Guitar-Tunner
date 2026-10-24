@@ -181,6 +181,7 @@ export interface TunerText {
   backingLoop: string;
   playOverLoop: string;
   earTraining: string;
+  dailyChallenge: string;
   visualPegs: string;
   stringSelector: string;
   fretboardTitle: string;
@@ -238,6 +239,7 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     backingLoop: "Jam over a backing loop",
     playOverLoop: "Play over a backing loop",
     earTraining: "Ear training",
+    dailyChallenge: "Today’s challenge",
     visualPegs: "Visual Pegs",
     stringSelector: "String Selector",
     fretboardTitle: "Fretboard Strings",
@@ -316,6 +318,7 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     backingLoop: "Improvisa sobre una base",
     playOverLoop: "Toca sobre una base",
     earTraining: "Entrenamiento auditivo",
+    dailyChallenge: "Reto del día",
     visualPegs: "Clavijas",
     stringSelector: "Cuerdas",
     fretboardTitle: "Cuerdas",
@@ -393,6 +396,7 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     backingLoop: "Improvise sobre uma base",
     playOverLoop: "Toque sobre uma base",
     earTraining: "Treino de ouvido",
+    dailyChallenge: "Desafio do dia",
     visualPegs: "Tarraxas",
     stringSelector: "Cordas",
     fretboardTitle: "Cordas",
@@ -471,6 +475,7 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     backingLoop: "Improviser sur une boucle",
     playOverLoop: "Jouer sur une boucle",
     earTraining: "Entraînement de l’oreille",
+    dailyChallenge: "Défi du jour",
     visualPegs: "Mécaniques",
     stringSelector: "Cordes",
     fretboardTitle: "Cordes",
@@ -549,6 +554,7 @@ export const TUNER_TEXT: Record<Locale, TunerText> = {
     backingLoop: "Über einen Loop improvisieren",
     playOverLoop: "Über einen Loop spielen",
     earTraining: "Gehörbildung",
+    dailyChallenge: "Tages-Challenge",
     visualPegs: "Mechaniken",
     stringSelector: "Saiten",
     fretboardTitle: "Saiten",

@@ -38,28 +38,20 @@ export const siteMetadata: Metadata = {
     "real-time tuner",
   ],
   authors: [{ name: "GuitarTunePro" }],
+  // No title, description or url here: Next fills those in from each page's
+  // own metadata, whereas values set here would label every page that has no
+  // openGraph of its own as the homepage. A page's openGraph replaces this
+  // object whole, so images come from opengraph-image.tsx files instead.
   openGraph: {
-    title: "GuitarTunePro | Free Online High Accuracy Guitar Tuner",
-    description:
-      "Professional guitar tuner with real-time pitch detection. Supports multiple instruments and tuning modes.",
     type: "website",
-    url: siteUrl,
     siteName: "GuitarTunePro",
     locale: "en_US",
-    images: [
-      {
-        url: "/Logo.png",
-        width: 1200,
-        height: 630,
-        alt: "GuitarTunePro online guitar tuner",
-      },
-    ],
+    // Default image: the opengraph-image.tsx beside each root layout.
   },
+  // Only the card type: Next copies title, description and image from the
+  // page's openGraph when twitter leaves them unset.
   twitter: {
     card: "summary_large_image",
-    title: "GuitarTunePro | Free Online High Accuracy Guitar Tuner",
-    description: "Professional guitar tuner with real-time pitch detection.",
-    images: ["/Logo.png"],
   },
   robots: {
     index: true,

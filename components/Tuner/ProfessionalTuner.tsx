@@ -575,6 +575,7 @@ export function ProfessionalTuner({
                         { href: "/chord-progressions", label: t.playOverLoop },
                       ]
                     : [
+                        { href: "/daily-challenge", label: t.dailyChallenge },
                         { href: "/strumming-patterns", label: t.strumming },
                         { href: "/scales", label: t.scales },
                         { href: "/chord-progressions", label: t.backingLoop },

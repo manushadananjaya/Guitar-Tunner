@@ -35,6 +35,22 @@ export const TUNER_PAGES: TunerPageEntry[] = [
       "Drop D's heavier cousin, two semitones lower. The metalcore and hardcore standard.",
   },
   {
+    href: "/drop-c-sharp-tuner",
+    label: "Drop C♯",
+    tuning: "dropCSharp",
+    notes: "C♯ G♯ C♯ F♯ A♯ D♯",
+    blurb:
+      "Drop D a half step down — the drop tuning for bands that play in E♭. Also called Drop D♭.",
+  },
+  {
+    href: "/drop-b-tuner",
+    label: "Drop B",
+    tuning: "dropB",
+    notes: "B F♯ B E G♯ C♯",
+    blurb:
+      "The low-tuned metal standard on six strings: Drop D's shape, three semitones lower.",
+  },
+  {
     href: "/dadgad-tuner",
     label: "DADGAD",
     tuning: "dadgad",

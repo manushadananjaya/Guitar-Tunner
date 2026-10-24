@@ -8,6 +8,8 @@ export const pt: LanguageContent = {
     "/": "Afinador de violão",
     "/drop-d-tuner": "Afinador Drop D",
     "/drop-c-tuner": "Afinador Drop C",
+    "/drop-c-sharp-tuner": "Afinador Drop C♯",
+    "/drop-b-tuner": "Afinador Drop B",
     "/dadgad-tuner": "Afinador DADGAD",
     "/open-g-tuner": "Afinador em Sol aberto",
     "/open-d-tuner": "Afinador em Ré aberto",
@@ -174,6 +176,89 @@ export const pt: LanguageContent = {
           question: "Por que o afinador demora na sexta corda?",
           answer:
             "O Dó grave vibra a 65,41 Hz, perto do limite dos microfones de celular e notebook. Toque com firmeza, aproxime o celular e abafe as outras cordas.",
+        },
+      ],
+    },
+    "/drop-c-sharp-tuner": {
+      metaTitle: "Afinador Drop C# online grátis",
+      metaDescription: "Afine sua guitarra em Drop C# (Dó♯ Sol♯ Dó♯ Fá♯ Lá♯ Ré♯), também chamado de Drop D♭, pelo microfone. Grátis, sem download e com frequências exatas.",
+      title: "Afinador Drop C♯",
+      intro: "Afine em Drop C♯ pelo microfone: o afinador já está em Dó♯ Sol♯ Dó♯ Fá♯ Lá♯ Ré♯. Toque uma corda e siga o ponteiro.",
+      sections: [
+        {
+          heading: "O que é Drop C♯",
+          body: [
+            "Drop C♯ é o **Drop D meio tom abaixo**. Todas as cordas descem um semitom em relação ao Drop D, então as relações entre as cordas não mudam e qualquer riff ou power chord de Drop D funciona igual. Também se escreve Drop D♭ — são as mesmas notas.",
+            "Partindo da afinação meio tom abaixo (Mi♭ Lá♭ Ré♭ Sol♭ Si♭ Mi♭), basta **descer a sexta corda um tom**, até Dó♯ (69,30 Hz). Por isso é o drop natural para bandas que já tocam em Mi♭.",
+          ],
+        },
+        {
+          heading: "Cordas",
+          body: [
+            "As cinco cordas agudas descem só um semitom e mantêm cerca de **89% da tensão**; a sexta desce três semitons e fica com uns **71%**. Um jogo 0.10 funciona, mas muita gente usa **0.10–0.52** para a sexta não ficar frouxa.",
+            {
+              list: [
+                "Se trocar o calibre, confira as **oitavas** no final.",
+                "Com ponte flutuante, ajuste as molas: com menos tensão, a ponte inclina.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Drop C♯ e Drop D♭ são a mesma coisa?",
+          answer: "Sim. Dó♯ e Ré♭ são a mesma nota, então é a mesma afinação escrita com sustenidos ou com bemóis. As tablaturas usam os dois nomes.",
+        },
+        {
+          question: "Como passo da afinação padrão para Drop C♯?",
+          answer: "Desça as cordas 5 a 1 um semitom (Lá→Sol♯, Ré→Dó♯, Sol→Fá♯, Si→Lá♯, Mi→Ré♯) e a sexta três semitons, de Mi para Dó♯. Depois repasse todas: com menos tensão o braço se mexe e as primeiras desafinam um pouco.",
+        },
+        {
+          question: "Por que o afinador demora na sexta corda?",
+          answer: "O Dó♯ grave vibra a 69,30 Hz, e os microfones de celular e notebook captam mais os harmônicos do que a fundamental. Toque com firmeza, aproxime o celular e abafe as outras cordas.",
+        },
+      ],
+    },
+    "/drop-b-tuner": {
+      metaTitle: "Afinador Drop B online grátis",
+      metaDescription: "Afine sua guitarra em Drop B (Si Fá♯ Si Mi Sol♯ Dó♯) pelo microfone. Afinador online grátis, com frequências exatas e dicas de cordas e regulagem.",
+      title: "Afinador Drop B",
+      intro: "Afine em Drop B pelo microfone: o afinador já está em Si Fá♯ Si Mi Sol♯ Dó♯. Toque uma corda e siga o ponteiro.",
+      sections: [
+        {
+          heading: "O que é Drop B",
+          body: [
+            "Drop B é o **Drop D três semitons abaixo**: as cinco cordas agudas descem um tom e meio e a sexta desce **cinco semitons**, de Mi para Si (61,74 Hz). Os shapes de Drop D funcionam igual, só que muito mais graves.",
+            "Esse Si grave é a mesma nota da sétima corda de uma guitarra de 7 cordas — por isso o Drop B é o jeito mais comum de chegar nessa região numa guitarra de seis. É muito usado no metal moderno e no metalcore.",
+          ],
+        },
+        {
+          heading: "Cordas e regulagem",
+          body: [
+            "É uma descida grande: as cordas 1 a 5 ficam com cerca de **71% da tensão** e a sexta com uns **56%**. Com um jogo 0.10 comum, a sexta trasteja e balança. Numa escala de 25,5 polegadas, **0.12–0.56** é um mínimo razoável; muita gente usa **0.13–0.62**.",
+            {
+              list: [
+                "Confira se a corda grossa entra no **rastilho (nut)**: uma .056 ou .062 pode não caber num rasgo feito para .046.",
+                "Confira o **tensor** e suba um pouco a **ação** do lado dos graves.",
+                "Refaça as **oitavas**: cordas mais grossas pedem os carrinhos mais para trás.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Dá para usar Drop B com cordas normais?",
+          answer: "Afinar dá, mas a sexta corda fica tão frouxa que trasteja e desafina enquanto você toca. Para Drop B vale um jogo próprio para afinações graves ou uma guitarra barítono.",
+        },
+        {
+          question: "Qual a diferença entre Drop B e uma guitarra de 7 cordas?",
+          answer: "A guitarra de 7 cordas acrescenta um Si grave e mantém as outras seis na afinação padrão (Si Mi Lá Ré Sol Si Mi). O Drop B chega ao mesmo Si grave com seis cordas, mas todas as outras descem um tom e meio.",
+        },
+        {
+          question: "O celular consegue detectar um Si tão grave?",
+          answer: "Normalmente sim, com um pouco de paciência. A 61,74 Hz a fundamental chega fraca nos microfones pequenos. Toque com força, aproxime o celular do instrumento, abafe as outras cordas e espere a leitura estabilizar.",
         },
       ],
     },

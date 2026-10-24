@@ -8,6 +8,8 @@ export const fr: LanguageContent = {
     "/": "Accordeur de guitare",
     "/drop-d-tuner": "Accordeur Drop D",
     "/drop-c-tuner": "Accordeur Drop C",
+    "/drop-c-sharp-tuner": "Accordeur Drop C♯",
+    "/drop-b-tuner": "Accordeur Drop B",
     "/dadgad-tuner": "Accordeur DADGAD",
     "/open-g-tuner": "Accordeur open G",
     "/open-d-tuner": "Accordeur open D",
@@ -174,6 +176,89 @@ export const fr: LanguageContent = {
           question: "Pourquoi l’accordeur hésite-t-il sur la 6e corde ?",
           answer:
             "Le Do grave vibre à 65,41 Hz, à la limite de ce que captent les micros de téléphone. Attaquez franchement, rapprochez le téléphone et étouffez les autres cordes.",
+        },
+      ],
+    },
+    "/drop-c-sharp-tuner": {
+      metaTitle: "Accordeur Drop C# en ligne gratuit",
+      metaDescription: "Accordez votre guitare en Drop C# (Do♯ Sol♯ Do♯ Fa♯ La♯ Ré♯), aussi appelé Drop D♭, avec le micro. Gratuit, sans téléchargement, fréquences exactes.",
+      title: "Accordeur Drop C♯",
+      intro: "Accordez en Drop C♯ avec le micro : l’accordeur est déjà réglé sur Do♯ Sol♯ Do♯ Fa♯ La♯ Ré♯. Jouez une corde et suivez l’aiguille.",
+      sections: [
+        {
+          heading: "Qu’est-ce que le Drop C♯ ?",
+          body: [
+            "Le Drop C♯ (Drop C dièse) est un **Drop D descendu d’un demi-ton**. Toutes les cordes sont un demi-ton sous le Drop D : les intervalles restent les mêmes, et tous les riffs et power chords du Drop D se jouent à l’identique. On l’écrit aussi Drop D♭ : ce sont les mêmes notes.",
+            "Depuis l’accordage un demi-ton plus bas (Mi♭ La♭ Ré♭ Sol♭ Si♭ Mi♭), il suffit de **descendre la 6e corde d’un ton**, jusqu’à Do♯ (69,30 Hz). C’est donc le drop naturel des groupes qui jouent déjà en Mi♭.",
+          ],
+        },
+        {
+          heading: "Cordes",
+          body: [
+            "Les cinq cordes aiguës ne descendent que d’un demi-ton et gardent environ **89 % de leur tension** ; la 6e descend de trois demi-tons et en garde environ **71 %**. Un jeu de 10 convient, mais beaucoup passent à du **10–52** pour que la 6e reste ferme.",
+            {
+              list: [
+                "Après un changement de tirant, contrôlez les **octaves**.",
+                "Avec un vibrato flottant, rééquilibrez les ressorts : moins de tension fait basculer le chevalet.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Drop C♯ et Drop D♭, c’est pareil ?",
+          answer: "Oui. Do♯ et Ré♭ sont la même note : c’est le même accordage, écrit avec des dièses ou des bémols. Les tablatures utilisent les deux noms.",
+        },
+        {
+          question: "Comment passer du standard au Drop C♯ ?",
+          answer: "Descendez les cordes 5 à 1 d’un demi-ton (La→Sol♯, Ré→Do♯, Sol→Fa♯, Si→La♯, Mi→Ré♯) et la 6e de trois demi-tons, de Mi à Do♯. Repassez ensuite sur toutes les cordes : en perdant de la tension, le manche bouge.",
+        },
+        {
+          question: "Pourquoi l’accordeur hésite-t-il sur la 6e corde ?",
+          answer: "Le Do♯ grave vibre à 69,30 Hz, et les micros de téléphone captent mieux ses harmoniques que la fondamentale. Attaquez franchement, rapprochez le téléphone et étouffez les autres cordes.",
+        },
+      ],
+    },
+    "/drop-b-tuner": {
+      metaTitle: "Accordeur Drop B en ligne gratuit",
+      metaDescription: "Accordez votre guitare en Drop B (Si Fa♯ Si Mi Sol♯ Do♯) avec le micro. Accordeur en ligne gratuit, fréquences exactes et conseils de cordes et réglages.",
+      title: "Accordeur Drop B",
+      intro: "Accordez en Drop B avec le micro : l’accordeur est déjà réglé sur Si Fa♯ Si Mi Sol♯ Do♯. Jouez une corde et suivez l’aiguille.",
+      sections: [
+        {
+          heading: "Qu’est-ce que le Drop B ?",
+          body: [
+            "Le Drop B est un **Drop D descendu de trois demi-tons** : les cinq cordes aiguës descendent d’un ton et demi, la 6e de **cinq demi-tons**, de Mi à Si (61,74 Hz). Toutes les positions du Drop D fonctionnent, en bien plus grave.",
+            "Ce Si grave est la note de la 7e corde d’une guitare à sept cordes : le Drop B est la façon la plus courante d’atteindre ce registre sur une six-cordes. On l’entend beaucoup dans le metal moderne et le metalcore.",
+          ],
+        },
+        {
+          heading: "Cordes et réglages",
+          body: [
+            "Les cordes 1 à 5 ne gardent qu’environ **71 % de leur tension**, la 6e environ **56 %**. Avec un jeu de 10, le Si grave frise et ondule. Sur un diapason de 25,5 pouces, **12–56** est un minimum raisonnable ; beaucoup jouent en **13–62**.",
+            {
+              list: [
+                "Vérifiez que la grosse corde entre dans la **fente du sillet** : une .056 ou .062 ne tient pas toujours dans une fente taillée pour une .046.",
+                "Contrôlez la **courbure du manche** et remontez un peu l’**action** côté graves.",
+                "Refaites les **octaves** : des cordes plus grosses demandent de reculer les pontets.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Peut-on jouer en Drop B avec des cordes normales ?",
+          answer: "On peut s’accorder, mais la 6e corde devient si molle qu’elle frise et se désaccorde en jouant. Pour le Drop B, prenez un jeu prévu pour les accordages graves ou une guitare baryton.",
+        },
+        {
+          question: "Drop B ou guitare à sept cordes ?",
+          answer: "La sept-cordes ajoute un Si grave et garde les six autres cordes en standard (Si Mi La Ré Sol Si Mi). Le Drop B obtient le même Si grave sur six cordes, mais toutes les autres descendent d’un ton et demi.",
+        },
+        {
+          question: "Un téléphone peut-il capter un Si aussi grave ?",
+          answer: "En général oui, avec un peu de patience. À 61,74 Hz, la fondamentale arrive faiblement aux petits micros. Attaquez fort, rapprochez le téléphone de la guitare, étouffez les autres cordes et laissez la mesure se stabiliser.",
         },
       ],
     },

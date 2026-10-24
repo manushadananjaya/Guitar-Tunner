@@ -664,3 +664,56 @@ English, which keeps clear of scaled-content risk.
 - Navbar menus and footer columns stay English on translated pages.
 - Translated pages are new; expect weeks before they rank. Submit the
   sitemap in Search Console.
+
+## Step 17 — Daily challenge, share images, Drop B / C♯, tunings chart  ✅ DONE (2026-10-25)
+
+Return visits and shareability, plus two missing tunings.
+
+- [x] **`/daily-challenge`** — five questions a day (interval, chord type,
+      fretboard note, descending interval, then a harmonic interval or
+      seventh chord on alternating days), identical for everyone, one try
+      each. Seeded from the date in `lib/dailyChallenge.ts`, so no server and
+      no puzzle list. Answers save as they are given, so leaving does not
+      grant a retry. Streak, best streak, score distribution, midnight
+      countdown, and a Wordle-style text share (🎵🟩 🎸🟥 …) that gives
+      nothing away. Counts as a practice day via `logPractice`. In
+      `TOOL_PAGES` (first), on the homepage grid, and in the post-tuning
+      prompt. Checked over 400 days: every answer correct and in range.
+- [x] **Per-page share images** with `next/og`: tuner pages (gauge + note
+      chips, in all five languages with local note names), chord pages (the
+      first voicing's diagram), tool pages, tunings, daily challenge.
+      Shared frame in `lib/og/card.tsx`; builders in `lib/og/images.tsx`;
+      each route's `opengraph-image.tsx` is a one-line call. Inter is
+      vendored in `lib/og/fonts` (OFL) so builds never fetch fonts; ♯/♭ are
+      drawn as SVG because neither Inter nor the next/og font has them.
+      Dynamic routes export `generateStaticParams`, so all 300+ images are
+      built at deploy time.
+- [x] **Metadata bug fixed:** a page's `openGraph` replaces the layout's
+      whole, so tuner/tool/chord pages had *no* `og:image`, and every
+      Twitter card carried the homepage title. The layout now sets only
+      `type`/`siteName`/`locale` and `twitter.card`; Next fills the rest per
+      page. `/Logo.png` (4000×4000, declared as 1200×630) is no longer used
+      as a share image.
+- [x] **Streak share card** — `/share/streak?d=&b=&m=` (noindex,
+      self-canonical) with a generated image at `/share/streak/image`.
+      Numbers come from the URL and are clamped; there is no account to
+      check them against. "Share your streak" / "Save image" on the practice
+      routine once a streak reaches two days, and on the routine-done panel.
+- [x] **`/drop-b-tuner`, `/drop-c-sharp-tuner`** — presets already existed
+      with no page. Hand-written English pages plus es/pt/fr/de copy
+      (German: Drop H and Drop Cis, since a German B is B♭).
+- [x] **`/tunings`** — server-rendered chart of every six-string tuning
+      (notes, octaves, Hz, semitone moves, tension vs standard) and every
+      instrument, from `TUNING_PRESETS`. In the navbar Tunings menu, the
+      footer and the sitemap.
+- [x] `tsc`, build, `audit:seo` (238 pages; only the 3 known long titles),
+      `audit:links` (0 orphans, depth ≤ 2), Playwright: full challenge,
+      resume after reload, share text, streak share link, no mobile
+      overflow, new tuners load their presets.
+
+### Not done
+
+- The daily challenge is English only.
+- Shared streak numbers are self-reported by design.
+- Articles keep their screenshot share images; `/about`, `/contact` and
+  the legal pages use the homepage card.

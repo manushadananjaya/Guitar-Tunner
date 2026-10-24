@@ -45,6 +45,10 @@ const PROGRESSIONS: Record<string, { pattern: string; note: string }[]> = {
 
 const SITE_URL = "https://www.guitartunepro.com";
 
+// Every chord is prerendered; anything else is a 404, never an on-demand
+// render (which the share image, reading fonts from disk, could not do).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return CHORDS.map((chord) => ({ slug: chord.slug }));
 }

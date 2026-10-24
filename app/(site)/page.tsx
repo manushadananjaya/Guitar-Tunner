@@ -21,21 +21,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.guitartunepro.com",
     siteName: "GuitarTunePro",
-    images: [
-      {
-        url: "/Logo.png",
-        width: 1200,
-        height: 630,
-        alt: "GuitarTunePro — Free Online Guitar Tuner",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Free Online Chromatic Guitar Tuner | GuitarTunePro",
-    description:
-      "Free online guitar tuner — tune with your microphone, no app download. Chromatic tuner with Standard, Drop D, Open G, and 10+ tuning presets.",
-    images: ["/Logo.png"],
+    // Image: app/(site)/opengraph-image.tsx. Twitter copies all of this.
   },
 };
 

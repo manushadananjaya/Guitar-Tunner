@@ -7,6 +7,8 @@ export const de: LanguageContent = {
     "/": "Gitarre stimmen",
     "/drop-d-tuner": "Drop-D-Stimmung",
     "/drop-c-tuner": "Drop-C-Stimmung",
+    "/drop-c-sharp-tuner": "Drop-Cis-Stimmung",
+    "/drop-b-tuner": "Drop-H-Stimmung",
     "/dadgad-tuner": "DADGAD-Stimmung",
     "/open-g-tuner": "Open-G-Stimmung",
     "/open-d-tuner": "Open-D-Stimmung",
@@ -167,6 +169,89 @@ export const de: LanguageContent = {
           question: "Warum braucht das Stimmgerät bei der tiefen Saite länger?",
           answer:
             "Das tiefe C schwingt mit 65,41 Hz – am unteren Rand dessen, was Handymikrofone gut aufnehmen. Kräftig anschlagen, Handy näher ran, andere Saiten dämpfen.",
+        },
+      ],
+    },
+    "/drop-c-sharp-tuner": {
+      metaTitle: "Drop-Cis-Stimmung – Stimmgerät online",
+      metaDescription: "Stimme deine Gitarre in Drop Cis (Cis Gis Cis Fis Ais Dis), auch Drop Des oder Drop C# genannt, per Mikrofon. Kostenlos, mit genauen Frequenzen.",
+      title: "Drop-Cis-Stimmung",
+      intro: "Stimme in Drop Cis per Mikrofon: Das Stimmgerät ist bereits auf Cis Gis Cis Fis Ais Dis eingestellt. Saite anschlagen und der Nadel folgen.",
+      sections: [
+        {
+          heading: "Was ist Drop Cis?",
+          body: [
+            "Drop Cis ist **Drop D einen Halbton tiefer**. Alle Saiten liegen einen Halbton unter Drop D, die Intervalle bleiben gleich – jeder Drop-D-Riff und jeder Powerchord funktioniert unverändert. Man schreibt es auch Drop Des; gemeint sind dieselben Töne. In englischen Tabs heißt es Drop C#.",
+            "Von der Halbton-tiefer-Stimmung (Es As Des Ges B Es) aus musst du **nur die sechste Saite einen Ganzton tiefer** stimmen, auf Cis (69,30 Hz). Deshalb ist Drop Cis die naheliegende Drop-Stimmung für Bands, die ohnehin in Es spielen.",
+          ],
+        },
+        {
+          heading: "Saiten",
+          body: [
+            "Die fünf hohen Saiten gehen nur einen Halbton runter und behalten rund **89 % ihrer Spannung**; die tiefe Saite fällt um drei Halbtöne und behält etwa **71 %**. Ein 10er-Satz geht, viele nehmen aber **10–52**, damit die tiefe Saite nicht schlabbert.",
+            {
+              list: [
+                "Nach einem Saitenwechsel die **Oktavreinheit** prüfen.",
+                "Bei einem schwebenden Tremolo die Federn nachstellen.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Ist Drop Cis dasselbe wie Drop Des?",
+          answer: "Ja. Cis und Des sind derselbe Ton, also dieselbe Stimmung – einmal mit Kreuzen, einmal mit Bs geschrieben. In Tabs findest du beide Namen, oft auch das englische „Drop C#“.",
+        },
+        {
+          question: "Wie komme ich von der Standardstimmung zu Drop Cis?",
+          answer: "Saiten 5 bis 1 je einen Halbton tiefer (A→Gis, D→Cis, G→Fis, H→Ais, E→Dis), die sechste drei Halbtöne von E auf Cis. Danach alle Saiten noch einmal durchgehen – der Hals arbeitet, wenn Spannung wegfällt.",
+        },
+        {
+          question: "Warum braucht das Stimmgerät bei der tiefen Saite länger?",
+          answer: "Das tiefe Cis schwingt mit 69,30 Hz; Handy- und Laptopmikrofone nehmen seine Obertöne stärker auf als den Grundton. Kräftig anschlagen, Handy näher ran, andere Saiten dämpfen.",
+        },
+      ],
+    },
+    "/drop-b-tuner": {
+      metaTitle: "Drop-H-Stimmung – Stimmgerät online",
+      metaDescription: "Stimme deine Gitarre in Drop H (H Fis H E Gis Cis), englisch Drop B, per Mikrofon. Kostenloses Online-Stimmgerät mit Tipps zu Saiten und Einstellung.",
+      title: "Drop-H-Stimmung",
+      intro: "Stimme in Drop H per Mikrofon: Das Stimmgerät ist bereits auf H Fis H E Gis Cis eingestellt. Saite anschlagen und der Nadel folgen.",
+      sections: [
+        {
+          heading: "Was ist Drop H?",
+          body: [
+            "Drop H ist **Drop D drei Halbtöne tiefer**: Die fünf hohen Saiten gehen eineinhalb Töne runter, die sechste **fünf Halbtöne** von E auf H (61,74 Hz). Alle Drop-D-Griffe funktionieren, nur deutlich tiefer.",
+            "Im Englischen heißt die Stimmung **Drop B**, weil dort B für unser H steht. Englische Tabs und Videos meinen also genau diese Stimmung – nicht B im deutschen Sinn, das wäre einen Halbton tiefer. Das tiefe H entspricht der siebten Saite einer Siebensaiter-Gitarre.",
+          ],
+        },
+        {
+          heading: "Saiten und Einstellung",
+          body: [
+            "Die Saiten 1 bis 5 behalten nur rund **71 % ihrer Spannung**, die tiefe Saite etwa **56 %**. Mit einem normalen 10er-Satz flattert und schnarrt die H-Saite. Bei 25,5 Zoll Mensur sind **12–56** ein sinnvolles Minimum, viele spielen **13–62**.",
+            {
+              list: [
+                "Prüfen, ob die dicke Saite in die **Sattelkerbe** passt – eine .056 oder .062 passt oft nicht in eine Kerbe für .046.",
+                "**Halskrümmung** kontrollieren und die **Saitenlage** auf der Bassseite etwas anheben.",
+                "**Oktavreinheit** neu einstellen: Dickere Saiten brauchen die Reiter weiter hinten.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Warum heißt es auf Englisch Drop B?",
+          answer: "Weil im Englischen der Ton H „B“ heißt und unser B „B flat“. Drop B und Drop H sind dieselbe Stimmung: H Fis H E Gis Cis.",
+        },
+        {
+          question: "Geht Drop H mit normalen Saiten?",
+          answer: "Stimmen lässt es sich, aber die tiefe Saite wird so locker, dass sie schnarrt und sich beim Spielen verstimmt. Für Drop H lohnt sich ein Satz für tiefe Stimmungen oder eine Baritongitarre.",
+        },
+        {
+          question: "Erkennt das Handy ein so tiefes H?",
+          answer: "Meist ja, mit etwas Geduld. Bei 61,74 Hz kommt der Grundton bei kleinen Mikrofonen schwach an. Kräftig anschlagen, Handy nah an die Gitarre, andere Saiten dämpfen und kurz warten.",
         },
       ],
     },

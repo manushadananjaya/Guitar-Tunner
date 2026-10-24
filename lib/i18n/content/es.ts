@@ -8,6 +8,8 @@ export const es: LanguageContent = {
     "/": "Afinador de guitarra",
     "/drop-d-tuner": "Afinador Drop D",
     "/drop-c-tuner": "Afinador Drop C",
+    "/drop-c-sharp-tuner": "Afinador Drop C♯",
+    "/drop-b-tuner": "Afinador Drop B",
     "/dadgad-tuner": "Afinador DADGAD",
     "/open-g-tuner": "Afinador Sol abierto",
     "/open-d-tuner": "Afinador Re abierto",
@@ -115,6 +117,89 @@ export const es: LanguageContent = {
           question: "¿Por qué el afinador tarda en leer la sexta cuerda?",
           answer:
             "El Do grave vibra a 65.41 Hz, cerca del límite de lo que captan bien los micrófonos de móviles y portátiles. Pulsa con firmeza, acerca el móvil a la guitarra y apaga las demás cuerdas.",
+        },
+      ],
+    },
+    "/drop-c-sharp-tuner": {
+      metaTitle: "Afinador Drop C# online gratis",
+      metaDescription: "Afina tu guitarra en Drop C# (Do♯ Sol♯ Do♯ Fa♯ La♯ Re♯), también llamado Drop D♭, con el micrófono. Gratis, sin descargas y con frecuencias exactas.",
+      title: "Afinador Drop C♯",
+      intro: "Afina en Drop C♯ con el micrófono: el afinador ya está configurado en Do♯ Sol♯ Do♯ Fa♯ La♯ Re♯. Toca una cuerda y sigue la aguja.",
+      sections: [
+        {
+          heading: "Qué es el Drop C♯",
+          body: [
+            "El Drop C♯ es el **Drop D medio tono más abajo**. Todas las cuerdas bajan un semitono respecto al Drop D, así que las relaciones entre cuerdas no cambian y cualquier riff o power chord de Drop D se toca igual. También se escribe Drop D♭: son las mismas notas con otro nombre.",
+            "Desde la afinación de medio tono abajo (Mi♭ La♭ Re♭ Sol♭ Si♭ Mi♭) solo hay que **bajar la sexta cuerda un tono**, hasta Do♯ (69.30 Hz). Por eso es la afinación drop natural para los grupos que ya tocan en Mi♭.",
+          ],
+        },
+        {
+          heading: "Cuerdas",
+          body: [
+            "Las cinco cuerdas agudas solo bajan un semitono y conservan cerca del **89 % de su tensión**; la sexta baja tres semitonos y se queda en torno al **71 %**. Un juego de calibre 10 funciona, pero muchos guitarristas usan un **10–52** para que la sexta no quede floja.",
+            {
+              list: [
+                "Si cambias de calibre, revisa la **octavación** al terminar.",
+                "Con puente flotante (trémolo), reajusta los muelles: al bajar la tensión, el puente se inclina.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "¿Es lo mismo Drop C♯ que Drop D♭?",
+          answer: "Sí. Do♯ y Re♭ son la misma nota, así que es la misma afinación escrita con sostenidos o con bemoles. En las tablaturas aparecen los dos nombres.",
+        },
+        {
+          question: "¿Cómo paso de la afinación estándar a Drop C♯?",
+          answer: "Baja las cuerdas 5 a 1 un semitono (La→Sol♯, Re→Do♯, Sol→Fa♯, Si→La♯, Mi→Re♯) y la sexta tres semitonos, de Mi a Do♯. Después repasa todas otra vez: al quitar tensión el mástil se mueve y las primeras se desafinan un poco.",
+        },
+        {
+          question: "¿Por qué el afinador tarda en leer la sexta cuerda?",
+          answer: "El Do♯ grave vibra a 69.30 Hz, y los micrófonos de móviles y portátiles captan mejor sus armónicos que la nota fundamental. Pulsa con firmeza, acerca el móvil y apaga las demás cuerdas.",
+        },
+      ],
+    },
+    "/drop-b-tuner": {
+      metaTitle: "Afinador Drop B online gratis",
+      metaDescription: "Afina tu guitarra en Drop B (Si Fa♯ Si Mi Sol♯ Do♯) con el micrófono. Afinador online gratis, con frecuencias exactas y consejos de cuerdas y ajuste.",
+      title: "Afinador Drop B",
+      intro: "Afina en Drop B con el micrófono: el afinador ya está configurado en Si Fa♯ Si Mi Sol♯ Do♯. Toca una cuerda y sigue la aguja.",
+      sections: [
+        {
+          heading: "Qué es el Drop B",
+          body: [
+            "El Drop B es el **Drop D tres semitonos más abajo**: las cinco cuerdas agudas bajan un tono y medio y la sexta baja **cinco semitonos**, de Mi a Si (61.74 Hz). Las formas de Drop D funcionan igual, solo que suenan mucho más graves.",
+            "Ese Si grave es la misma nota que la séptima cuerda de una guitarra de 7 cuerdas, por eso el Drop B es la forma más común de llegar a ese registro con una guitarra de seis. Es muy habitual en el metal moderno y el metalcore.",
+          ],
+        },
+        {
+          heading: "Cuerdas y ajuste",
+          body: [
+            "Es una bajada grande: las cuerdas 1 a 5 se quedan con cerca del **71 % de su tensión** y la sexta con un **56 %**. Con un juego normal de calibre 10, la sexta trastea y se mueve a la vista. En una escala de 25.5 pulgadas lo habitual es **12–56** como mínimo, o **13–62**.",
+            {
+              list: [
+                "Comprueba que la cuerda gruesa entra en la **cejuela**: una .056 o .062 puede no caber en una ranura hecha para una .046.",
+                "Revisa la **curvatura del mástil** y sube un poco la **acción** en el lado de los graves.",
+                "Ajusta la **octavación**: con cuerdas más gruesas, las selletas van más atrás.",
+              ],
+            },
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "¿Puedo usar Drop B con cuerdas normales?",
+          answer: "Se puede afinar, pero la sexta cuerda quedará tan floja que trasteará y se desafinará al tocar. Para Drop B conviene un juego específico para afinaciones graves o una guitarra barítono.",
+        },
+        {
+          question: "¿Qué diferencia hay entre Drop B y una guitarra de 7 cuerdas?",
+          answer: "La guitarra de 7 cuerdas añade un Si grave y mantiene las otras seis en afinación estándar (Si Mi La Re Sol Si Mi). El Drop B consigue el mismo Si grave con seis cuerdas, pero todas las demás bajan un tono y medio.",
+        },
+        {
+          question: "¿El móvil puede detectar un Si tan grave?",
+          answer: "Normalmente sí, con paciencia. A 61.74 Hz la fundamental llega débil a los micrófonos pequeños. Pulsa con fuerza, acerca el móvil a la guitarra, apaga las demás cuerdas y espera a que la lectura se estabilice.",
         },
       ],
     },

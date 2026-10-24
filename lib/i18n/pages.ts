@@ -37,6 +37,21 @@ export const TRANSLATED_PAGES: TranslatedPage[] = [
     de: "/de/drop-c-stimmung",
   },
   {
+    en: "/drop-c-sharp-tuner",
+    es: "/es/afinador-drop-c-sostenido",
+    pt: "/pt/afinador-drop-c-sustenido",
+    fr: "/fr/accordeur-drop-c-diese",
+    de: "/de/drop-cis-stimmung",
+  },
+  {
+    // German calls this note H; a German "B" is B♭.
+    en: "/drop-b-tuner",
+    es: "/es/afinador-drop-b",
+    pt: "/pt/afinador-drop-b",
+    fr: "/fr/accordeur-drop-b",
+    de: "/de/drop-h-stimmung",
+  },
+  {
     en: "/dadgad-tuner",
     es: "/es/afinador-dadgad",
     pt: "/pt/afinador-dadgad",

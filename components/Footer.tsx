@@ -45,7 +45,7 @@ export function Footer() {
             const page = tunerLink(href);
             return { label: page ? `${page.label} Tuner` : href, href };
           }),
-          { label: "All tunings", href: "/#tunings" },
+          { label: "All tunings", href: "/tunings" },
         ],
       },
       {
