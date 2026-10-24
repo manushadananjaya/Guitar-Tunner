@@ -90,6 +90,13 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Hear an interval or a chord, name it, and track your streak. Short rounds you can do every day, played on a guitar-like tone rather than a beep.",
   },
   {
+    href: "/rhythm-trainer",
+    label: "Rhythm Trainer",
+    tagline: "Timing, in milliseconds",
+    blurb:
+      "Tap along to ten rhythms, from quarter notes to clave, and see how early or late every note was — with calibration for your speakers or headphones.",
+  },
+  {
     href: "/strumming-patterns",
     label: "Strumming Patterns",
     tagline: "Play-along trainer",

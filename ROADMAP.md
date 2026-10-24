@@ -750,3 +750,28 @@ Two tools for searches the site did not cover ("online tone generator",
   rock instead of freezing. The page says so instead of claiming
   hardware-strobe (0.1¢) accuracy. A larger analysis window or an
   AudioWorklet detector would tighten it.
+
+## Step 19 — Rhythm trainer  ✅ DONE (2026-10-25)
+
+- [x] **`/rhythm-trainer`** — tap along (pad, Space, J/F or Enter) to ten
+      rhythms in `lib/rhythms.ts`, from quarter notes through triplets,
+      sixteenths, gallops and 3-2 son clave, at 40–200 BPM after a
+      one-bar count-in. Four bars per round.
+- [x] Timing on the audio clock: the whole round is scheduled up front
+      through one gain node, so Stop cuts it instantly. Taps are timed from
+      `event.timeStamp`, not from when the handler ran. Output delay is
+      corrected at scoring time, with the browser-reported latency read
+      after the round, because Chrome reports ~0 until audio has run (the
+      first version read it at start and two identical rounds scored 30 ms
+      apart). Optional 8-click calibration measures your own device and
+      overrides it.
+- [x] Scoring (`scoreRound`): each note takes its nearest unused tap within
+      half the gap to its neighbours (max 150 ms), so one tap can't count
+      twice and a rushed note isn't credited to the next. Full marks within
+      25 ms, nothing past 120 ms, −2 per extra tap (mashing scores 0).
+      Results: score, notes hit, average lean (rushing/dragging), spread,
+      per-note colours on a four-bar timeline, advice, a "+5 BPM" button
+      after a 90+. Best score per rhythm saved; rounds count as practice days.
+- [x] Verified: scoring unit cases; Playwright taps fired on the audio clock
+      at set offsets — calibrated at +100 ms, a +100 ms round reads +1 ms;
+      repeated uncalibrated rounds now agree; no mobile overflow.
