@@ -126,6 +126,11 @@ export function ProfessionalTuner({
     requestMicrophone,
     stopAudioCapture,
   } = useAudioCapture({
+    // 8192 samples (~170 ms) holds enough periods of a low string for the
+    // detector to lock on: low E error fell from ~1.4 to ~0.4 cents, and the
+    // 5-string bass's low B stopped jumping octaves. The FFT autocorrelation
+    // keeps it under a millisecond a frame (scripts/accuracy-test.ts).
+    fftSize: 8192,
     onDataAvailable: (data) => {
       setAudioBuffer(data);
     },

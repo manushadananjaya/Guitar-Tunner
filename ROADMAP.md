@@ -855,3 +855,33 @@ hand out (each sheet carries the site address in its footer).
       in `TOOL_PAGES`; linked from the ukulele tuner and the guitar library.
 - [x] Shared `lib/chords/numeralProgressions.ts`, extracted from the guitar
       chord page. Build and audits (308 pages, depth ≤ 2), no mobile overflow.
+
+## Step 23 — Faster, more precise pitch detection  ✅ DONE (2026-10-25)
+
+- [x] **FFT autocorrelation** (`lib/fft.ts`): `detectPitch` computed
+      Σ x[i]·x[i+lag] directly, ~5M multiply-adds per 4096-sample frame,
+      about 60 times a second on the main thread. Wiener–Khinchin
+      (FFT → |X|² → inverse FFT, zero-padded to 2N so it's linear, not
+      circular) gives the same values: **0.00 cents difference on every
+      benchmark trial**, 3.9 ms → 0.34 ms per frame. Peak selection and
+      refinement are unchanged. All tools using the detector (tuner, embed,
+      strobe, vocal) get the speed-up.
+- [x] **8192-sample window** for the main tuner (and embed) and the strobe,
+      now affordable (0.78 ms/frame). Quiet error on the low strings fell
+      roughly 3–4×: E2 1.38 → 0.39¢, A2 1.77 → 0.38¢, bass E1 4.41 → 1.39¢.
+      The 5-string low B stopped octave-jumping (19/60 noisy trials → 0;
+      with 50 Hz hum, 12.4¢ → 2.4¢). Cost: a reading covers 170 ms instead
+      of 85 ms. The vocal tool keeps 4096 for responsiveness.
+- [x] Strobe floor lowered to 24 Hz (reads the low B directly); on a
+      synthetic E2 its wander dropped from ±3¢ to ±1¢ (Step 18's known issue).
+- [x] Why no Web Worker: at under 1 ms a frame the detector is ~5% of the
+      frame budget instead of ~23%, and Playwright shows no long tasks
+      while listening. A worker would add async plumbing for no
+      measurable gain. One ~200 ms task at Start (mic permission + audio
+      setup) predates this and remains.
+- [x] `scripts/accuracy-test.ts` now runs at the shipped window and floors,
+      with bass E1 and B0 added; `/accuracy` re-run, with a dated note on
+      what changed and the latency trade-off, and its "does not use an FFT"
+      wording corrected (it reads pitch from autocorrelation, computed via FFT).
+- [x] Browser check with fake-mic tones: E2/A2 within ±1¢, B0 within ±2¢
+      on the 5-string tuner, strobe E2 within ±1¢.

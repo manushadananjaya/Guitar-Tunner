@@ -34,6 +34,9 @@ export function StrobeTuner() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const { state: audio, requestMicrophone, stopAudioCapture, isSupported } = useAudioCapture({
+    // The longer window the main tuner uses: steadier on low strings, which
+    // is where strobe bands rocked most.
+    fftSize: 8192,
     onDataAvailable: setAudioBuffer,
   });
   const listening = audio.isActive;
@@ -41,7 +44,7 @@ export function StrobeTuner() {
   // Guitar and bass range, chromatic, no octave guard: players move between
   // strings an octave apart, and the guard would hold the old one.
   const pitch = useVocalPitch(audioBuffer, 48000, {
-    minFrequency: 38,
+    minFrequency: 24,
     maxFrequency: 1400,
     octaveGuard: false,
     referencePitch: a4,

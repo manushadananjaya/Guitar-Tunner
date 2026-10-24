@@ -1,3 +1,5 @@
+import { autocorrelate } from "./fft";
+
 // Autocorrelation-based pitch detection
 // Defaults are tuned for guitar (40Hz - 1000Hz); pass PitchRangeOptions to
 // widen the range for other sources such as the human voice.
@@ -55,18 +57,11 @@ export function detectPitch(
   const minLag = Math.round(sampleRate / maxFrequency);
   const maxLag = Math.round(sampleRate / minFrequency);
 
-  // Calculate autocorrelation — only as far as the search below and the
-  // peak refinement can reach. Lags past that were computed and never read,
-  // roughly doubling the cost of every frame.
+  // Autocorrelation — only as far as the search below and the peak
+  // refinement can reach. Computed by FFT (lib/fft.ts): the same values as
+  // the direct Σ x[i]·x[i+lag], at a small fraction of the cost.
   const lagLimit = Math.min(size, Math.min(maxLag, Math.floor(size / 2)) + 6);
-  const acf = new Float32Array(size);
-  for (let lag = 0; lag < lagLimit; lag++) {
-    let sum = 0;
-    for (let i = 0; i < size - lag; i++) {
-      sum += audioData[i] * audioData[i + lag];
-    }
-    acf[lag] = sum;
-  }
+  const acf = autocorrelate(audioData, lagLimit);
 
   // Find the first peak in the autocorrelation
   let bestLag = 0;

@@ -13,12 +13,17 @@
 import { detectPitch } from "../lib/pitchDetection";
 
 const SAMPLE_RATE = 48000;
-const BUFFER_SIZE = 4096;
+// The window the tuner analyses (useAudioCapture fftSize in
+// components/Tuner/ProfessionalTuner.tsx): 8192 samples, ~170 ms.
+const BUFFER_SIZE = 8192;
 const TRIALS = 40;
 
 interface StringDef {
   name: string;
   freq: number;
+  /** The search floor the tuner uses for this instrument, if not the default:
+   *  ProfessionalTuner widens it to 0.8 × the lowest string below 45 Hz. */
+  minFrequency?: number;
 }
 
 const STRINGS: StringDef[] = [
@@ -28,6 +33,8 @@ const STRINGS: StringDef[] = [
   { name: "G3", freq: 196.0 },
   { name: "B3", freq: 246.94 },
   { name: "E4 (High E)", freq: 329.63 },
+  { name: "E1 (bass low E)", freq: 41.2, minFrequency: 41.2 * 0.8 },
+  { name: "B0 (5-string bass low B)", freq: 30.87, minFrequency: 30.87 * 0.8 },
 ];
 
 // Mulberry32 PRNG — deterministic so this table is reproducible.
@@ -87,6 +94,7 @@ function runCondition(
   freq: number,
   noiseAmplitude: number,
   seed: number,
+  minFrequency?: number,
 ): ConditionResult {
   const rand = mulberry32(seed);
   let detections = 0;
@@ -96,7 +104,7 @@ function runCondition(
   for (let trial = 0; trial < TRIALS; trial++) {
     const drift = (rand() - 0.5) * 4; // +/-2 cents/sec natural drift
     const buf = synthesizeString(freq, rand, noiseAmplitude, drift);
-    const result = detectPitch(buf, SAMPLE_RATE);
+    const result = detectPitch(buf, SAMPLE_RATE, { minFrequency });
     if (result.detected && result.frequency > 0) {
       detections++;
       const err = Math.abs(centsError(result.frequency, freq));
@@ -114,9 +122,9 @@ function runCondition(
 
 const rows = STRINGS.map((s) => {
   // "Quiet": very low background noise — a clean pluck close to the mic.
-  const quiet = runCondition(s.freq, 0.004, Math.round(s.freq * 1000) + 1);
+  const quiet = runCondition(s.freq, 0.004, Math.round(s.freq * 1000) + 1, s.minFrequency);
   // "Noisy": substantial broadband noise — laptop mic with room/fan noise.
-  const noisy = runCondition(s.freq, 0.045, Math.round(s.freq * 1000) + 2);
+  const noisy = runCondition(s.freq, 0.045, Math.round(s.freq * 1000) + 2, s.minFrequency);
   return { string: s.name, freq: s.freq, quiet, noisy };
 });
 

@@ -73,7 +73,7 @@ export default function StrobeTunerPage() {
           {
             question: "Can it tune a bass?",
             answer:
-              "Yes. It listens down to about 38 Hz, below a 4-string bass's low E (41.2 Hz). A 5-string's low B (30.9 Hz) is below that, so the tuner reads it through its harmonics. Phone microphones capture very little at these pitches; play firmly and hold the phone close.",
+              "Yes. It listens down to about 24 Hz, below even a 5-string bass's low B (30.9 Hz). Phone microphones capture very little at these pitches, so play firmly and hold the phone close; the tuner often hears the string's overtones more than its fundamental and still reads the right note.",
           },
         ]}
         relatedArticles={[

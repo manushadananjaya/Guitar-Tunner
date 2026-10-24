@@ -116,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/accuracy`,
-      lastModified: new Date('2026-10-17'),
+      lastModified: new Date('2026-10-25'),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
