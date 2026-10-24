@@ -7,6 +7,7 @@ import { TUNER_PAGES } from "@/lib/tunerPages";
 import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { TOOL_PAGES } from "@/lib/toolPages";
 import { getChord } from "@/lib/chords";
+import { getPrintableSheet } from "@/lib/printables";
 import { CONTENT } from "@/lib/i18n/content";
 import { localNote, type Locale } from "@/lib/i18n/tuner";
 import {
@@ -141,5 +142,16 @@ export function courseOgImage() {
     title: "Learn guitar in 30 days",
     subtitle: "Fifteen minutes a day, from tuning up to playing a whole song — with the right tool opened for every lesson.",
     detail: <NoteChips notes={["Week 1: first chords", "Week 2: strumming", "Week 3: riffs & blues", "Week 4: songs"]} />,
+  });
+}
+
+/** Printable sheets and their hub. */
+export function printableOgImage(slug?: string) {
+  const sheet = slug ? getPrintableSheet(slug) : undefined;
+  return renderOgCard({
+    eyebrow: "Free printable",
+    title: sheet?.title ?? "Printable guitar charts",
+    subtitle: sheet?.blurb ?? "Chord charts, the fretboard, the pentatonic scale, blank tab and blank chord boxes — one page each, A4 or Letter.",
+    footnote: "Free to print and share for teaching",
   });
 }

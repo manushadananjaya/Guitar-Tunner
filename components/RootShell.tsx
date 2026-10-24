@@ -99,19 +99,23 @@ export function RootShell({
           disableTransitionOnChange
         >
         {/* Global ambient background glow */}
-        <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="fixed inset-0 pointer-events-none z-0 print:hidden">
           <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[130px]" />
         </div>
-        <HideOnEmbed>
-          <Navbar />
-        </HideOnEmbed>
+        <div className="print:hidden">
+          <HideOnEmbed>
+            <Navbar />
+          </HideOnEmbed>
+        </div>
         <div className="flex-1 w-full relative z-10">
           {children}
         </div>
-        <HideOnEmbed>
-          <Footer />
-        </HideOnEmbed>
+        <div className="print:hidden">
+          <HideOnEmbed>
+            <Footer />
+          </HideOnEmbed>
+        </div>
         </ThemeProvider>
         <HideOnEmbed>
           <Script

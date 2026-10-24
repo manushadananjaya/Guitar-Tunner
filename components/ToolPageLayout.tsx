@@ -119,7 +119,7 @@ export default function ToolPageLayout({
 
   return (
     <div
-      className="min-h-screen bg-canvas text-ink pb-20"
+      className="min-h-screen bg-canvas text-ink pb-20 print:min-h-0 print:bg-white print:pb-0"
       lang={locale === "en" ? undefined : locale}
     >
       <script
@@ -133,14 +133,15 @@ export default function ToolPageLayout({
         />
       )}
 
-      <div className="fixed inset-0 pointer-events-none z-0">
+      <div className="fixed inset-0 pointer-events-none z-0 print:hidden">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brass/0 dark:bg-brass/10 blur-[120px]" />
       </div>
 
       <main className="relative z-10">
-        {/* Header — deliberately compact so the tool stays above the fold */}
-        <div className="max-w-5xl mx-auto px-5 pt-8 sm:pt-10">
+        {/* Header — deliberately compact so the tool stays above the fold.
+            Printing a tool page prints the tool alone. */}
+        <div className="max-w-5xl mx-auto px-5 pt-8 sm:pt-10 print:hidden">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-xs text-ink-subtle mb-5"
@@ -163,11 +164,11 @@ export default function ToolPageLayout({
           </p>
         </div>
 
-        <section aria-label={locale === "en" ? `${title} ${text.tool}` : title} className="mt-8">
+        <section aria-label={locale === "en" ? `${title} ${text.tool}` : title} className="mt-8 print:mt-0">
           {tool}
         </section>
 
-        <div className="max-w-3xl mx-auto px-5">
+        <div className="max-w-3xl mx-auto px-5 print:hidden">
           {afterTool}
 
           <div

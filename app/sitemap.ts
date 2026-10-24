@@ -4,6 +4,7 @@ import { INSTRUMENT_PAGES } from '@/lib/instrumentPages';
 import { INDEXED_CHORDS } from '@/lib/chords/curation';
 import { ARTICLES } from '@/lib/articles';
 import { TOOL_PAGES } from '@/lib/toolPages';
+import { PRINTABLE_SHEETS } from '@/lib/printables';
 import {
   TRANSLATED_LOCALES,
   TRANSLATED_PAGES,
@@ -88,6 +89,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    ...['', ...PRINTABLE_SHEETS.map((sheet) => `/${sheet.slug}`)].map((suffix) => ({
+      url: `${siteUrl}/printable-guitar-charts${suffix}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: suffix ? 0.7 : 0.8,
+    })),
     {
       url: `${siteUrl}/tunings`,
       lastModified: now,

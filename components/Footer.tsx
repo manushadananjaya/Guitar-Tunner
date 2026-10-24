@@ -52,6 +52,7 @@ export function Footer() {
         heading: "Learn",
         links: [
           { label: "All guides", href: "/articles" },
+          { label: "Printable guitar charts", href: "/printable-guitar-charts" },
           ...featuredArticles.map((article) => ({
             label: article.title,
             href: `/articles/${article.slug}`,

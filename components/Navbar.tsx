@@ -69,6 +69,7 @@ const MENUS: {
     width: "w-56",
     entries: [
       { href: "/articles", label: "Articles" },
+      { href: "/printable-guitar-charts", label: "Printable Charts" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
       { href: "/accuracy", label: "Accuracy" },

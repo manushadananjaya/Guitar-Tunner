@@ -801,3 +801,29 @@ Two tools for searches the site did not cover ("online tone generator",
       2-1-3 A fingering; Fmaj7's first finger is on the B string).
       Build, audits, Playwright (progress, reload, open/close, undo, every
       deep-link type, mobile) clean.
+
+## Step 21 — Printable charts  ✅ DONE (2026-10-25)
+
+For "printable guitar chord chart"-type searches, and something teachers
+hand out (each sheet carries the site address in its footer).
+
+- [x] **`/printable-guitar-charts`** hub + six sheets at
+      `/printable-guitar-charts/[sheet]` (registry: `lib/printables.ts`,
+      drawings: `components/Printables/Sheets.tsx`): a 24-chord chart,
+      major and minor chords in all 12 keys, fretboard notes 0–12, A minor
+      pentatonic on the whole neck with the five boxes, blank tab (nine
+      staves), and 30 blank chord boxes. Diagrams come from the chord
+      library and scale data, so they match the interactive tools.
+- [x] Printing: a Print button; `@page` sets the orientation per sheet,
+      paper size is left to the printer. Sheets scale with page width, and
+      every one comes out on exactly **one page on both A4 and US Letter,
+      in light and dark mode** (checked by printing all 24 PDFs). Black on
+      white in any theme (`.print-sheet` pins the colour variables, which
+      `@theme inline` utilities read directly); `color-scheme: light` in
+      print stops dark mode painting the page margins.
+- [x] Site-wide print cleanup: navbar, footer, background glows and
+      AdSense auto ads are `print:hidden`, and printing any tool page
+      prints just the tool (`ToolPageLayout` hides its header and prose).
+- [x] Hub in the navbar's More menu, footer and sitemap; ItemList JSON-LD;
+      share images for the hub and each sheet. Build, audits (249 pages),
+      no mobile overflow.

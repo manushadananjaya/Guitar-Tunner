@@ -406,3 +406,40 @@
     @apply transition-all duration-150 ease-out;
   }
 }
+
+/* Printable sheets (/printable-guitar-charts): ink on paper whatever the
+   theme. The theme utilities read these variables directly (@theme inline),
+   so pinning them here recolours every diagram inside the sheet. */
+.print-sheet {
+  --foreground: #111111;
+  --foreground-muted: #3d3d3d;
+  --foreground-subtle: #666666;
+  --border: #c4c4c4;
+  --border-strong: #8a8a8a;
+  --accent: #111111;
+  --surface-raised: #ffffff;
+  color: #111111;
+  color-scheme: light;
+}
+
+@media print {
+  /* Paper is white: without this, dark mode paints the page margins with
+     the dark canvas when "background graphics" is on. */
+  :root {
+    color-scheme: light !important;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  /* AdSense auto ads insert themselves anywhere in the page. */
+  ins.adsbygoogle,
+  .google-auto-placed {
+    display: none !important;
+  }
+  .print-sheet {
+    max-width: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
