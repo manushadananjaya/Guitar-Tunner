@@ -8,6 +8,7 @@ import {
   getChord,
   chordSlug,
 } from '../lib/chords/index';
+import { UKE_CHORDS, validateUkeLibrary } from '../lib/ukulele/chords';
 
 const issues = validateChordLibrary();
 const voicings = CHORDS.reduce((n, c) => n + c.voicings.length, 0);
@@ -35,4 +36,14 @@ if (issues.length) {
   process.exit(1);
 }
 
-console.log('\nAll voicings validate against chord theory.');
+console.log('\nAll guitar voicings validate against chord theory.');
+
+// Ukulele: same rule, GCEA tuning.
+const ukeIssues = validateUkeLibrary();
+console.log(`\nukulele chords: ${UKE_CHORDS.length}, voicings: ${UKE_CHORDS.reduce((n, c) => n + c.voicings.length, 0)}`);
+if (ukeIssues.length) {
+  console.log(`UKULELE ISSUES (${ukeIssues.length}):`);
+  for (const i of ukeIssues.slice(0, 40)) console.log(`  ${i}`);
+  process.exit(1);
+}
+console.log('All ukulele voicings validate against chord theory.');

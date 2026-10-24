@@ -176,7 +176,8 @@ export function GaugeVisual({ label }: { label: string }) {
 }
 
 /** A chord chart in the same geometry as components/Chords/ChordDiagram,
- *  strings left to right from 6 to 1. */
+ *  lowest string on the left; any string count (six for guitar, four for
+ *  ukulele). */
 export function ChordVisual({
   frets,
   baseFret,
@@ -191,7 +192,8 @@ export function ChordVisual({
   const padTop = 56;
   const gapX = 52;
   const gapY = 64;
-  const width = padX * 2 + gapX * 5;
+  const strings = frets.length;
+  const width = padX * 2 + gapX * (strings - 1);
   const height = padTop + gapY * FRETS + 20;
   const x = (i: number) => padX + i * gapX;
   const y = (relative: number) => padTop + (relative - 1) * gapY + gapY / 2;
@@ -220,11 +222,11 @@ export function ChordVisual({
             <circle key={`o${i}`} cx={x(i)} cy={padTop - 30} r="10" fill="none" stroke={C.subtle} strokeWidth="4" />
           ) : null,
         )}
-        {baseFret === 1 && <rect x={padX - 3} y={padTop - 8} width={gapX * 5 + 6} height="10" rx="3" fill={C.muted} />}
+        {baseFret === 1 && <rect x={padX - 3} y={padTop - 8} width={gapX * (strings - 1) + 6} height="10" rx="3" fill={C.muted} />}
         {Array.from({ length: FRETS + 1 }, (_, i) => (
-          <line key={`f${i}`} x1={padX} y1={padTop + i * gapY} x2={padX + gapX * 5} y2={padTop + i * gapY} stroke={C.lineStrong} strokeWidth="3" />
+          <line key={`f${i}`} x1={padX} y1={padTop + i * gapY} x2={padX + gapX * (strings - 1)} y2={padTop + i * gapY} stroke={C.lineStrong} strokeWidth="3" />
         ))}
-        {Array.from({ length: 6 }, (_, i) => (
+        {Array.from({ length: strings }, (_, i) => (
           <line key={`s${i}`} x1={x(i)} y1={padTop} x2={x(i)} y2={padTop + gapY * FRETS} stroke={C.lineStrong} strokeWidth="3" />
         ))}
         {showBarre && barreRelative !== null && (

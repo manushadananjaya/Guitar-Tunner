@@ -1,14 +1,12 @@
 import type { Voicing } from "@/lib/chords";
 
 const FRET_COUNT = 5;
-const STRINGS = 6;
 
 // Geometry in SVG user units; the viewBox scales it to whatever CSS width.
 const PAD_X = 16;
 const PAD_TOP = 26;
 const STRING_GAP = 18;
 const FRET_GAP = 22;
-const WIDTH = PAD_X * 2 + STRING_GAP * (STRINGS - 1);
 const HEIGHT = PAD_TOP + FRET_GAP * FRET_COUNT + 14;
 
 export interface ChordDiagramProps {
@@ -25,7 +23,8 @@ export interface ChordDiagramProps {
  *
  * Strings run left to right as string 6 (thickest) to string 1, which is how
  * chord charts are conventionally drawn: the view a player has looking at the
- * fretboard head-on.
+ * fretboard head-on. The string count comes from the voicing, so the same
+ * component draws four-string ukulele charts (G C E A, left to right).
  */
 export default function ChordDiagram({
   voicing,
@@ -33,6 +32,8 @@ export default function ChordDiagram({
   className,
 }: ChordDiagramProps) {
   const { frets, baseFret, barreFret } = voicing;
+  const STRINGS = frets.length;
+  const WIDTH = PAD_X * 2 + STRING_GAP * (STRINGS - 1);
   const showNut = baseFret === 1;
 
   const stringX = (i: number) => PAD_X + i * STRING_GAP;

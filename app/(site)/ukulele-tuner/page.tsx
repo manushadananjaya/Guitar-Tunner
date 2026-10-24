@@ -218,6 +218,17 @@ export default function UkuleleTunerPage() {
           above. This is the single most common ukulele tuning confusion.
         </p>
 
+        <h2>Ukulele Chords</h2>
+        <p>
+          Once you are in tune, the{" "}
+          <Link href="/ukulele-chords">ukulele chord library</Link> has every
+          major, minor and seventh chord in every key, with the easiest shape
+          first — start with <Link href="/ukulele-chords/c">C</Link>,{" "}
+          <Link href="/ukulele-chords/a-minor">Am</Link>,{" "}
+          <Link href="/ukulele-chords/f">F</Link> and{" "}
+          <Link href="/ukulele-chords/g">G</Link>.
+        </p>
+
         <p>
           Also available: our <Link href="/bass-tuner">bass tuner</Link>,{" "}
           <Link href="/12-string-guitar-tuner">12-string guitar tuner</Link>,

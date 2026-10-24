@@ -360,7 +360,9 @@ export default function ChordsIndexPage() {
             <Link href="/">free chromatic tuner</Link>, and if you are working
             on timing as well, the{" "}
             <Link href="/metronome">online metronome</Link> pairs well with
-            chord-change drills.
+            chord-change drills. Playing ukulele too? The{" "}
+            <Link href="/ukulele-chords">ukulele chord library</Link> covers
+            the same chords in GCEA tuning.
           </p>
         </section>
 

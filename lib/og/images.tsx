@@ -8,6 +8,7 @@ import { INSTRUMENT_PAGES } from "@/lib/instrumentPages";
 import { TOOL_PAGES } from "@/lib/toolPages";
 import { getChord } from "@/lib/chords";
 import { getPrintableSheet } from "@/lib/printables";
+import { getUkeChord } from "@/lib/ukulele/chords";
 import { CONTENT } from "@/lib/i18n/content";
 import { localNote, type Locale } from "@/lib/i18n/tuner";
 import {
@@ -153,5 +154,19 @@ export function printableOgImage(slug?: string) {
     title: sheet?.title ?? "Printable guitar charts",
     subtitle: sheet?.blurb ?? "Chord charts, the fretboard, the pentatonic scale, blank tab and blank chord boxes — one page each, A4 or Letter.",
     footnote: "Free to print and share for teaching",
+  });
+}
+
+/** Ukulele chord page: the easiest shape's diagram beside its name. */
+export function ukeChordOgImage(slug: string) {
+  const chord = getUkeChord(slug);
+  if (!chord) return toolOgImage("/ukulele-chords");
+  const voicing = chord.voicings[0];
+  return renderOgCard({
+    eyebrow: "Ukulele chord",
+    title: `${chord.name}${chord.quality.slug === "major" ? " major" : ""} on ukulele`,
+    subtitle: `${voicing.frets.join("")} in standard GCEA tuning. ${chord.voicings.length} shape${chord.voicings.length === 1 ? "" : "s"} with audio.`,
+    detail: <NoteChips notes={chord.notes.map((note) => note.name)} />,
+    visual: <ChordVisual frets={voicing.frets} baseFret={voicing.baseFret} barreFret={voicing.barreFret} />,
   });
 }

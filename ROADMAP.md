@@ -827,3 +827,31 @@ hand out (each sheet carries the site address in its footer).
 - [x] Hub in the navbar's More menu, footer and sitemap; ItemList JSON-LD;
       share images for the hub and each sheet. Build, audits (249 pages),
       no mobile overflow.
+
+## Step 22 — Ukulele chord library  ✅ DONE (2026-10-25)
+
+- [x] **`/ukulele-chords`** + **`/ukulele-chords/[slug]`**: 144 chords
+      (12 roots × the 12 qualities that fit on four strings) and 410 shapes
+      in GCEA tuning (`lib/ukulele/chords.ts`).
+- [x] Shapes are searched, not typed in: every fingering on four strings,
+      frets 0–12, that a hand can hold (≤ 4-fret span) is indexed by the
+      notes it sounds; a chord's shapes are those whose notes are exactly
+      the chord's. So they're correct by construction. They're ranked by
+      playability (position, fingers, stretch, a barre counts as one finger,
+      open strings under a high hand penalised), with alternatives at least
+      three frets apart. Checked against standard charts: C 0003/5433,
+      D 2220, Am 2000, F 2010, G 0232, Bb 3211, Bm 4222, Fmaj7 5500/2413…
+      Six shapes are pinned in `PREFERRED` (E 4442, Em 0432, Bb, B, Bm, D7,
+      Dm7), and the validator fails if a pin ever stops winning.
+- [x] `npm run validate:chords` now checks the ukulele library too.
+- [x] Each page: diagrams (`ChordDiagram` now draws any string count;
+      guitar output unchanged), audio, the shape in words, notes, keys and
+      progressions, same-note chords, the guitar chord link, and a computed
+      **baritone ukulele (DGBE) shape**. ~350 words each, on par with the
+      guitar pages.
+- [x] Curation as for guitar: major, minor and 7th in every key, m7/maj7 on
+      natural roots, sus in C D G A — 58 indexed and in the sitemap; the
+      other 86 are `noindex, follow`. Share images (4-string diagram);
+      in `TOOL_PAGES`; linked from the ukulele tuner and the guitar library.
+- [x] Shared `lib/chords/numeralProgressions.ts`, extracted from the guitar
+      chord page. Build and audits (308 pages, depth ≤ 2), no mobile overflow.

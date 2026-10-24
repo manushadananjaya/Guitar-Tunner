@@ -41,6 +41,13 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Diagrams and audio for major, minor, 7th, sus, diminished and augmented chords in every key — every shape checked against chord theory before it ships.",
   },
   {
+    href: "/ukulele-chords",
+    label: "Ukulele Chords",
+    tagline: "GCEA, every key",
+    blurb:
+      "Major, minor, 7th, sus and more on ukulele in every key — the easiest shape first, with audio and the baritone shape for each.",
+  },
+  {
     href: "/chord-finder",
     label: "Chord Finder",
     tagline: "Name any shape",

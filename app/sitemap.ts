@@ -5,6 +5,7 @@ import { INDEXED_CHORDS } from '@/lib/chords/curation';
 import { ARTICLES } from '@/lib/articles';
 import { TOOL_PAGES } from '@/lib/toolPages';
 import { PRINTABLE_SHEETS } from '@/lib/printables';
+import { UKE_CHORDS, isUkeChordIndexed } from '@/lib/ukulele/chords';
 import {
   TRANSLATED_LOCALES,
   TRANSLATED_PAGES,
@@ -70,6 +71,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: tool.href === '/chords' ? ('weekly' as const) : ('monthly' as const),
       priority: 0.9,
+    })),
+    ...UKE_CHORDS.filter(isUkeChordIndexed).map((chord) => ({
+      url: `${siteUrl}/ukulele-chords/${chord.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
     ...INDEXED_CHORDS.map((chord) => ({
       url: `${siteUrl}/chords/${chord.slug}`,
