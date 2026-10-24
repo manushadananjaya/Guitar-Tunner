@@ -170,3 +170,12 @@ export function ukeChordOgImage(slug: string) {
     visual: <ChordVisual frets={voicing.frets} baseFret={voicing.baseFret} barreFret={voicing.barreFret} />,
   });
 }
+
+/** The progress page: streak visual with no personal numbers. */
+export function progressOgImage() {
+  return renderOgCard({
+    eyebrow: "Your progress",
+    title: "Your practice, on any device",
+    subtitle: "Streaks, course progress and best scores — moved by link or file, with no account and nothing uploaded.",
+  });
+}

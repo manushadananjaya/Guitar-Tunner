@@ -405,7 +405,8 @@ export function DailyChallenge() {
             ))}
           </div>
           <p className="mt-3 text-2xs text-ink-subtle">
-            Results are stored in this browser only. Nothing is sent anywhere.
+            Results are stored in this browser only. Nothing is sent anywhere.{" "}
+            <Link href="/my-progress" className="font-semibold text-brass hover:text-brass-hover">Move them to another device</Link>
           </p>
         </div>
       )}

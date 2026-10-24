@@ -289,7 +289,8 @@ export function BeginnerCourse() {
       })}
 
       <p className="text-center text-2xs text-ink-subtle">
-        Progress is saved in this browser only. Nothing is sent anywhere.
+        Progress is saved in this browser only. Nothing is sent anywhere.{" "}
+        <Link href="/my-progress" className="font-semibold text-brass hover:text-brass-hover">Move it to another device</Link>
       </p>
     </div>
   );

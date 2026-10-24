@@ -63,6 +63,7 @@ export function Footer() {
         heading: "Site",
         links: [
           { label: "About", href: "/about" },
+          { label: "Your progress", href: "/my-progress" },
           ...(SITE_AUTHOR
             ? [{ label: SITE_AUTHOR.name, href: SITE_AUTHOR.url }]
             : []),

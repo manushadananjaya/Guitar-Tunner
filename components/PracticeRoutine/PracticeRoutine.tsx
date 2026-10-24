@@ -417,7 +417,8 @@ export function PracticeRoutine() {
       </ol>
       <p className="text-2xs text-ink-subtle">
         Your streak and calendar are stored in this browser only — no account, nothing sent anywhere. Using the ear
-        trainer, fretboard trainer, scale explorer, strumming trainer, or progression builder also counts as a practice day.
+        trainer, fretboard trainer, scale explorer, strumming trainer, or progression builder also counts as a practice day.{" "}
+        <Link href="/my-progress" className="font-semibold text-brass hover:text-brass-hover">Move your streak to another device</Link>
       </p>
     </div>
   );

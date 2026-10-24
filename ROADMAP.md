@@ -885,3 +885,35 @@ hand out (each sheet carries the site address in its footer).
       wording corrected (it reads pitch from autocorrelation, computed via FFT).
 - [x] Browser check with fake-mic tones: E2/A2 within ±1¢, B0 within ±2¢
       on the 5-string tuner, strobe E2 within ±1¢.
+
+## Step 24 — Progress on any device  ✅ DONE (2026-10-25)
+
+- [x] **`/my-progress`** (noindex): a dashboard of what this browser holds
+      (practice streak and days, course N/30 with a link to the next day,
+      daily-challenge record, rhythm bests, ear and fretboard accuracy),
+      plus send and receive. In the navbar's More menu and the footer, and
+      linked from the practice routine, daily challenge and course.
+- [x] **Transfer without accounts** (`lib/progressBackup.ts`): every
+      `gtp*` storage key, deflated and base64url-encoded into a link
+      `…/my-progress#import=…`. The payload is in the fragment, which
+      browsers never send to the server. A typical backup is ~360
+      characters. Also a downloadable JSON file, a paste box, and
+      "clear all on this device". Falls back to uncompressed if
+      CompressionStream is missing.
+- [x] **Merge, never overwrite**, per data type: practice days union (max
+      minutes, both activity lists), fuller daily-challenge result,
+      earliest course completion date, max best scores, the
+      more-answered tally for trainer accuracy. Importing twice is a no-op.
+      Device-specific data stays put: the rhythm trainer's latency
+      calibration is stripped from backups and never overwritten;
+      settings without a merge rule keep the receiving device's value.
+- [x] Always confirms first: a link shows what the backup holds before
+      merging, then clears the fragment. Hash changes are handled, since a
+      link opened on the same page doesn't reload it (bug found in testing).
+- [x] Verified: unit tests of the merge rules, round-trip and rejection of
+      bad codes; two-device Playwright test (link → preview → merge →
+      dashboard; re-import "Nothing new"; file route; bad paste; clear);
+      audits clean.
+- [ ] Dropped from the original idea: QR codes. They need a new
+      dependency, and a few months of practice history outgrows a
+      scannable QR. Sending yourself the link covers the same case.

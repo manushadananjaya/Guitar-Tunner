@@ -70,6 +70,7 @@ const MENUS: {
     entries: [
       { href: "/articles", label: "Articles" },
       { href: "/printable-guitar-charts", label: "Printable Charts" },
+      { href: "/my-progress", label: "Your Progress" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
       { href: "/accuracy", label: "Accuracy" },
