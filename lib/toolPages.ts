@@ -104,11 +104,25 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Set a tempo from 30 to 300 BPM, tap the beat you want, and practise against sample-accurate timing — with time signatures, subdivisions, and an accented downbeat.",
   },
   {
+    href: "/tone-generator",
+    label: "Tone Generator",
+    tagline: "Any frequency, any note",
+    blurb:
+      "Play a steady sine, square, triangle or sawtooth tone from 20 Hz to 20 kHz, or pick a note at any concert pitch — and share a link to it.",
+  },
+  {
     href: "/vocal-pitch-detector",
     label: "Vocal Pitch Detector",
     tagline: "Sing, see the note",
     blurb:
       "Sing or hum and see the note, the frequency, and how many cents sharp or flat you are — in real time. Includes a scrolling pitch graph and a vocal range finder.",
+  },
+  {
+    href: "/strobe-tuner",
+    label: "Strobe Tuner",
+    tagline: "Bands stop when in tune",
+    blurb:
+      "A chromatic strobe-style display: bands drift left when you are flat, right when you are sharp, and stand still when the note is right.",
   },
   {
     href: "/intonation-checker",

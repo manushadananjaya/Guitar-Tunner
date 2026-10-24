@@ -717,3 +717,36 @@ Return visits and shareability, plus two missing tunings.
 - Shared streak numbers are self-reported by design.
 - Articles keep their screenshot share images; `/about`, `/contact` and
   the legal pages use the homepage card.
+
+## Step 18 — Tone generator and strobe tuner  ✅ DONE (2026-10-25)
+
+Two tools for searches the site did not cover ("online tone generator",
+"strobe tuner"), both built on audio code that already existed.
+
+- [x] **`/tone-generator`** — continuous tone from 20 Hz to 20 kHz, to
+      0.01 Hz, in sine/triangle/square/sawtooth (the bright waves are
+      level-matched down). Log slider, ±octave/semitone/1 Hz buttons, note
+      buttons and guitar-string pitches at A4 = 432/440/442/443, nearest-note
+      readout with cents. Glides and fades so nothing clicks; stops when
+      the page goes away. State in the URL (`?f=&w=&a4=`) with a copy-link
+      button. Keyboard: Space, ↑/↓, Shift for semitones. Warnings for tones
+      most adults can't hear (above 12 kHz) and that phone speakers can't
+      play (below 60 Hz).
+- [x] **`/strobe-tuner`** — chromatic strobe display on canvas: three bands
+      drift left when flat, right when sharp, at 6 px/s per cent, and turn
+      green under 1¢. Readout in cents and Hz, adjustable concert pitch.
+      Reuses `useVocalPitch` with new opt-in options (range, octave guard,
+      reference pitch, `snapCents` so string changes don't glide); its
+      defaults are unchanged and the vocal tool still reads the same.
+- [x] Both in `TOOL_PAGES` with share images. `tsc`, build, `audit:seo`
+      (only the 3 known long titles), `audit:links` clean. Playwright: tone
+      URL restore, live frequency/waveform changes on the oscillator,
+      nudges, A4 switch, copy link, keyboard; strobe with fake-mic WAVs.
+
+### Known
+
+- Strobe precision is the detector's: a synthetic A2 5¢ sharp reads
+  4.6–5.5¢, but a perfect E2 wanders ±3¢, so on low strings the bands
+  rock instead of freezing. The page says so instead of claiming
+  hardware-strobe (0.1¢) accuracy. A larger analysis window or an
+  AudioWorklet detector would tighten it.

@@ -19,6 +19,18 @@ export interface VocalPitchOptions {
   smoothingFactor?: number;
   /** Minimum milliseconds between recomputes. Default 30. */
   updateRate?: number;
+  /** Detection range, Hz. Defaults suit the voice (65–1100); the strobe
+   *  tuner widens it for low instrument strings. */
+  minFrequency?: number;
+  maxFrequency?: number;
+  /** Reject sudden octave jumps — right for voice, wrong for an instrument
+   *  where you move from string to string. Default true. */
+  octaveGuard?: boolean;
+  /** Concert pitch the nearest note is judged against. Default 440. */
+  referencePitch?: number;
+  /** Skip smoothing when a reading jumps more than this many cents, so a
+   *  new string reads at once instead of gliding there. Off by default. */
+  snapCents?: number;
 }
 
 export interface VocalPitchState {
@@ -49,8 +61,9 @@ const IDLE: VocalPitchState = {
 
 const HOLD_MS = 500;
 
-/** Live, chromatic pitch tracking tuned for the human voice (C2–C#6).
- *  Deliberately separate from usePitchDetector so the guitar tuner is untouched. */
+/** Live, chromatic pitch tracking, tuned by default for the human voice
+ *  (C2–C#6). Deliberately separate from usePitchDetector so the guitar tuner
+ *  is untouched. The detector options are read once, on first render. */
 export function useVocalPitch(
   audioData: Float32Array | null,
   sampleRate: number = 48000,
@@ -61,17 +74,22 @@ export function useVocalPitch(
     accuracyCents = 15,
     smoothingFactor = 0.6,
     updateRate = 30,
+    minFrequency = 65,
+    maxFrequency = 1100,
+    octaveGuard = true,
+    referencePitch = 440,
+    snapCents,
   } = options;
 
   const detectorRef = useRef<PitchDetector | null>(null);
   if (detectorRef.current === null) {
     detectorRef.current = new PitchDetector({
       smoothingWindow: 5,
-      minFrequency: 65,
-      maxFrequency: 1100,
+      minFrequency,
+      maxFrequency,
       confidenceThreshold: 0.7,
       rmsGate: 0.006,
-      octaveGuard: true,
+      octaveGuard,
     });
   }
 
@@ -92,21 +110,26 @@ export function useVocalPitch(
 
     if (result.detected && result.frequency > 0) {
       lastHitRef.current = now;
-      const freq = smoothFrequency(
-        smoothedRef.current,
-        result.frequency,
-        smoothingFactor,
-      );
+      const jumped =
+        snapCents !== undefined &&
+        smoothedRef.current > 0 &&
+        Math.abs(centsFromFrequency(result.frequency, smoothedRef.current)) > snapCents;
+      const freq = jumped
+        ? result.frequency
+        : smoothFrequency(smoothedRef.current, result.frequency, smoothingFactor);
       smoothedRef.current = freq;
 
-      const note = frequencyToNote(freq);
+      // Judge the note at the chosen concert pitch: scale into A = 440,
+      // name it there, and scale its frequency back.
+      const ratio = referencePitch / 440;
+      const note = frequencyToNote(freq / ratio);
       const reference =
-        targetFrequency && targetFrequency > 0 ? targetFrequency : note.frequency;
+        targetFrequency && targetFrequency > 0 ? targetFrequency : note.frequency * ratio;
       const cents = centsFromFrequency(freq, reference);
 
       setState({
         frequency: freq,
-        midi: frequencyToMidi(freq),
+        midi: frequencyToMidi(freq / ratio),
         noteName: note.name,
         octave: note.octave,
         cents,
@@ -132,6 +155,8 @@ export function useVocalPitch(
     accuracyCents,
     smoothingFactor,
     updateRate,
+    referencePitch,
+    snapCents,
   ]);
 
   useEffect(() => {
