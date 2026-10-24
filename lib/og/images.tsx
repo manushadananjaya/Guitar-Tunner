@@ -133,3 +133,13 @@ export function dailyChallengeOgImage() {
     footnote: "New challenge every day at midnight",
   });
 }
+
+/** The beginner course: its four weeks as chips. */
+export function courseOgImage() {
+  return renderOgCard({
+    eyebrow: "Free course",
+    title: "Learn guitar in 30 days",
+    subtitle: "Fifteen minutes a day, from tuning up to playing a whole song — with the right tool opened for every lesson.",
+    detail: <NoteChips notes={["Week 1: first chords", "Week 2: strumming", "Week 3: riffs & blues", "Week 4: songs"]} />,
+  });
+}

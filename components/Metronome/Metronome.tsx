@@ -50,6 +50,14 @@ export function Metronome() {
     tap,
   } = metronome;
 
+  // Deep links from the beginner course and elsewhere: ?bpm=60
+  useEffect(() => {
+    const requested = Number(new URLSearchParams(window.location.search).get("bpm"));
+    if (Number.isFinite(requested) && requested > 0) setBpm(Math.round(requested));
+    // Once, on arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Space toggles, arrows nudge tempo — but never while the user is typing.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

@@ -13,6 +13,13 @@ export interface ToolPageEntry {
 
 export const TOOL_PAGES: ToolPageEntry[] = [
   {
+    href: "/beginner-guitar-course",
+    label: "30-Day Beginner Course",
+    tagline: "15 minutes a day",
+    blurb:
+      "From tuning up to playing a whole song in 30 short lessons — chords, strumming, power chords and the blues, with every tool preset for the lesson.",
+  },
+  {
     href: "/daily-challenge",
     label: "Daily Challenge",
     tagline: "5 questions a day",

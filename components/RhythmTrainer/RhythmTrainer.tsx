@@ -201,6 +201,18 @@ export function RhythmTrainer() {
 
   useEffect(() => setSaved(load()), []);
 
+  // Deep links: ?rhythm=eighths&bpm=70
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("rhythm");
+    if (id && RHYTHMS.some((r) => r.id === id)) {
+      setRhythmId(id);
+      setBpm(getRhythm(id).bpm);
+    }
+    const requested = Number(params.get("bpm"));
+    if (Number.isFinite(requested) && requested >= 40 && requested <= 200) setBpm(Math.round(requested));
+  }, []);
+
   const onsets = useMemo(() => roundOnsets(rhythm), [rhythm]);
 
   const halt = useCallback(() => {

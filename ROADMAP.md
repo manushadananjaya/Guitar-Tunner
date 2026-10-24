@@ -775,3 +775,29 @@ Two tools for searches the site did not cover ("online tone generator",
 - [x] Verified: scoring unit cases; Playwright taps fired on the audio clock
       at set offsets — calibrated at +100 ms, a +100 ms round reads +1 ms;
       repeated uncalibrated rounds now agree; no mobile overflow.
+
+## Step 20 — 30-day beginner course  ✅ DONE (2026-10-25)
+
+- [x] **`/beginner-guitar-course`** — 30 daily lessons of 10–20 minutes in
+      four weeks (first chords → strumming → riffs, scale & blues → capo,
+      fingerpicking, barre chords, a whole song). Data in `lib/course.ts`:
+      each day has a goal, 2–4 tasks, a tip, and a "done when" check.
+      Sixteen chords, ordered so shapes that share fingers come together;
+      no barre until week four.
+- [x] One page, not 30: the full curriculum is server-rendered inside
+      `<details>`, so it's all in the HTML without 30 thin pages (the
+      scaled-content risk from the AdSense review). Course JSON-LD with
+      syllabus sections.
+- [x] Every task deep-links a tool already set up: chord pages,
+      `/chord-progressions?key=&mode=&p=` loops (incl. the 12-bar and
+      `5.major`), strumming patterns, scales, and new `?bpm=` on the
+      metronome and `?rhythm=&bpm=` on the rhythm trainer. A script checked
+      every chord slug and progression code.
+- [x] Progress per device: mark a day done, the next opens and scrolls into
+      view, undo, a progress strip, "Continue: day N", a nudge after two
+      days in one sitting, and a share button at 30/30. Each day logs a
+      practice day. Top of the Tools menu and first on the homepage grid.
+- [x] Fingerings fact-checked (fixed two: D/A shared finger only with the
+      2-1-3 A fingering; Fmaj7's first finger is on the B string).
+      Build, audits, Playwright (progress, reload, open/close, undo, every
+      deep-link type, mobile) clean.
