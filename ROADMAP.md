@@ -917,3 +917,42 @@ hand out (each sheet carries the site address in its footer).
 - [ ] Dropped from the original idea: QR codes. They need a new
       dependency, and a few months of practice history outgrows a
       scannable QR. Sending yourself the link covers the same case.
+
+## Step 25 — Search reach: new tunings, tools, scale pages, real sitemap dates  ✅ DONE (2026-10-28)
+
+- [x] **Real `<lastmod>` in the sitemap.** It was build time on every URL,
+      which search engines learn to ignore. `npm run dates`
+      (`scripts/page-dates.mjs`) writes `lib/generated/pageDates.json` from
+      git — last commit per file, today for uncommitted ones — and the
+      sitemap takes the newest date of each page's own sources via
+      `lastModifiedOf()` (`lib/pageDates.ts`). The JSON is committed because
+      deploys clone shallow. **Run `npm run dates` before every commit that
+      changes pages.** Translated pages are dated by their language's
+      content file, so they move together.
+- [x] **Alternate tunings for other instruments**: `INSTRUMENT_TUNINGS` in
+      `lib/tuningPresets.ts` (7-string Drop A, bass Drop D, ukulele low G)
+      and `tuningsForGuitar()`; the tuner's preset grid now shows them.
+      Tuner pages may set `guitarType` in `TUNER_PAGES`. New six-string
+      presets C standard, B standard, Nashville; new instruments double bass
+      and cavaquinho.
+- [x] **8 tuner pages**: `/c-standard-tuner`, `/b-standard-tuner`,
+      `/nashville-tuner`, `/drop-a-tuner`, `/drop-d-bass-tuner`,
+      `/low-g-ukulele-tuner`, `/double-bass-tuner`, `/cavaquinho-tuner`
+      (the last also in es/pt/fr/de — Brazil is its market).
+- [x] **4 tools**: `/key-finder` (mic chroma + Krumhansl–Kessler key
+      profiles in `lib/music/keyFinder.ts`, or typed chords via
+      `guessKey`), `/note-frequency-chart` (C0–B8 at any A4, playable,
+      frequency→note), `/drone-generator` (sustained or tanpura cycle;
+      `?key=` deep links), `/fret-calculator`.
+- [x] **12 scale pages** at `/scales/[slug]` (`lib/music/scalePages.ts`):
+      hand-written prose per page; notes, positions and chords generated.
+      Deliberately not every key × scale — scaled-content risk.
+- [x] **`/tunings/by-artist`**: documented tunings only, each scoped to an
+      album or song; disputed ones left out.
+- [x] Fixed 3 over-long titles and 1 over-long description found by the
+      audit. Audits: 337 pages, 0 SEO issues, 0 orphans, depth ≤ 2.
+
+### Not done
+
+- The 7 new English tuner pages are not translated yet (cavaquinho is).
+- Search Console title rewrites need the query export from the user.

@@ -7,8 +7,12 @@ export interface TunerPageEntry {
   href: string;
   /** Short label for nav chips and cross-links. */
   label: string;
-  /** Preset key in TUNING_PRESETS. */
+  /** Preset key in TUNING_PRESETS, or in INSTRUMENT_TUNINGS when
+   *  `guitarType` is set. */
   tuning: string;
+  /** Key in GUITAR_TYPES, for a tuning of another instrument (Drop A on a
+   *  7-string, Drop D on bass). Omitted means 6-string guitar. */
+  guitarType?: string;
   /** Notes low to high, for menu subtitles. */
   notes: string;
   /** One-line description for homepage cards. */
@@ -49,6 +53,15 @@ export const TUNER_PAGES: TunerPageEntry[] = [
     notes: "B F♯ B E G♯ C♯",
     blurb:
       "The low-tuned metal standard on six strings: Drop D's shape, three semitones lower.",
+  },
+  {
+    href: "/drop-a-tuner",
+    label: "Drop A",
+    tuning: "dropA",
+    guitarType: "sevenString",
+    notes: "A E A D G B E",
+    blurb:
+      "The 7-string drop tuning: low B down to A for one-finger power chords at the bottom of the range.",
   },
   {
     href: "/dadgad-tuner",
@@ -114,6 +127,30 @@ export const TUNER_PAGES: TunerPageEntry[] = [
       "D standard — all six strings down a whole step for weight without new shapes.",
   },
   {
+    href: "/c-standard-tuner",
+    label: "C Standard",
+    tuning: "cStandard",
+    notes: "C F B♭ E♭ G C",
+    blurb:
+      "Every string down two whole steps. Standard shapes, a low C, and a much heavier sound.",
+  },
+  {
+    href: "/b-standard-tuner",
+    label: "B Standard",
+    tuning: "bStandard",
+    notes: "B E A D F♯ B",
+    blurb:
+      "Standard tuning a fourth lower — the usual tuning of a baritone guitar, with every chord shape unchanged.",
+  },
+  {
+    href: "/nashville-tuner",
+    label: "Nashville",
+    tuning: "nashville",
+    notes: "E3 A3 D4 G4 B3 E4",
+    blurb:
+      "High-strung tuning: the 12-string's octave strings on a six-string, for a bright, shimmering layer.",
+  },
+  {
     href: "/432-hz-tuner",
     label: "432 Hz",
     tuning: "standard",
@@ -121,6 +158,24 @@ export const TUNER_PAGES: TunerPageEntry[] = [
     reference: 432,
     blurb:
       "Standard tuning about a third of a semitone lower, with A at 432 Hz instead of 440.",
+  },
+  {
+    href: "/drop-d-bass-tuner",
+    label: "Drop D Bass",
+    tuning: "bassDropD",
+    guitarType: "bass",
+    notes: "D A D G",
+    blurb:
+      "Bass E string down to D1 — the bass half of every Drop D riff, and a lower note on a 4-string.",
+  },
+  {
+    href: "/low-g-ukulele-tuner",
+    label: "Low G Ukulele",
+    tuning: "lowG",
+    guitarType: "ukulele",
+    notes: "G3 C4 E4 A4",
+    blurb:
+      "Linear GCEA with the G an octave down — a fuller, deeper ukulele with a real bass note.",
   },
 ];
 

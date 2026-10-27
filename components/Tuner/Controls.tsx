@@ -8,7 +8,7 @@ import {
   REFERENCE_PITCH_MAX,
   REFERENCE_PITCH_MIN,
   REFERENCE_PITCH_PRESETS,
-  TUNING_PRESETS,
+  tuningsForGuitar,
 } from '@/lib/tuningPresets';
 import { Minus, Plus } from 'lucide-react';
 import { TUNER_TEXT, instrumentName, presetName, type Locale } from '@/lib/i18n/tuner';
@@ -35,7 +35,11 @@ export const TunerControls: React.FC<TunerControlsProps> = ({
   onReferencePitchChange,
 }) => {
   const t = TUNER_TEXT[locale];
-  const supportsPresets = currentGuitarType === 'sixString';
+  const presets = tuningsForGuitar(currentGuitarType);
+  const supportsPresets = Object.keys(presets).length > 1;
+  // A six-string preset left selected after switching instrument means
+  // nothing here; the instrument is then in its standard tuning.
+  const activeTuning = presets[currentTuningMode] ? currentTuningMode : 'standard';
 
   return (
     <div className={cn('w-full rounded-2xl border border-line bg-surface-sunken/40 p-4 backdrop-blur', className)}>
@@ -68,7 +72,7 @@ export const TunerControls: React.FC<TunerControlsProps> = ({
           <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-ink-subtle">{t.tuningPreset}</p>
           {supportsPresets ? (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {Object.entries(TUNING_PRESETS).map(([key, preset]) => (
+              {Object.entries(presets).map(([key, preset]) => (
                 <Button
                   key={key}
                   type="button"
@@ -76,7 +80,7 @@ export const TunerControls: React.FC<TunerControlsProps> = ({
                   onClick={() => onTuningChange(key)}
                   className={cn(
                     'h-11 justify-start rounded-xl border-line bg-surface/60 px-3 text-xs font-medium',
-                    currentTuningMode === key &&
+                    activeTuning === key &&
                       'border-brass/60 bg-brass/10 text-brass-hover hover:bg-brass/15'
                   )}
                 >

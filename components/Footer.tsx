@@ -46,6 +46,7 @@ export function Footer() {
             return { label: page ? `${page.label} Tuner` : href, href };
           }),
           { label: "All tunings", href: "/tunings" },
+          { label: "Tunings by band", href: "/tunings/by-artist" },
         ],
       },
       {

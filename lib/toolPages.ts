@@ -83,6 +83,13 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Pentatonic, blues, major, minor and the modes on the whole fretboard, in any key and tuning — with positions, playback, and a drone to improvise over.",
   },
   {
+    href: "/key-finder",
+    label: "Key Finder",
+    tagline: "What key is this song in?",
+    blurb:
+      "Play or sing a song into the microphone, or type its chords, and see the key it is in — with the relative key and the scale to solo over.",
+  },
+  {
     href: "/circle-of-fifths",
     label: "Circle of Fifths",
     tagline: "Keys & their chords",
@@ -132,6 +139,20 @@ export const TOOL_PAGES: ToolPageEntry[] = [
       "Play a steady sine, square, triangle or sawtooth tone from 20 Hz to 20 kHz, or pick a note at any concert pitch — and share a link to it.",
   },
   {
+    href: "/drone-generator",
+    label: "Drone Generator",
+    tagline: "A drone in any key",
+    blurb:
+      "A steady drone or a tanpura-style plucked cycle in any key, at any concert pitch — to practise intonation, scales and improvisation against.",
+  },
+  {
+    href: "/note-frequency-chart",
+    label: "Note Frequency Chart",
+    tagline: "Every note in Hz",
+    blurb:
+      "The frequency of every note from C0 to B8, at 440 Hz or any concert pitch. Tap a note to hear it, or type a frequency to name the note.",
+  },
+  {
     href: "/vocal-pitch-detector",
     label: "Vocal Pitch Detector",
     tagline: "Sing, see the note",
@@ -158,6 +179,13 @@ export const TOOL_PAGES: ToolPageEntry[] = [
     tagline: "Gauge & tuning",
     blurb:
       "See how much tension each string carries in any tuning and scale length, and which gauges would restore normal feel when you tune down.",
+  },
+  {
+    href: "/fret-calculator",
+    label: "Fret Calculator",
+    tagline: "Fret positions for any scale",
+    blurb:
+      "Exact fret positions for any scale length, in inches or millimetres — from the nut, between frets and to the bridge, ready to copy for a build.",
   },
 ];
 

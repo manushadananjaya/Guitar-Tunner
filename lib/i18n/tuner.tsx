@@ -56,6 +56,8 @@ const INSTRUMENTS: Partial<Record<Locale, Record<string, string>>> = {
     violin: "Violín",
     viola: "Viola",
     cello: "Violonchelo",
+    doubleBass: "Contrabajo",
+    cavaquinho: "Cavaquinho",
   },
   pt: {
     sixString: "Violão / guitarra de 6 cordas",
@@ -70,6 +72,8 @@ const INSTRUMENTS: Partial<Record<Locale, Record<string, string>>> = {
     violin: "Violino",
     viola: "Viola de arco",
     cello: "Violoncelo",
+    doubleBass: "Contrabaixo acústico",
+    cavaquinho: "Cavaquinho",
   },
   fr: {
     sixString: "Guitare 6 cordes",
@@ -84,6 +88,8 @@ const INSTRUMENTS: Partial<Record<Locale, Record<string, string>>> = {
     violin: "Violon",
     viola: "Alto",
     cello: "Violoncelle",
+    doubleBass: "Contrebasse",
+    cavaquinho: "Cavaquinho",
   },
   de: {
     sixString: "6-saitige Gitarre",
@@ -98,6 +104,8 @@ const INSTRUMENTS: Partial<Record<Locale, Record<string, string>>> = {
     violin: "Geige",
     viola: "Bratsche",
     cello: "Cello",
+    doubleBass: "Kontrabass",
+    cavaquinho: "Cavaquinho",
   },
 };
 
@@ -113,6 +121,9 @@ const PRESETS: Partial<Record<Locale, Record<string, string>>> = {
     openA: "La abierto",
     openE: "Mi abierto",
     openC: "Do abierto",
+    cStandard: "Do estándar",
+    bStandard: "Si estándar",
+    lowG: "Sol grave",
   },
   pt: {
     standard: "Padrão",
@@ -123,16 +134,22 @@ const PRESETS: Partial<Record<Locale, Record<string, string>>> = {
     openA: "Lá aberto",
     openE: "Mi aberto",
     openC: "Dó aberto",
+    cStandard: "Dó padrão",
+    bStandard: "Si padrão",
+    lowG: "Sol grave",
   },
   fr: {
     standard: "Standard",
     halfStepDown: "Un demi-ton plus bas",
     fullStepDown: "Un ton plus bas",
+    lowG: "Sol grave",
   },
   de: {
     standard: "Standard",
     halfStepDown: "Halbton tiefer",
     fullStepDown: "Ganzton tiefer",
+    bStandard: "H-Standard",
+    lowG: "Tiefes G",
   },
 };
 

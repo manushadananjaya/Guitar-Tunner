@@ -5,7 +5,7 @@ import { ChordFinder } from "@/components/ChordFinder/ChordFinder";
 import { otherToolLinks } from "@/lib/toolPages";
 
 export const metadata: Metadata = {
-  title: "Reverse Chord Finder — Name Any Guitar Chord Shape",
+  title: "Reverse Chord Finder — Name Any Chord Shape",
   description:
     "Tap the frets you are holding and find out what chord it is. Works in standard and alternate tunings, names slash chords and inversions, and plays the shape back.",
   alternates: { canonical: "/chord-finder" },

@@ -102,6 +102,22 @@ export const INSTRUMENT_PAGES: InstrumentPageEntry[] = [
     blurb:
       "The viola's strings an octave lower, down to C2 at 65.41 Hz.",
   },
+  {
+    href: "/double-bass-tuner",
+    label: "Double Bass",
+    guitarType: "doubleBass",
+    notes: "E A D G",
+    blurb:
+      "Upright bass in orchestral tuning, in fourths down to E1 — tune with harmonics for the cleanest read.",
+  },
+  {
+    href: "/cavaquinho-tuner",
+    label: "Cavaquinho",
+    guitarType: "cavaquinho",
+    notes: "D G B D",
+    blurb:
+      "The four-string voice of samba, pagode and choro, in the standard Brazilian D G B D.",
+  },
 ];
 
 /** Cross-links for one instrument page: every sibling except itself. */

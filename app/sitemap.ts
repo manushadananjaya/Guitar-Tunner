@@ -6,14 +6,32 @@ import { ARTICLES } from '@/lib/articles';
 import { TOOL_PAGES } from '@/lib/toolPages';
 import { PRINTABLE_SHEETS } from '@/lib/printables';
 import { UKE_CHORDS, isUkeChordIndexed } from '@/lib/ukulele/chords';
+import { SCALE_PAGES } from '@/lib/music/scalePages';
 import {
+  HANDWRITTEN_PAGES,
   TRANSLATED_LOCALES,
   TRANSLATED_PAGES,
   languageAlternates,
 } from '@/lib/i18n/pages';
+import { lastModifiedOf, routeDir } from '@/lib/pageDates';
+
+/** <lastmod> is each page's real last change, from `npm run dates`, never
+ *  the build time: a date that changes on every deploy is one search
+ *  engines learn to ignore. Pages with no recorded date leave it out. */
+const dated = (...paths: string[]) => {
+  const lastModified = lastModifiedOf(...paths);
+  return lastModified ? { lastModified } : {};
+};
+
+/** Source files behind a translated page: its own route when it was written
+ *  by hand, otherwise the shared renderer and that language's copy. */
+function translatedSources(path: string, locale: string) {
+  if (path === `/${locale}`) return [`app/${locale === 'es' ? 'es' : '[lang]'}/page.tsx`];
+  if (HANDWRITTEN_PAGES.has(path)) return [`app${path}`];
+  return ['components/LocalizedTunerPage.tsx', `lib/i18n/content/${locale}.ts`];
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const siteUrl = 'https://www.guitartunepro.com';
 
   // Both sides of each translated pair list each other, per Google's
@@ -38,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...INSTRUMENT_PAGES,
   ].map((page) => ({
     url: `${siteUrl}${page.href}`,
-    lastModified: now,
+    ...dated(routeDir(page.href)),
     changeFrequency: 'monthly',
     priority: 0.9,
     ...withAlternates(page.href),
@@ -48,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     (locale) =>
       TRANSLATED_PAGES.map((page) => ({
         url: `${siteUrl}${page[locale]}`,
-        lastModified: now,
+        ...dated(...translatedSources(page[locale], locale)),
         changeFrequency: 'monthly' as const,
         priority: page.en === '/' ? 0.9 : 0.8,
         ...withAlternates(page[locale]),
@@ -59,7 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: siteUrl,
       ...withAlternates('/'),
-      lastModified: now,
+      ...dated(routeDir('/'), 'components/HomepageContent.tsx'),
       changeFrequency: 'daily',
       priority: 1,
       images: [`${siteUrl}/Logo.png`],
@@ -68,49 +86,61 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...translatedPages,
     ...TOOL_PAGES.map((tool) => ({
       url: `${siteUrl}${tool.href}`,
-      lastModified: now,
+      ...dated(routeDir(tool.href)),
       changeFrequency: tool.href === '/chords' ? ('weekly' as const) : ('monthly' as const),
       priority: 0.9,
     })),
     ...UKE_CHORDS.filter(isUkeChordIndexed).map((chord) => ({
       url: `${siteUrl}/ukulele-chords/${chord.slug}`,
-      lastModified: now,
+      ...dated('app/(site)/ukulele-chords/[slug]', 'lib/ukulele'),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
     ...INDEXED_CHORDS.map((chord) => ({
       url: `${siteUrl}/chords/${chord.slug}`,
-      lastModified: now,
+      ...dated('app/(site)/chords/[slug]', 'lib/chords'),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
     {
       url: `${siteUrl}/about`,
-      lastModified: now,
+      ...dated(routeDir('/about')),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${siteUrl}/authors/manusha-dananjaya`,
-      lastModified: now,
+      ...dated(routeDir('/authors/manusha-dananjaya')),
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     ...['', ...PRINTABLE_SHEETS.map((sheet) => `/${sheet.slug}`)].map((suffix) => ({
       url: `${siteUrl}/printable-guitar-charts${suffix}`,
-      lastModified: now,
+      ...dated('app/(site)/printable-guitar-charts', 'lib/printables.ts'),
       changeFrequency: 'monthly' as const,
       priority: suffix ? 0.7 : 0.8,
     })),
     {
       url: `${siteUrl}/tunings`,
-      lastModified: now,
+      ...dated(routeDir('/tunings')),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
+      url: `${siteUrl}/tunings/by-artist`,
+      ...dated(routeDir('/tunings/by-artist')),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    ...SCALE_PAGES.map((page) => ({
+      url: `${siteUrl}/scales/${page.slug}`,
+      ...dated('app/(site)/scales/[slug]', 'lib/music/scalePages.ts'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    {
       url: `${siteUrl}/embed-tuner`,
-      lastModified: now,
+      ...dated(routeDir('/embed-tuner')),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
@@ -122,13 +152,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/privacy-policy`,
-      lastModified: now,
+      ...dated(routeDir('/privacy-policy')),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${siteUrl}/articles`,
-      lastModified: now,
+      ...dated('lib/articles.ts', routeDir('/articles')),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
@@ -140,13 +170,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${siteUrl}/contact`,
-      lastModified: now,
+      ...dated(routeDir('/contact')),
       changeFrequency: 'yearly',
       priority: 0.5,
     },
     {
       url: `${siteUrl}/terms-of-service`,
-      lastModified: now,
+      ...dated(routeDir('/terms-of-service')),
       changeFrequency: 'yearly',
       priority: 0.3,
     },

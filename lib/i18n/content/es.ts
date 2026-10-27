@@ -30,6 +30,7 @@ export const es: LanguageContent = {
     "/violin-tuner": "Afinador de violín",
     "/viola-tuner": "Afinador de viola",
     "/cello-tuner": "Afinador de violonchelo",
+    "/cavaquinho-tuner": "Afinador de cavaquinho",
   },
   pages: {
     "/drop-d-tuner": {
@@ -941,6 +942,60 @@ export const es: LanguageContent = {
           question: "¿El violonchelo se desafina al sacarlo del estuche?",
           answer:
             "Suele ser por la temperatura. Déjalo unos minutos fuera del estuche para que se adapte a la sala antes de afinar.",
+        },
+      ],
+    },
+    "/cavaquinho-tuner": {
+      metaTitle: "Afinador de cavaquinho online gratis",
+      metaDescription:
+        "Afina tu cavaquinho en Re Sol Si Re con el micrófono, directamente en el navegador. La afinación estándar del samba y el choro. Gratis y sin descargas.",
+      title: "Afinador de cavaquinho",
+      intro:
+        "Afina tu cavaquinho con el micrófono: el afinador ya está en Re Sol Si Re (D G B D). Toca una cuerda cada vez y gira la clavija hasta que la aguja quede en el centro.",
+      chartCaption:
+        "Estas son las frecuencias exactas que busca el afinador, con La4 = 440 Hz. La cuerda 1 es el Re agudo, una octava por encima de la cuerda 4.",
+      sections: [
+        {
+          heading: "Re Sol Si Re: la afinación estándar",
+          body: [
+            "El cavaquinho es un pequeño instrumento de cuatro cuerdas de acero, llegado a Brasil desde Portugal. Su afinación estándar es **Re Sol Si Re** (D G B D), de la cuarta cuerda a la primera: Re4, Sol4, Si4 y Re5. Al aire forman un acorde de **Sol mayor**.",
+            "Para comprobarlo de oído: el traste 5 de la cuerda 4 es Sol y debe sonar igual que la cuerda 3 al aire; el traste 4 de la cuerda 3 es Si, igual que la cuerda 2; y el traste 3 de la cuerda 2 es Re, igual que la cuerda 1.",
+          ],
+        },
+        {
+          heading: "Otras afinaciones",
+          body: [
+            {
+              list: [
+                "**Re Sol Si Mi** (D G B E): las cuatro cuerdas agudas de la guitarra, una octava más arriba. Solo cambia la primera cuerda.",
+                "**Sol Re La Mi** (G D A E): por quintas, como la mandolina.",
+              ],
+            },
+            "El afinador está en Re Sol Si Re. Para las demás, elige la cuerda y afina con la nota que muestra la pantalla cromática.",
+          ],
+        },
+        {
+          heading: "Samba, pagode y choro",
+          body: [
+            "En el samba y el pagode, el cavaquinho lleva el rasgueo sincopado que sostiene el ritmo. En el choro también toca melodías junto a la flauta, la bandola y la guitarra de 7 cuerdas; \"Brasileirinho\", de Waldir Azevedo, lo convirtió en instrumento solista.",
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "¿Sirve para el banjo de samba?",
+          answer:
+            "Sí. El banjo de 4 cuerdas del samba se afina igual que el cavaquinho, Re Sol Si Re.",
+        },
+        {
+          question: "¿Por qué se rompe tanto la primera cuerda?",
+          answer:
+            "Es una cuerda de acero fina y muy tensa, afinada en Re5. Súbela despacio, llegando a la nota desde abajo, y revisa que el puente y la cejuela no tengan aristas.",
+        },
+        {
+          question: "¿Es lo mismo que un ukelele?",
+          answer:
+            "Son parientes: el ukelele desciende de pequeños instrumentos portugueses llevados a Hawái por inmigrantes de Madeira. Pero el cavaquinho usa cuerdas de acero, otra afinación y casi siempre se toca con púa.",
         },
       ],
     },

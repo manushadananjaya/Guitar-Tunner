@@ -9,6 +9,7 @@ import { TOOL_PAGES } from "@/lib/toolPages";
 import { getChord } from "@/lib/chords";
 import { getPrintableSheet } from "@/lib/printables";
 import { getUkeChord } from "@/lib/ukulele/chords";
+import { getScalePage, scalePageData } from "@/lib/music/scalePages";
 import { CONTENT } from "@/lib/i18n/content";
 import { localNote, type Locale } from "@/lib/i18n/tuner";
 import {
@@ -177,5 +178,28 @@ export function progressOgImage() {
     eyebrow: "Your progress",
     title: "Your practice, on any device",
     subtitle: "Streaks, course progress and best scores — moved by link or file, with no account and nothing uploaded.",
+  });
+}
+
+/** A scale page: its notes as chips. */
+export function scaleOgImage(slug: string) {
+  const page = getScalePage(slug);
+  if (!page) return toolOgImage("/scales");
+  const { notes, positions } = scalePageData(page);
+  return renderOgCard({
+    eyebrow: "Guitar scale",
+    title: page.name,
+    subtitle: `${notes.length} notes, ${positions.length} positions on the fretboard — with audio, intervals and the chords it fits.`,
+    detail: <NoteChips notes={notes.map((note) => note.name)} />,
+  });
+}
+
+/** The tunings-by-artist guide: a few tuning names as chips. */
+export function artistTuningsOgImage() {
+  return renderOgCard({
+    eyebrow: "Tunings by band",
+    title: "What tuning did they use?",
+    subtitle: "Documented tunings of well-known guitarists and bands, each linked to a tuner already set to it.",
+    detail: <NoteChips notes={["E♭ standard", "Drop D", "Open G", "DADGAD", "Drop C"]} />,
   });
 }

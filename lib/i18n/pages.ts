@@ -191,6 +191,13 @@ export const TRANSLATED_PAGES: TranslatedPage[] = [
     fr: "/fr/accordeur-violoncelle",
     de: "/de/cello-stimmen",
   },
+  {
+    en: "/cavaquinho-tuner",
+    es: "/es/afinador-de-cavaquinho",
+    pt: "/pt/afinador-de-cavaquinho",
+    fr: "/fr/accordeur-cavaquinho",
+    de: "/de/cavaquinho-stimmen",
+  },
 ];
 
 /** Spanish pages written by hand as their own routes under app/es, before
@@ -242,7 +249,7 @@ export function tunerConfigFor(enPath: string) {
   const tuner = TUNER_PAGES.find((page) => page.href === enPath);
   if (tuner) {
     return {
-      guitarType: "sixString",
+      guitarType: tuner.guitarType ?? "sixString",
       tuning: tuner.tuning,
       reference: tuner.reference,
     };

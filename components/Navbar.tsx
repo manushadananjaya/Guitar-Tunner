@@ -51,7 +51,11 @@ const MENUS: {
   },
   {
     name: "Tunings",
-    entries: [...TUNER_PAGES, { href: "/tunings", label: "All tunings", notes: "Chart" }],
+    entries: [
+      ...TUNER_PAGES,
+      { href: "/tunings", label: "All tunings", notes: "Chart" },
+      { href: "/tunings/by-artist", label: "Tunings by band", notes: "Who used what" },
+    ],
     align: "center",
     width: "w-[34rem]",
     twoColumn: true,

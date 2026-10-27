@@ -10,7 +10,8 @@
     "validate:chords": "tsx scripts/validate-chords.ts",
     "audit:contrast": "node scripts/audit-contrast.mjs",
     "audit:seo": "node scripts/audit-seo.mjs",
-    "audit:links": "node scripts/audit-links.mjs"
+    "audit:links": "node scripts/audit-links.mjs",
+    "dates": "node scripts/page-dates.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

@@ -4,6 +4,7 @@ import ToolPageLayout from "@/components/ToolPageLayout";
 import { ScaleExplorer } from "@/components/ScaleExplorer/ScaleExplorer";
 import { otherToolLinks } from "@/lib/toolPages";
 import { SCALES, spellScaleFrom } from "@/lib/music/scales";
+import { SCALE_PAGES } from "@/lib/music/scalePages";
 
 export const metadata: Metadata = {
   title: "Guitar Scales on an Interactive Fretboard",
@@ -127,6 +128,19 @@ export default function ScalesPage() {
           The URL updates as you go, so a link like <code>/scales?root=e&amp;scale=blues</code> opens straight to the
           E blues scale. Bookmark the ones you are working on.
         </p>
+
+        <h2>The Most-Played Scales, Explained</h2>
+        <p>
+          These scales have their own pages, with the notes and intervals, every position on the neck, the chords
+          they fit and a practice plan:
+        </p>
+        <ul>
+          {SCALE_PAGES.map((page) => (
+            <li key={page.slug}>
+              <Link href={`/scales/${page.slug}`}>{page.name}</Link> — {page.lede}
+            </li>
+          ))}
+        </ul>
 
         <h2>The Twelve Scales, Side by Side</h2>
         <p>

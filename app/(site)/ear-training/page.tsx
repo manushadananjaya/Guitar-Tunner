@@ -6,7 +6,7 @@ import { otherToolLinks } from "@/lib/toolPages";
 import { INTERVALS } from "@/lib/intervals";
 
 export const metadata: Metadata = {
-  title: "Ear Training for Guitar — Intervals & Chord Types",
+  title: "Guitar Ear Training — Intervals and Chords",
   description:
     "Free ear trainer for guitarists. Hear an interval or a chord played on a guitar-like tone, name it, and track your streak. Three levels, no sign-up.",
   alternates: { canonical: "/ear-training" },

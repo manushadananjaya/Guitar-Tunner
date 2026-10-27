@@ -204,6 +204,45 @@ export const TUNING_PRESETS: Record<string, Tuning> = {
       freqFromSemitones(-8), // C♯4
     ],
   },
+  cStandard: {
+    name: 'C Standard',
+    notes: ['C', 'F', 'A♯', 'D♯', 'G', 'C'],
+    frequencies: [
+      freqFromSemitones(-33), // C2
+      freqFromSemitones(-28), // F2
+      freqFromSemitones(-23), // A♯2
+      freqFromSemitones(-18), // D♯3
+      freqFromSemitones(-14), // G3
+      freqFromSemitones(-9), // C4
+    ],
+  },
+  bStandard: {
+    name: 'B Standard',
+    notes: ['B', 'E', 'A', 'D', 'F♯', 'B'],
+    frequencies: [
+      freqFromSemitones(-34), // B1
+      freqFromSemitones(-29), // E2
+      freqFromSemitones(-24), // A2
+      freqFromSemitones(-19), // D3
+      freqFromSemitones(-15), // F♯3
+      freqFromSemitones(-10), // B3
+    ],
+  },
+  // Nashville ("high-strung"): the octave strings of a 12-string's bottom
+  // four courses on a six-string. Same note names as standard, but strings
+  // 6–3 sound an octave up, so the targets differ.
+  nashville: {
+    name: 'Nashville',
+    notes: ['E', 'A', 'D', 'G', 'B', 'E'],
+    frequencies: [
+      freqFromSemitones(-17), // E3
+      freqFromSemitones(-12), // A3
+      freqFromSemitones(-7), // D4
+      freqFromSemitones(-2), // G4
+      freqFromSemitones(-10), // B3
+      freqFromSemitones(-5), // E4
+    ],
+  },
 };
 
 // Guitar types
@@ -268,11 +307,22 @@ export const GUITAR_TYPES: Record<string, GuitarType> = {
     displayName: 'Cello',
     strings: 4,
   },
+  doubleBass: {
+    name: 'doubleBass',
+    displayName: 'Double Bass',
+    strings: 4,
+  },
+  cavaquinho: {
+    name: 'cavaquinho',
+    displayName: 'Cavaquinho',
+    strings: 4,
+  },
 };
 
 /** Bowed instruments. Peg-and-fine-tuner, not machine heads, and guitar
- *  practice links make no sense for them. */
-export const BOWED_INSTRUMENTS = new Set(['violin', 'viola', 'cello']);
+ *  practice links make no sense for them. The double bass has machine
+ *  heads, but the guitar practice links are just as wrong for it. */
+export const BOWED_INSTRUMENTS = new Set(['violin', 'viola', 'cello', 'doubleBass']);
 
 // Bass tuning (E1-A1-D2-G2)
 export const BASS_TUNING: Tuning = {
@@ -425,6 +475,88 @@ export const CELLO_TUNING: Tuning = {
   ],
 };
 
+// Double bass: orchestral tuning in fourths, the same pitches as a bass
+// guitar — which copied it.
+export const DOUBLE_BASS_TUNING: Tuning = {
+  name: 'Orchestral',
+  notes: ['E', 'A', 'D', 'G'],
+  frequencies: [
+    freqFromSemitones(-41), // E1
+    freqFromSemitones(-36), // A1
+    freqFromSemitones(-31), // D2
+    freqFromSemitones(-26), // G2
+  ],
+};
+
+// Brazilian cavaquinho: D G B D, the top four strings of an open G guitar
+// an octave up. Stored string 4 → string 1, which here is also low to high.
+export const CAVAQUINHO_TUNING: Tuning = {
+  name: 'Cavaquinho Standard',
+  notes: ['D', 'G', 'B', 'D'],
+  frequencies: [
+    freqFromSemitones(-7), // D4
+    freqFromSemitones(-2), // G4
+    freqFromSemitones(2), // B4
+    freqFromSemitones(5), // D5
+  ],
+};
+
+/** Alternate tunings for instruments other than the six-string, keyed by
+ *  guitar type. "standard" is always the instrument's default tuning and is
+ *  not repeated here. Keys must not collide with TUNING_PRESETS keys, since
+ *  pages look tunings up by key alone. */
+export const INSTRUMENT_TUNINGS: Record<string, Record<string, Tuning>> = {
+  sevenString: {
+    dropA: {
+      name: 'Drop A',
+      notes: ['A', 'E', 'A', 'D', 'G', 'B', 'E'],
+      frequencies: [
+        freqFromSemitones(-36), // A1
+        freqFromSemitones(-29), // E2
+        freqFromSemitones(-24), // A2
+        freqFromSemitones(-19), // D3
+        freqFromSemitones(-14), // G3
+        freqFromSemitones(-10), // B3
+        freqFromSemitones(-5), // E4
+      ],
+    },
+  },
+  bass: {
+    bassDropD: {
+      name: 'Drop D',
+      notes: ['D', 'A', 'D', 'G'],
+      frequencies: [
+        freqFromSemitones(-43), // D1
+        freqFromSemitones(-36), // A1
+        freqFromSemitones(-31), // D2
+        freqFromSemitones(-26), // G2
+      ],
+    },
+  },
+  ukulele: {
+    lowG: {
+      name: 'Low G',
+      notes: ['G', 'C', 'E', 'A'],
+      frequencies: [
+        freqFromSemitones(-14), // G3 — an octave below standard's G4
+        freqFromSemitones(-9), // C4
+        freqFromSemitones(-5), // E4
+        freqFromSemitones(0), // A4
+      ],
+    },
+  },
+};
+
+/** The tunings offered for an instrument, standard first. Six-string guitar
+ *  gets the full preset list; an instrument with no alternates gets one. */
+export function tuningsForGuitar(guitarType: string): Record<string, Tuning> {
+  if (guitarType === 'sixString') return TUNING_PRESETS;
+  return {
+    standard: getTuningForGuitar(guitarType),
+    ...INSTRUMENT_TUNINGS[guitarType],
+  };
+}
+
 // Accuracy modes
 export const ACCURACY_MODES: Record<string, AccuracyMode> = {
   beginner: {
@@ -449,6 +581,8 @@ export function getTuningForGuitar(
   guitarType: string,
   tuningPreset: string = 'standard'
 ): Tuning {
+  const alternate = INSTRUMENT_TUNINGS[guitarType]?.[tuningPreset];
+  if (alternate) return alternate;
   switch (guitarType) {
     case 'sevenString':
       return SEVEN_STRING_TUNING;
@@ -472,6 +606,10 @@ export function getTuningForGuitar(
       return VIOLA_TUNING;
     case 'cello':
       return CELLO_TUNING;
+    case 'doubleBass':
+      return DOUBLE_BASS_TUNING;
+    case 'cavaquinho':
+      return CAVAQUINHO_TUNING;
     case 'sixString':
     default:
       return TUNING_PRESETS[tuningPreset] || TUNING_PRESETS.standard;

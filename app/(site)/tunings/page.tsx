@@ -25,7 +25,7 @@ const FAMILIES: { heading: string; blurb: string; keys: string[] }[] = [
   {
     heading: "Standard and lowered standard",
     blurb: "Every string moves by the same amount, so every chord shape stays the same.",
-    keys: ["standard", "halfStepDown", "fullStepDown"],
+    keys: ["standard", "halfStepDown", "fullStepDown", "cStandard", "bStandard"],
   },
   {
     heading: "Drop tunings",
@@ -42,6 +42,11 @@ const FAMILIES: { heading: string; blurb: string; keys: string[] }[] = [
     blurb: "Open strings that are neither major nor minor, for drones and ringing melodies.",
     keys: ["dadgad"],
   },
+  {
+    heading: "High-strung tuning",
+    blurb: "Standard note names with the four lowest strings an octave up — so the tension column means thinner strings, not tighter ones.",
+    keys: ["nashville"],
+  },
 ];
 
 const STANDARD = TUNING_PRESETS.standard.frequencies;
@@ -53,7 +58,8 @@ const pageFor = (key: string) =>
  *  (E♭ for half step down, not D♯), otherwise the preset's. */
 function noteNames(key: string) {
   const page = pageFor(key);
-  return page ? page.notes.split(" ") : TUNING_PRESETS[key].notes;
+  // Octave numbers ("E3" on the Nashville page) are drawn separately below.
+  return page ? page.notes.split(" ").map((n) => n.replace(/\d+$/, "")) : TUNING_PRESETS[key].notes;
 }
 
 const octave = (hz: number) => Math.floor(frequencyToMidi(hz) / 12) - 1;
@@ -140,7 +146,7 @@ function TuningsChart() {
           Other instruments
         </h2>
         <p className="mt-1 mb-4 text-sm text-ink-muted">
-          Standard tuning for each instrument, in string order as tuned. Paired courses are shown once.
+          Standard tuning for each instrument, then alternate tunings of those instruments, in string order as tuned. Paired courses are shown once.
         </p>
         <div className="overflow-x-auto rounded-2xl border border-line bg-surface/40">
           <table className="w-full min-w-[34rem] text-sm">
@@ -151,8 +157,13 @@ function TuningsChart() {
               </tr>
             </thead>
             <tbody>
-              {INSTRUMENT_PAGES.map((page) => {
-                const tuning = getTuningForGuitar(page.guitarType);
+              {[
+                ...INSTRUMENT_PAGES.map((page) => ({ ...page, tuning: "standard" })),
+                ...TUNER_PAGES.filter(
+                  (page): page is typeof page & { guitarType: string } => !!page.guitarType,
+                ),
+              ].map((page) => {
+                const tuning = getTuningForGuitar(page.guitarType, page.tuning);
                 // 12-string and mandolin courses repeat a pitch or an octave;
                 // listing each note once keeps the row readable.
                 const seen = new Set<string>();
@@ -272,14 +283,17 @@ export default function TuningsPage() {
         on the same strings feels like rubber bands.
       </p>
 
-      <h2>The Four Families</h2>
+      <h2>The Main Families</h2>
       <h3>Lowered standard</h3>
       <p>
         <Link href="/half-step-down-tuner">Half step down</Link> and{" "}
         <Link href="/full-step-down-tuner">full step down</Link> keep the shape
         of standard tuning and move everything lower. You play exactly the same
         chords and they come out lower, which suits singers and gives the
-        looser, heavier feel heard on a lot of blues-rock and grunge.
+        looser, heavier feel heard on a lot of blues-rock and grunge. Go
+        further and you reach <Link href="/c-standard-tuner">C standard</Link>{" "}
+        and <Link href="/b-standard-tuner">B standard</Link>, where the same
+        shapes need much heavier strings.
       </p>
       <h3>Drop tunings</h3>
       <p>
@@ -309,6 +323,23 @@ export default function TuningsPage() {
         strings make a suspended chord with no third, so they ring under melodies
         in both major and minor keys. It is the standard tuning of Celtic
         guitar and widely used in acoustic fingerstyle.
+      </p>
+      <h3>High-strung tuning</h3>
+      <p>
+        <Link href="/nashville-tuner">Nashville tuning</Link> keeps the note
+        names of standard but puts the four lowest strings up an octave, using
+        the thin octave strings from a 12-string set. It is a recording trick:
+        doubled with a normal guitar, it gives a 12-string shimmer that is
+        easier to play.
+      </p>
+
+      <h2>Which Tuning Did That Band Use?</h2>
+      <p>
+        If you are trying to play along with a record and nothing lines up, the
+        song is probably in one of these tunings. The{" "}
+        <Link href="/tunings/by-artist">guitar tunings by band</Link> guide
+        lists the tunings well-known artists are documented as using, each
+        linked to a tuner already set to it.
       </p>
 
       <h2>Retuning Without Breaking Strings</h2>

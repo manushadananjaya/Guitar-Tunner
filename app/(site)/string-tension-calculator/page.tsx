@@ -5,9 +5,9 @@ import { StringTensionCalculator } from "@/components/StringTension/StringTensio
 import { otherToolLinks } from "@/lib/toolPages";
 
 export const metadata: Metadata = {
-  title: "Guitar String Tension Calculator — Any Gauge, Tuning & Scale",
+  title: "Guitar String Tension Calculator",
   description:
-    "Work out the tension on each guitar string for any gauge, tuning and scale length, compare it to standard, and get the gauges that restore normal feel when you tune down.",
+    "Work out the tension on each guitar string for any gauge, tuning and scale length, and find the gauges that restore normal feel when you tune down.",
   alternates: { canonical: "/string-tension-calculator" },
   openGraph: {
     title: "String Tension Calculator for Guitar",

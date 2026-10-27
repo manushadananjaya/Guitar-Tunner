@@ -30,6 +30,7 @@ export const fr: LanguageContent = {
     "/violin-tuner": "Accordeur de violon",
     "/viola-tuner": "Accordeur d’alto",
     "/cello-tuner": "Accordeur de violoncelle",
+    "/cavaquinho-tuner": "Accordeur de cavaquinho",
   },
   pages: {
     "/": {
@@ -1109,6 +1110,60 @@ export const fr: LanguageContent = {
           question: "Mon violoncelle se désaccorde en sortant de l’étui ?",
           answer:
             "C’est souvent la température. Laissez-le quelques minutes hors de l’étui avant d’accorder.",
+        },
+      ],
+    },
+    "/cavaquinho-tuner": {
+      metaTitle: "Accordeur de cavaquinho en ligne gratuit",
+      metaDescription:
+        "Accordez votre cavaquinho en Ré Sol Si Ré avec le micro, dans le navigateur. L’accordage standard de la samba et du choro. Gratuit, sans téléchargement.",
+      title: "Accordeur de cavaquinho",
+      intro:
+        "Accordez votre cavaquinho avec le micro : l’accordeur est déjà réglé en Ré Sol Si Ré (D G B D). Jouez une corde à la fois et tournez la mécanique jusqu’à ce que l’aiguille se centre.",
+      chartCaption:
+        "Voici les fréquences exactes que l’accordeur recherche, avec La4 = 440 Hz. La corde 1 est le Ré aigu, une octave au-dessus de la corde 4.",
+      sections: [
+        {
+          heading: "Ré Sol Si Ré : l’accordage standard",
+          body: [
+            "Le cavaquinho est un petit instrument à quatre cordes en acier, venu du Portugal au Brésil. Son accordage standard est **Ré Sol Si Ré** (D G B D), de la corde 4 à la corde 1 : Ré4, Sol4, Si4 et Ré5. À vide, les cordes forment un accord de **Sol majeur**.",
+            "Pour vérifier à l’oreille : la case 5 de la corde 4 donne Sol, comme la corde 3 à vide ; la case 4 de la corde 3 donne Si, comme la corde 2 ; et la case 3 de la corde 2 donne Ré, comme la corde 1.",
+          ],
+        },
+        {
+          heading: "Autres accordages",
+          body: [
+            {
+              list: [
+                "**Ré Sol Si Mi** (D G B E) : les quatre cordes aiguës de la guitare, une octave plus haut. Seule la corde 1 change.",
+                "**Sol Ré La Mi** (G D A E) : en quintes, comme la mandoline.",
+              ],
+            },
+            "L’accordeur est réglé en Ré Sol Si Ré. Pour les autres, choisissez la corde et accordez sur la note affichée par l’écran chromatique.",
+          ],
+        },
+        {
+          heading: "Samba et choro",
+          body: [
+            "Dans la samba et le pagode, le cavaquinho joue la rythmique d’accords syncopée qui porte le groove. Dans le choro, il joue aussi des mélodies avec la flûte, le bandolim et la guitare à 7 cordes ; « Brasileirinho » de Waldir Azevedo en a fait un instrument soliste.",
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Ça marche pour le banjo de samba ?",
+          answer:
+            "Oui. Le banjo à 4 cordes de la samba s’accorde comme le cavaquinho, Ré Sol Si Ré.",
+        },
+        {
+          question: "Pourquoi la corde 1 casse-t-elle si souvent ?",
+          answer:
+            "C’est une corde d’acier fine et très tendue, accordée en Ré5. Montez lentement, en arrivant à la note par en dessous, et vérifiez que le chevalet et le sillet n’ont pas d’arêtes vives.",
+        },
+        {
+          question: "Est-ce la même chose qu’un ukulélé ?",
+          answer:
+            "Ce sont des cousins : l’ukulélé descend de petits instruments portugais apportés à Hawaï par des immigrants de Madère. Mais le cavaquinho a des cordes en acier, un autre accordage et se joue presque toujours au médiator.",
         },
       ],
     },

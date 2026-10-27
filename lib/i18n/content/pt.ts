@@ -30,6 +30,7 @@ export const pt: LanguageContent = {
     "/violin-tuner": "Afinador de violino",
     "/viola-tuner": "Afinador de viola de arco",
     "/cello-tuner": "Afinador de violoncelo",
+    "/cavaquinho-tuner": "Afinador de cavaquinho",
   },
   pages: {
     "/": {
@@ -1118,6 +1119,62 @@ export const pt: LanguageContent = {
           question: "O violoncelo desafina quando sai do case?",
           answer:
             "Normalmente é a temperatura. Deixe-o alguns minutos fora do case antes de afinar.",
+        },
+      ],
+    },
+    "/cavaquinho-tuner": {
+      metaTitle: "Afinador de cavaquinho online grátis",
+      metaDescription:
+        "Afine seu cavaquinho em Ré Sol Si Ré pelo microfone, direto no navegador. A afinação padrão do samba, do pagode e do choro. Grátis e sem baixar nada.",
+      title: "Afinador de cavaquinho",
+      intro:
+        "Afine seu cavaquinho pelo microfone: o afinador já está em Ré Sol Si Ré (D G B D). Toque uma corda de cada vez e gire a tarraxa até o ponteiro parar no centro.",
+      chartCaption:
+        "Estas são as frequências exatas que o afinador procura, com Lá4 = 440 Hz. A corda 1 é o Ré agudo, uma oitava acima da corda 4.",
+      sections: [
+        {
+          heading: "Ré Sol Si Ré: a afinação padrão",
+          body: [
+            "A afinação mais usada no Brasil é **Ré Sol Si Ré** (D G B D), da quarta corda para a primeira: Ré4, Sol4, Si4 e Ré5. Soltas, as cordas formam um acorde de **Sol maior** — as mesmas notas das quatro cordas agudas de um violão em Sol aberto, uma oitava acima.",
+            "Para conferir de ouvido: a casa 5 da corda 4 é Sol e deve soar igual à corda 3 solta; a casa 4 da corda 3 é Si, igual à corda 2; e a casa 3 da corda 2 é Ré, igual à corda 1.",
+            "As cordas são de aço e o corpo é pequeno, então a tensão mexe com o braço. Depois de afinar as quatro, confira de novo: as primeiras costumam ter saído um pouco do lugar.",
+          ],
+        },
+        {
+          heading: "Outras afinações",
+          body: [
+            {
+              list: [
+                "**Ré Sol Si Mi** (D G B E): as quatro cordas agudas do violão, uma oitava acima. Quem vem do violão aproveita os desenhos de acorde que já conhece. Só a primeira corda muda, um tom acima.",
+                "**Sol Ré Lá Mi** (G D A E): em quintas, como o bandolim. Usada por quem toca os dois instrumentos.",
+              ],
+            },
+            "O afinador está em Ré Sol Si Ré. Para as outras, escolha a corda e afine pela nota mostrada no display cromático.",
+          ],
+        },
+        {
+          heading: "O cavaquinho no samba e no choro",
+          body: [
+            "No samba e no pagode, o cavaquinho faz o **centro**: a levada de acordes, cheia de síncopes, que segura o ritmo junto com a percussão. No choro, ele também faz melodias ao lado da flauta, do bandolim e do violão de 7 cordas — o \"Brasileirinho\", de Waldir Azevedo, transformou o cavaquinho em instrumento solista.",
+            "Como soa muito agudo, o cavaquinho atravessa a roda inteira — e qualquer desafinação aparece. Numa roda longa, vale conferir a afinação entre as músicas.",
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "O afinador serve para banjo de samba?",
+          answer:
+            "Sim. O banjo de 4 cordas do samba e do pagode é afinado como o cavaquinho, Ré Sol Si Ré, então funciona sem mudar nada.",
+        },
+        {
+          question: "Por que a primeira corda arrebenta tanto?",
+          answer:
+            "É uma corda de aço fina e muito tensa, afinada em Ré5. Suba devagar, chegando à nota por baixo, e confira se o cavalete e o rastilho não têm cantos vivos.",
+        },
+        {
+          question: "Cavaquinho e ukulele são a mesma coisa?",
+          answer:
+            "São parentes: o ukulele descende de pequenos instrumentos portugueses levados ao Havaí por imigrantes da Madeira. Mas o cavaquinho usa cordas de aço, outra afinação e é tocado quase sempre com palheta.",
         },
       ],
     },

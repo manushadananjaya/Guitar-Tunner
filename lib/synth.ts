@@ -49,20 +49,22 @@ export function pluck(
 }
 
 /** `pluck` by frequency rather than MIDI note — for pitches that are not on
- *  the A = 440 grid, such as a tuner set to A = 432. */
+ *  the A = 440 grid, such as a tuner set to A = 432. `destination` lets a
+ *  caller route notes through its own gain, to silence scheduled ones. */
 export function pluckFrequency(
   ctx: AudioContext,
   fundamental: number,
   at: number,
   peak: number,
   length = NOTE_LENGTH,
+  destination: AudioNode = ctx.destination,
 ) {
 
   const voice = ctx.createGain();
   voice.gain.setValueAtTime(0.0001, at);
   voice.gain.exponentialRampToValueAtTime(peak, at + 0.008);
   voice.gain.exponentialRampToValueAtTime(0.0001, at + length);
-  voice.connect(ctx.destination);
+  voice.connect(destination);
 
   for (const partial of PARTIALS) {
     const osc = ctx.createOscillator();
@@ -162,9 +164,9 @@ export function clickAt(ctx: AudioContext, at: number, accent = false, gain = 1)
 }
 
 /** A sustained drone on the given notes — soft saws through a low-pass, so
- *  it sits under your playing rather than on top of it. Returns a stop
- *  function that fades it out. */
-export function startDrone(notes: number[], volume = 0.5): () => void {
+ *  it sits under your playing rather than on top of it. `a4` moves every
+ *  note to another concert pitch. Returns a stop function that fades it out. */
+export function startDrone(notes: number[], volume = 0.5, a4 = 440): () => void {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
 
@@ -184,7 +186,7 @@ export function startDrone(notes: number[], volume = 0.5): () => void {
     [-4, 4].map((detune) => {
       const osc = ctx.createOscillator();
       osc.type = 'sawtooth';
-      osc.frequency.value = midiToFrequency(midi);
+      osc.frequency.value = (midiToFrequency(midi) * a4) / 440;
       osc.detune.value = detune;
       osc.connect(filter);
       osc.start(now);

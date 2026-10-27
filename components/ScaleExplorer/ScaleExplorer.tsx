@@ -26,10 +26,23 @@ function triadQuality(third: number, fifth: number): string | null {
   return null;
 }
 
-export function ScaleExplorer() {
+export interface ScaleExplorerProps {
+  /** Pitch class to open on. Defaults to A. */
+  initialRoot?: number;
+  initialScale?: string;
+  /** Read and write ?root=&scale= in the URL. Off on pages that are about
+   *  one scale, whose URL already names it. */
+  syncUrl?: boolean;
+}
+
+export function ScaleExplorer({
+  initialRoot = 9,
+  initialScale = "minor-pentatonic",
+  syncUrl = true,
+}: ScaleExplorerProps = {}) {
   const [mounted, setMounted] = useState(false);
-  const [rootPc, setRootPc] = useState(9); // A
-  const [scaleSlug, setScaleSlug] = useState("minor-pentatonic");
+  const [rootPc, setRootPc] = useState(initialRoot);
+  const [scaleSlug, setScaleSlug] = useState(initialScale);
   const [tuningKey, setTuningKey] = useState("standard");
   const [labels, setLabels] = useState<LabelMode>("names");
   const [position, setPosition] = useState<number | "all">("all");
@@ -46,6 +59,7 @@ export function ScaleExplorer() {
 
   // Restore from the URL once, so links like ?root=e&scale=dorian work.
   useEffect(() => {
+    if (!syncUrl) return;
     const params = new URLSearchParams(window.location.search);
     const root = ROOTS.find((r) => r.slug === params.get("root"));
     if (root) setRootPc(root.pitchClass);
@@ -54,16 +68,16 @@ export function ScaleExplorer() {
     const t = params.get("t");
     if (t && SIX_STRING_TUNINGS.some((x) => x.key === t)) setTuningKey(t);
     setMounted(true);
-  }, []);
+  }, [syncUrl]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !syncUrl) return;
     const params = new URLSearchParams();
     params.set("root", ROOTS.find((r) => r.pitchClass === rootPc)!.slug);
     params.set("scale", scaleSlug);
     if (tuningKey !== "standard") params.set("t", tuningKey);
     window.history.replaceState(null, "", `?${params.toString()}`);
-  }, [rootPc, scaleSlug, tuningKey, mounted]);
+  }, [rootPc, scaleSlug, tuningKey, mounted, syncUrl]);
 
   // Positions: one window starting at each scale tone on the lowest string.
   const positions = useMemo(() => {

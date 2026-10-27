@@ -29,6 +29,7 @@ export const de: LanguageContent = {
     "/violin-tuner": "Geige stimmen",
     "/viola-tuner": "Bratsche stimmen",
     "/cello-tuner": "Cello stimmen",
+    "/cavaquinho-tuner": "Cavaquinho stimmen",
   },
   pages: {
     "/": {
@@ -1102,6 +1103,60 @@ export const de: LanguageContent = {
           question: "Mein Cello ist verstimmt, wenn ich es aus dem Koffer nehme?",
           answer:
             "Meist liegt es an der Temperatur. Lass es ein paar Minuten außerhalb des Koffers, bevor du stimmst.",
+        },
+      ],
+    },
+    "/cavaquinho-tuner": {
+      metaTitle: "Cavaquinho stimmen – Stimmgerät online",
+      metaDescription:
+        "Stimme dein Cavaquinho auf D G H D – mit dem Mikrofon, direkt im Browser. Die Standardstimmung für Samba und Choro. Kostenlos, ohne Download.",
+      title: "Cavaquinho stimmen",
+      intro:
+        "Stimme dein Cavaquinho mit dem Mikrofon: Das Stimmgerät steht schon auf D G H D. Spiele eine Saite nach der anderen und drehe die Mechanik, bis die Nadel in der Mitte steht.",
+      chartCaption:
+        "Das sind die genauen Zielfrequenzen bei A4 = 440 Hz. Saite 1 ist das hohe D, eine Oktave über Saite 4.",
+      sections: [
+        {
+          heading: "D G H D: die Standardstimmung",
+          body: [
+            "Das Cavaquinho ist ein kleines Instrument mit vier Stahlsaiten, das aus Portugal nach Brasilien kam. Die Standardstimmung ist **D G H D**, von Saite 4 bis Saite 1: D4, G4, H4 und D5. Leer angeschlagen ergeben die Saiten einen **G-Dur**-Akkord.",
+            "Zur Kontrolle nach Gehör: Bund 5 auf Saite 4 ist ein G und klingt wie die leere Saite 3; Bund 4 auf Saite 3 ist ein H wie Saite 2; Bund 3 auf Saite 2 ist ein D wie Saite 1.",
+          ],
+        },
+        {
+          heading: "Andere Stimmungen",
+          body: [
+            {
+              list: [
+                "**D G H E**: die vier hohen Saiten der Gitarre, eine Oktave höher. Nur Saite 1 ändert sich.",
+                "**G D A E**: in Quinten wie die Mandoline.",
+              ],
+            },
+            "Das Stimmgerät steht auf D G H D. Für die anderen wähle die Saite und stimme nach dem Ton in der chromatischen Anzeige.",
+          ],
+        },
+        {
+          heading: "Samba und Choro",
+          body: [
+            "In Samba und Pagode spielt das Cavaquinho die synkopierten Akkorde, die den Groove tragen. Im Choro spielt es auch Melodien neben Flöte, Bandolim und 7-saitiger Gitarre; Waldir Azevedos „Brasileirinho“ machte es zum Soloinstrument.",
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: "Funktioniert das auch für das Samba-Banjo?",
+          answer:
+            "Ja. Das 4-saitige Banjo im Samba wird wie das Cavaquinho gestimmt, D G H D.",
+        },
+        {
+          question: "Warum reißt Saite 1 so oft?",
+          answer:
+            "Sie ist eine dünne, stark gespannte Stahlsaite auf D5. Stimme langsam von unten an den Ton heran und prüfe Steg und Sattel auf scharfe Kanten.",
+        },
+        {
+          question: "Ist das Cavaquinho eine Ukulele?",
+          answer:
+            "Sie sind verwandt: Die Ukulele stammt von kleinen portugiesischen Instrumenten ab, die Einwanderer aus Madeira nach Hawaii brachten. Das Cavaquinho hat aber Stahlsaiten, eine andere Stimmung und wird fast immer mit Plektrum gespielt.",
         },
       ],
     },
